@@ -38,8 +38,12 @@
 #include "cutils/android_reboot.h"
 
 
-// MAX_PASSWORD_ATTEMPTS must not be changed as it is enforced by HW
-#define MAX_PASSWORD_ATTEMPTS 50
+// When device comes up or when user tries to change the password, user can
+// try wrong password upto a certain number of times. If user enters wrong
+// password further, HW would wipe all disk encryption related crypto data
+// and would return an error ERR_MAX_PASSWORD_ATTEMPTS to VOLD. VOLD would
+// wipe userdata partition once this error is received.
+#define ERR_MAX_PASSWORD_ATTEMPTS -10
 #define QSEECOM_DISK_ENCRYPTION 1
 #define MAX_PASSWORD_LEN 32
 
@@ -47,7 +51,6 @@
 #define SET_HW_DISK_ENC_KEY 1
 #define UPDATE_HW_DISK_ENC_KEY 2
 
-static int password_attempts = 0;
 static int loaded_library = 0;
 static unsigned char current_passwd[MAX_PASSWORD_LEN];
 static int (*qseecom_create_key)(int, void*);
@@ -114,7 +117,7 @@ static int load_qseecom_library()
     return loaded_library;
 }
 
-static int set_key(const char* passwd, const char* enc_mode, int operation)
+static unsigned int set_key(const char* passwd, const char* enc_mode, int operation)
 {
     int ret = 0;
     int err = -1;
@@ -125,36 +128,34 @@ static int set_key(const char* passwd, const char* enc_mode, int operation)
             if (operation == UPDATE_HW_DISK_ENC_KEY)
                 err = qseecom_update_key(QSEECOM_DISK_ENCRYPTION, current_passwd, tmp_passwd);
             else if (operation == SET_HW_DISK_ENC_KEY)
-                err = (*qseecom_create_key)(QSEECOM_DISK_ENCRYPTION, tmp_passwd);
+                err = qseecom_create_key(QSEECOM_DISK_ENCRYPTION, tmp_passwd);
 
             if(!err) {
                 memset(current_passwd, 0, MAX_PASSWORD_LEN);
                 memcpy(current_passwd, tmp_passwd, MAX_PASSWORD_LEN);
-                password_attempts = 0;
                 ret = 1;
             } else {
-                if(++password_attempts >= MAX_PASSWORD_ATTEMPTS)
+                if(ERR_MAX_PASSWORD_ATTEMPTS == err)
                     wipe_userdata();
             }
-            SLOGD("Password attempt = %d", password_attempts);
             free(tmp_passwd);
         }
     }
     return ret;
 }
 
-int set_hw_device_encryption_key(const char* passwd, const char* enc_mode)
+unsigned int set_hw_device_encryption_key(const char* passwd, const char* enc_mode)
 {
     return set_key(passwd, enc_mode, SET_HW_DISK_ENC_KEY);
 }
 
-int update_hw_device_encryption_key(const char* newpw, const char* enc_mode)
+unsigned int update_hw_device_encryption_key(const char* newpw, const char* enc_mode)
 {
 
     return set_key(newpw, enc_mode, UPDATE_HW_DISK_ENC_KEY);
 }
 
-int is_hw_disk_encryption(const char* encryption_mode)
+unsigned int is_hw_disk_encryption(const char* encryption_mode)
 {
     int ret = 0;
     if(encryption_mode) {
