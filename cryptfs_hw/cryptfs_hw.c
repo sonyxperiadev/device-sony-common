@@ -84,7 +84,7 @@ static unsigned char* get_tmp_passwd(const char* passwd)
 static void wipe_userdata()
 {
     mkdir("/cache/recovery", 0700);
-    int fd = open("/cache/recovery/command", O_RDWR|O_CREAT|O_TRUNC, 0600);
+    int fd = open("/cache/recovery/command", O_RDWR|O_CREAT|O_TRUNC|O_NOFOLLOW, 0600);
     if (fd >= 0) {
         write(fd, "--wipe_data", strlen("--wipe_data") + 1);
         close(fd);
