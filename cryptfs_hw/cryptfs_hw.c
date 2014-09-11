@@ -37,6 +37,12 @@
 #include "cutils/log.h"
 #include "cutils/android_reboot.h"
 
+#if defined(__LP64__)
+#define QSEECOM_LIBRARY_PATH "/vendor/lib64/libQSEEComAPI.so"
+#else
+#define QSEECOM_LIBRARY_PATH "/vendor/lib/libQSEEComAPI.so"
+#endif
+
 
 // When device comes up or when user tries to change the password, user can
 // try wrong password upto a certain number of times. If user enters wrong
@@ -94,7 +100,7 @@ static int load_qseecom_library()
     if (loaded_library)
         return loaded_library;
 
-    void * handle = dlopen("/vendor/lib/libQSEEComAPI.so", RTLD_NOW);
+    void * handle = dlopen(QSEECOM_LIBRARY_PATH, RTLD_NOW);
     if(handle) {
         dlerror(); /* Clear any existing error */
         *(void **) (&qseecom_create_key) = dlsym(handle,"QSEECom_create_key");
