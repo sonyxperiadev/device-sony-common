@@ -19,5 +19,11 @@ LOCAL_SHARED_LIBRARIES := $(commonSharedLibraries)
 
 LOCAL_MODULE_OWNER := qcom
 
+# USE_ICE_FOR_STORAGE_ENCRYPTION would be true in future if
+# TARGET_USE_EMMC_USE_ICE is set
+ifeq ($(TARGET_USE_UFS_ICE),true)
+LOCAL_CFLAGS += -DUSE_ICE_FOR_STORAGE_ENCRYPTION
+endif
+
 include $(BUILD_SHARED_LIBRARY)
 endif

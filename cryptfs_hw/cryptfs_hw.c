@@ -35,6 +35,7 @@
 #include <dirent.h>
 #include <dlfcn.h>
 #include "cutils/log.h"
+#include "cutils/properties.h"
 #include "cutils/android_reboot.h"
 
 #if defined(__LP64__)
@@ -51,6 +52,7 @@
 // wipe userdata partition once this error is received.
 #define ERR_MAX_PASSWORD_ATTEMPTS -10
 #define QSEECOM_DISK_ENCRYPTION 1
+#define QSEECOM_ICE_DISK_ENCRYPTION 3
 #define MAX_PASSWORD_LEN 32
 
 /* Operations that be performed on HW based device encryption key */
@@ -61,6 +63,13 @@ static int loaded_library = 0;
 static unsigned char current_passwd[MAX_PASSWORD_LEN];
 static int (*qseecom_create_key)(int, void*);
 static int (*qseecom_update_key)(int, void*, void*);
+
+static int map_usage(int usage)
+{
+    return (is_ice_enabled() && (usage == QSEECOM_DISK_ENCRYPTION)) ?
+                                          QSEECOM_ICE_DISK_ENCRYPTION : usage;
+}
+
 
 static unsigned char* get_tmp_passwd(const char* passwd)
 {
@@ -123,23 +132,24 @@ static int load_qseecom_library()
     return loaded_library;
 }
 
-static unsigned int set_key(const char* passwd, const char* enc_mode, int operation)
+/*
+ * For NON-ICE targets, it would return 0 on success. On ICE based targets,
+ * it would return key index in the ICE Key LUT
+ */
+static int set_key(const char* passwd, const char* enc_mode, int operation)
 {
-    int ret = 0;
     int err = -1;
     if (is_hw_disk_encryption(enc_mode) && load_qseecom_library()) {
         unsigned char* tmp_passwd = get_tmp_passwd(passwd);
         if(tmp_passwd) {
-
             if (operation == UPDATE_HW_DISK_ENC_KEY)
-                err = qseecom_update_key(QSEECOM_DISK_ENCRYPTION, current_passwd, tmp_passwd);
+                err = qseecom_update_key(map_usage(QSEECOM_DISK_ENCRYPTION), current_passwd, tmp_passwd);
             else if (operation == SET_HW_DISK_ENC_KEY)
-                err = qseecom_create_key(QSEECOM_DISK_ENCRYPTION, tmp_passwd);
+                err = qseecom_create_key(map_usage(QSEECOM_DISK_ENCRYPTION), tmp_passwd);
 
-            if(!err) {
+            if(err >= 0) {
                 memset(current_passwd, 0, MAX_PASSWORD_LEN);
                 memcpy(current_passwd, tmp_passwd, MAX_PASSWORD_LEN);
-                ret = 1;
             } else {
                 if(ERR_MAX_PASSWORD_ATTEMPTS == err)
                     wipe_userdata();
@@ -147,15 +157,15 @@ static unsigned int set_key(const char* passwd, const char* enc_mode, int operat
             free(tmp_passwd);
         }
     }
-    return ret;
+    return err;
 }
 
-unsigned int set_hw_device_encryption_key(const char* passwd, const char* enc_mode)
+int set_hw_device_encryption_key(const char* passwd, const char* enc_mode)
 {
     return set_key(passwd, enc_mode, SET_HW_DISK_ENC_KEY);
 }
 
-unsigned int update_hw_device_encryption_key(const char* newpw, const char* enc_mode)
+int update_hw_device_encryption_key(const char* newpw, const char* enc_mode)
 {
 
     return set_key(newpw, enc_mode, UPDATE_HW_DISK_ENC_KEY);
@@ -171,4 +181,38 @@ unsigned int is_hw_disk_encryption(const char* encryption_mode)
         }
     }
     return ret;
+}
+
+int is_ice_enabled(void)
+{
+    /* If (USE_ICE_FLAG) => return 1
+     * if (property set to use gpce) return 0
+     * we are using property to test UFS + GPCE, even though not required
+     * if (storage is ufs) return 1
+     * else return 0 so that emmc based device can work properly
+     */
+#ifdef USE_ICE_FOR_STORAGE_ENCRYPTION
+    SLOGD("Ice enabled = true");
+    return 1;
+#else
+    char enc_hw_type[PATH_MAX];
+    char prop_storage[PATH_MAX];
+    int ice = 0;
+    int i;
+    if (property_get("crypto.fde_enc_hw_type", enc_hw_type, "")) {
+        if(!strncmp(enc_hw_type, "gpce", PROPERTY_VALUE_MAX)) {
+            SLOGD("GPCE would be used for HW FDE");
+            return 0;
+        }
+    }
+
+    if (property_get("ro.boot.bootdevice", prop_storage, "")) {
+        if(strstr(prop_storage, "ufs")) {
+            SLOGD("ICE would be used for HW FDE");
+            return 1;
+        }
+    }
+    SLOGD("GPCE would be used for HW FDE");
+    return 0;
+#endif
 }
