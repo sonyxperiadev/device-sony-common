@@ -63,6 +63,7 @@ static int loaded_library = 0;
 static unsigned char current_passwd[MAX_PASSWORD_LEN];
 static int (*qseecom_create_key)(int, void*);
 static int (*qseecom_update_key)(int, void*, void*);
+static int (*qseecom_wipe_key)(int);
 
 static int map_usage(int usage)
 {
@@ -117,8 +118,16 @@ static int load_qseecom_library()
         if((error = dlerror()) == NULL) {
             SLOGD("Success loading QSEECom_create_key \n");
             *(void **) (&qseecom_update_key) = dlsym(handle,"QSEECom_update_key_user_info");
-            if ((error = dlerror()) == NULL)
-                loaded_library = 1;
+            if ((error = dlerror()) == NULL) {
+                SLOGD("Success loading QSEECom_update_key_user_info\n");
+                *(void **) (&qseecom_wipe_key) = dlsym(handle,"QSEECom_wipe_key");
+                if ((error = dlerror()) == NULL) {
+                    loaded_library = 1;
+                    SLOGD("Success loading QSEECom_wipe_key \n");
+                }
+                else
+                    SLOGE("Error %s loading symbols for QSEECom APIs \n", error);
+            }
             else
                 SLOGE("Error %s loading symbols for QSEECom APIs \n", error);
         }
@@ -215,4 +224,15 @@ int is_ice_enabled(void)
     SLOGD("GPCE would be used for HW FDE");
     return 0;
 #endif
+}
+
+int wipe_hw_device_encryption_key(const char* enc_mode)
+{
+    if (!enc_mode)
+        return -1;
+
+    if (is_hw_disk_encryption(enc_mode) && load_qseecom_library())
+        return qseecom_wipe_key(map_usage(QSEECOM_DISK_ENCRYPTION));
+
+    return 0;
 }
