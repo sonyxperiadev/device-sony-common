@@ -221,9 +221,13 @@ static int read_int(const char *path)
 static void write_led_scaled(enum led_ident id, int brightness,
 		const char *pwm, unsigned int duration)
 {
-	float max_brightness = read_int(led_descs[id].max_brightness_s);
-	float brightness_c = ((float)brightness)/255.;
-	float scaled = max_brightness * brightness_c;
+	int max_brightness = read_int(led_descs[id].max_brightness_s);
+	int scaled;
+
+	if (brightness > max_brightness)
+		scaled = max_brightness;
+	else
+		scaled = brightness;
 
 	if (pwm && led_descs[id].pwm)
 		write_string(led_descs[id].pwm, pwm);
@@ -233,16 +237,20 @@ static void write_led_scaled(enum led_ident id, int brightness,
 			write_int(led_descs[id].step, duration);
 	}
 
-	write_int(led_descs[id].brightness, ((int)scaled));
+	write_int(led_descs[id].brightness, scaled);
 }
 
 #ifdef HAS_DIM_BACKLIGHT
 static void write_led_scaled_dim(enum led_ident id, int brightness,
 		const char *pwm, unsigned int duration)
 {
-	float max_brightness = read_int(led_descs[id].max_brightness_s);
-	float brightness_c = (((float)brightness/512.)+0.5);
-	float scaled = max_brightness * brightness_c;
+	int max_brightness = read_int(led_descs[id].max_brightness_s);
+	int scaled;
+
+	if (brightness > max_brightness)
+		scaled = max_brightness;
+	else
+		scaled = brightness == 0 ? 0 : ((brightness + 255) / 2);
 
 	if (pwm && led_descs[id].pwm)
 		write_string(led_descs[id].pwm, pwm);
@@ -252,7 +260,7 @@ static void write_led_scaled_dim(enum led_ident id, int brightness,
 			write_int(led_descs[id].step, duration);
 	}
 
-	write_int(led_descs[id].brightness, ((int)scaled));
+	write_int(led_descs[id].brightness, scaled);
 }
 #endif
 
