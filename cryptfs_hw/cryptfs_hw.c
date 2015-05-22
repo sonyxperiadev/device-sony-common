@@ -60,7 +60,6 @@
 #define UPDATE_HW_DISK_ENC_KEY 2
 
 static int loaded_library = 0;
-static unsigned char current_passwd[MAX_PASSWORD_LEN];
 static int (*qseecom_create_key)(int, void*);
 static int (*qseecom_update_key)(int, void*, void*);
 static int (*qseecom_wipe_key)(int);
@@ -145,25 +144,25 @@ static int load_qseecom_library()
  * For NON-ICE targets, it would return 0 on success. On ICE based targets,
  * it would return key index in the ICE Key LUT
  */
-static int set_key(const char* passwd, const char* enc_mode, int operation)
+static int set_key(const char* currentpasswd, const char* passwd, const char* enc_mode, int operation)
 {
     int err = -1;
     if (is_hw_disk_encryption(enc_mode) && load_qseecom_library()) {
         unsigned char* tmp_passwd = get_tmp_passwd(passwd);
+        unsigned char* tmp_currentpasswd = get_tmp_passwd(currentpasswd);
         if(tmp_passwd) {
-            if (operation == UPDATE_HW_DISK_ENC_KEY)
-                err = qseecom_update_key(map_usage(QSEECOM_DISK_ENCRYPTION), current_passwd, tmp_passwd);
-            else if (operation == SET_HW_DISK_ENC_KEY)
+            if (operation == UPDATE_HW_DISK_ENC_KEY) {
+                if (tmp_currentpasswd)
+                   err = qseecom_update_key(map_usage(QSEECOM_DISK_ENCRYPTION), tmp_currentpasswd, tmp_passwd);
+            } else if (operation == SET_HW_DISK_ENC_KEY) {
                 err = qseecom_create_key(map_usage(QSEECOM_DISK_ENCRYPTION), tmp_passwd);
-
-            if(err >= 0) {
-                memset(current_passwd, 0, MAX_PASSWORD_LEN);
-                memcpy(current_passwd, tmp_passwd, MAX_PASSWORD_LEN);
-            } else {
+            }
+            if(err < 0) {
                 if(ERR_MAX_PASSWORD_ATTEMPTS == err)
                     wipe_userdata();
             }
             free(tmp_passwd);
+            free(tmp_currentpasswd);
         }
     }
     return err;
@@ -171,13 +170,12 @@ static int set_key(const char* passwd, const char* enc_mode, int operation)
 
 int set_hw_device_encryption_key(const char* passwd, const char* enc_mode)
 {
-    return set_key(passwd, enc_mode, SET_HW_DISK_ENC_KEY);
+    return set_key(NULL, passwd, enc_mode, SET_HW_DISK_ENC_KEY);
 }
 
-int update_hw_device_encryption_key(const char* newpw, const char* enc_mode)
+int update_hw_device_encryption_key(const char* oldpw, const char* newpw, const char* enc_mode)
 {
-
-    return set_key(newpw, enc_mode, UPDATE_HW_DISK_ENC_KEY);
+    return set_key(oldpw, newpw, enc_mode, UPDATE_HW_DISK_ENC_KEY);
 }
 
 unsigned int is_hw_disk_encryption(const char* encryption_mode)
