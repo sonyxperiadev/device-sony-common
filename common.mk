@@ -156,6 +156,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     ExtendedSettings
 
+# For android_filesystem_config.h
+PRODUCT_PACKAGES += \
+    fs_config_files
+
 # APN list
 PRODUCT_COPY_FILES += \
     device/sample/etc/old-apns-conf.xml:system/etc/old-apns-conf.xml \
