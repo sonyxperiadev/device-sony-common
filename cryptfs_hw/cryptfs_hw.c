@@ -28,6 +28,7 @@
 
 #include <cryptfs_hw.h>
 #include <stdlib.h>
+#include <string.h>
 #include <sys/limits.h>
 #include <sys/types.h>
 #include <sys/stat.h>
