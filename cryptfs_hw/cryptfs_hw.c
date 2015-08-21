@@ -225,12 +225,9 @@ int is_ice_enabled(void)
 #endif
 }
 
-int wipe_hw_device_encryption_key(const char* enc_mode)
+int clear_hw_device_encryption_key()
 {
-    if (!enc_mode)
-        return -1;
-
-    if (is_hw_disk_encryption(enc_mode) && load_qseecom_library())
+    if (load_qseecom_library())
         return qseecom_wipe_key(map_usage(QSEECOM_DISK_ENCRYPTION));
 
     return 0;
