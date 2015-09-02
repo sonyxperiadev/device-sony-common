@@ -38,6 +38,8 @@
 #include "cutils/log.h"
 #include "cutils/properties.h"
 #include "cutils/android_reboot.h"
+#include "keymaster_common.h"
+#include "hardware.h"
 
 #if defined(__LP64__)
 #define QSEECOM_LIBRARY_PATH "/vendor/lib64/libQSEEComAPI.so"
@@ -59,6 +61,8 @@
 /* Operations that be performed on HW based device encryption key */
 #define SET_HW_DISK_ENC_KEY 1
 #define UPDATE_HW_DISK_ENC_KEY 2
+
+#define KEYMASTER_PARTITION_NAME "/dev/block/bootdevice/by-name/keymaster"
 
 static int loaded_library = 0;
 static int (*qseecom_create_key)(int, void*);
@@ -231,4 +235,37 @@ int clear_hw_device_encryption_key()
         return qseecom_wipe_key(map_usage(QSEECOM_DISK_ENCRYPTION));
 
     return 0;
+}
+
+static int get_keymaster_version()
+{
+    int rc = -1;
+    const hw_module_t* mod;
+    rc = hw_get_module_by_class(KEYSTORE_HARDWARE_MODULE_ID, NULL, &mod);
+    if (rc) {
+        SLOGE("could not find any keystore module");
+        return rc;
+    }
+
+    return mod->module_api_version;
+}
+
+int should_use_keymaster()
+{
+    /* HW FDE key would be tied to keymaster only if:
+     * New Keymaster is available
+     * keymaster partition exists on the device
+     */
+    int rc = 0;
+    if (get_keymaster_version() != KEYMASTER_MODULE_API_VERSION_1_0) {
+        SLOGI("Keymaster version is not 1.0");
+        return rc;
+    }
+
+    if (access(KEYMASTER_PARTITION_NAME, F_OK) == -1) {
+        SLOGI("Keymaster partition does not exists");
+        return rc;
+    }
+
+    return 1;
 }
