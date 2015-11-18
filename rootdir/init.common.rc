@@ -295,7 +295,7 @@ service ril-daemon2 /system/bin/rild -c 2
     class main
     user radio
     disabled
-    group radio cache inet misc audio log
+    group radio cache inet misc audio log readproc
     capabilities BLOCK_SUSPEND NET_ADMIN NET_RAW
 
 # QCOM prop
