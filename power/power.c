@@ -97,9 +97,7 @@ void set_feature(struct power_module *module, feature_t feature, int state)
 #ifdef TAP_TO_WAKE_NODE
     if (feature == POWER_FEATURE_DOUBLE_TAP_TO_WAKE) {
             ALOGI("Double tap to wake is %s.", state ? "enabled" : "disabled");
-#ifdef TAP_TO_WAKE_STRING
             sysfs_write(TAP_TO_WAKE_NODE, state ? "1" : "0");
-#endif
         return;
     }
 #endif

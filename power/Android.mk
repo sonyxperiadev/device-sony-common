@@ -19,10 +19,6 @@ include $(CLEAR_VARS)
 
 ifneq ($(TARGET_TAP_TO_WAKE_NODE),)
     LOCAL_CFLAGS += -DTAP_TO_WAKE_NODE=\"$(TARGET_TAP_TO_WAKE_NODE)\"
-
-ifeq ($(TARGET_TAP_TO_WAKE_STRING),true)
-    LOCAL_CFLAGS += -DTAP_TO_WAKE_STRING
-endif
 endif
 
 LOCAL_SRC_FILES := power.c
