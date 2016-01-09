@@ -228,29 +228,10 @@ static void write_led_scaled(enum led_ident id, int brightness,
 		scaled = max_brightness;
 	else
 		scaled = brightness;
-
-	if (pwm && led_descs[id].pwm)
-		write_string(led_descs[id].pwm, pwm);
-
-	if(duration!=0) {
-		if (led_descs[id].step)
-			write_int(led_descs[id].step, duration);
-	}
-
-	write_int(led_descs[id].brightness, scaled);
-}
-
 #ifdef HAS_DIM_BACKLIGHT
-static void write_led_scaled_dim(enum led_ident id, int brightness,
-		const char *pwm, unsigned int duration)
-{
-	int max_brightness = read_int(led_descs[id].max_brightness_s);
-	int scaled;
-
-	if (brightness > max_brightness)
-		scaled = max_brightness;
-	else
-		scaled = brightness == 0 ? 0 : ((brightness + 255) / 2);
+		if (id == LED_BACKLIGHT)
+			scaled = brightness == 0 ? 0 : ((brightness + 255) / 2);
+#endif
 
 	if (pwm && led_descs[id].pwm)
 		write_string(led_descs[id].pwm, pwm);
@@ -262,7 +243,6 @@ static void write_led_scaled_dim(enum led_ident id, int brightness,
 
 	write_int(led_descs[id].brightness, scaled);
 }
-#endif
 
 static int is_lit(struct light_state_t const* state)
 {
@@ -279,11 +259,7 @@ static int rgb_to_brightness(struct light_state_t const* state)
 static int set_light_backlight(struct light_device_t *dev, struct light_state_t const *state)
 {
 	pthread_mutex_lock(&g_lock);
-#ifdef HAS_DIM_BACKLIGHT
-	write_led_scaled_dim(LED_BACKLIGHT, rgb_to_brightness(state), NULL, 0);
-#else
 	write_led_scaled(LED_BACKLIGHT, rgb_to_brightness(state), NULL, 0);
-#endif
 	pthread_mutex_unlock(&g_lock);
 
 	return 0;
