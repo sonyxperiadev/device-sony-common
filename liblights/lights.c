@@ -37,6 +37,7 @@
 static pthread_mutex_t g_lock = PTHREAD_MUTEX_INITIALIZER;
 
 enum {
+	LED_SHARED_ATTENTION,
 	LED_SHARED_NOTIFICATION,
 	LED_SHARED_BATTERY,
 	LED_SHARED_BLUETOOTH,
@@ -57,6 +58,7 @@ static struct led_desc {
 	int max_brightness;
 	const char *max_brightness_s;
 	const char *brightness;
+	const char *blink;
 	const char *pwm;
 	const char *step;
 } led_descs[] = {
@@ -74,31 +76,26 @@ static struct led_desc {
 		.max_brightness = 0,
 		.max_brightness_s = "/sys/class/leds/led:rgb_red/max_brightness",
 		.brightness = "/sys/class/leds/led:rgb_red/brightness",
-		.pwm = "/sys/class/leds/led:rgb_red/lut_pwm",
-		.step = "/sys/class/leds/led:rgb_red/step_duration",
+		.blink = "/sys/class/leds/led:rgb_red/blink",
+		.pwm = "/sys/class/leds/led:rgb_red/duty_pcts",
+		.step = "/sys/class/leds/led:rgb_red/ramp_step_ms",
 	},
 	[LED_GREEN] = {
 		.max_brightness = 0,
 		.max_brightness_s = "/sys/class/leds/led:rgb_green/max_brightness",
 		.brightness = "/sys/class/leds/led:rgb_green/brightness",
-		.pwm = "/sys/class/leds/led:rgb_green/lut_pwm",
-		.step = "/sys/class/leds/led:rgb_green/step_duration",
+		.blink = "/sys/class/leds/led:rgb_green/blink",
+		.pwm = "/sys/class/leds/led:rgb_green/duty_pcts",
+		.step = "/sys/class/leds/led:rgb_green/ramp_step_ms",
 	},
 	[LED_BLUE] = {
 		.max_brightness = 0,
 		.max_brightness_s = "/sys/class/leds/led:rgb_blue/max_brightness",
 		.brightness = "/sys/class/leds/led:rgb_blue/brightness",
-		.pwm = "/sys/class/leds/led:rgb_blue/lut_pwm",
-		.step = "/sys/class/leds/led:rgb_blue/step_duration",
+		.blink = "/sys/class/leds/led:rgb_blue/blink",
+		.pwm = "/sys/class/leds/led:rgb_blue/duty_pcts",
+		.step = "/sys/class/leds/led:rgb_blue/ramp_step_ms",
 	},
-};
-
-static struct led_ctrl {
-	const char *sync_state;
-	const char *blink_start;
-} led_ctrl = {
-	.sync_state = "/sys/class/leds/rgb/sync_state",
-	.blink_start = "/sys/class/leds/rgb/start_blink",
 };
 
 struct light {
@@ -268,13 +265,10 @@ static void write_led_scaled(enum led_ident id, int brightness,
 			pwm_pattern_values[8], pwm_pattern_values[9], pwm_pattern_values[10], pwm_pattern_values[11],
 			pwm_pattern_values[12], pwm_pattern_values[13], pwm_pattern_values[14], pwm_pattern_values[15]);
 		write_string(led_descs[id].pwm, pwm_pattern);
+		write_int(led_descs[id].step, duration);
+		write_int(led_descs[id].blink, 1);
 	} else {
 		write_int(led_descs[id].brightness, scaled);
-	}
-
-	if (duration != 0) {
-		if (led_descs[id].step)
-			write_int(led_descs[id].step, duration);
 	}
 }
 
@@ -292,8 +286,10 @@ static int rgb_to_brightness(struct light_state_t const* state)
 
 static int set_light_backlight(struct light_device_t *dev, struct light_state_t const *state)
 {
+	int brightness = rgb_to_brightness(state);
+
 	pthread_mutex_lock(&g_lock);
-	write_led_scaled(LED_BACKLIGHT, rgb_to_brightness(state), -1, 0);
+	write_led_scaled(LED_BACKLIGHT, brightness, -1, 0);
 	pthread_mutex_unlock(&g_lock);
 
 	return 0;
@@ -301,8 +297,10 @@ static int set_light_backlight(struct light_device_t *dev, struct light_state_t 
 
 static int set_light_mdss(struct light_device_t *dev, struct light_state_t const *state)
 {
+	int brightness = rgb_to_brightness(state);
+
 	pthread_mutex_lock(&g_lock);
-	write_led_scaled(LED_BKLT_MDSS, rgb_to_brightness(state), -1, 0);
+	write_led_scaled(LED_BKLT_MDSS, brightness, -1, 0);
 	pthread_mutex_unlock(&g_lock);
 
 	return 0;
@@ -337,12 +335,10 @@ static int set_light_shared(struct light_device_t *dev, struct light_state_t con
 		ALOGD("led [%d,%d] = %08x\n",
 				state->flashOnMS, state->flashOffMS,
 				state->color);
-		write_int(led_ctrl.sync_state, 1);
 		pwm_pattern_index = calc_pattern(state->flashOnMS,
 				state->flashOffMS, &duration);
 	} else {
 		ALOGD("led [solid] = %08x\n", state->color);
-		write_int(led_ctrl.sync_state, 0);
 		duration = 0;
 		pwm_pattern_index = -1;
 	}
@@ -350,10 +346,6 @@ static int set_light_shared(struct light_device_t *dev, struct light_state_t con
 	write_led_scaled(LED_RED, (state->color >> 16) & 0xFF, pwm_pattern_index, duration);
 	write_led_scaled(LED_GREEN, (state->color >> 8) & 0xFF, pwm_pattern_index, duration);
 	write_led_scaled(LED_BLUE, (state->color) & 0xFF, pwm_pattern_index, duration);
-
-	if (state->flashMode != LIGHT_FLASH_NONE) {
-		write_int(led_ctrl.blink_start, 1);
-	}
 
 	pthread_mutex_unlock(&g_lock);
 	return 0;
@@ -397,11 +389,14 @@ static int open_lights(const struct hw_module_t* module,
 	} else if (strcmp(name, LIGHT_ID_BLUETOOTH) == 0) {
 		set_light = set_light_shared;
 		shared_which = LED_SHARED_BLUETOOTH;
+	} else if (strcmp(name, LIGHT_ID_ATTENTION) == 0) {
+		set_light = set_light_shared;
+		shared_which = LED_SHARED_ATTENTION;
 	} else if (strcmp(name, LIGHT_ID_NOTIFICATIONS) == 0) {
 		set_light = set_light_shared;
 		shared_which = LED_SHARED_NOTIFICATION;
 	} else {
-		ALOGW("don't have light \"%s\"\n", name);
+		ALOGI("don't have light \"%s\"\n", name);
 		return -EINVAL;
 	}
 
