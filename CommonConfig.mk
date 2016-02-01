@@ -14,6 +14,62 @@
 
 PRODUCT_VENDOR_KERNEL_HEADERS := device/sony/common/kernel-headers
 
+TARGET_NO_RADIOIMAGE := true
+TARGET_NO_BOOTLOADER := true
+TARGET_NO_RECOVERY := false
+TARGET_NO_KERNEL := false
+
+BOARD_KERNEL_BOOTIMG := true
+BOARD_CUSTOM_MKBOOTIMG := mkqcdtbootimg
+BOARD_MKBOOTIMG_ARGS := --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
+BOARD_MKBOOTIMG_ARGS += --dt_dir $(OUT)/dtbs
+
+TARGET_USERIMAGES_USE_EXT4 := true
+TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
+BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
+
+# GFX
+USE_OPENGL_RENDERER := true
+TARGET_USES_ION := true
+TARGET_USES_OVERLAY := true
+TARGET_USES_SF_BYPASS := true
+TARGET_USES_C2D_COMPOSITION := true
+
+MAX_EGL_CACHE_KEY_SIZE := 12*1024
+MAX_EGL_CACHE_SIZE := 2048*1024
+OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
+NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
+
+# Audio
+BOARD_USES_ALSA_AUDIO := true
+AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := true
+
+#Camera
+TARGET_USES_AOSP := true
+BOARD_QTI_CAMERA_32BIT_ONLY := true
+BOARD_QTI_CAMERA_V2 := true
+
+# GPS definitions for Qualcomm solution
+BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := $(TARGET_BOARD_PLATFORM)
+BOARD_VENDOR_QCOM_LOC_PDK_FEATURE_SET := true
+TARGET_NO_RPC := true
+
+# Charger
+BOARD_CHARGER_ENABLE_SUSPEND := true
+
+# Include an expanded selection of fonts
+EXTENDED_FONT_FOOTPRINT := true
+
+# Enable dex-preoptimization to speed up first boot sequence
+ifeq ($(HOST_OS),linux)
+    WITH_DEXPREOPT ?= true
+endif
+
+BUILD_KERNEL := true
+-include vendor/sony/kernel/KernelConfig.mk
+
+# Include build helpers for QCOM proprietary
+-include vendor/qcom/proprietary/common/build/proprietary-build.mk
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
