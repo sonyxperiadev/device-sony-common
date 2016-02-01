@@ -1,0 +1,11 @@
+type sct, domain;
+type sct_exec, exec_type, file_type;
+
+# Started by init
+init_daemon_domain(sct)
+
+allow sct self:socket create_socket_perms;
+allow sct self:capability { net_raw };
+
+# Access to /dev/smem_log
+allow sct smem_log_device:chr_file rw_file_perms;

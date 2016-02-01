@@ -1,0 +1,11 @@
+type thermanager, domain;
+type thermanager_exec, exec_type, file_type;
+
+# Started by init
+init_daemon_domain(thermanager)
+
+allow thermanager self:capability dac_override;
+allow thermanager { sysfs sysfs_devices_system_cpu }:file write;
+allow thermanager { sysfs_thermal sysfs_usb_supply }:dir search;
+allow thermanager sysfs_thermal:{ lnk_file file } rw_file_perms;
+allow thermanager sysfs_usb_supply:file rw_file_perms;

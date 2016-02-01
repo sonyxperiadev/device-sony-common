@@ -1,0 +1,6 @@
+type tad_socket, file_type;
+type ta_data_file, file_type;
+
+type addrsetup_data_file, file_type, data_file_type;
+
+type sysfs_addrsetup, fs_type, sysfs_type;

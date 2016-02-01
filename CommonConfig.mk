@@ -14,3 +14,7 @@
 
 PRODUCT_VENDOR_KERNEL_HEADERS := device/sony/common/kernel-headers
 
+# SELinux
+include device/qcom/sepolicy/sepolicy.mk
+
+BOARD_SEPOLICY_DIRS += device/sony/common/sepolicy
