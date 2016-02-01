@@ -110,6 +110,10 @@ PRODUCT_PACKAGES += \
     thermanager \
     macaddrsetup
 
+# QCOM OSS
+PRODUCT_PACKAGES += \
+   librmnetctl
+
 # Charger
 PRODUCT_PACKAGES += \
     charger_res_images
