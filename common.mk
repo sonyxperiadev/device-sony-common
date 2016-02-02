@@ -44,6 +44,14 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
 
+# common etc
+PRODUCT_COPY_FILES += \
+    device/sony/common/rootfs/system/etc/audio_effects.conf:system/vendor/etc/audio_effects.conf \
+    device/sony/common/rootfs/system/etc/gps.conf:system/etc/gps.conf \
+    device/sony/common/rootfs/system/etc/nfcee_access.xml:system/etc/nfcee_access.xml \
+    device/sony/common/rootfs/system/etc/sec_config:system/etc/sec_config \
+    device/sony/common/rootfs/system/etc/sensors_settings:system/etc/sensors_settings
+
 # Audio
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
