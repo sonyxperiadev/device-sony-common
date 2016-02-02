@@ -1,0 +1,17 @@
+type addrsetup, domain;
+type addrsetup_exec, exec_type, file_type;
+
+# Started by init
+init_daemon_domain(addrsetup)
+
+# Connect to /dev/socket/tad
+unix_socket_connect(addrsetup, tad, tad)
+
+allow addrsetup self:capability { dac_override };
+
+allow addrsetup system_data_file:dir w_dir_perms;
+type_transition addrsetup system_data_file:file addrsetup_data_file "bluetooth_bdaddr";
+allow addrsetup addrsetup_data_file:dir rw_dir_perms;
+allow addrsetup addrsetup_data_file:file create_file_perms;
+
+allow addrsetup sysfs_addrsetup:file rw_file_perms;

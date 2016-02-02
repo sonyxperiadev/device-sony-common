@@ -1,0 +1,1 @@
+allow wpa sysfs_addrsetup:file { getattr open read };

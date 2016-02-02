@@ -1,0 +1,1 @@
+allow mediaserver system_data_file:file r_file_perms;

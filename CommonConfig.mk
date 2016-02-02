@@ -13,3 +13,35 @@
 # limitations under the License.
 
 PRODUCT_VENDOR_KERNEL_HEADERS := device/sony/common/kernel-headers
+
+
+# SELinux
+include device/qcom/sepolicy/sepolicy.mk
+
+BOARD_SEPOLICY_DIRS += \
+    device/sony/common/sepolicy
+
+BOARD_SEPOLICY_UNION += \
+    addrsetup.te \
+    bluetooth.te \
+    device.te \
+    file.te \
+    installd.te \
+    tfa_amp.te \
+    property.te \
+    sct.te \
+    sensors.te \
+    service.te \
+    mediaserver.te \
+    mlog_qmi.te \
+    system_app.te \
+    tad.te \
+    ta_qmi.te \
+    thermanager.te \
+    timekeep.te \
+    wpa.te \
+    file_contexts \
+    genfs_contexts \
+    property_contexts \
+    service_contexts
+
