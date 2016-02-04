@@ -46,12 +46,18 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
 
-# common etc
+# Common init
 PRODUCT_COPY_FILES += \
-    device/sony/common/rootfs/system/etc/gps.conf:system/etc/gps.conf \
-    device/sony/common/rootfs/system/etc/nfcee_access.xml:system/etc/nfcee_access.xml \
-    device/sony/common/rootfs/system/etc/sec_config:system/etc/sec_config \
-    device/sony/common/rootfs/system/etc/sensors_settings:system/etc/sensors_settings
+    device/sony/common/rootdir/init.common.rc:root/init.common.rc \
+    device/sony/common/rootdir/init.common.usb.rc:root/init.common.usb.rc
+
+# Common etc
+PRODUCT_COPY_FILES += \
+    device/sony/common/rootdir/system/etc/gps.conf:system/etc/gps.conf \
+    device/sony/common/rootdir/system/etc/nfcee_access.xml:system/etc/nfcee_access.xml \
+    device/sony/common/rootdir/system/etc/sec_config:system/etc/sec_config \
+    device/sony/common/rootdir/system/etc/sensors_settings:system/etc/sensors_settings
+
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -140,10 +146,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     libemoji
-
-# Simple PowerHAL
-PRODUCT_PACKAGES += \
-    power.kitakami
 
 # APN list
 PRODUCT_COPY_FILES += \
