@@ -1,22 +1,13 @@
 # Trim Area daemon
-/dev/socket/tad                        u:object_r:tad_socket:s0
+/dev/socket/tad                               u:object_r:tad_socket:s0
 
-# Bluetooth
-/dev/ttyHS0                            u:object_r:hci_attach_dev:s0
-
-/dev/pn547                             u:object_r:nfc_device:s0
-/dev/pn54x                             u:object_r:nfc_device:s0
-
-/dev/tfa98xx                           u:object_r:audio_device:s0
-/system/bin/tfa9890_amp                u:object_r:tfa_amp_exec:s0
+/dev/pn54x                                    u:object_r:nfc_device:s0
 
 # Block devices
 /dev/block/platform/msm_sdcc\.1/by-name/modemst1          u:object_r:modem_efs_partition_device:s0
 /dev/block/platform/msm_sdcc\.1/by-name/modemst2          u:object_r:modem_efs_partition_device:s0
 /dev/block/platform/msm_sdcc\.1/by-name/fsg               u:object_r:modem_efs_partition_device:s0
 /dev/block/platform/msm_sdcc\.1/by-name/TA                u:object_r:trim_area_partition_device:s0
-
-/data/etc/bluetooth_bdaddr             u:object_r:addrsetup_data_file:s0
 
 /system/bin/macaddrsetup                      u:object_r:addrsetup_exec:s0
 /system/bin/thermanager                       u:object_r:thermanager_exec:s0
@@ -34,10 +25,16 @@
 /system/vendor/bin/rmt_storage                u:object_r:rmt_storage_exec:s0
 /system/vendor/bin/sensors.qcom               u:object_r:sensors_exec:s0
 
+# acdb delta files
+/data/audio/acdbdata/delta(/.*)?              u:object_r:system_data_file:s0
+
+/dev/tfa98xx                                  u:object_r:audio_device:s0
+/system/bin/tfa9890_amp                       u:object_r:tfa_amp_exec:s0
+
 /sys/devices/platform/bcmdhd_wlan/macaddr               u:object_r:sysfs_addrsetup:s0
 
 # Bluetooth
+/dev/ttyHS0                                             u:object_r:hci_attach_dev:s0
+/data/etc/bluetooth_bdaddr                              u:object_r:addrsetup_data_file:s0
 /sys/devices/bluesleep.89/rfkill/rfkill0/state          u:object_r:sysfs_bluetooth_writable:s0
 
-# acdb delta files
-/data/audio/acdbdata/delta(/.*)?                        u:object_r:system_data_file:s0
