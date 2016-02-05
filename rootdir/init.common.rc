@@ -113,32 +113,6 @@ on early-boot
     setrlimit 8 67108864 67108864
 
 on boot
-    # Read ahead buffer
-    write /sys/block/mmcblk0/queue/read_ahead_kb 512
-    write /sys/block/mmcblk1/queue/read_ahead_kb 512
-
-    # PM8941 flash
-    chown media system /sys/class/misc/pm8941-flash/device/current1
-    chown media system /sys/class/misc/pm8941-flash/device/current2
-    chown media system /sys/class/misc/pm8941-flash/device/fault_status
-    chown media system /sys/class/misc/pm8941-flash/device/fine_current1
-    chown media system /sys/class/misc/pm8941-flash/device/fine_current2
-    chown media system /sys/class/misc/pm8941-flash/device/flash_timer
-    chown media system /sys/class/misc/pm8941-flash/device/mask_clamp_current
-    chown media system /sys/class/misc/pm8941-flash/device/mask_enable
-    chown media system /sys/class/misc/pm8941-flash/device/max_current
-    chown media system /sys/class/misc/pm8941-flash/device/mode
-    chown media system /sys/class/misc/pm8941-flash/device/startup_delay
-    chown media system /sys/class/misc/pm8941-flash/device/strobe
-    chown media system /sys/class/misc/pm8941-flash/device/vph_pwr_droop
-
-    # Cover mode
-    chown system system /sys/devices/virtual/input/clearpad/cover_mode_enabled
-    chown system system /sys/devices/virtual/input/clearpad/cover_win_bottom
-    chown system system /sys/devices/virtual/input/clearpad/cover_win_left
-    chown system system /sys/devices/virtual/input/clearpad/cover_win_right
-    chown system system /sys/devices/virtual/input/clearpad/cover_win_top
-
     # Bluetooth modules
     chown system system /sys/module/bluetooth/parameters/disable_ertm
     chown system system /sys/module/bluetooth/parameters/disable_esco
@@ -211,9 +185,6 @@ on boot
     # Set up kernel tracing, but disable it by default
     chmod 0222 /sys/kernel/debug/tracing/trace_marker
     write /sys/kernel/debug/tracing/tracing_on 0
-
-    # Enable DEBUG_SUSPEND, DEBUG_EXIT_SUSPEND, and DEBUG_WAKEUP
-    write /sys/module/wakelock/parameters/debug_mask 7
 
     # Define TCP buffer sizes for various networks
     # ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
