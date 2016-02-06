@@ -50,7 +50,6 @@ enum led_ident {
 	LED_RED,
 	LED_GREEN,
 	LED_BLUE,
-	LED_BACKLIGHT,
 	LED_BKLT_MDSS
 };
 
@@ -62,11 +61,6 @@ static struct led_desc {
 	const char *pwm;
 	const char *step;
 } led_descs[] = {
-	[LED_BACKLIGHT] = {
-		.max_brightness = 0,
-		.max_brightness_s = "/sys/class/leds/wled:backlight/max_brightness",
-		.brightness = "/sys/class/leds/wled:backlight/brightness",
-	},
 	[LED_BKLT_MDSS] = {
 		.max_brightness = 0,
 		.max_brightness_s = "/sys/class/leds/lcd-backlight/max_brightness",
@@ -246,10 +240,6 @@ static void write_led_scaled(enum led_ident id, int brightness,
 		scaled = max_brightness;
 	else
 		scaled = brightness;
-#ifdef HAS_DIM_BACKLIGHT
-		if (id == LED_BACKLIGHT)
-			scaled = brightness == 0 ? 0 : ((brightness + 255) / 2);
-#endif
 
 	if (pwm_pattern_index >= 0 && led_descs[id].pwm) {
 		int i;
@@ -282,17 +272,6 @@ static int rgb_to_brightness(struct light_state_t const* state)
 	int color = state->color & 0x00ffffff;
 	return ((77*((color>>16)&0x00ff))
 			+ (150*((color>>8)&0x00ff)) + (29*(color&0x00ff))) >> 8;
-}
-
-static int set_light_backlight(struct light_device_t *dev, struct light_state_t const *state)
-{
-	int brightness = rgb_to_brightness(state);
-
-	pthread_mutex_lock(&g_lock);
-	write_led_scaled(LED_BACKLIGHT, brightness, -1, 0);
-	pthread_mutex_unlock(&g_lock);
-
-	return 0;
 }
 
 static int set_light_mdss(struct light_device_t *dev, struct light_state_t const *state)
@@ -378,10 +357,7 @@ static int open_lights(const struct hw_module_t* module,
 	}
 
 	if (strcmp(name, LIGHT_ID_BACKLIGHT) == 0) {
-		if (stat(led_descs[LED_BACKLIGHT].brightness, &buf) == 0)
-			set_light = set_light_backlight;
-		else
-			set_light = set_light_mdss;
+		set_light = set_light_mdss;
 		shared_which = -1;
 	} else if (strcmp(name, LIGHT_ID_BATTERY) == 0) {
 		set_light = set_light_shared;
@@ -417,7 +393,7 @@ static int open_lights(const struct hw_module_t* module,
 
 	ll_add(light);
 
-	if (set_light != set_light_backlight)
+	if (set_light != set_light_mdss)
 		(* set_light)(&light->dev, &light_off);
 
 	*device = (struct hw_device_t *)&light->dev;
