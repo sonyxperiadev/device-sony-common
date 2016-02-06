@@ -16,10 +16,6 @@ LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
 
-ifeq ($(strip $(BOARD_HAS_DIM_BACKLIGHT)),true)
-LOCAL_CFLAGS += -DHAS_DIM_BACKLIGHT
-endif
-
 LOCAL_SRC_FILES := lights.c
 LOCAL_SHARED_LIBRARIES := liblog
 LOCAL_MODULE := lights.$(TARGET_DEVICE)
