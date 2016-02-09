@@ -67,7 +67,11 @@ EXTENDED_FONT_FOOTPRINT := true
 
 # Enable dex-preoptimization to speed up first boot sequence
 ifeq ($(HOST_OS),linux)
-    WITH_DEXPREOPT ?= true
+  ifneq ($(TARGET_BUILD_VARIANT),eng)
+    ifeq ($(WITH_DEXPREOPT),)
+      WITH_DEXPREOPT := true
+    endif
+  endif
 endif
 
 BUILD_KERNEL := true
