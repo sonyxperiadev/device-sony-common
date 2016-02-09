@@ -169,11 +169,11 @@ PRODUCT_DEX_PREOPT_DEFAULT_FLAGS := \
 $(call add-product-dex-preopt-module-config,services,--compiler-filter=speed)
 
 # Platform specific default properties
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+PRODUCT_PROPERTY_OVERRIDES += \
     persist.data.qmi.adb_logmask=0
 
 # Enable MultiWindow
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.debug.multi_window=true
 
 # Default to LTE/GSM/WCDMA.
