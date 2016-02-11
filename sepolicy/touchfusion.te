@@ -46,6 +46,4 @@ allow touchfusion cgroup:dir { create add_name };
 
 allow touchfusion self:capability { setgid setuid };
 
-userdebug_or_eng(`
 allow touchfusion self:capability { sys_nice net_admin };
-')
