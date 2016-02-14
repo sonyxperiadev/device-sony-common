@@ -83,4 +83,8 @@ BUILD_KERNEL := true
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
 
+# Recovery
+include device/sony/common/CommonRecoveryConfig.mk
+
+# Sepolicy
 BOARD_SEPOLICY_DIRS += device/sony/common/sepolicy
