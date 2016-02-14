@@ -41,6 +41,7 @@
 
 # WiFi MAC address
 /sys/devices/fb000000.qcom,wcnss-wlan/wcnss_mac_addr    u:object_r:sysfs_addrsetup:s0
+/sys/devices/platform/bcmdhd_wlan/macaddr               u:object_r:sysfs_addrsetup:s0
 
 # Bluetooth
 /dev/ttyHS0                                             u:object_r:hci_attach_dev:s0
