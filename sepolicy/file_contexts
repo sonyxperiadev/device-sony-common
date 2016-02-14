@@ -25,6 +25,8 @@
 /system/vendor/bin/sensors.qcom               u:object_r:sensors_exec:s0
 /system/vendor/bin/touch_fusion               u:object_r:touchfusion_exec:s0
 /system/vendor/bin/wcnss_service              u:object_r:wcnss_service_exec:s0
+/system/vendor/bin/pm-service                 u:object_r:per_mgr_exec:s0
+/system/vendor/bin/pm-proxy                   u:object_r:per_mgr_exec:s0
 
 # acdb delta files
 /data/audio/acdbdata/delta(/.*)?              u:object_r:system_data_file:s0
@@ -49,5 +51,4 @@
 /proc/bluetooth/sleep/btwrite                           u:object_r:sysfs_bluetooth_writable:s0
 /sys/devices/soc.0/bluesleep.81/rfkill/rfkill0/state    u:object_r:sysfs_bluetooth_writable:s0
 /sys/devices/bluesleep.89/rfkill/rfkill0/state          u:object_r:sysfs_bluetooth_writable:s0
-
 
