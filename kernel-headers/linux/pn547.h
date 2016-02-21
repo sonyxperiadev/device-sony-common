@@ -21,19 +21,26 @@
 #define PN547_MAGIC 0xE9
 #define PN547_SET_PWR _IOW(PN547_MAGIC, 0x01, unsigned int)
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+enum pn547_state {
+  PN547_STATE_UNKNOWN,
+  PN547_STATE_OFF,
+  PN547_STATE_ON,
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  PN547_STATE_FWDL,
+};
 struct pn547_i2c_platform_data {
   void(* conf_gpio) (void);
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   int irq_gpio;
   int ven_gpio;
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   int firm_gpio;
   int pvdd_en_gpio;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   int configure_gpio;
   int configure_mpp;
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   bool dynamic_config;
 };
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 #define board_nfc_parse_dt(x,...) 0
 #define board_nfc_hw_lag_check(x,...) 0
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 #endif
