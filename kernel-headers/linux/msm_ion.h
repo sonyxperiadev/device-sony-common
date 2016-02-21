@@ -18,7 +18,7 @@
  ****************************************************************************/
 #ifndef _UAPI_MSM_ION_H
 #define _UAPI_MSM_ION_H
-#include "ion.h"
+#include "../../../bionic/libc/kernel/uapi/linux/ion.h"
 enum msm_ion_heap_types {
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   ION_HEAP_TYPE_MSM_START = ION_HEAP_TYPE_CUSTOM + 1,
