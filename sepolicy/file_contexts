@@ -27,6 +27,8 @@
 /system/vendor/bin/wcnss_service              u:object_r:wcnss_service_exec:s0
 /system/vendor/bin/pm-service                 u:object_r:per_mgr_exec:s0
 /system/vendor/bin/pm-proxy                   u:object_r:per_mgr_exec:s0
+/system/vendor/bin/qseecomd                   u:object_r:tee_exec:s0
+/system/vendor/bin/msm_irqbalance             u:object_r:msm_irqbalanced_exec:s0
 
 # acdb delta files
 /data/audio/acdbdata/delta(/.*)?              u:object_r:system_data_file:s0
