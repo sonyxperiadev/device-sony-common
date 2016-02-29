@@ -223,6 +223,7 @@ service tad_static /system/vendor/bin/tad_static /dev/block/bootdevice/by-name/T
     user root
     group root
     socket tad stream 0660 system system
+    seclabel u:r:tad:s0
 
 # SONY misc
 service ta_qmi_service /system/vendor/bin/ta_qmi_service

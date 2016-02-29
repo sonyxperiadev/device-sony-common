@@ -1,7 +1,0 @@
-type tad_static, domain;
-type tad_static_exec, exec_type, file_type;
-
-# Started by init
-init_daemon_domain(tad_static)
-
-allow tad_static block_device:blk_file { ioctl };

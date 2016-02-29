@@ -1,4 +1,5 @@
 type tad, domain;
+permissive tad;
 type tad_exec, exec_type, file_type;
 
 # Started by init
@@ -6,4 +7,5 @@ init_daemon_domain(tad)
 
 # Allow tad to work it's magic
 allow tad block_device:dir search;
+allow tad block_device:blk_file { ioctl };
 allow tad trim_area_partition_device:blk_file rw_file_perms;

@@ -23,7 +23,7 @@ allow init smem_log_device:chr_file { write ioctl };
 allow init sysfs_addrsetup:file getattr;
 allow init tad_socket:sock_file { write };
 allow init tad_socket:unix_stream_socket { connectto };
-allow init tad_static:unix_stream_socket { connectto };
+allow init tad:unix_stream_socket { connectto };
 allow init tee_device:chr_file { write ioctl };
 allow init trim_area_partition_device:blk_file { write };
 allow init uio_device:chr_file { write };
