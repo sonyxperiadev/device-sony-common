@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+$(call inherit-product, device/sony/common/CommonRecovery.mk)
+
 DEVICE_PACKAGE_OVERLAYS += device/sony/common/overlay
 
 PRODUCT_COPY_FILES += \
@@ -144,7 +146,7 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     libemoji
-
+    
 # APN list
 PRODUCT_COPY_FILES += \
     device/sample/etc/old-apns-conf.xml:system/etc/old-apns-conf.xml \
@@ -256,3 +258,4 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.qualcomm.sns.daemon=0 \
     debug.qualcomm.sns.hal=0 \
     debug.qualcomm.sns.libsensor1=0
+    
