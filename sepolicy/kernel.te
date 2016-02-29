@@ -1,0 +1,2 @@
+allow kernel self:capability { net_admin };
+allow kernel tmpfs:file { write };
