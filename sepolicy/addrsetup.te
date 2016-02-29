@@ -16,4 +16,4 @@ allow addrsetup addrsetup_data_file:file create_file_perms;
 
 allow addrsetup sysfs_addrsetup:file rw_file_perms;
 
-allow addrsetup tad_static:unix_stream_socket connectto;
+allow addrsetup tad:unix_stream_socket connectto;
