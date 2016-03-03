@@ -22,9 +22,9 @@ LOCAL_SRC_FILES := \
 LOCAL_C_INCLUDES += \
 	$(call include-path-for, audio-effects)
 
-LOCAL_MODULE := libqcomvoiceprocessingdescriptors
+LOCAL_MULTILIB := $(AUDIOSERVER_MULTILIB)
 
-LOCAL_32_BIT_ONLY := true
+LOCAL_MODULE := libqcomvoiceprocessingdescriptors
 
 LOCAL_MODULE_RELATIVE_PATH := soundfx
 
