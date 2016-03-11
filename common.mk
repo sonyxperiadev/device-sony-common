@@ -159,6 +159,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.data.qmi.adb_logmask=0
 
+# ADBoverWIFI
+PRODUCT_PROPERTY_OVERRIDES += \
+    service.adb.tcp.port=5555
+
 # Enable MultiWindow
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.debug.multi_window=true
