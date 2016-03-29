@@ -390,8 +390,8 @@ on property:ro.boot.baseband=apq
     stop ril-daemon
 
 on property:ro.boot.baseband=msm
-    start qmuxd
-    start netmgrd
+    enable qmuxd
+    enable netmgrd
 
 on property:persist.radio.multisim.config=dsds
     start ril-daemon2
