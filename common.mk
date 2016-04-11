@@ -250,10 +250,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.HAL3.enabled=1 \
     persist.camera.ois.disable=0
 
-# Sensors
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.qti.sensors.dpc=true
-
 # Sensors debug
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.debug.sensors.hal=0 \
