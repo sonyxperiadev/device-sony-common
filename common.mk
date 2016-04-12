@@ -55,7 +55,7 @@ PRODUCT_COPY_FILES += \
     device/sony/common/rootdir/system/etc/gps.conf:system/etc/gps.conf \
     device/sony/common/rootdir/system/etc/nfcee_access.xml:system/etc/nfcee_access.xml \
     device/sony/common/rootdir/system/etc/sec_config:system/etc/sec_config \
-    device/sony/common/rootdir/system/etc/sensors_settings:system/etc/sensors_settings
+    device/sony/common/rootdir/system/etc/sensors/sensors_settings:system/etc/sensors/sensors_settings
 
 
 # Audio
