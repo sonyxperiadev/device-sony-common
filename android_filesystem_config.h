@@ -32,6 +32,7 @@
 */
 static const struct fs_path_config android_device_files[] = {
     { 00700, AID_RADIO,     AID_SHELL,     (1ULL << CAP_BLOCK_SUSPEND), "system/vendor/bin/qmuxd" },
+    { 00700, AID_CAMERA,    AID_SHELL,     (1ULL << CAP_SYS_NICE), "system/vendor/bin/mm-qcamera-daemon" },
 #ifdef NO_ANDROID_FILESYSTEM_CONFIG_DEVICE_DIRS
     { 00000, AID_ROOT,      AID_ROOT,      0, "system/etc/fs_config_dirs" },
 #endif
