@@ -184,6 +184,7 @@ enum actuator_type {
   ACTUATOR_PIEZO,
   ACTUATOR_HVCM,
   ACTUATOR_BIVCM,
+  ACTUATOR_VCM2,
 };
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 enum msm_flash_driver_type {
