@@ -1,5 +1,6 @@
 # Trim Area daemon
 /dev/socket/tad                               u:object_r:tad_socket:s0
+/dev/block/mmcblk0p1                          u:object_r:tad_block_device:s0
 
 # NFC
 /dev/pn54x                                    u:object_r:nfc_device:s0
