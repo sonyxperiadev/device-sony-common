@@ -52,11 +52,12 @@ PRODUCT_COPY_FILES += \
 
 # Common etc
 PRODUCT_COPY_FILES += \
-    device/sony/common/rootdir/system/vendor/etc/audio_effects.conf:system/vendor/etc/audio_effects.conf \
-    device/sony/common/rootdir/system/etc/gps.conf:system/etc/gps.conf \
-    device/sony/common/rootdir/system/etc/nfcee_access.xml:system/etc/nfcee_access.xml \
-    device/sony/common/rootdir/system/etc/sec_config:system/etc/sec_config \
-    device/sony/common/rootdir/system/etc/sensors/sensors_settings:system/etc/sensors/sensors_settings
+    device/sony/common-aosp/rootdir/system/vendor/etc/audio_effects.conf:system/vendor/etc/audio_effects.conf \
+    device/sony/common-aosp/rootdir/system/etc/gps.conf:system/etc/gps.conf \
+    device/sony/common-aosp/rootdir/system/etc/nfcee_access.xml:system/etc/nfcee_access.xml \
+    device/sony/common-aosp/rootdir/system/etc/sensors/sensors_settings:system/etc/sensors/sensors_settings
+#        device/sony/common-aosp/rootdir/system/etc/sec_config:system/etc/sec_config \ <!-- NOT NEEDED ON CM! -->
+
 
 
 # Audio
