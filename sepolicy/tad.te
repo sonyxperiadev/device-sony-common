@@ -5,6 +5,9 @@ type tad_block_device, dev_type;
 # Started by init
 init_daemon_domain(tad)
 
+# Read /proc/stat
+allow tad proc:file { getattr open read };
+
 # Allow tad to work it's magic
 allow tad block_device:dir search;
 allow tad tad_block_device:dir create_dir_perms;

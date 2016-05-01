@@ -9,6 +9,9 @@
 /dev/block/bootdevice/by-name/TA              u:object_r:trim_area_partition_device:s0
 /dev/block/bootdevice/by-name/FOTAKernel      u:object_r:recovery_block_device:s0
 
+# rmt_storage
+/sys/class/uio(/.*)?                                            u:object_r:sysfs_uio:s0
+
 /system/bin/macaddrsetup                      u:object_r:addrsetup_exec:s0
 /system/bin/thermanager                       u:object_r:thermanager_exec:s0
 /system/bin/timekeep                          u:object_r:timekeep_exec:s0
@@ -43,7 +46,18 @@
 /sys/devices/msm_dwc3/power_supply/usb/device u:object_r:sysfs_usb_supply:s0
 
 # WiFi MAC address
-/sys/devices/fb000000.qcom,wcnss-wlan/wcnss_mac_addr    u:object_r:sysfs_addrsetup:s0
+/sys/devices/fb000000\.qcom,wcnss-wlan/wcnss_mac_addr    u:object_r:sysfs_addrsetup:s0
+
+# Thermal
+/sys/devices/soc\.0/02-qcom,qpnp-smbcharger/power_supply/battery/charging_enabled         u:object_r:sysfs_thermal:s0
+/sys/devices/soc\.0/02-qcom,qpnp-smbcharger/power_supply/battery/system_temp_level        u:object_r:sysfs_thermal:s0
+/sys/devices/soc\.0/f9200000\.ssusb/power_supply/usb/current_max                          u:object_r:sysfs_thermal:s0
+/sys/devices/soc\.0/fdb00000\.qcom,kgsl-3d0/kgsl/kgsl-3d0/max_gpuclk                      u:object_r:sysfs_thermal:s0
+
+# Modules
+/sys/module/cpu_boost(/.*)?                                         u:object_r:sysfs_devices_system_cpu:s0
+/sys/module/lpm_levels/parameters/sleep_disabled                    u:object_r:sysfs_power_management:s0
+/sys/module/msm_performance(/.*)?                                   u:object_r:sysfs_performance:s0
 
 # Bluetooth
 /dev/ttyHS0                                             u:object_r:hci_attach_dev:s0
@@ -52,6 +66,6 @@
 /proc/bluetooth/sleep/proto                             u:object_r:sysfs_bluetooth_writable:s0
 /proc/bluetooth/sleep/lpm                               u:object_r:sysfs_bluetooth_writable:s0
 /proc/bluetooth/sleep/btwrite                           u:object_r:sysfs_bluetooth_writable:s0
-/sys/devices/soc.0/bluesleep.81/rfkill/rfkill0/state    u:object_r:sysfs_bluetooth_writable:s0
+/sys/devices/soc\.0/bluesleep\.81/rfkill/rfkill0/state  u:object_r:sysfs_bluetooth_writable:s0
 /sys/devices/bluesleep.89/rfkill/rfkill0/state          u:object_r:sysfs_bluetooth_writable:s0
 
