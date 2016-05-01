@@ -37,3 +37,4 @@ allow init device_latency:chr_file { write };
 allow init wcnss_device:chr_file { write };
 allow init tmpfs:file { write };
 allow init debugfs:dir { mounton };
+allow init proc_kernel_sched:file write;

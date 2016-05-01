@@ -5,3 +5,5 @@ type timekeep_exec, exec_type, file_type;
 init_daemon_domain(timekeep)
 
 allow timekeep self:capability { sys_time };
+
+allow timekeep timekeep_prop:file r_file_perms;
