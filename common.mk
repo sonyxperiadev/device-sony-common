@@ -221,6 +221,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Fluencetype can be "fluence" or "fluencepro" or "none"
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.fluence.voicecall=true \
+    persist.audio.fluence.voicecomm=true \
     persist.audio.fluence.voicerec=false \
     persist.audio.fluence.speaker=true \
     media.aac_51_output_enabled=true
