@@ -1,0 +1,1 @@
+allow msm_irqbalanced proc:file r_file_perms;

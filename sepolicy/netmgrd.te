@@ -1,0 +1,5 @@
+allow netmgrd proc_net:file r_file_perms;
+
+allow netmgrd sysfs_subsys:file r_file_perms;
+
+allow netmgrd toolbox_exec:file rx_file_perms;

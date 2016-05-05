@@ -1,1 +1,2 @@
-allow gatekeeperd firmware_file:file { getattr open read };
+allow gatekeeperd firmware_file:file r_file_perms;
+set_prop(gatekeeperd, tee_prop)

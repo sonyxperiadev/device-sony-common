@@ -1,0 +1,4 @@
+allow mm-qcamerad camera_prop:file r_file_perms;
+allow mm-qcamerad ion_device:chr_file rw_file_perms;
+
+allow mm-qcamerad sysfs_video:file r_file_perms;

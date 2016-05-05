@@ -4,7 +4,7 @@ type mlog_qmi_exec, exec_type, file_type;
 # Started by init
 init_daemon_domain(mlog_qmi)
 
-allow mlog_qmi self:capability { net_raw net_bind_service };
+allow mlog_qmi self:capability { net_raw };
 allow mlog_qmi self:socket create_socket_perms;
 
 # Access to /dev/smem_log
