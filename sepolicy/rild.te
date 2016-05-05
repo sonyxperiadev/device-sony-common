@@ -1,0 +1,15 @@
+qmux_socket(rild);
+binder_use(rild)
+
+r_dir_file(rild, sysfs_ssr)
+
+r_dir_file(rild, netmgrd)
+
+#Allow access to netmgrd socket
+netmgr_socket(rild);
+
+# Rule for RILD to talk to peripheral manager
+use_per_mgr(rild);
+
+r_dir_file(rild, sysfs_socinfo)
+r_dir_file(rild, sysfs_subsys)

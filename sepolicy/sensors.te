@@ -1,6 +1,52 @@
-# Connect to /dev/socket/tad
-unix_socket_connect(sensors, tad, tad)
+type sensors, domain;
+type sensors_exec, exec_type, file_type;
 
-allow sensors self:capability { net_raw };
+init_daemon_domain(sensors)
 
-allow sensors sysfs_socinfo:file r_file_perms;
+type_transition sensors system_data_file:{ dir file } sensors_data_file;
+
+allow sensors self:capability {
+    setuid
+    setgid
+    chown
+    dac_override
+    net_raw
+};
+
+# Sensors socket
+allow sensors sensors_socket:sock_file create_file_perms;
+type_transition sensors socket_device:sock_file sensors_socket "sensor_ctl_socket";
+allow sensors socket_device:dir rw_dir_perms;
+
+# Create directories and files under /data/misc/sensors
+# and /data/system/sensors. Allow generic r/w file access.
+allow sensors system_data_file:dir create_dir_perms;
+allow sensors sensors_data_file:dir create_dir_perms;
+allow sensors sensors_data_file:file create_file_perms;
+
+# Access sensor nodes (/dev/msm_dsps, /dev/sensors)
+allow sensors sensors_device:chr_file rw_file_perms;
+
+# Access to /persist/sensors
+allow sensors persist_file:dir r_dir_perms;
+allow sensors sensors_persist_file:dir create_dir_perms;
+allow sensors sensors_persist_file:file create_file_perms;
+
+# Wake lock access
+wakelock_use(sensors)
+
+allow sensors self:socket { bind create ioctl read write };
+
+# Access to other devices
+allow sensors smem_log_device:chr_file rw_file_perms;
+allow sensors device_latency:chr_file w_file_perms;
+
+binder_use(sensors)
+binder_call(sensors, servicemanager)
+binder_call(sensors, per_mgr)
+
+#Rules for sensors to talk to peripheral manager
+use_per_mgr(sensors);
+
+r_dir_file(sensors, sysfs_socinfo)
+r_dir_file(sensors, system_file)

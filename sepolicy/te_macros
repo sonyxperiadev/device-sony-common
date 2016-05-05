@@ -1,0 +1,42 @@
+#####################################
+# qmux_socket(clientdomain)
+# Allow client domain to connecto and send
+# via a local socket to the qmux domain.
+# Also allow the client domain to remove
+# its own socket.
+define(`qmux_socket', `
+allow $1 qmuxd_socket:dir create_dir_perms;
+unix_socket_connect($1, qmuxd, qmuxd)
+allow $1 qmuxd_socket:sock_file { read getattr write setattr create unlink };
+')
+
+#####################################
+# netmgr_socket(clientdomain)
+# Allow client domain to connecto and send
+# via a local socket to the netmgrd domain.
+# Also allow the client domain to remove
+# its own socket.
+define(`netmgr_socket', `
+allow $1 netmgrd_socket:dir r_dir_perms;
+unix_socket_connect($1, netmgrd, netmgrd)
+allow $1 netmgrd_socket:sock_file { read getattr write };
+')
+
+########################################
+# peripheral_manager
+# Allow clients to interact with peripheral
+# manager
+define(`use_per_mgr', `
+binder_call(per_mgr, $1);
+binder_call($1, per_mgr);
+allow $1 per_mgr_service:service_manager find;
+')
+
+#####################################
+# rw_dir_file(domain, type)
+# Allow the specified domain to read and write directories, files
+# and symbolic links of the specified type.
+define(`rw_dir_file', `
+allow $1 $2:dir rw_dir_perms;
+allow $1 $2:{ file lnk_file } rw_file_perms;
+')

@@ -1,1 +1,60 @@
+#Define the logging device type
+type diag_device, dev_type, mlstrustedobject;
+type smem_log_device, dev_type;
+
+#device type for smd device nodes, ie /dev/smd*
+type smd_device, dev_type;
+
+#device type for rmnet device nodes, ie /dev/rmnet_ctrl*
+type rmnet_device, dev_type;
+
+#Define thermal-engine devices
+type thermal_device, dev_type;
+
+#Add qdsp_device type
+type qdsp_device, dev_type, mlstrustedobject;
+
+#Define mpdecision device
+type device_latency, dev_type;
+
+#Add for storage pertitions for EFS partitions
+type modem_efs_partition_device, dev_type;
+
+#Define device for partition links
+type ssd_device, dev_type;
+type rpmb_device, dev_type;
+
+type sd_device, dev_type;
+
+#SSR device
+type ssr_device, dev_type;
+
+#Ramdump device
+type ramdump_device, dev_type;
+
+#Misc partition
+type misc_partition, dev_type;
+
+# Define IPA devices
+type ipa_dev, dev_type;
+
+type wcnss_device, dev_type;
+
+#energy-awareness device
+type pta_device, dev_type;
+
+#Define qfintverify device
+type qce_device, dev_type;
+type rng_device, dev_type;
+
+#added for voice device
+type voice_device, dev_type;
+
+#Define system health monitor devices
+type system_health_monitor_device, dev_type;
+
+#Define avtimer device
+type avtimer_device, dev_type;
+
+type subsys_modem_device, dev_type;
 type trim_area_partition_device, dev_type;

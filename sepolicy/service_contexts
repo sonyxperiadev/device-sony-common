@@ -1,1 +1,2 @@
-com.sony.timekeep        u:object_r:timekeep_service:s0
+vendor.qcom.PeripheralManager                  u:object_r:per_mgr_service:s0
+com.sony.timekeep                              u:object_r:timekeep_service:s0

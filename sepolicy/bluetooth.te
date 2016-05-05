@@ -1,2 +1,4 @@
+allow bluetooth sysfs:file w_file_perms;
+
 # Allow MAC address file reading
-allow bluetooth addrsetup_data_file:file r_file_perms;
+r_dir_file(bluetooth, addrsetup_data_file)

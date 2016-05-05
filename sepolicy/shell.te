@@ -1,0 +1,7 @@
+get_prop(shell, boot_animation_prop)
+get_prop(shell, camera_prop)
+get_prop(shell, device_logging_prop)
+get_prop(shell, mmc_prop)
+get_prop(shell, safemode_prop)
+get_prop(shell, tee_prop)
+get_prop(shell, timekeep_prop)

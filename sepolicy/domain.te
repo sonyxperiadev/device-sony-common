@@ -1,0 +1,7 @@
+allow  { domain -untrusted_app } diag_device:chr_file rw_file_perms;
+
+r_dir_file(domain, sysfs_socinfo);
+r_dir_file(domain, sysfs_ssr);
+
+# Allow all domains read access to sysfs_thermal
+r_dir_file(domain, sysfs_thermal);
