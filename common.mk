@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-DEVICE_PACKAGE_OVERLAYS += device/sony/common/overlay
+DEVICE_PACKAGE_OVERLAYS += device/sony/common-aosp/overlay
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
@@ -47,8 +47,8 @@ PRODUCT_COPY_FILES += \
 
 # Common init
 PRODUCT_COPY_FILES += \
-    device/sony/common/rootdir/init.common.rc:root/init.common.rc \
-    device/sony/common/rootdir/init.common.usb.rc:root/init.common.usb.rc
+    device/sony/common-aosp/rootdir/init.common.rc:root/init.common.rc \
+    device/sony/common-aosp/rootdir/init.common.usb.rc:root/init.common.usb.rc
 
 # Common etc
 PRODUCT_COPY_FILES += \
