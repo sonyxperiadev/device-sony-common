@@ -218,13 +218,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     vidc.debug.level=1
 
+# Audio
 # Fluencetype can be "fluence" or "fluencepro" or "none"
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.fluence.voicecall=true \
     persist.audio.fluence.voicecomm=true \
     persist.audio.fluence.voicerec=false \
     persist.audio.fluence.speaker=true \
-    media.aac_51_output_enabled=true
+    media.aac_51_output_enabled=true \
+    audio.deep_buffer.media=1
 
 # Media
 PRODUCT_PROPERTY_OVERRIDES += \
