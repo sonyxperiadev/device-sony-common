@@ -226,6 +226,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.fluence.speaker=true \
     media.aac_51_output_enabled=true
 
+# Media
+PRODUCT_PROPERTY_OVERRIDES += \
+    audio.offload.video=1
+
 # Property to enable user to access Google WFD settings.
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.debug.wfd.enable=1
