@@ -27,6 +27,7 @@
 #define ISP1_BIT              (0x10000 << 2)
 #define ISP_META_CHANNEL_BIT  (0x10000 << 3)
 #define ISP_SCRATCH_BUF_BIT   (0x10000 << 4)
+#define ISP_OFFLINE_STATS_BIT (0x10000 << 5)
 #define ISP_STATS_STREAM_BIT  0x80000000
 
 struct msm_vfe_cfg_cmd_list;
@@ -204,6 +205,12 @@ enum msm_vfe_stats_composite_group {
 	STATS_COMPOSITE_GRP_MAX,
 };
 
+enum msm_vfe_hvx_streaming_cmd {
+	HVX_DISABLE,
+	HVX_ONE_WAY,
+	HVX_ROUND_TRIP
+};
+
 struct msm_vfe_pix_cfg {
 	struct msm_vfe_camif_cfg camif_cfg;
 	struct msm_vfe_testgen_cfg testgen_cfg;
@@ -211,6 +218,7 @@ struct msm_vfe_pix_cfg {
 	enum msm_vfe_inputmux input_mux;
 	enum ISP_START_PIXEL_PATTERN pixel_pattern;
 	uint32_t input_format;
+	enum msm_vfe_hvx_streaming_cmd hvx_cmd;
 	uint32_t is_split;
 };
 
@@ -232,7 +240,10 @@ struct msm_vfe_fetch_eng_start {
 	uint32_t session_id;
 	uint32_t stream_id;
 	uint32_t buf_idx;
+	uint8_t  offline_mode;
+	uint32_t fd;
 	uint32_t buf_addr;
+	uint32_t frame_id;
 };
 
 struct msm_vfe_axi_plane_cfg {
@@ -288,6 +299,7 @@ struct msm_vfe_axi_stream_cfg_cmd {
 	uint8_t num_streams;
 	uint32_t stream_handle[VFE_AXI_SRC_MAX];
 	enum msm_vfe_axi_stream_cmd cmd;
+	uint8_t sync_frame_id_src;
 };
 
 enum msm_vfe_axi_stream_update_type {
@@ -433,10 +445,55 @@ struct msm_vfe_reg_cfg_cmd {
 	enum msm_vfe_reg_cfg_type cmd_type;
 };
 
+enum vfe_sd_type {
+	VFE_SD_0 = 0,
+	VFE_SD_1,
+	VFE_SD_COMMON,
+	VFE_SD_MAX,
+};
+
+/* When you change the value below, check for the sof event_data size.
+ * V4l2 limits payload to 64 bytes */
+#define MS_NUM_SLAVE_MAX 1
+
+/* Usecases when 2 HW need to be related or synced */
+enum msm_vfe_dual_hw_type {
+	DUAL_NONE = 0,
+	DUAL_HW_VFE_SPLIT = 1,
+	DUAL_HW_MASTER_SLAVE = 2,
+};
+
+/* Type for 2 INTF when used in Master-Slave mode */
+enum msm_vfe_dual_hw_ms_type {
+	MS_TYPE_NONE,
+	MS_TYPE_MASTER,
+	MS_TYPE_SLAVE,
+};
+
+struct msm_isp_set_dual_hw_ms_cmd {
+	uint8_t num_src;
+	/* Each session can be only one type but multiple intf if YUV cam */
+	enum msm_vfe_dual_hw_ms_type dual_hw_ms_type;
+	/* Primary intf is mostly associated with preview.
+	 * This primary intf SOF frame_id and timestamp is tracked
+	 * and used to calculate delta */
+	enum msm_vfe_input_src primary_intf;
+	/* input_src array indicates other input INTF that may be Master/Slave.
+	 * For these additional intf, frame_id and timestamp are not saved.
+	 * However, if these are slaves then they will still get their
+	 * frame_id from Master */
+	enum msm_vfe_input_src input_src[VFE_SRC_MAX];
+	uint32_t sof_delta_threshold; /* In milliseconds. Sent for Master */
+};
+
 enum msm_isp_buf_type {
 	ISP_PRIVATE_BUF,
 	ISP_SHARE_BUF,
 	MAX_ISP_BUF_TYPE,
+};
+
+struct msm_isp_unmap_buf_req {
+	uint32_t fd;
 };
 
 struct msm_isp_buf_request {
@@ -468,6 +525,7 @@ struct msm_isp_qbuf_info {
 };
 
 struct msm_isp_clk_rates {
+	uint32_t svs_rate;
 	uint32_t nominal_rate;
 	uint32_t high_rate;
 };
@@ -477,6 +535,65 @@ struct msm_vfe_axi_src_state {
 	uint32_t src_active;
 	uint32_t src_frame_id;
 };
+
+enum msm_isp_event_mask_index {
+	ISP_EVENT_MASK_INDEX_STATS_NOTIFY		= 0,
+	ISP_EVENT_MASK_INDEX_ERROR			= 1,
+	ISP_EVENT_MASK_INDEX_IOMMU_P_FAULT		= 2,
+	ISP_EVENT_MASK_INDEX_STREAM_UPDATE_DONE		= 3,
+	ISP_EVENT_MASK_INDEX_REG_UPDATE			= 4,
+	ISP_EVENT_MASK_INDEX_SOF			= 5,
+	ISP_EVENT_MASK_INDEX_BUF_DIVERT			= 6,
+	ISP_EVENT_MASK_INDEX_COMP_STATS_NOTIFY		= 7,
+	ISP_EVENT_MASK_INDEX_MASK_FE_READ_DONE		= 8,
+	ISP_EVENT_MASK_INDEX_HW_FATAL_ERROR		= 9,
+	ISP_EVENT_MASK_INDEX_PING_PONG_MISMATCH		= 10,
+	ISP_EVENT_MASK_INDEX_REG_UPDATE_MISSING		= 11,
+	ISP_EVENT_MASK_INDEX_BUF_FATAL_ERROR		= 12,
+	ISP_EVENT_MASK_INDEX_MAX		            = 13
+};
+
+
+#define ISP_EVENT_SUBS_MASK_NONE			0
+
+#define ISP_EVENT_SUBS_MASK_STATS_NOTIFY \
+			(1 << ISP_EVENT_MASK_INDEX_STATS_NOTIFY)
+
+#define ISP_EVENT_SUBS_MASK_ERROR \
+			(1 << ISP_EVENT_MASK_INDEX_ERROR)
+
+#define ISP_EVENT_SUBS_MASK_IOMMU_P_FAULT \
+			(1 << ISP_EVENT_MASK_INDEX_IOMMU_P_FAULT)
+
+#define ISP_EVENT_SUBS_MASK_STREAM_UPDATE_DONE \
+			(1 << ISP_EVENT_MASK_INDEX_STREAM_UPDATE_DONE)
+
+#define ISP_EVENT_SUBS_MASK_REG_UPDATE \
+			(1 << ISP_EVENT_MASK_INDEX_REG_UPDATE)
+
+#define ISP_EVENT_SUBS_MASK_SOF \
+			(1 << ISP_EVENT_MASK_INDEX_SOF)
+
+#define ISP_EVENT_SUBS_MASK_BUF_DIVERT \
+			(1 << ISP_EVENT_MASK_INDEX_BUF_DIVERT)
+
+#define ISP_EVENT_SUBS_MASK_COMP_STATS_NOTIFY \
+			(1 << ISP_EVENT_MASK_INDEX_COMP_STATS_NOTIFY)
+
+#define ISP_EVENT_SUBS_MASK_FE_READ_DONE \
+			(1 << ISP_EVENT_MASK_INDEX_MASK_FE_READ_DONE)
+
+#define ISP_EVENT_SUBS_MASK_HW_FATAL_ERROR \
+			(1 << ISP_EVENT_MASK_INDEX_HW_FATAL_ERROR)
+
+#define ISP_EVENT_SUBS_MASK_PING_PONG_MISMATCH \
+			(1 << ISP_EVENT_MASK_INDEX_PING_PONG_MISMATCH)
+
+#define ISP_EVENT_SUBS_MASK_REG_UPDATE_MISSING \
+			(1 << ISP_EVENT_MASK_INDEX_REG_UPDATE_MISSING)
+
+#define ISP_EVENT_SUBS_MASK_BUF_FATAL_ERROR \
+			(1 << ISP_EVENT_MASK_INDEX_BUF_FATAL_ERROR)
 
 enum msm_isp_event_idx {
 	ISP_REG_UPDATE        = 0,
@@ -490,7 +607,11 @@ enum msm_isp_event_idx {
 	ISP_FE_RD_DONE        = 8,
 	ISP_IOMMU_P_FAULT     = 9,
 	ISP_ERROR             = 10,
-	ISP_EVENT_MAX         = 11
+	ISP_HW_FATAL_ERROR    = 11,
+	ISP_PING_PONG_MISMATCH = 12,
+	ISP_REG_UPDATE_MISSING = 13,
+	ISP_BUF_FATAL_ERROR    = 14,
+	ISP_EVENT_MAX          = 15
 };
 
 #define ISP_EVENT_OFFSET          8
@@ -515,6 +636,10 @@ enum msm_isp_event_idx {
 #define ISP_EVENT_COMP_STATS_NOTIFY (ISP_EVENT_STATS_NOTIFY + MSM_ISP_STATS_MAX)
 #define ISP_EVENT_FE_READ_DONE    (ISP_EVENT_BASE + ISP_FE_RD_DONE)
 #define ISP_EVENT_IOMMU_P_FAULT   (ISP_EVENT_BASE + ISP_IOMMU_P_FAULT)
+#define ISP_EVENT_HW_FATAL_ERROR  (ISP_EVENT_BASE + ISP_HW_FATAL_ERROR)
+#define ISP_EVENT_PING_PONG_MISMATCH (ISP_EVENT_BASE + ISP_PING_PONG_MISMATCH)
+#define ISP_EVENT_REG_UPDATE_MISSING (ISP_EVENT_BASE + ISP_REG_UPDATE_MISSING)
+#define ISP_EVENT_BUF_FATAL_ERROR (ISP_EVENT_BASE + ISP_BUF_FATAL_ERROR)
 #define ISP_EVENT_STREAM_UPDATE_DONE   (ISP_STREAM_EVENT_BASE)
 
 /* The msm_v4l2_event_data structure should match the
@@ -527,6 +652,14 @@ struct msm_isp_buf_event {
 	uint32_t handle;
 	uint32_t output_format;
 	int8_t buf_idx;
+};
+struct msm_isp_fetch_eng_event {
+	uint32_t session_id;
+	uint32_t stream_id;
+	uint32_t handle;
+	uint32_t fd;
+	int8_t buf_idx;
+	int8_t offline_mode;
 };
 struct msm_isp_stats_event {
 	uint32_t stats_mask;                        /* 4 bytes */
@@ -552,13 +685,38 @@ struct msm_isp_error_info {
 	enum msm_vfe_error_type err_type;
 	uint32_t session_id;
 	uint32_t stream_id;
+	uint8_t stream_id_mask;
 };
 
+/* This structure reports delta between master and slave */
+struct msm_isp_ms_delta_info {
+	uint8_t num_delta_info;
+	uint32_t delta[MS_NUM_SLAVE_MAX];
+};
+
+/* This is sent in EPOCH irq */
 struct msm_isp_output_info {
-	uint32_t regs_not_updated;
-	uint32_t output_err_mask;
-	uint16_t stream_framedrop_mask;
-	uint32_t stats_framedrop_mask;
+	uint8_t regs_not_updated;
+	/* mask with bufq_handle for regs not updated or return empty */
+	uint16_t output_err_mask;
+	/* mask with stream_idx for get_buf failed */
+	uint8_t stream_framedrop_mask;
+	/* mask with stats stream_idx for get_buf failed */
+	uint16_t stats_framedrop_mask;
+	/* delta between master and slave */
+};
+
+/* This structure is piggybacked with SOF event */
+struct msm_isp_sof_info {
+	uint8_t regs_not_updated;
+	/* mask with AXI_SRC for regs not updated */
+	uint16_t reg_update_fail_mask;
+	/* mask with bufq_handle for get_buf failed */
+	uint32_t stream_get_buf_fail_mask;
+	/* mask with stats stream_idx for get_buf failed */
+	uint16_t stats_get_buf_fail_mask;
+	/* delta between master and slave */
+	struct msm_isp_ms_delta_info ms_delta_info;
 };
 
 struct msm_isp_event_data {
@@ -570,10 +728,21 @@ struct msm_isp_event_data {
 	struct timeval mono_timestamp;
 	uint32_t frame_id;
 	union {
+		/* Sent for Stats_Done event */
 		struct msm_isp_stats_event stats;
+		/* Sent for Buf_Divert event */
 		struct msm_isp_buf_event buf_done;
+		/* Sent for offline fetch done event */
+		struct msm_isp_fetch_eng_event fetch_done;
+		/* Sent for Error_Event */
 		struct msm_isp_error_info error_info;
+		/*
+		 * This struct needs to be removed once
+		 * userspace switches to sof_info
+		 */
 		struct msm_isp_output_info output_info;
+		/* Sent for SOF event */
+		struct msm_isp_sof_info sof_info;
 	} u; /* union can have max 52 bytes */
 };
 
@@ -585,11 +754,17 @@ struct msm_isp_event_data32 {
 	union {
 		struct msm_isp_stats_event stats;
 		struct msm_isp_buf_event buf_done;
+		struct msm_isp_fetch_eng_event fetch_done;
 		struct msm_isp_error_info error_info;
 		struct msm_isp_output_info output_info;
+		struct msm_isp_sof_info sof_info;
 	} u;
 };
 #endif
+
+struct msm_isp_set_stats_ab {
+	uint64_t stats_ab;
+};
 
 #define V4L2_PIX_FMT_QBGGR8  v4l2_fourcc('Q', 'B', 'G', '8')
 #define V4L2_PIX_FMT_QGBRG8  v4l2_fourcc('Q', 'G', 'B', '8')
@@ -686,5 +861,17 @@ struct msm_isp_event_data32 {
 
 #define VIDIOC_MSM_ISP_DEQUEUE_BUF \
 	_IOWR('V', BASE_VIDIOC_PRIVATE+21, struct msm_isp_qbuf_info)
+
+#define VIDIOC_MSM_ISP_SET_DUAL_HW_MASTER_SLAVE \
+	_IOWR('V', BASE_VIDIOC_PRIVATE+22, struct msm_isp_set_dual_hw_ms_cmd)
+
+#define VIDIOC_MSM_ISP_SET_STATS_BANDWIDTH \
+	_IOWR('V', BASE_VIDIOC_PRIVATE+23, struct msm_isp_set_stats_ab)
+
+#define VIDIOC_MSM_ISP_MAP_BUF_START_FE \
+	_IOWR('V', BASE_VIDIOC_PRIVATE+24, struct msm_vfe_fetch_eng_start)
+
+#define VIDIOC_MSM_ISP_UNMAP_BUF \
+	_IOWR('V', BASE_VIDIOC_PRIVATE+25, struct msm_isp_unmap_buf_req)
 
 #endif /* __MSMB_ISP__ */

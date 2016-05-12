@@ -36,7 +36,6 @@
 #define MSMFB_HISTOGRAM_START	_IOR(MSMFB_IOCTL_MAGIC, 144, \
 						struct mdp_histogram_start_req)
 #define MSMFB_HISTOGRAM_STOP	_IOR(MSMFB_IOCTL_MAGIC, 145, unsigned int)
-#define MSMFB_NOTIFY_UPDATE	_IOWR(MSMFB_IOCTL_MAGIC, 146, unsigned int)
 
 #define MSMFB_OVERLAY_3D       _IOWR(MSMFB_IOCTL_MAGIC, 147, \
 						struct msmfb_overlay_3d)
@@ -103,23 +102,9 @@
 #define MDSS_MDP_HW_REV_109	MDSS_MDP_REV(1, 9, 0) /* 8994 v2.0 */
 #define MDSS_MDP_HW_REV_110	MDSS_MDP_REV(1, 10, 0) /* 8992 v1.0 */
 #define MDSS_MDP_HW_REV_200	MDSS_MDP_REV(2, 0, 0) /* 8092 v1.0 */
+#define MDSS_MDP_HW_REV_112	MDSS_MDP_REV(1, 12, 0) /* 8952 v1.0 */
+#define MDSS_MDP_HW_REV_111	MDSS_MDP_REV(1, 11, 0) /* 8956/76 v1.0 */
 #endif
-
-enum {
-	NOTIFY_UPDATE_INIT,
-	NOTIFY_UPDATE_DEINIT,
-	NOTIFY_UPDATE_START,
-	NOTIFY_UPDATE_STOP,
-	NOTIFY_UPDATE_POWER_OFF,
-};
-
-enum {
-	NOTIFY_TYPE_NO_UPDATE,
-	NOTIFY_TYPE_SUSPEND,
-	NOTIFY_TYPE_UPDATE,
-	NOTIFY_TYPE_BL_UPDATE,
-	NOTIFY_TYPE_BL_AD_ATTEN_UPDATE,
-};
 
 enum {
 	MDP_RGB_565,      /* RGB 565 planer */
@@ -169,6 +154,7 @@ enum {
 	MDP_RGB_565_UBWC,
 	MDP_RGBA_8888_UBWC,
 	MDP_Y_CBCR_H2V2_UBWC,
+	MDP_Y_CRCB_H2V2_VENUS,
 	MDP_IMGTYPE_LIMIT,
 	MDP_RGB_BORDERFILL,	/* border fill pipe */
 	MDP_FB_FORMAT = MDP_IMGTYPE2_START,    /* framebuffer format */
@@ -186,6 +172,13 @@ enum {
 	HSIC_INT,
 	HSIC_CON,
 	NUM_HSIC_PARAM,
+};
+
+enum mdss_mdp_max_bw_mode {
+	MDSS_MAX_BW_LIMIT_DEFAULT = 0x1,
+	MDSS_MAX_BW_LIMIT_CAMERA = 0x2,
+	MDSS_MAX_BW_LIMIT_HFLIP = 0x4,
+	MDSS_MAX_BW_LIMIT_VFLIP = 0x8,
 };
 
 #define MDSS_MDP_ROT_ONLY		0x80
@@ -363,7 +356,9 @@ struct msmfb_writeback_data {
 #define MDP_PP_OPS_DISABLE 0x8
 #define MDP_PP_IGC_FLAG_ROM0	0x10
 #define MDP_PP_IGC_FLAG_ROM1	0x20
+#define MDP_PP_OPS_DEFER_ENABLE 0x40
 
+/* PA Write/Read extension flags */
 #define MDP_PP_PA_HUE_ENABLE		0x10
 #define MDP_PP_PA_SAT_ENABLE		0x20
 #define MDP_PP_PA_VAL_ENABLE		0x40
@@ -372,6 +367,8 @@ struct msmfb_writeback_data {
 #define MDP_PP_PA_SKIN_ENABLE		0x200
 #define MDP_PP_PA_SKY_ENABLE		0x400
 #define MDP_PP_PA_FOL_ENABLE		0x800
+
+/* Masks used in all PAv2 versions */
 #define MDP_PP_PA_HUE_MASK		0x1000
 #define MDP_PP_PA_SAT_MASK		0x2000
 #define MDP_PP_PA_VAL_MASK		0x4000
@@ -382,8 +379,24 @@ struct msmfb_writeback_data {
 #define MDP_PP_PA_MEM_COL_SKIN_MASK	0x80000
 #define MDP_PP_PA_MEM_COL_SKY_MASK	0x100000
 #define MDP_PP_PA_MEM_COL_FOL_MASK	0x200000
-#define MDP_PP_PA_MEM_PROTECT_EN	0x400000
+/*
+ * MDP_PP_PA_MEM_PROTECT_EN is only for PAV2
+ * not used in PA V1.7
+ */
+#define MDP_PP_PA_MEM_PROTECT_EN		0x400000
 #define MDP_PP_PA_SAT_ZERO_EXP_EN	0x800000
+
+/* Masks used in PA v1_7 only */
+#define MDP_PP_PAV1_7_MEM_PROT_HUE_EN	0x1000000
+#define MDP_PP_PAV1_7_MEM_PROT_SAT_EN	0x2000000
+#define MDP_PP_PAV1_7_MEM_PROT_VAL_EN	0x4000000
+#define MDP_PP_PAV1_7_MEM_PROT_CONT_EN	0x8000000
+#define MDP_PP_PAV1_7_MEM_PROT_SIX_EN	0x10000000
+#define MDP_PP_PAV1_7_MEM_PROT_BLEND_EN	0x20000000
+
+/* Flags for setting PA v1_7 saturation and value hold */
+#define MDP_PP_PAV1_7_LEFT_HOLD	0x1
+#define MDP_PP_PAV1_7_RIGHT_HOLD	0x2
 
 #define MDSS_PP_DSPP_CFG	0x000
 #define MDSS_PP_SSPP_CFG	0x100
@@ -464,7 +477,14 @@ struct mdp_pa_mem_col_cfg {
 	uint32_t hue_region;
 	uint32_t sat_region;
 	uint32_t val_region;
+
+	/*New Control Params in PA V1_7 */
+	uint32_t color_adjust_p2;
+	uint32_t blend_gain;
+	uint8_t sat_hold;
+	uint8_t val_hold;
 };
+
 
 #define MDP_SIX_ZONE_LUT_SIZE		384
 
@@ -482,6 +502,12 @@ struct mdp_pa_v2_data {
 	uint32_t six_zone_thresh;
 	uint32_t *six_zone_curve_p0;
 	uint32_t *six_zone_curve_p1;
+
+	/* New Control Params in PA V1_7 */
+	uint32_t six_zone_adj_p0;
+	uint32_t six_zone_adj_p1;
+	uint8_t six_zone_sat_hold;
+	uint8_t six_zone_val_hold;
 };
 
 struct mdp_igc_lut_data {
@@ -662,6 +688,7 @@ struct mdp_overlay {
 	struct mdp_overlay_pp_params overlay_pp_cfg;
 	struct mdp_scale_data scale;
 	uint8_t color_space;
+	uint32_t frame_rate;
 };
 
 struct msmfb_overlay_3d {
@@ -981,6 +1008,11 @@ struct mdss_calib_cfg {
 	uint32_t calib_mask;
 };
 
+struct mdp_dirty_flag_cfg {
+	uint32_t block;
+	uint32_t dirty_flag_mask;
+};
+
 enum {
 	mdp_op_pcc_cfg,
 	mdp_op_csc_cfg,
@@ -997,6 +1029,7 @@ enum {
 	mdp_op_calib_mode,
 	mdp_op_calib_buffer,
 	mdp_op_calib_dcm_state,
+	mdp_op_dirty_flag_cfg,
 	mdp_op_max,
 };
 
@@ -1029,6 +1062,7 @@ struct msmfb_mdp_pp {
 		struct mdss_ad_input ad_input;
 		struct mdp_calib_config_buffer calib_buffer;
 		struct mdp_calib_dcm_state calib_dcm;
+		struct mdp_dirty_flag_cfg dirty_flag_cfg;
 	} data;
 };
 
@@ -1105,6 +1139,13 @@ struct mdp_display_commit {
 	uint32_t flags;
 	uint32_t wait_for_finish;
 	struct fb_var_screeninfo var;
+	/*
+	 * user needs to follow guidelines as per below rules
+	 * 1. source split is enabled: l_roi = roi and r_roi = 0
+	 * 2. source split is disabled:
+	 *	2.1 split display: l_roi = l_roi and r_roi = r_roi
+	 *	2.2 non split display: l_roi = roi and r_roi = 0
+	 */
 	struct mdp_rect l_roi;
 	struct mdp_rect r_roi;
 };

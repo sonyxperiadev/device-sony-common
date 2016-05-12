@@ -6,6 +6,7 @@
 enum msm_ion_heap_types {
 	ION_HEAP_TYPE_MSM_START = ION_HEAP_TYPE_CUSTOM + 1,
 	ION_HEAP_TYPE_SECURE_DMA = ION_HEAP_TYPE_MSM_START,
+	ION_HEAP_TYPE_SYSTEM_SECURE,
 	ION_HEAP_TYPE_REMOVED,
 	/*
 	 * if you add a heap type here you should also add it to
@@ -78,8 +79,6 @@ enum cp_mem_usage {
 #define ION_FLAG_CP_CAMERA (1 << 21)
 #define ION_FLAG_CP_HLOS (1 << 22)
 #define ION_FLAG_CP_HLOS_FREE (1 << 23)
-#define ION_FLAG_CP_SEC_DISPLAY (1 << 25)
-#define ION_FLAG_CP_APP (1 << 26)
 
 /**
  * Flag to allow non continguous allocation of memory from secure
@@ -130,8 +129,8 @@ enum cp_mem_usage {
 #define ION_MM_FIRMWARE_HEAP_NAME	"mm_fw"
 #define ION_PIL1_HEAP_NAME  "pil_1"
 #define ION_PIL2_HEAP_NAME  "pil_2"
-#define ION_SECURE_HEAP_NAME	"secure_heap"
 #define ION_QSECOM_HEAP_NAME	"qsecom"
+#define ION_SECURE_HEAP_NAME	"secure_heap"
 
 #define ION_SET_CACHED(__cache)		(__cache | ION_FLAG_CACHED)
 #define ION_SET_UNCACHED(__cache)	(__cache & ~ION_FLAG_CACHED)

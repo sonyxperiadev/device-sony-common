@@ -5,6 +5,9 @@
 #include <linux/types.h>
 #include <linux/ioctl.h>
 
+#define MSM_CAM_LOGSYNC_FILE_NAME "logsync"
+#define MSM_CAM_LOGSYNC_FILE_BASEDIR "camera"
+
 #define MSM_CAM_V4L2_IOCTL_NOTIFY \
 	_IOW('V', BASE_VIDIOC_PRIVATE + 30, struct msm_v4l2_event_data)
 
@@ -17,6 +20,8 @@
 #define MSM_CAM_V4L2_IOCTL_NOTIFY_ERROR \
 	_IOW('V', BASE_VIDIOC_PRIVATE + 33, struct msm_v4l2_event_data)
 
+#define MSM_CAM_V4L2_IOCTL_NOTIFY_DEBUG \
+	_IOW('V', BASE_VIDIOC_PRIVATE + 34, struct msm_v4l2_event_data)
 
 #ifdef CONFIG_COMPAT
 #define MSM_CAM_V4L2_IOCTL_NOTIFY32 \
@@ -30,6 +35,9 @@
 
 #define MSM_CAM_V4L2_IOCTL_NOTIFY_ERROR32 \
 	_IOW('V', BASE_VIDIOC_PRIVATE + 33, struct v4l2_event32)
+
+#define MSM_CAM_V4L2_IOCTL_NOTIFY_DEBUG32 \
+	_IOW('V', BASE_VIDIOC_PRIVATE + 34, struct v4l2_event32)
 
 #endif
 
@@ -55,6 +63,7 @@
 #define MSM_CAMERA_SUBDEV_SENSOR_INIT  14
 #define MSM_CAMERA_SUBDEV_OIS          15
 #define MSM_CAMERA_SUBDEV_FLASH        16
+#define MSM_CAMERA_SUBDEV_EXT          17
 
 #define MSM_MAX_CAMERA_SENSORS  5
 
@@ -106,6 +115,8 @@
 #define MSM_CAMERA_PRIV_SHUTDOWN   (V4L2_CID_PRIVATE_BASE + 12)
 #define MSM_CAMERA_PRIV_STREAM_INFO_SYNC \
 	(V4L2_CID_PRIVATE_BASE + 13)
+#define MSM_CAMERA_PRIV_G_SESSION_ID (V4L2_CID_PRIVATE_BASE + 14)
+#define MSM_CAMERA_PRIV_CMD_MAX  20
 
 /* data.status - success */
 #define MSM_CAMERA_CMD_SUCESS      0x00000001

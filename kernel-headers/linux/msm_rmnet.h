@@ -76,86 +76,88 @@ enum rmnet_ioctl_extended_cmds_e {
   RMNET_IOCTL_SET_SLEEP_STATE = 0x0014,
   RMNET_IOCTL_SET_XLAT_DEV_INFO = 0x0015,
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
-  RMNET_IOCTL_EXTENDED_MAX = 0x0016
+  RMNET_IOCTL_DEREGISTER_DEV = 0x0016,
+  RMNET_IOCTL_EXTENDED_MAX = 0x0017
 };
 #define RMNET_IOCTL_FEAT_NOTIFY_MUX_CHANNEL (1 << 0)
-#define RMNET_IOCTL_FEAT_SET_EGRESS_DATA_FORMAT (1 << 1)
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define RMNET_IOCTL_FEAT_SET_EGRESS_DATA_FORMAT (1 << 1)
 #define RMNET_IOCTL_FEAT_SET_INGRESS_DATA_FORMAT (1 << 2)
 #define RMNET_IOCTL_FEAT_SET_AGGREGATION_COUNT (1 << 3)
 #define RMNET_IOCTL_FEAT_GET_AGGREGATION_COUNT (1 << 4)
-#define RMNET_IOCTL_FEAT_SET_AGGREGATION_SIZE (1 << 5)
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define RMNET_IOCTL_FEAT_SET_AGGREGATION_SIZE (1 << 5)
 #define RMNET_IOCTL_FEAT_GET_AGGREGATION_SIZE (1 << 6)
 #define RMNET_IOCTL_FEAT_FLOW_CONTROL (1 << 7)
 #define RMNET_IOCTL_FEAT_GET_DFLT_CONTROL_CHANNEL (1 << 8)
-#define RMNET_IOCTL_FEAT_GET_HWSW_MAP (1 << 9)
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define RMNET_IOCTL_FEAT_GET_HWSW_MAP (1 << 9)
 #define RMNET_IOCTL_EGRESS_FORMAT_MAP (1 << 1)
 #define RMNET_IOCTL_EGRESS_FORMAT_AGGREGATION (1 << 2)
 #define RMNET_IOCTL_EGRESS_FORMAT_MUXING (1 << 3)
-#define RMNET_IOCTL_EGRESS_FORMAT_CHECKSUM (1 << 4)
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define RMNET_IOCTL_EGRESS_FORMAT_CHECKSUM (1 << 4)
 #define RMNET_IOCTL_INGRESS_FORMAT_MAP (1 << 1)
 #define RMNET_IOCTL_INGRESS_FORMAT_DEAGGREGATION (1 << 2)
 #define RMNET_IOCTL_INGRESS_FORMAT_DEMUXING (1 << 3)
-#define RMNET_IOCTL_INGRESS_FORMAT_CHECKSUM (1 << 4)
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define RMNET_IOCTL_INGRESS_FORMAT_CHECKSUM (1 << 4)
 #define RMNET_IOCTL_INGRESS_FORMAT_AGG_DATA (1 << 5)
 #ifndef IFNAMSIZ
 #define IFNAMSIZ 16
-#endif
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#endif
 struct rmnet_ioctl_extended_s {
   uint32_t extended_ioctl;
   union {
-    uint32_t data;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+    uint32_t data;
     int8_t if_name[IFNAMSIZ];
     struct {
       uint32_t mux_id;
-      int8_t vchannel_name[IFNAMSIZ];
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+      int8_t vchannel_name[IFNAMSIZ];
     } rmnet_mux_val;
     struct {
       uint8_t flow_mode;
-      uint8_t mux_id;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+      uint8_t mux_id;
     } flow_control_prop;
     struct {
       uint32_t consumer_pipe_num;
-      uint32_t producer_pipe_num;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+      uint32_t producer_pipe_num;
     } ipa_ep_pair;
     struct {
       uint32_t __data;
-      uint32_t agg_size;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+      uint32_t agg_size;
       uint32_t agg_count;
     } ingress_format;
   } u;
-};
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+};
 struct rmnet_ioctl_data_s {
   union {
     uint32_t operation_mode;
-    uint32_t tcm_handle;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+    uint32_t tcm_handle;
   } u;
 };
 #define RMNET_IOCTL_QOS_MODE_6 (1 << 0)
-#define RMNET_IOCTL_QOS_MODE_8 (1 << 1)
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define RMNET_IOCTL_QOS_MODE_8 (1 << 1)
 #define QMI_QOS_HDR_S __attribute((__packed__)) qmi_qos_hdr_s
 struct QMI_QOS_HDR_S {
   unsigned char version;
-  unsigned char flags;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  unsigned char flags;
   uint32_t flow_id;
 };
 struct qmi_qos_hdr8_s {
-  struct QMI_QOS_HDR_S hdr;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  struct QMI_QOS_HDR_S hdr;
   uint8_t reserved[2];
 } __attribute((__packed__));
 #endif
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */

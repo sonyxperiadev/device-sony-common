@@ -27,11 +27,11 @@ struct msm_audio_wmapro_config {
   uint8_t numchannels;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   unsigned short formattag;
-  unsigned short samplingrate;
-  unsigned short avgbytespersecond;
+  uint32_t samplingrate;
+  uint32_t avgbytespersecond;
   unsigned short asfpacketlength;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
-  unsigned short channelmask;
+  uint32_t channelmask;
   unsigned short encodeopt;
   unsigned short advancedencodeopt;
   uint32_t advancedencodeopt2;
