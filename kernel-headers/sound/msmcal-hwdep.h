@@ -26,14 +26,15 @@ enum wcd_cal_type {
   WCD9XXX_MAD_CAL,
   WCD9XXX_MBHC_CAL,
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  WCD9XXX_VBAT_CAL,
   WCD9XXX_MAX_CAL,
 };
 struct wcdcal_ioctl_buffer {
-  __u32 size;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  __u32 size;
   __u8 __user * buffer;
   enum wcd_cal_type cal_type;
 };
-#define SNDRV_CTL_IOCTL_HWDEP_CAL_TYPE _IOW('U', 0x1, struct wcdcal_ioctl_buffer)
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define SNDRV_CTL_IOCTL_HWDEP_CAL_TYPE _IOW('U', 0x1, struct wcdcal_ioctl_buffer)
 #endif

@@ -34,45 +34,50 @@
 #define CSI_DECODE_6BIT 0
 #define CSI_DECODE_8BIT 1
 #define CSI_DECODE_10BIT 2
-#define CSI_DECODE_DPCM_10_8_10 5
+#define CSI_DECODE_12BIT 3
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define CSI_DECODE_DPCM_10_8_10 5
 #define MAX_CID 16
 #define I2C_SEQ_REG_DATA_MAX 256
 #define I2C_REG_DATA_MAX (8 * 1024)
-#define MAX_ACTUATOR_REG_TBL_SIZE 8
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define MAX_ACTUATOR_REG_TBL_SIZE 8
 #define MAX_ACTUATOR_REGION 5
 #define NUM_ACTUATOR_DIR 2
 #define MAX_ACTUATOR_SCENARIO 8
-#define MAX_ACT_MOD_NAME_SIZE 32
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define MAX_ACT_MOD_NAME_SIZE 32
 #define MAX_ACT_NAME_SIZE 32
 #define MAX_ACTUATOR_INIT_SET 2000
 #define MAX_I2C_REG_SET 12
-#define MAX_NAME_SIZE 32
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define MAX_NAME_SIZE 32
 #define MAX_LED_TRIGGERS 3
+#define MSM_EEPROM_MEMORY_MAP_MAX_SIZE 80
+#define MSM_EEPROM_MAX_MEM_MAP_CNT 8
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 enum msm_sensor_camera_id_t {
   CAMERA_0,
   CAMERA_1,
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   CAMERA_2,
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   CAMERA_3,
   MAX_CAMERAS,
 };
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 enum i2c_freq_mode_t {
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   I2C_STANDARD_MODE,
   I2C_FAST_MODE,
   I2C_CUSTOM_MODE,
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   I2C_FAST_PLUS_MODE,
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   I2C_MAX_MODES,
 };
 enum camb_position_t {
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   BACK_CAMERA_B,
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   FRONT_CAMERA_B,
+  AUX_CAMERA_B = 0x100,
   INVALID_CAMERA_B,
 };
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
@@ -83,6 +88,21 @@ enum msm_sensor_power_seq_type_t {
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   SENSOR_I2C_MUX,
   SENSOR_I2C,
+};
+enum msm_camera_qup_i2c_write_batch_size_t {
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  MSM_CAMERA_I2C_BATCH_SIZE_1 = 1,
+  MSM_CAMERA_I2C_BATCH_SIZE_2,
+  MSM_CAMERA_I2C_BATCH_SIZE_3,
+  MSM_CAMERA_I2C_BATCH_SIZE_4,
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  MSM_CAMERA_I2C_BATCH_SIZE_5,
+  MSM_CAMERA_I2C_BATCH_SIZE_MAX,
+};
+enum msm_camera_qup_i2c_write_batch_t {
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  MSM_CAMREA_I2C_BATCH_DISABLE = 0,
+  MSM_CAMERA_I2C_BATCH_ENABLE,
 };
 enum msm_camera_i2c_reg_addr_type {
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
@@ -148,11 +168,6 @@ enum camerab_mode_t {
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   CAMERA_MODE_INVALID = (1 << 2),
 };
-enum sensor_stats_type {
-  YRGB,
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
-  YYYY,
-};
 enum msm_actuator_data_type {
   MSM_ACTUATOR_BYTE_DATA = 1,
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
@@ -185,120 +200,174 @@ enum actuator_type {
   ACTUATOR_HVCM,
   ACTUATOR_BIVCM,
   ACTUATOR_VCM2,
-};
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+};
 enum msm_flash_driver_type {
   FLASH_DRIVER_PMIC,
   FLASH_DRIVER_I2C,
-  FLASH_DRIVER_GPIO,
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  FLASH_DRIVER_GPIO,
   FLASH_DRIVER_DEFAULT
 };
 enum msm_flash_cfg_type_t {
-  CFG_FLASH_INIT,
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  CFG_FLASH_INIT,
   CFG_FLASH_RELEASE,
   CFG_FLASH_OFF,
   CFG_FLASH_LOW,
-  CFG_FLASH_HIGH,
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  CFG_FLASH_HIGH,
+};
+enum msm_sensor_output_format_t {
+  MSM_SENSOR_BAYER,
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  MSM_SENSOR_YCBCR,
+  MSM_SENSOR_META,
 };
 struct msm_sensor_power_setting {
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   enum msm_sensor_power_seq_type_t seq_type;
   unsigned short seq_val;
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   long config_val;
   unsigned short delay;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   void * data[10];
 };
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 struct msm_sensor_power_setting_array {
   struct msm_sensor_power_setting power_setting_a[MAX_POWER_CONFIG];
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   struct msm_sensor_power_setting * power_setting;
   unsigned short size;
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   struct msm_sensor_power_setting power_down_setting_a[MAX_POWER_CONFIG];
   struct msm_sensor_power_setting * power_down_setting;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   unsigned short size_down;
 };
+enum msm_camera_i2c_operation {
+  MSM_CAM_WRITE = 0,
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  MSM_CAM_POLL,
+  MSM_CAM_READ,
+};
+struct msm_sensor_i2c_sync_params {
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  unsigned int cid;
+  int csid;
+  unsigned short line;
+  unsigned short delay;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+};
+struct msm_camera_reg_settings_t {
+  uint16_t reg_addr;
+  enum msm_camera_i2c_reg_addr_type addr_type;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  uint16_t reg_data;
+  enum msm_camera_i2c_data_type data_type;
+  enum msm_camera_i2c_operation i2c_operation;
+  uint16_t delay;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+};
+struct msm_eeprom_mem_map_t {
+  int slave_addr;
+  struct msm_camera_reg_settings_t mem_settings[MSM_EEPROM_MEMORY_MAP_MAX_SIZE];
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  int memory_map_size;
+};
+struct msm_eeprom_memory_map_array {
+  struct msm_eeprom_mem_map_t memory_map[MSM_EEPROM_MAX_MEM_MAP_CNT];
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  uint32_t msm_size_of_max_mappings;
+};
 struct msm_sensor_init_params {
   int modes_supported;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   enum camb_position_t position;
   unsigned int sensor_mount_angle;
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 };
 struct msm_sensor_id_info_t {
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   unsigned short sensor_id_reg_addr;
   unsigned short sensor_id;
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   unsigned short sensor_id_mask;
 };
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 struct msm_camera_sensor_slave_info {
   char sensor_name[32];
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   char eeprom_name[32];
   char actuator_name[32];
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   char ois_name[32];
   char flash_name[32];
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   enum msm_sensor_camera_id_t camera_id;
   unsigned short slave_addr;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   enum i2c_freq_mode_t i2c_freq_mode;
   enum msm_camera_i2c_reg_addr_type addr_type;
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   struct msm_sensor_id_info_t sensor_id_info;
   struct msm_sensor_power_setting_array power_setting_array;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   unsigned char is_init_params_valid;
   struct msm_sensor_init_params sensor_init_params;
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
-  unsigned char is_flash_supported;
+  enum msm_sensor_output_format_t output_format;
 };
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 struct msm_camera_i2c_reg_array {
   unsigned short reg_addr;
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   unsigned short reg_data;
   unsigned int delay;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 };
 struct msm_camera_i2c_reg_setting {
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   struct msm_camera_i2c_reg_array * reg_setting;
   unsigned short size;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   enum msm_camera_i2c_reg_addr_type addr_type;
   enum msm_camera_i2c_data_type data_type;
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   unsigned short delay;
+  enum msm_camera_qup_i2c_write_batch_t qup_i2c_batch;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 };
 struct msm_camera_csid_vc_cfg {
   unsigned char cid;
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   unsigned char dt;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   unsigned char decode_format;
 };
 struct msm_camera_csid_lut_params {
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   unsigned char num_cid;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   struct msm_camera_csid_vc_cfg vc_cfg_a[MAX_CID];
   struct msm_camera_csid_vc_cfg * vc_cfg[MAX_CID];
 };
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 struct msm_camera_csid_params {
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   unsigned char lane_cnt;
   unsigned short lane_assign;
   unsigned char phy_sel;
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   unsigned int csi_clk;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   struct msm_camera_csid_lut_params lut_params;
+  unsigned char csi_3p_sel;
+};
+struct msm_camera_csid_testmode_parms {
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  unsigned int num_bytes_per_line;
+  unsigned int num_lines;
+  unsigned int h_blanking_count;
+  unsigned int v_blanking_count;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  unsigned int payload_mode;
 };
 struct msm_camera_csiphy_params {
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   unsigned char lane_cnt;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   unsigned char settle_cnt;
   unsigned short lane_mask;
   unsigned char combo_mode;
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   unsigned char csid_core;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   unsigned int csiphy_clk;
+  unsigned char csi_3phase;
 };
 struct msm_camera_i2c_seq_reg_array {
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */

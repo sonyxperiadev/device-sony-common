@@ -48,6 +48,12 @@
 #define KGSL_CONTEXT_IFH_NOP            0x00010000
 #define KGSL_CONTEXT_SECURE             0x00020000
 
+#define KGSL_CONTEXT_PREEMPT_STYLE_MASK       0x0E000000
+#define KGSL_CONTEXT_PREEMPT_STYLE_SHIFT      25
+#define KGSL_CONTEXT_PREEMPT_STYLE_DEFAULT    0x0
+#define KGSL_CONTEXT_PREEMPT_STYLE_RINGBUFFER 0x1
+#define KGSL_CONTEXT_PREEMPT_STYLE_FINEGRAIN  0x2
+
 #define KGSL_CONTEXT_TYPE_MASK          0x01F00000
 #define KGSL_CONTEXT_TYPE_SHIFT         20
 #define KGSL_CONTEXT_TYPE_ANY		0
@@ -81,23 +87,41 @@
  * contexts and command batches.  Update this comment as new flags are added.
  */
 
+/*
+ * gpu_command_object flags - these flags communicate the type of command or
+ * memory object being submitted for a GPU command
+ */
+
+/* Flags for GPU command objects */
+#define KGSL_CMDLIST_IB                  0x00000001U
+#define KGSL_CMDLIST_CTXTSWITCH_PREAMBLE 0x00000002U
+#define KGSL_CMDLIST_IB_PREAMBLE         0x00000004U
+
+/* Flags for GPU command memory objects */
+#define KGSL_OBJLIST_MEMOBJ  0x00000008U
+#define KGSL_OBJLIST_PROFILE 0x00000010U
+
+/* Flags for GPU command sync points */
+#define KGSL_CMD_SYNCPOINT_TYPE_TIMESTAMP 0
+#define KGSL_CMD_SYNCPOINT_TYPE_FENCE 1
+
 /* --- Memory allocation flags --- */
 
 /* General allocation hints */
-#define KGSL_MEMFLAGS_GPUREADONLY 0x01000000
-#define KGSL_MEMFLAGS_USE_CPU_MAP 0x10000000
-
-/* Memory is secure */
-#define KGSL_MEMFLAGS_SECURE      0x00000008
+#define KGSL_MEMFLAGS_SECURE      0x00000008ULL
+#define KGSL_MEMFLAGS_GPUREADONLY 0x01000000U
+#define KGSL_MEMFLAGS_GPUWRITEONLY 0x02000000U
 
 /* Memory caching hints */
-#define KGSL_CACHEMODE_MASK 0x0C000000
+#define KGSL_CACHEMODE_MASK       0x0C000000U
 #define KGSL_CACHEMODE_SHIFT 26
 
 #define KGSL_CACHEMODE_WRITECOMBINE 0
 #define KGSL_CACHEMODE_UNCACHED 1
 #define KGSL_CACHEMODE_WRITETHROUGH 2
 #define KGSL_CACHEMODE_WRITEBACK 3
+
+#define KGSL_MEMFLAGS_USE_CPU_MAP 0x10000000ULL
 
 /* Memory types for which allocations are made */
 #define KGSL_MEMTYPE_MASK		0x0000FF00
@@ -138,6 +162,11 @@ enum kgsl_user_mem_type {
 	KGSL_USER_MEM_TYPE_ASHMEM	= 0x00000001,
 	KGSL_USER_MEM_TYPE_ADDR		= 0x00000002,
 	KGSL_USER_MEM_TYPE_ION		= 0x00000003,
+	/*
+	 * ION type is retained for backwards compatibilty but Ion buffers are
+	 * dma-bufs so try to use that naming if we can
+	 */
+	KGSL_USER_MEM_TYPE_DMABUF       = 0x00000003,
 	KGSL_USER_MEM_TYPE_MAX		= 0x00000007,
 };
 #define KGSL_MEMFLAGS_USERMEM_MASK 0x000000e0
@@ -199,9 +228,7 @@ enum kgsl_ctx_reset_stat {
 /* device id */
 enum kgsl_deviceid {
 	KGSL_DEVICE_3D0		= 0x00000000,
-	KGSL_DEVICE_2D0		= 0x00000001,
-	KGSL_DEVICE_2D1		= 0x00000002,
-	KGSL_DEVICE_MAX		= 0x00000003
+	KGSL_DEVICE_MAX
 };
 
 struct kgsl_devinfo {
@@ -221,16 +248,29 @@ struct kgsl_devinfo {
 	size_t gmem_sizebytes;
 };
 
-/* this structure defines the region of memory that can be mmap()ed from this
-   driver. The timestamp fields are volatile because they are written by the
-   GPU
-*/
+/*
+ * struct kgsl_devmemstore - this structure defines the region of memory
+ * that can be mmap()ed from this driver. The timestamp fields are volatile
+ * because they are written by the GPU
+ * @soptimestamp: Start of pipeline timestamp written by GPU before the
+ * commands in concern are processed
+ * @sbz: Unused, kept for 8 byte alignment
+ * @eoptimestamp: End of pipeline timestamp written by GPU after the
+ * commands in concern are processed
+ * @sbz2: Unused, kept for 8 byte alignment
+ * @preempted: Indicates if the context was preempted
+ * @sbz3: Unused, kept for 8 byte alignment
+ * @ref_wait_ts: Timestamp on which to generate interrupt, unused now.
+ * @sbz4: Unused, kept for 8 byte alignment
+ * @current_context: The current context the GPU is working on
+ * @sbz5: Unused, kept for 8 byte alignment
+ */
 struct kgsl_devmemstore {
 	volatile unsigned int soptimestamp;
 	unsigned int sbz;
 	volatile unsigned int eoptimestamp;
 	unsigned int sbz2;
-	volatile unsigned int ts_cmp_enable;
+	volatile unsigned int preempted;
 	unsigned int sbz3;
 	volatile unsigned int ref_wait_ts;
 	unsigned int sbz4;
@@ -250,19 +290,21 @@ enum kgsl_timestamp_type {
 };
 
 /* property types - used with kgsl_device_getproperty */
-enum kgsl_property_type {
-	KGSL_PROP_DEVICE_INFO     = 0x00000001,
-	KGSL_PROP_DEVICE_SHADOW   = 0x00000002,
-	KGSL_PROP_DEVICE_POWER    = 0x00000003,
-	KGSL_PROP_SHMEM           = 0x00000004,
-	KGSL_PROP_SHMEM_APERTURES = 0x00000005,
-	KGSL_PROP_MMU_ENABLE 	  = 0x00000006,
-	KGSL_PROP_INTERRUPT_WAITS = 0x00000007,
-	KGSL_PROP_VERSION         = 0x00000008,
-	KGSL_PROP_GPU_RESET_STAT  = 0x00000009,
-	KGSL_PROP_PWRCTRL         = 0x0000000E,
-	KGSL_PROP_PWR_CONSTRAINT  = 0x00000012,
-};
+#define KGSL_PROP_DEVICE_INFO		0x1
+#define KGSL_PROP_DEVICE_SHADOW		0x2
+#define KGSL_PROP_DEVICE_POWER		0x3
+#define KGSL_PROP_SHMEM			0x4
+#define KGSL_PROP_SHMEM_APERTURES	0x5
+#define KGSL_PROP_MMU_ENABLE		0x6
+#define KGSL_PROP_INTERRUPT_WAITS	0x7
+#define KGSL_PROP_VERSION		0x8
+#define KGSL_PROP_GPU_RESET_STAT	0x9
+#define KGSL_PROP_PWRCTRL		0xE
+#define KGSL_PROP_PWR_CONSTRAINT	0x12
+#define KGSL_PROP_UCHE_GMEM_VADDR	0x13
+#define KGSL_PROP_SP_GENERIC_MEM	0x14
+#define KGSL_PROP_UCODE_VERSION		0x15
+#define KGSL_PROP_GPMU_VERSION		0x16
 
 struct kgsl_shadowprop {
 	unsigned long gpuaddr;
@@ -275,6 +317,22 @@ struct kgsl_version {
 	unsigned int drv_minor;
 	unsigned int dev_major;
 	unsigned int dev_minor;
+};
+
+struct kgsl_sp_generic_mem {
+	uint64_t local;
+	uint64_t pvt;
+};
+
+struct kgsl_ucode_version {
+	unsigned int pfp;
+	unsigned int pm4;
+};
+
+struct kgsl_gpmu_version {
+	unsigned int major;
+	unsigned int minor;
+	unsigned int features;
 };
 
 /* Performance counter groups */
@@ -304,8 +362,18 @@ struct kgsl_version {
 #define KGSL_PERFCOUNTER_GROUP_L2 0x16
 #define KGSL_PERFCOUNTER_GROUP_VSC 0x17
 #define KGSL_PERFCOUNTER_GROUP_CCU 0x18
+#define KGSL_PERFCOUNTER_GROUP_LRZ 0x19
+#define KGSL_PERFCOUNTER_GROUP_CMP 0x1A
 #define KGSL_PERFCOUNTER_GROUP_ALWAYSON 0x1B
-#define KGSL_PERFCOUNTER_GROUP_MAX 0x1C
+#define KGSL_PERFCOUNTER_GROUP_SP_PWR 0x1C
+#define KGSL_PERFCOUNTER_GROUP_TP_PWR 0x1D
+#define KGSL_PERFCOUNTER_GROUP_RB_PWR 0x1E
+#define KGSL_PERFCOUNTER_GROUP_CCU_PWR 0x1F
+#define KGSL_PERFCOUNTER_GROUP_UCHE_PWR 0x20
+#define KGSL_PERFCOUNTER_GROUP_CP_PWR 0x21
+#define KGSL_PERFCOUNTER_GROUP_GPMU_PWR 0x22
+#define KGSL_PERFCOUNTER_GROUP_ALWAYSON_PWR 0x23
+#define KGSL_PERFCOUNTER_GROUP_MAX 0x24
 
 #define KGSL_PERFCOUNTER_NOT_USED 0xFFFFFFFF
 #define KGSL_PERFCOUNTER_BROKEN 0xFFFFFFFE
@@ -499,7 +567,7 @@ struct kgsl_cmdstream_freememontimestamp_ctxtid {
 /* add a block of pmem or fb into the GPU address space */
 struct kgsl_sharedmem_from_pmem {
 	int pmem_fd;
-	unsigned long gpuaddr;	/*output param */
+	unsigned long gpuaddr;  /*output param */
 	unsigned int len;
 	unsigned int offset;
 };
@@ -930,13 +998,9 @@ struct kgsl_cmd_syncpoint_timestamp {
 	unsigned int timestamp;
 };
 
-#define KGSL_CMD_SYNCPOINT_TYPE_TIMESTAMP 0
-
 struct kgsl_cmd_syncpoint_fence {
 	int fd;
 };
-
-#define KGSL_CMD_SYNCPOINT_TYPE_FENCE 1
 
 /**
  * struct kgsl_cmd_syncpoint - Define a sync point for a command batch
@@ -1093,5 +1157,232 @@ struct kgsl_syncsource_signal_fence {
 
 #define IOCTL_KGSL_SYNCSOURCE_SIGNAL_FENCE \
 	_IOWR(KGSL_IOC_TYPE, 0x43, struct kgsl_syncsource_signal_fence)
+
+/**
+ * struct kgsl_cff_sync_gpuobj - Argument to IOCTL_KGSL_CFF_SYNC_GPUOBJ
+ * @offset: Offset into the GPU object to sync
+ * @length: Number of bytes to sync
+ * @id: ID of the GPU object to sync
+ */
+struct kgsl_cff_sync_gpuobj {
+	uint64_t offset;
+	uint64_t length;
+	unsigned int id;
+};
+
+#define IOCTL_KGSL_CFF_SYNC_GPUOBJ \
+	_IOW(KGSL_IOC_TYPE, 0x44, struct kgsl_cff_sync_gpuobj)
+
+/**
+ * struct kgsl_gpuobj_alloc - Argument to IOCTL_KGSL_GPUOBJ_ALLOC
+ * @size: Size in bytes of the object to allocate
+ * @flags: mask of KGSL_MEMFLAG_* bits
+ * @va_len: Size in bytes of the virtual region to allocate
+ * @mmapsize: Returns the mmap() size of the object
+ * @id: Returns the GPU object ID of the new object
+ */
+struct kgsl_gpuobj_alloc {
+	uint64_t size;
+	uint64_t flags;
+	uint64_t va_len;
+	uint64_t mmapsize;
+	unsigned int id;
+};
+
+#define IOCTL_KGSL_GPUOBJ_ALLOC \
+	_IOWR(KGSL_IOC_TYPE, 0x45, struct kgsl_gpuobj_alloc)
+
+/**
+ * struct kgsl_gpuobj_free - Argument to IOCTL_KGLS_GPUOBJ_FREE
+ * @flags: Mask of: KGSL_GUPOBJ_FREE_ON_EVENT
+ * @priv: Pointer to the private object if KGSL_GPUOBJ_FREE_ON_EVENT is
+ * specified
+ * @id: ID of the GPU object to free
+ * @type: If KGSL_GPUOBJ_FREE_ON_EVENT is specified, the type of asynchronous
+ * event to free on
+ * @len: Length of the data passed in priv
+ */
+struct kgsl_gpuobj_free {
+	uint64_t flags;
+	uint64_t __user priv;
+	unsigned int id;
+	unsigned int type;
+	unsigned int len;
+};
+
+#define KGSL_GPUOBJ_FREE_ON_EVENT 1
+
+#define KGSL_GPU_EVENT_TIMESTAMP 1
+#define KGSL_GPU_EVENT_FENCE     2
+
+/**
+ * struct kgsl_gpu_event_timestamp - Specifies a timestamp event to free a GPU
+ * object on
+ * @context_id: ID of the timestamp event to wait for
+ * @timestamp: Timestamp of the timestamp event to wait for
+ */
+struct kgsl_gpu_event_timestamp {
+	unsigned int context_id;
+	unsigned int timestamp;
+};
+
+/**
+ * struct kgsl_gpu_event_fence - Specifies a fence ID to to free a GPU object on
+ * @fd: File descriptor for the fence
+ */
+struct kgsl_gpu_event_fence {
+	int fd;
+};
+
+#define IOCTL_KGSL_GPUOBJ_FREE \
+	_IOW(KGSL_IOC_TYPE, 0x46, struct kgsl_gpuobj_free)
+
+/**
+ * struct kgsl_gpuobj_info - argument to IOCTL_KGSL_GPUOBJ_INFO
+ * @gpuaddr: GPU address of the object
+ * @flags: Current flags for the object
+ * @size: Size of the object
+ * @va_len: VA size of the object
+ * @va_addr: Virtual address of the object (if it is mapped)
+ * id - GPU object ID of the object to query
+ */
+struct kgsl_gpuobj_info {
+	uint64_t gpuaddr;
+	uint64_t flags;
+	uint64_t size;
+	uint64_t va_len;
+	uint64_t va_addr;
+	unsigned int id;
+};
+
+#define IOCTL_KGSL_GPUOBJ_INFO \
+	_IOWR(KGSL_IOC_TYPE, 0x47, struct kgsl_gpuobj_info)
+
+/**
+ * struct kgsl_gpuobj_import - argument to IOCTL_KGSL_GPUOBJ_IMPORT
+ * @priv: Pointer to the private data for the import type
+ * @priv_len: Length of the private data
+ * @flags: Mask of KGSL_MEMFLAG_ flags
+ * @type: Type of the import (KGSL_USER_MEM_TYPE_*)
+ * @id: Returns the ID of the new GPU object
+ */
+struct kgsl_gpuobj_import {
+	uint64_t __user priv;
+	uint64_t priv_len;
+	uint64_t flags;
+	unsigned int type;
+	unsigned int id;
+};
+
+/**
+ * struct kgsl_gpuobj_import_dma_buf - import a dmabuf object
+ * @fd: File descriptor for the dma-buf object
+ */
+struct kgsl_gpuobj_import_dma_buf {
+	int fd;
+};
+
+/**
+ * struct kgsl_gpuobj_import_useraddr - import an object based on a useraddr
+ * @virtaddr: Virtual address of the object to import
+ */
+struct kgsl_gpuobj_import_useraddr {
+	uint64_t virtaddr;
+};
+
+#define IOCTL_KGSL_GPUOBJ_IMPORT \
+	_IOWR(KGSL_IOC_TYPE, 0x48, struct kgsl_gpuobj_import)
+
+/**
+ * struct kgsl_gpuobj_sync_obj - Individual GPU object to sync
+ * @offset: Offset within the GPU object to sync
+ * @length: Number of bytes to sync
+ * @id: ID of the GPU object to sync
+ * @op: Cache operation to execute
+ */
+
+struct kgsl_gpuobj_sync_obj {
+	uint64_t offset;
+	uint64_t length;
+	unsigned int id;
+	unsigned int op;
+};
+
+/**
+ * struct kgsl_gpuobj_sync - Argument for IOCTL_KGSL_GPUOBJ_SYNC
+ * @objs: Pointer to an array of kgsl_gpuobj_sync_obj structs
+ * @obj_len: Size of each item in the array
+ * @count: Number of items in the array
+ */
+
+struct kgsl_gpuobj_sync {
+	uint64_t __user objs;
+	unsigned int obj_len;
+	unsigned int count;
+};
+
+#define IOCTL_KGSL_GPUOBJ_SYNC \
+	_IOW(KGSL_IOC_TYPE, 0x49, struct kgsl_gpuobj_sync)
+
+/**
+ * struct kgsl_command_object - GPU command object
+ * @offset: GPU address offset of the object
+ * @gpuaddr: GPU address of the object
+ * @size: Size of the object
+ * @flags: Current flags for the object
+ * @id - GPU command object ID
+ */
+struct kgsl_command_object {
+	uint64_t offset;
+	uint64_t gpuaddr;
+	uint64_t size;
+	unsigned int flags;
+	unsigned int id;
+};
+
+/**
+ * struct kgsl_command_syncpoint - GPU syncpoint object
+ * @priv: Pointer to the type specific buffer
+ * @size: Size of the type specific buffer
+ * @type: type of sync point defined here
+ */
+struct kgsl_command_syncpoint {
+	uint64_t __user priv;
+	uint64_t size;
+	unsigned int type;
+};
+
+/**
+ * struct kgsl_command_object - Argument for IOCTL_KGSL_GPU_COMMAND
+ * @flags: Current flags for the object
+ * @cmdlist: List of kgsl_command_objects for submission
+ * @cmd_size: Size of kgsl_command_objects structure
+ * @numcmds: Number of kgsl_command_objects in command list
+ * @objlist: List of kgsl_command_objects for tracking
+ * @obj_size: Size of kgsl_command_objects structure
+ * @numobjs: Number of kgsl_command_objects in object list
+ * @synclist: List of kgsl_command_syncpoints
+ * @sync_size: Size of kgsl_command_syncpoint structure
+ * @numsyncs: Number of kgsl_command_syncpoints in syncpoint list
+ * @context_id: Context ID submittin ghte kgsl_gpu_command
+ * @timestamp: Timestamp for the submitted commands
+ */
+struct kgsl_gpu_command {
+	uint64_t flags;
+	uint64_t __user cmdlist;
+	unsigned int cmdsize;
+	unsigned int numcmds;
+	uint64_t __user objlist;
+	unsigned int objsize;
+	unsigned int numobjs;
+	uint64_t __user synclist;
+	unsigned int syncsize;
+	unsigned int numsyncs;
+	unsigned int context_id;
+	unsigned int timestamp;
+};
+
+#define IOCTL_KGSL_GPU_COMMAND \
+	_IOWR(KGSL_IOC_TYPE, 0x4A, struct kgsl_gpu_command)
 
 #endif /* _UAPI_MSM_KGSL_H */
