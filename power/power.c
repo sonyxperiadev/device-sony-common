@@ -26,6 +26,18 @@
 #include <hardware/hardware.h>
 #include <hardware/power.h>
 
+#define RQBALANCE_BALANCE_LEVEL "/sys/devices/system/cpu/cpuquiet/rqbalance/balance_level"
+#define RQBALANCE_UP_THRESHOLD "/sys/devices/system/cpu/cpuquiet/rqbalance/nr_run_thresholds"
+#define RQBALANCE_DOWN_THRESHOLD "/sys/devices/system/cpu/cpuquiet/rqbalance/nr_down_run_thresholds"
+
+#define LOW_POWER_BALANCE_LEVEL "80"
+#define LOW_POWER_UP_THRESHOLD "200 450 550 580 600 640 750 4294967295"
+#define LOW_POWER_DOWN_THRESHOLD "0 120 320 400 440 500 550 700"
+
+#define NORMAL_POWER_BALANCE_LEVEL "40"
+#define NORMAL_POWER_UP_THRESHOLD "100 300 400 500 525 600 700 4294967295"
+#define NORMAL_POWER_DOWN_THRESHOLD "0 100 300 400 425 500 600 650"
+
 int sysfs_write(char *path, char *s)
 {
     char buf[80];
@@ -52,9 +64,26 @@ int sysfs_write(char *path, char *s)
     return ret;
 }
 
+void set_low_power()
+{
+    ALOGI("Setting low power mode");
+    sysfs_write(RQBALANCE_BALANCE_LEVEL, LOW_POWER_BALANCE_LEVEL);
+    sysfs_write(RQBALANCE_UP_THRESHOLD, LOW_POWER_UP_THRESHOLD);
+    sysfs_write(RQBALANCE_DOWN_THRESHOLD, LOW_POWER_DOWN_THRESHOLD);
+}
+
+void set_normal_power()
+{
+    ALOGI("Setting normal power mode");
+    sysfs_write(RQBALANCE_BALANCE_LEVEL, NORMAL_POWER_BALANCE_LEVEL);
+    sysfs_write(RQBALANCE_UP_THRESHOLD, NORMAL_POWER_UP_THRESHOLD);
+    sysfs_write(RQBALANCE_DOWN_THRESHOLD, NORMAL_POWER_DOWN_THRESHOLD);
+}
+
 static void power_init(struct power_module *module)
 {
     ALOGI("Simple PowerHAL is alive!.");
+    set_normal_power();
 }
 
 static void power_hint(struct power_module *module, power_hint_t hint,
@@ -71,7 +100,9 @@ static void power_hint(struct power_module *module, power_hint_t hint,
         case POWER_HINT_LOW_POWER:
             // When we want to save battery.
             if (data) {
-                ALOGI("Low power mode enabled.");
+                set_low_power();
+            } else {
+                set_normal_power();
             }
             break;
 
@@ -87,8 +118,10 @@ static void set_interactive(struct power_module *module, int on)
 
     if (!on) {
         ALOGI("Device is asleep.");
+        set_low_power();
     } else {
         ALOGI("Device is awake.");
+        set_normal_power();
     }
 }
 
