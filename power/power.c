@@ -21,10 +21,25 @@
 #include <fcntl.h>
 
 #define LOG_TAG "Simple PowerHAL"
+#include <cutils/properties.h>
 #include <utils/Log.h>
 
 #include <hardware/hardware.h>
 #include <hardware/power.h>
+
+#define RQBALANCE_BALANCE_LEVEL "/sys/devices/system/cpu/cpuquiet/rqbalance/balance_level"
+#define RQBALANCE_UP_THRESHOLD "/sys/devices/system/cpu/cpuquiet/rqbalance/nr_run_thresholds"
+#define RQBALANCE_DOWN_THRESHOLD "/sys/devices/system/cpu/cpuquiet/rqbalance/nr_down_run_thresholds"
+
+#define LOW_POWER_BALANCE_LEVEL "rqbalance.low.balance_level"
+#define LOW_POWER_UP_THRESHOLD "rqbalance.low.up_threshold"
+#define LOW_POWER_DOWN_THRESHOLD "rqbalance.low.down_threshold"
+
+#define NORMAL_POWER_BALANCE_LEVEL "rqbalance.normal.balance_level"
+#define NORMAL_POWER_UP_THRESHOLD "rqbalance.normal.up_threshold"
+#define NORMAL_POWER_DOWN_THRESHOLD "rqbalance.normal.down_threshold"
+
+#define PROPERTY_VALUE_MAX 128
 
 int sysfs_write(char *path, char *s)
 {
@@ -52,9 +67,38 @@ int sysfs_write(char *path, char *s)
     return ret;
 }
 
+void set_low_power()
+{
+    char value[PROPERTY_VALUE_MAX];
+    ALOGI("Setting low power mode");
+    property_get(LOW_POWER_BALANCE_LEVEL, value, "0");
+    sysfs_write(RQBALANCE_BALANCE_LEVEL, value);
+
+    property_get(LOW_POWER_UP_THRESHOLD, value, "0");
+    sysfs_write(RQBALANCE_UP_THRESHOLD, value);
+
+    property_get(LOW_POWER_DOWN_THRESHOLD, value, "0");
+    sysfs_write(RQBALANCE_DOWN_THRESHOLD, value);
+}
+
+void set_normal_power()
+{
+    char value[PROPERTY_VALUE_MAX];
+    ALOGI("Setting normal power mode");
+    property_get(NORMAL_POWER_BALANCE_LEVEL, value, "0");
+    sysfs_write(RQBALANCE_BALANCE_LEVEL, value);
+
+    property_get(NORMAL_POWER_UP_THRESHOLD, value, "0");
+    sysfs_write(RQBALANCE_UP_THRESHOLD, value);
+
+    property_get(NORMAL_POWER_DOWN_THRESHOLD, value, "0");
+    sysfs_write(RQBALANCE_DOWN_THRESHOLD, value);
+}
+
 static void power_init(struct power_module *module)
 {
     ALOGI("Simple PowerHAL is alive!.");
+    set_normal_power();
 }
 
 static void power_hint(struct power_module *module, power_hint_t hint,
@@ -71,7 +115,9 @@ static void power_hint(struct power_module *module, power_hint_t hint,
         case POWER_HINT_LOW_POWER:
             // When we want to save battery.
             if (data) {
-                ALOGI("Low power mode enabled.");
+                set_low_power();
+            } else {
+                set_normal_power();
             }
             break;
 
@@ -87,8 +133,10 @@ static void set_interactive(struct power_module *module, int on)
 
     if (!on) {
         ALOGI("Device is asleep.");
+        set_low_power();
     } else {
         ALOGI("Device is awake.");
+        set_normal_power();
     }
 }
 
