@@ -21,6 +21,7 @@
 #include <fcntl.h>
 
 #define LOG_TAG "Simple PowerHAL"
+#include <cutils/properties.h>
 #include <utils/Log.h>
 
 #include <hardware/hardware.h>
@@ -30,13 +31,15 @@
 #define RQBALANCE_UP_THRESHOLD "/sys/devices/system/cpu/cpuquiet/rqbalance/nr_run_thresholds"
 #define RQBALANCE_DOWN_THRESHOLD "/sys/devices/system/cpu/cpuquiet/rqbalance/nr_down_run_thresholds"
 
-#define LOW_POWER_BALANCE_LEVEL "80"
-#define LOW_POWER_UP_THRESHOLD "200 450 550 580 600 640 750 4294967295"
-#define LOW_POWER_DOWN_THRESHOLD "0 120 320 400 440 500 550 700"
+#define LOW_POWER_BALANCE_LEVEL "rqbalance.low.balance_level"
+#define LOW_POWER_UP_THRESHOLD "rqbalance.low.up_threshold"
+#define LOW_POWER_DOWN_THRESHOLD "rqbalance.low.down_threshold"
 
-#define NORMAL_POWER_BALANCE_LEVEL "40"
-#define NORMAL_POWER_UP_THRESHOLD "100 300 400 500 525 600 700 4294967295"
-#define NORMAL_POWER_DOWN_THRESHOLD "0 100 300 400 425 500 600 650"
+#define NORMAL_POWER_BALANCE_LEVEL "rqbalance.normal.balance_level"
+#define NORMAL_POWER_UP_THRESHOLD "rqbalance.normal.up_threshold"
+#define NORMAL_POWER_DOWN_THRESHOLD "rqbalance.normal.down_threshold"
+
+#define PROPERTY_VALUE_MAX 128
 
 int sysfs_write(char *path, char *s)
 {
@@ -66,18 +69,30 @@ int sysfs_write(char *path, char *s)
 
 void set_low_power()
 {
+    char value[PROPERTY_VALUE_MAX];
     ALOGI("Setting low power mode");
-    sysfs_write(RQBALANCE_BALANCE_LEVEL, LOW_POWER_BALANCE_LEVEL);
-    sysfs_write(RQBALANCE_UP_THRESHOLD, LOW_POWER_UP_THRESHOLD);
-    sysfs_write(RQBALANCE_DOWN_THRESHOLD, LOW_POWER_DOWN_THRESHOLD);
+    property_get(LOW_POWER_BALANCE_LEVEL, value, "0");
+    sysfs_write(RQBALANCE_BALANCE_LEVEL, value);
+
+    property_get(LOW_POWER_UP_THRESHOLD, value, "0");
+    sysfs_write(RQBALANCE_UP_THRESHOLD, value);
+
+    property_get(LOW_POWER_DOWN_THRESHOLD, value, "0");
+    sysfs_write(RQBALANCE_DOWN_THRESHOLD, value);
 }
 
 void set_normal_power()
 {
+    char value[PROPERTY_VALUE_MAX];
     ALOGI("Setting normal power mode");
-    sysfs_write(RQBALANCE_BALANCE_LEVEL, NORMAL_POWER_BALANCE_LEVEL);
-    sysfs_write(RQBALANCE_UP_THRESHOLD, NORMAL_POWER_UP_THRESHOLD);
-    sysfs_write(RQBALANCE_DOWN_THRESHOLD, NORMAL_POWER_DOWN_THRESHOLD);
+    property_get(NORMAL_POWER_BALANCE_LEVEL, value, "0");
+    sysfs_write(RQBALANCE_BALANCE_LEVEL, value);
+
+    property_get(NORMAL_POWER_UP_THRESHOLD, value, "0");
+    sysfs_write(RQBALANCE_UP_THRESHOLD, value);
+
+    property_get(NORMAL_POWER_DOWN_THRESHOLD, value, "0");
+    sysfs_write(RQBALANCE_DOWN_THRESHOLD, value);
 }
 
 static void power_init(struct power_module *module)

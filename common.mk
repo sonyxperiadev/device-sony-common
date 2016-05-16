@@ -264,3 +264,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.qualcomm.sns.daemon=0 \
     debug.qualcomm.sns.hal=0 \
     debug.qualcomm.sns.libsensor1=0
+
+# Power HAL Values
+PRODUCT_PROPERTY_OVERRIDES += \
+    rqbalance.low.balance_level=80 \
+    rqbalance.low.up_threshold=200 450 550 580 600 640 750 4294967295 \
+    rqbalance.low.down_threshold=0 120 320 400 440 500 550 700 \
+    rqbalance.normal.balance_level=40 \
+    rqbalance.normal.up_threshold=100 300 400 500 525 600 700 4294967295 \
+    rqbalance.normal.down_threshold=0 100 300 400 425 500 600 650
