@@ -9,3 +9,7 @@ type timekeep_app_data_file, file_type, data_file_type;
 type sysfs_addrsetup, fs_type, sysfs_type;
 type sysfs_performance, sysfs_type, fs_type;
 type sysfs_power_management, fs_type, sysfs_type;
+type sysfs_rmt_storage, fs_type, sysfs_type;
+type sysfs_subsys, sysfs_type, fs_type;
+type sysfs_timekeep, fs_type, sysfs_type;
+type sysfs_video, fs_type, sysfs_type;

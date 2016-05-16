@@ -1,6 +1,4 @@
-# Connect to /dev/socket/tad
-unix_socket_connect(sensors, tad, tad)
+allow sensors system_file:dir r_dir_perms;
 
-allow sensors self:capability { net_raw };
-
+allow sensors sysfs_socinfo:dir r_dir_perms;
 allow sensors sysfs_socinfo:file r_file_perms;

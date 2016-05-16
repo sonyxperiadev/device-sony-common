@@ -1,0 +1,7 @@
+# Don't put anything here with debugfs - it's supposed to be a denial
+
+allow rmt_storage sysfs_rmt_storage:dir r_dir_perms;
+allow rmt_storage sysfs_rmt_storage:file r_file_perms;
+
+allow rmt_storage sysfs_uio:dir r_dir_perms;
+allow rmt_storage sysfs_uio:lnk_file r_file_perms;
