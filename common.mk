@@ -58,7 +58,6 @@ PRODUCT_COPY_FILES += \
     device/sony/common/rootdir/system/etc/sec_config:system/etc/sec_config \
     device/sony/common/rootdir/system/etc/sensors/sensors_settings:system/etc/sensors/sensors_settings
 
-
 # Audio
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
@@ -137,7 +136,8 @@ PRODUCT_PACKAGES += \
 # AOSP Packages
 PRODUCT_PACKAGES += \
     InCallUI \
-    Launcher3
+    Launcher3 \
+    Stk
 
 PRODUCT_PACKAGES += \
     libion \
