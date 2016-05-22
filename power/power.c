@@ -41,6 +41,14 @@
 
 #define PROPERTY_VALUE_MAX 128
 
+char low_balance[PROPERTY_VALUE_MAX];
+char low_up[PROPERTY_VALUE_MAX];
+char low_down[PROPERTY_VALUE_MAX];
+
+char normal_balance[PROPERTY_VALUE_MAX];
+char normal_up[PROPERTY_VALUE_MAX];
+char normal_down[PROPERTY_VALUE_MAX];
+
 int sysfs_write(char *path, char *s)
 {
     char buf[80];
@@ -69,35 +77,38 @@ int sysfs_write(char *path, char *s)
 
 void set_low_power()
 {
-    char value[PROPERTY_VALUE_MAX];
     ALOGI("Setting low power mode");
-    property_get(LOW_POWER_BALANCE_LEVEL, value, "0");
-    sysfs_write(RQBALANCE_BALANCE_LEVEL, value);
-
-    property_get(LOW_POWER_UP_THRESHOLD, value, "0");
-    sysfs_write(RQBALANCE_UP_THRESHOLD, value);
-
-    property_get(LOW_POWER_DOWN_THRESHOLD, value, "0");
-    sysfs_write(RQBALANCE_DOWN_THRESHOLD, value);
+    sysfs_write(RQBALANCE_BALANCE_LEVEL, low_balance);
+    sysfs_write(RQBALANCE_UP_THRESHOLD, low_up);
+    sysfs_write(RQBALANCE_DOWN_THRESHOLD, low_down);
 }
 
 void set_normal_power()
 {
-    char value[PROPERTY_VALUE_MAX];
     ALOGI("Setting normal power mode");
-    property_get(NORMAL_POWER_BALANCE_LEVEL, value, "0");
-    sysfs_write(RQBALANCE_BALANCE_LEVEL, value);
-
-    property_get(NORMAL_POWER_UP_THRESHOLD, value, "0");
-    sysfs_write(RQBALANCE_UP_THRESHOLD, value);
-
-    property_get(NORMAL_POWER_DOWN_THRESHOLD, value, "0");
-    sysfs_write(RQBALANCE_DOWN_THRESHOLD, value);
+    sysfs_write(RQBALANCE_BALANCE_LEVEL, normal_balance);
+    sysfs_write(RQBALANCE_UP_THRESHOLD, normal_up);
+    sysfs_write(RQBALANCE_DOWN_THRESHOLD, normal_down);
 }
 
 static void power_init(struct power_module *module)
 {
     ALOGI("Simple PowerHAL is alive!.");
+
+    property_get(LOW_POWER_BALANCE_LEVEL, low_balance, "0");
+    ALOGI("LOW_POWER_BALANCE_LEVEL: %s", low_balance);
+    property_get(LOW_POWER_UP_THRESHOLD, low_up, "0");
+    ALOGI("LOW_POWER_UP_THRESHOLD: %s", low_up);
+    property_get(LOW_POWER_DOWN_THRESHOLD, low_down, "0");
+    ALOGI("LOW_POWER_DOWN_THRESHOLD: %s", low_down);
+
+    property_get(NORMAL_POWER_BALANCE_LEVEL, normal_balance, "0");
+    ALOGI("NORMAL_POWER_BALANCE_LEVEL: %s", normal_balance);
+    property_get(NORMAL_POWER_UP_THRESHOLD, normal_up, "0");
+    ALOGI("NORMAL_POWER_UP_THRESHOLD: %s", normal_up);
+    property_get(NORMAL_POWER_DOWN_THRESHOLD, normal_down, "0");
+    ALOGI("NORMAL_POWER_DOWN_THRESHOLD: %s", normal_down);
+
     set_normal_power();
 }
 
