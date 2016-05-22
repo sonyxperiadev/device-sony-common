@@ -15,6 +15,7 @@
  */
 
 #include <errno.h>
+#include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -75,6 +76,20 @@ int sysfs_write(char *path, char *s)
     return ret;
 }
 
+static char *replace(char *s, char old, char new)
+{
+    char *p = s;
+
+    while (*p) {
+        if (*p == old) {
+            *p = new;
+        }
+        ++p;
+    }
+
+    return s;
+}
+
 void set_low_power()
 {
     ALOGI("Setting low power mode");
@@ -98,15 +113,19 @@ static void power_init(struct power_module *module)
     property_get(LOW_POWER_BALANCE_LEVEL, low_balance, "0");
     ALOGI("LOW_POWER_BALANCE_LEVEL: %s", low_balance);
     property_get(LOW_POWER_UP_THRESHOLD, low_up, "0");
+    replace(low_up, ',', ' ');
     ALOGI("LOW_POWER_UP_THRESHOLD: %s", low_up);
     property_get(LOW_POWER_DOWN_THRESHOLD, low_down, "0");
+    replace(low_down, ',', ' ');
     ALOGI("LOW_POWER_DOWN_THRESHOLD: %s", low_down);
 
     property_get(NORMAL_POWER_BALANCE_LEVEL, normal_balance, "0");
     ALOGI("NORMAL_POWER_BALANCE_LEVEL: %s", normal_balance);
     property_get(NORMAL_POWER_UP_THRESHOLD, normal_up, "0");
+    replace(normal_up, ',', ' ');
     ALOGI("NORMAL_POWER_UP_THRESHOLD: %s", normal_up);
     property_get(NORMAL_POWER_DOWN_THRESHOLD, normal_down, "0");
+    replace(normal_down, ',', ' ');
     ALOGI("NORMAL_POWER_DOWN_THRESHOLD: %s", normal_down);
 
     set_normal_power();
