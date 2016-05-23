@@ -54,6 +54,8 @@ TARGET_NO_RPC := true
 # Charger
 BOARD_CHARGER_ENABLE_SUSPEND := true
 
+TARGET_SYSTEM_PROP := device/sony/common/system.prop
+
 # Include an expanded selection of fonts
 EXTENDED_FONT_FOOTPRINT := true
 
