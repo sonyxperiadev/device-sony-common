@@ -1,11 +1,75 @@
+# Default type for anything under /firmware.
+type firmware_file, fs_type, contextmount_type;
+
+#Define the qmux socket type
+type qmuxd_socket, file_type;
+
+#Define the netmgrd socket type
+type netmgrd_socket, file_type;
+
+#Define the timeout for platform specific transports
+type sysfs_smd_open_timeout, sysfs_type, fs_type;
+
+# Persist file types
+type persist_file, file_type;
+type persist_drm_file, file_type;
+type data_qsee_file, file_type;
+
+#file type for irqbalance socket
+type msm_irqbalance_socket, file_type;
+
+# Sensor file types
+type sensors_socket, file_type;
+type sensors_data_file, file_type, data_file_type;
+type sensors_persist_file, file_type;
+
+# Storage RFS file types
+type rfs_file, file_type, data_file_type;
+type rfs_shared_hlos_file, file_type, data_file_type;
+
+#SurfaceFlinger file type for sysfs access
+type sysfs_graphics, sysfs_type, fs_type;
+
+# USB/battery power supply type for hvdcp/quickcharge
+type sysfs_usb_supply, sysfs_type, fs_type;
+type sysfs_battery_supply, sysfs_type, fs_type;
+
+#Define the files written during the operation of mpdecision
+type sysfs_mpdecision, fs_type, sysfs_type;
+type sysfs_rqstats, fs_type, sysfs_type;
+type sysfs_cpu_online, fs_type, sysfs_type;
+
+#mm-qcamera-daemon socket
+type camera_socket, file_type;
+
+type sysfs_ssr,  sysfs_type, fs_type;
+type sysfs_ssr_toggle,  sysfs_type, file_type;
+
+# Files accessed by qcom-system-daemon
+type sysfs_socinfo, fs_type, sysfs_type;
+
+#Define the files for the operation of QDCM
+type persist_display_file, file_type;
+
+type fm_data_file, file_type, data_file_type;
+
+# dts notifier files
+type dts_data_file, file_type, data_file_type;
+
 type tad_socket, file_type;
 type ta_data_file, file_type;
 
 type proc_kernel_sched, fs_type;
 
+type acdb_data_file, file_type, data_file_type;
 type addrsetup_data_file, file_type, data_file_type;
 type timekeep_app_data_file, file_type, data_file_type;
 
 type sysfs_addrsetup, fs_type, sysfs_type;
 type sysfs_performance, sysfs_type, fs_type;
 type sysfs_power_management, fs_type, sysfs_type;
+type sysfs_pronto, fs_type, sysfs_type;
+type sysfs_rmt_storage, fs_type, sysfs_type;
+type sysfs_subsys, sysfs_type, fs_type;
+type sysfs_timekeep, fs_type, sysfs_type;
+type sysfs_video, fs_type, sysfs_type;

@@ -5,10 +5,11 @@ type thermanager_exec, exec_type, file_type;
 init_daemon_domain(thermanager)
 
 allow thermanager self:capability dac_override;
-allow thermanager { sysfs sysfs_devices_system_cpu }:file write;
-allow thermanager { sysfs_thermal sysfs_usb_supply }:dir search;
-allow thermanager sysfs_thermal:{ lnk_file file } rw_file_perms;
-allow thermanager sysfs_usb_supply:file rw_file_perms;
 
-allow thermanager sysfs_performance:dir search;
-allow thermanager sysfs_performance:file rw_file_perms;
+# Hotplugging destroys sysfs so they lose all contexts when recreated.
+rw_dir_file(thermanager, sysfs)
+
+rw_dir_file(thermanager, sysfs_devices_system_cpu)
+rw_dir_file(thermanager, sysfs_usb_supply)
+rw_dir_file(thermanager, sysfs_thermal)
+rw_dir_file(thermanager, sysfs_performance)

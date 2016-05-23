@@ -1,2 +1,10 @@
-allow mediaserver system_data_file:dir { write add_name };
-allow mediaserver system_data_file:file r_file_perms;
+unix_socket_send(mediaserver, camera, mm-qcamerad)
+
+allow mediaserver self:socket create_socket_perms;
+
+binder_call(mediaserver, rild)
+
+qmux_socket(mediaserver)
+allow mediaserver camera_data_file:sock_file w_file_perms;
+
+allow mediaserver camera_prop:file r_file_perms;

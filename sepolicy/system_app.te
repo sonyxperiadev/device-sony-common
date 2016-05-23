@@ -1,1 +1,1 @@
-allow system_app timekeep_prop:property_service set;
+set_prop(system_app, timekeep_prop)

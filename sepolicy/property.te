@@ -1,1 +1,11 @@
+type sensors_prop, property_type;
+type msm_irqbalance_prop, property_type;
+type camera_prop, property_type;
+
+#properites for netd
+type netd_prop, property_type;
+
+type boot_animation_prop, property_type;
+
+type tee_prop, property_type;
 type timekeep_prop, property_type;

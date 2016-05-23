@@ -1,0 +1,32 @@
+type rmt_storage, domain;
+type rmt_storage_exec, exec_type, file_type;
+
+init_daemon_domain(rmt_storage)
+
+allow rmt_storage {
+    modem_efs_partition_device
+    root_block_device
+    ssd_device
+}:blk_file rw_file_perms;
+
+allow rmt_storage block_device:dir r_dir_perms;
+allow rmt_storage { smem_log_device uio_device }:chr_file rw_file_perms;
+
+# sys_admin is needed for ioprio_set
+allow rmt_storage self:capability {
+    setuid
+    setgid
+    sys_admin
+    dac_override
+    net_raw
+    setpcap
+};
+
+#For Wakelocks
+wakelock_use(rmt_storage)
+
+allow rmt_storage self:socket create_socket_perms;
+allow rmt_storage uio_device:chr_file rw_file_perms;
+
+r_dir_file(rmt_storage, sysfs_rmt_storage)
+r_dir_file(rmt_storage, sysfs_uio)

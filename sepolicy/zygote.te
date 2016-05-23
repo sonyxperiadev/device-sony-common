@@ -1,3 +1,0 @@
-allow zygote init:unix_stream_socket { listen accept };
-allow zygote init:unix_stream_socket { setopt getopt getattr };
-allow zygote init:unix_stream_socket { read write };

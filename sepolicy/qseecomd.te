@@ -1,0 +1,23 @@
+# tee starts as root, and drops privileges
+allow tee self:capability {
+    setuid
+    setgid
+};
+
+# Need to directly manipulate certain block devices
+# for anti-rollback protection
+allow tee block_device:dir r_dir_perms;
+allow tee rpmb_device:blk_file rw_file_perms;
+
+# Provide tee access to ssd partition for HW FDE
+allow tee ssd_device:blk_file rw_file_perms;
+
+# allow tee to load firmware images
+r_dir_file(tee, firmware_file)
+
+binder_use(tee)
+
+# Provide tee ability to access QMUXD/IPCRouter for QMI
+qmux_socket(tee);
+
+set_prop(tee, tee_prop)

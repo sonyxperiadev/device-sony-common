@@ -1,1 +1,7 @@
-persist.sys.timeadjust         u:object_r:timekeep_prop:s0
+camera.                    u:object_r:camera_prop:s0
+persist.camera.            u:object_r:camera_prop:s0
+debug.sf.nobootanimation   u:object_r:boot_animation_prop:s0
+
+sys.keymaster.loaded       u:object_r:tee_prop:s0
+sys.listeners.registered   u:object_r:tee_prop:s0
+persist.sys.timeadjust     u:object_r:timekeep_prop:s0

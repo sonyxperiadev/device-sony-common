@@ -1,58 +1,157 @@
-# Trim Area daemon
-/dev/socket/tad                               u:object_r:tad_socket:s0
-/dev/block/mmcblk0p1                          u:object_r:tad_block_device:s0
+###################################
+# Dev nodes
+#
+/dev/adsprpc-smd                                u:object_r:qdsp_device:s0
+/dev/cpu_dma_latency                            u:object_r:device_latency:s0
+/dev/diag                                       u:object_r:diag_device:s0
+/dev/kgsl-3d0                                   u:object_r:gpu_device:s0
+/dev/msm_.*                                     u:object_r:audio_device:s0
+/dev/msm_dsps                                   u:object_r:sensors_device:s0
+/dev/msm_thermal_query                          u:object_r:thermal_device:s0
+/dev/qseecom                                    u:object_r:tee_device:s0
+/dev/rtc0                                       u:object_r:rtc_device:s0
+/dev/sensors                                    u:object_r:sensors_device:s0
+/dev/smd.*                                      u:object_r:smd_device:s0
+/dev/smem_log                                   u:object_r:smem_log_device:s0
+/dev/ttyHSL0                                    u:object_r:console_device:s0
+/dev/ttyHS[0-9]*                                u:object_r:serial_device:s0
+/dev/media([0-9])+                              u:object_r:video_device:s0
+/dev/jpeg[0-9]*                                 u:object_r:video_device:s0
+/dev/v4l-subdev.*                               u:object_r:video_device:s0
+/dev/block/mmcblk1                              u:object_r:sd_device:s0
+/dev/block/mmcblk1p1                            u:object_r:sd_device:s0
+/dev/ramdump_.*                                 u:object_r:ramdump_device:s0
+/dev/ipa                                        u:object_r:ipa_dev:s0
+/dev/wwan_ioctl                                 u:object_r:ipa_dev:s0
+/dev/ipaNatTable                                u:object_r:ipa_dev:s0
+/dev/rmnet_ctrl.*                               u:object_r:rmnet_device:s0
+/dev/dpl_ctrl                                   u:object_r:rmnet_device:s0
+/dev/pta                                        u:object_r:pta_device:s0
+/dev/voice_svc                                  u:object_r:voice_device:s0
+/dev/avtimer                                    u:object_r:avtimer_device:s0
+/dev/system_health_monitor                      u:object_r:system_health_monitor_device:s0
+/dev/qce                                        u:object_r:qce_device:s0
+/dev/msm-rng                                    u:object_r:rng_device:s0
+/dev/pn54x                                      u:object_r:nfc_device:s0
+/dev/subsys_modem                               u:object_r:subsys_modem_device:s0
+/dev/tfa98xx                                    u:object_r:audio_device:s0
+/dev/ttyHS0                                     u:object_r:hci_attach_dev:s0
 
-# NFC
-/dev/pn54x                                    u:object_r:nfc_device:s0
+###################################
+# Dev block nodes
+#
+/dev/block/mmcblk0                                             u:object_r:root_block_device:s0
+/dev/block/mmcblk0p1                                           u:object_r:tad_block_device:s0
+/dev/block/mmcblk0rpmb                                         u:object_r:rpmb_device:s0
 
-# Block devices
-/dev/block/bootdevice/by-name/TA              u:object_r:trim_area_partition_device:s0
-/dev/block/bootdevice/by-name/FOTAKernel      u:object_r:recovery_block_device:s0
+/dev/block/platform/soc.0/f9824900.sdhci/by-name/modemst1      u:object_r:modem_efs_partition_device:s0
+/dev/block/platform/msm_sdcc\.1/by-name/modemst1               u:object_r:modem_efs_partition_device:s0
+/dev/block/bootdevice/by-name/modemst1                         u:object_r:modem_efs_partition_device:s0
 
-# rmt_storage
-/sys/class/uio(/.*)?                                            u:object_r:sysfs_uio:s0
+/dev/block/platform/soc.0/f9824900.sdhci/by-name/modemst2      u:object_r:modem_efs_partition_device:s0
+/dev/block/platform/msm_sdcc\.1/by-name/modemst2               u:object_r:modem_efs_partition_device:s0
+/dev/block/bootdevice/by-name/modemst2                         u:object_r:modem_efs_partition_device:s0
 
-/system/bin/macaddrsetup                      u:object_r:addrsetup_exec:s0
-/system/bin/thermanager                       u:object_r:thermanager_exec:s0
-/system/bin/timekeep                          u:object_r:timekeep_exec:s0
-/system/vendor/bin/sct_service                u:object_r:sct_exec:s0
-/system/vendor/bin/tad_static                 u:object_r:tad_exec:s0
-/system/vendor/bin/ta_qmi_service             u:object_r:ta_qmi_exec:s0
-/system/vendor/bin/mlog_qmi_service           u:object_r:mlog_qmi_exec:s0
+/dev/block/platform/soc.0/f9824900.sdhci/by-name/fsg           u:object_r:modem_efs_partition_device:s0
+/dev/block/platform/msm_sdcc\.1/by-name/fsg                    u:object_r:modem_efs_partition_device:s0
+/dev/block/bootdevice/by-name/fsg                              u:object_r:modem_efs_partition_device:s0
 
-# QCOM Blobs moved from /system/bin to /system/vendor/bin
-/system/vendor/bin/irsc_util                  u:object_r:irsc_util_exec:s0
-/system/vendor/bin/mm-qcamera-daemon          u:object_r:mm-qcamerad_exec:s0
-/system/vendor/bin/netmgrd                    u:object_r:netmgrd_exec:s0
-/system/vendor/bin/qmuxd                      u:object_r:qmuxd_exec:s0
-/system/vendor/bin/rmt_storage                u:object_r:rmt_storage_exec:s0
-/system/vendor/bin/sensors.qcom               u:object_r:sensors_exec:s0
-/system/vendor/bin/touch_fusion               u:object_r:touchfusion_exec:s0
-/system/vendor/bin/wcnss_service              u:object_r:wcnss_service_exec:s0
-/system/vendor/bin/pm-service                 u:object_r:per_mgr_exec:s0
-/system/vendor/bin/pm-proxy                   u:object_r:per_mgr_exec:s0
-/system/vendor/bin/qseecomd                   u:object_r:tee_exec:s0
-/system/vendor/bin/msm_irqbalance             u:object_r:msm_irqbalanced_exec:s0
+/dev/block/platform/soc.0/f9824900.sdhci/by-name/ssd           u:object_r:ssd_device:s0
+/dev/block/platform/msm_sdcc\.1/by-name/ssd                    u:object_r:ssd_device:s0
+/dev/block/bootdevice/by-name/ssd                              u:object_r:ssd_device:s0
 
-# acdb delta files
-/data/audio/acdbdata/delta(/.*)?              u:object_r:system_data_file:s0
+/dev/block/platform/soc.0/f9824900.sdhci/by-name/misc          u:object_r:misc_partition:s0
+/dev/block/platform/msm_sdcc\.1/by-name/misc                   u:object_r:misc_partition:s0
+/dev/block/bootdevice/by-name/misc                             u:object_r:misc_partition:s0
 
-# Audio amp used on shinano platform
-/dev/tfa98xx                                  u:object_r:audio_device:s0
-/system/bin/tfa9890_amp                       u:object_r:tfa_amp_exec:s0
+/dev/block/platform/soc.0/f9824900.sdhci/by-name/TA            u:object_r:trim_area_partition_device:s0
+/dev/block/platform/msm_sdcc\.1/by-name/TA                     u:object_r:trim_area_partition_device:s0
+/dev/block/bootdevice/by-name/TA                               u:object_r:trim_area_partition_device:s0
 
-# USB & Power
-/sys/devices/msm_dwc3/power_supply/usb/type   u:object_r:sysfs_usb_supply:s0
-/sys/devices/msm_dwc3/power_supply/usb/device u:object_r:sysfs_usb_supply:s0
+/dev/block/platform/soc.0/f9824900.sdhci/by-name/FOTAKernel    u:object_r:recovery_block_device:s0
+/dev/block/platform/msm_sdcc\.1/by-name/FOTAKernel             u:object_r:recovery_block_device:s0
+/dev/block/bootdevice/by-name/FOTAKernel                       u:object_r:recovery_block_device:s0
 
-# WiFi MAC address
-/sys/devices/fb000000\.qcom,wcnss-wlan/wcnss_mac_addr    u:object_r:sysfs_addrsetup:s0
+/dev/block/platform/soc.0/f9824900.sdhci/by-name/userdata      u:object_r:userdata_block_device:s0
+/dev/block/platform/msm_sdcc\.1/by-name/userdata               u:object_r:userdata_block_device:s0
+/dev/block/bootdevice/by-name/userdata                         u:object_r:userdata_block_device:s0
 
-# Thermal
-/sys/devices/soc\.0/02-qcom,qpnp-smbcharger/power_supply/battery/charging_enabled         u:object_r:sysfs_thermal:s0
-/sys/devices/soc\.0/02-qcom,qpnp-smbcharger/power_supply/battery/system_temp_level        u:object_r:sysfs_thermal:s0
-/sys/devices/soc\.0/f9200000\.ssusb/power_supply/usb/current_max                          u:object_r:sysfs_thermal:s0
-/sys/devices/soc\.0/fdb00000\.qcom,kgsl-3d0/kgsl/kgsl-3d0/max_gpuclk                      u:object_r:sysfs_thermal:s0
+/dev/block/platform/soc.0/f9824900.sdhci/by-name/boot          u:object_r:boot_block_device:s0
+/dev/block/platform/msm_sdcc\.1/by-name/boot                   u:object_r:boot_block_device:s0
+/dev/block/bootdevice/by-name/boot                             u:object_r:boot_block_device:s0
+
+/dev/block/platform/soc.0/f9824900.sdhci/by-name/recovery      u:object_r:recovery_block_device:s0
+/dev/block/platform/msm_sdcc\.1/by-name/recovery               u:object_r:recovery_block_device:s0
+/dev/block/bootdevice/by-name/recovery                         u:object_r:recovery_block_device:s0
+
+/dev/block/platform/soc.0/f9824900.sdhci/by-name/cache         u:object_r:cache_block_device:s0
+/dev/block/platform/msm_sdcc\.1/by-name/cache                  u:object_r:cache_block_device:s0
+/dev/block/bootdevice/by-name/cache                            u:object_r:cache_block_device:s0
+
+###################################
+# Dev socket nodes
+#
+/dev/socket/qmux_audio(/.*)?                    u:object_r:qmuxd_socket:s0
+/dev/socket/qmux_bluetooth(/.*)?                u:object_r:qmuxd_socket:s0
+/dev/socket/qmux_gps(/.*)?                      u:object_r:qmuxd_socket:s0
+/dev/socket/qmux_radio(/.*)?                    u:object_r:qmuxd_socket:s0
+/dev/socket/qmux_nfc(/.*)?                      u:object_r:qmuxd_socket:s0
+/dev/socket/netmgr(/.*)?                        u:object_r:netmgrd_socket:s0
+/dev/socket/sensor_ctl_socket                   u:object_r:sensors_socket:s0
+/dev/socket/msm_irqbalance                      u:object_r:msm_irqbalance_socket:s0
+/dev/socket/tad                                 u:object_r:tad_socket:s0
+
+###################################
+# System files
+#
+/system/bin/macaddrsetup                        u:object_r:addrsetup_exec:s0
+/system/bin/thermanager                         u:object_r:thermanager_exec:s0
+/system/bin/timekeep                            u:object_r:timekeep_exec:s0
+/system/bin/tfa9890_amp                         u:object_r:tfa_amp_exec:s0
+/system/vendor/bin/irsc_util                    u:object_r:irsc_util_exec:s0
+/system/vendor/bin/mlog_qmi_service             u:object_r:mlog_qmi_exec:s0
+/system/vendor/bin/mm-qcamera-daemon            u:object_r:mm-qcamerad_exec:s0
+/system/vendor/bin/msm_irqbalance               u:object_r:msm_irqbalanced_exec:s0
+/system/vendor/bin/netmgrd                      u:object_r:netmgrd_exec:s0
+/system/vendor/bin/pm-service                   u:object_r:per_mgr_exec:s0
+/system/vendor/bin/pm-proxy                     u:object_r:per_mgr_exec:s0
+/system/vendor/bin/qmuxd                        u:object_r:qmuxd_exec:s0
+/system/vendor/bin/qseecomd                     u:object_r:tee_exec:s0
+/system/vendor/bin/rmt_storage                  u:object_r:rmt_storage_exec:s0
+/system/vendor/bin/sct_service                  u:object_r:sct_exec:s0
+/system/vendor/bin/sensors.qcom                 u:object_r:sensors_exec:s0
+/system/vendor/bin/tad_static                   u:object_r:tad_exec:s0
+/system/vendor/bin/ta_qmi_service               u:object_r:ta_qmi_exec:s0
+/system/vendor/bin/touch_fusion                 u:object_r:touchfusion_exec:s0
+/system/vendor/bin/wcnss_service                u:object_r:wcnss_service_exec:s0
+
+###################################
+# sysfs files
+#
+/sys/class/graphics/fb0/mdp/caps                                    u:object_r:sysfs_graphics:s0
+/sys/class/thermal(/.*)?                                            u:object_r:sysfs_thermal:s0
+/sys/class/uio(/.*)?                                                u:object_r:sysfs_uio:s0
+/sys/devices/system/cpu/cpu0/rq-stats/*                             u:object_r:sysfs_rqstats:s0
+/sys/devices/virtual/graphics/fb([0-2])+/idle_time                  u:object_r:sysfs_graphics:s0
+/sys/devices/virtual/graphics/fb([0-2])+/product_description        u:object_r:sysfs_graphics:s0
+/sys/devices/virtual/graphics/fb([0-2])+/vendor_name                u:object_r:sysfs_graphics:s0
+/sys/devices/virtual/smdpkt/smdcntl1[0-9]/open_timeout              u:object_r:sysfs_smd_open_timeout:s0
+/sys/devices/virtual/smdpkt/smdcntl[0-9]/open_timeout               u:object_r:sysfs_smd_open_timeout:s0
+/sys/devices/virtual/thermal(/.*)?                                  u:object_r:sysfs_thermal:s0
+/sys/module/msm_thermal(/.*)?                                       u:object_r:sysfs_thermal:s0
+/sys/module/msm_thermal/core_control/cpus_offlined                  u:object_r:sysfs_mpdecision:s0
+/sys/devices/virtual/graphics/fb([0-2])+/hpd                        u:object_r:sysfs_graphics:s0
+/sys/devices/virtual/graphics/fb([0-2])+/res_info                   u:object_r:sysfs_graphics:s0
+/sys/devices/virtual/graphics/fb([0-2])+/s3d_mode                   u:object_r:sysfs_graphics:s0
+/sys/class/graphics/fb([0-2])+/mdp/caps                             u:object_r:sysfs_graphics:s0
+/sys/class/graphics/fb([0-2])+/ad                                   u:object_r:sysfs_graphics:s0
+/sys/bus/msm_subsys(/.*)?                                           u:object_r:sysfs_ssr:s0
+/sys/bus/msm_subsys/devices/subsys0/restart_level                   u:object_r:sysfs_ssr_toggle:s0
+/sys/bus/msm_subsys/devices/subsys1/restart_level                   u:object_r:sysfs_ssr_toggle:s0
+/sys/bus/msm_subsys/devices/subsys2/restart_level                   u:object_r:sysfs_ssr_toggle:s0
+/sys/bus/msm_subsys/devices/subsys3/restart_level                   u:object_r:sysfs_ssr_toggle:s0
+/sys/bus/msm_subsys/devices/subsys4/restart_level                   u:object_r:sysfs_ssr_toggle:s0
+/sys/devices/soc0(/.*)?                                             u:object_r:sysfs_socinfo:s0
 
 # Modules
 /sys/module/cpu_boost(/.*)?                                         u:object_r:sysfs_devices_system_cpu:s0
@@ -60,12 +159,68 @@
 /sys/module/msm_performance(/.*)?                                   u:object_r:sysfs_performance:s0
 
 # Bluetooth
-/dev/ttyHS0                                             u:object_r:hci_attach_dev:s0
-/sys/devices/platform/bcmdhd_wlan/macaddr               u:object_r:sysfs_addrsetup:s0
-/data/etc/bluetooth_bdaddr                              u:object_r:addrsetup_data_file:s0
+/sys/devices/platform/bcmdhd_wlan/macaddr                           u:object_r:sysfs_addrsetup:s0
+/sys/devices(/soc\.0)?/bluesleep\.(81|89)/rfkill/rfkill0/state      u:object_r:sysfs_bluetooth_writable:s0
+
+# Storage
+/sys/devices(/soc\.0)?/(fd80000|0)?\.qcom,rmtfs_sharedmem/uio/uio0/name                  u:object_r:sysfs_rmt_storage:s0
+/sys/devices(/soc\.0)?/(fd80000|0)?\.qcom,rmtfs_sharedmem/uio/uio0/version               u:object_r:sysfs_rmt_storage:s0
+/sys/devices(/soc\.0)?/(fd80000|0)?\.qcom,rmtfs_sharedmem/uio/uio0/maps/map0(/.*)?       u:object_r:sysfs_rmt_storage:s0
+
+# Subsystem
+/sys/devices(/soc\.0)?/fe200000\.qcom,lpass/subsys1/name                                 u:object_r:sysfs_subsys:s0
+/sys/devices(/soc\.0)?/fc880000\.qcom,mss/subsys2/name                                   u:object_r:sysfs_subsys:s0
+/sys/devices(/soc\.0)?/fdce0000\.qcom,venus/subsys0/name                                 u:object_r:sysfs_subsys:s0
+
+# Thermal
+/sys/devices(/soc\.0)?/02-qcom,qpnp-smbcharger/power_supply/battery/charging_enabled     u:object_r:sysfs_thermal:s0
+/sys/devices(/soc\.0)?/02-qcom,qpnp-smbcharger/power_supply/battery/system_temp_level    u:object_r:sysfs_thermal:s0
+/sys/devices(/soc\.0)?/f9200000\.ssusb/power_supply/usb/current_max                      u:object_r:sysfs_thermal:s0
+/sys/devices(/soc\.0)?/fdb00000\.qcom,kgsl-3d0/kgsl/kgsl-3d0/max_gpuclk                  u:object_r:sysfs_thermal:s0
+
+# Timekeep
+/sys/devices(/soc\.0)?/00-qcom,pm(8941|8994)_rtc/rtc/rtc0/since_epoch                    u:object_r:sysfs_timekeep:s0
+
+# USB & Power
+/sys/devices/msm_dwc3/power_supply/usb/type                                              u:object_r:sysfs_usb_supply:s0
+/sys/devices/msm_dwc3/power_supply/usb/device                                            u:object_r:sysfs_usb_supply:s0
+
+# Video
+/sys/devices(/soc\.0)?/fd8c0000\.qcom,msm-cam/video4linux/video0/name                    u:object_r:sysfs_video:s0
+/sys/devices(/soc\.0)?/fd878000\.qcom,fd/video4linux/video1/name                         u:object_r:sysfs_video:s0
+
+# WiFi MAC address
+/sys/devices/fb000000\.qcom,wcnss-wlan/wcnss_mac_addr                                    u:object_r:sysfs_addrsetup:s0
+/sys/devices/fb21b000.qcom,pronto/subsys2/name                                           u:object_r:sysfs_pronto:s0
+
+###################################
+# data files
+#
+/data/misc/sensors(/.*)?                                            u:object_r:sensors_data_file:s0
+/data/camera(/.*)?                                                  u:object_r:camera_socket:s0
+/data/nfc(/.*)?                                                     u:object_r:nfc_data_file:s0
+/data/misc/qsee(/.*)?                                               u:object_r:data_qsee_file:s0
+/data/misc/dts(/.*)?                                                u:object_r:dts_data_file:s0
+/data/misc/radio(/.*)?                                              u:object_r:radio_data_file:s0
+/data/misc/fm(/.*)?                                                 u:object_r:fm_data_file:s0
+/data/audio/acdbdata(/.*)?                                          u:object_r:acdb_data_file:s0
+/data/etc(/.*)?                                                     u:object_r:addrsetup_data_file:s0
+
+###################################
+# persist files
+#
+/persist(/.*)?                                                      u:object_r:persist_file:s0
+/persist/sensors(/.*)?                                              u:object_r:sensors_persist_file:s0
+/persist/data(/.*)?                                                 u:object_r:persist_drm_file:s0
+/persist/data/tz(/.*)?                                              u:object_r:persist_drm_file:s0
+/persist/data/sfs(/.*)?                                             u:object_r:persist_drm_file:s0
+/persist/hlos_rfs(/.*)?                                             u:object_r:rfs_shared_hlos_file:s0
+/persist/display(/.*)?                                              u:object_r:persist_display_file:s0
+/persist/rfs.*                                                      u:object_r:rfs_file:s0
+
+###################################
+# proc files
+#
 /proc/bluetooth/sleep/proto                             u:object_r:sysfs_bluetooth_writable:s0
 /proc/bluetooth/sleep/lpm                               u:object_r:sysfs_bluetooth_writable:s0
 /proc/bluetooth/sleep/btwrite                           u:object_r:sysfs_bluetooth_writable:s0
-/sys/devices/soc\.0/bluesleep\.81/rfkill/rfkill0/state  u:object_r:sysfs_bluetooth_writable:s0
-/sys/devices/bluesleep.89/rfkill/rfkill0/state          u:object_r:sysfs_bluetooth_writable:s0
-

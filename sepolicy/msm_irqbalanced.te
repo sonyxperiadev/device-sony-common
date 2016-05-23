@@ -1,0 +1,10 @@
+type msm_irqbalanced, domain;
+type msm_irqbalanced_exec, exec_type, file_type;
+
+init_daemon_domain(msm_irqbalanced)
+
+allow msm_irqbalanced { proc sysfs_devices_system_cpu }:file w_file_perms;
+allow msm_irqbalanced self:capability { setuid setgid dac_override };
+r_dir_file(msm_irqbalanced, sysfs_rqstats);
+
+allow msm_irqbalanced proc:file r_file_perms;
