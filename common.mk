@@ -228,10 +228,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     media.aac_51_output_enabled=true \
     audio.deep_buffer.media=1
 
-# Media
-PRODUCT_PROPERTY_OVERRIDES += \
-    audio.offload.video=1
-
 # Property to enable user to access Google WFD settings.
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.debug.wfd.enable=1
