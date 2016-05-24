@@ -55,3 +55,8 @@
 /sys/devices/soc.0/bluesleep.81/rfkill/rfkill0/state    u:object_r:sysfs_bluetooth_writable:s0
 /sys/devices/bluesleep.89/rfkill/rfkill0/state          u:object_r:sysfs_bluetooth_writable:s0
 
+# Fingerprint
+/sys/bus/spi/devices/spi0.1/clk_enable       u:object_r:sysfs_fingerprintd_writable:s0
+/sys/bus/spi/devices/spi0.1/spi_prepare      u:object_r:sysfs_fingerprintd_writable:s0
+/sys/bus/spi/devices/spi0.1/wakeup_enable    u:object_r:sysfs_fingerprintd_writable:s0
+/sys/bus/spi/devices/spi0.1/irq              u:object_r:sysfs_fingerprintd_writable:s0
