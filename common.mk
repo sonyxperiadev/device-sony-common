@@ -140,7 +140,6 @@ PRODUCT_PACKAGES += \
 
 # AOSP Packages
 PRODUCT_PACKAGES += \
-    InCallUI \
     Launcher3
 
 PRODUCT_PACKAGES += \
