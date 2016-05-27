@@ -43,7 +43,7 @@ void *enroll_thread_loop()
     int status = 1;
 
     while((status = fpc_capture_image()) >= 0) {
-        ALOGI("%s : Got Input", __func__);
+        ALOGD("%s : Got Input", __func__);
 
         if (status <= FINGERPRINT_ACQUIRED_TOO_FAST) {
             fingerprint_msg_t msg;
@@ -115,7 +115,7 @@ void *auth_thread_loop()
     int status = 1;
 
     while((status = fpc_capture_image()) >= 0) {
-        ALOGI("%s : Got Input", __func__);
+        ALOGD("%s : Got Input", __func__);
 
         if (status <= FINGERPRINT_ACQUIRED_TOO_FAST) {
             fingerprint_msg_t msg;

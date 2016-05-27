@@ -80,7 +80,7 @@ int sys_fs_irq_poll(char *path)
 
     switch (result) {
     case 0:
-        ALOGE ("timeout\n");
+        ALOGD ("timeout\n");
         close(pollfds[0].fd);
         return -1;
     case -1:
@@ -88,7 +88,7 @@ int sys_fs_irq_poll(char *path)
         close(pollfds[0].fd);
         return -1;
     default:
-        ALOGI ("IRQ GOT \n");
+        ALOGD ("IRQ GOT \n");
         close(pollfds[0].fd);
         break;
     }
