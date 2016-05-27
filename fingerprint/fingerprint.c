@@ -26,7 +26,7 @@
 #include "fpc_imp.h"
 
 
-uint64_t challenge = NULL;
+uint64_t challenge = 0;
 bool auth_thread_running = false;
 
 pthread_t thread;
