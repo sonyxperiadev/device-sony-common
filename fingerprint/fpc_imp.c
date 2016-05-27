@@ -287,11 +287,11 @@ int fpc_wait_for_finger()
     int finger_state  = send_normal_command(FPC_CHK_FP_LOST,FPC_CHK_FP_LOST,mHandle);
 
     if (finger_state == 4) {
-        ALOGI("%s : WAIT FOR FINGER UP\n", __func__);
+        ALOGD("%s : WAIT FOR FINGER UP\n", __func__);
     } else if (finger_state == 8) {
-        ALOGI("%s : WAIT FOR FINGER DOWN\n", __func__);
+        ALOGD("%s : WAIT FOR FINGER DOWN\n", __func__);
     } else if (finger_state == 2) {
-        ALOGI("%s : WAIT FOR FINGER NOT NEEDED\n", __func__);
+        ALOGD("%s : WAIT FOR FINGER NOT NEEDED\n", __func__);
         return 1;
     } else {
         return -1;
@@ -304,7 +304,7 @@ int fpc_wait_for_finger()
     }
     sysfs_write(SPI_CLK_FILE,"0");
 
-    ALOGI("Attempting to poll device IRQ\n");
+    ALOGD("Attempting to poll device IRQ\n");
 
     if (sys_fs_irq_poll(SPI_IRQ_FILE) < 0) {
         sysfs_write(SPI_CLK_FILE,"1");
@@ -318,10 +318,10 @@ int fpc_wait_for_finger()
     int wake_type = send_normal_command(FPC_GET_WAKE_TYPE,0,mHandle);
 
     if (wake_type == 3) {
-        ALOGI("%s : READY TO CAPTURE\n", __func__);
+        ALOGD("%s : READY TO CAPTURE\n", __func__);
         return 0;
     } else {
-        ALOGI("%s : NOT READY TRY AGAIN\n", __func__);
+        ALOGD("%s : NOT READY TRY AGAIN\n", __func__);
         return 1;
     }
 
