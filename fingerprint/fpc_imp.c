@@ -340,11 +340,13 @@ int fpc_capture_image()
 
     int ret = fpc_wait_for_finger();
 
-    //If wait reported 0 we can try and capture the image
     if (ret == 0) {
+        //If wait reported 0 we can try and capture the image
         ret = send_normal_command(FPC_CAPTURE_IMAGE,0,mHandle);
+    } else {
+        //return a high value as to not trigger a user notification
+        ret = 1000; //same as FINGERPRINT_ERROR_VENDOR_BASE
     }
-
 
     if (device_disable() < 0) {
         ALOGE("Error stopping device\n");
