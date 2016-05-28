@@ -345,11 +345,11 @@ on property:ro.boot.baseband=apq
     stop ril-daemon
 
 on property:ro.boot.baseband=msm
-    start qmuxd
-    start netmgrd
+    enable qmuxd
+    enable netmgrd
 
 on property:persist.radio.multisim.config=dsds
-    start ril-daemon2
+    enable ril-daemon2
 
 on property:init.svc.wpa_supplicant=stopped
     stop dhcpcd
