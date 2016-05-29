@@ -272,6 +272,7 @@ static int fingerprint_remove(struct fingerprint_device __unused *dev,
     //Maximum prints per gid is 5
     uint32_t prints[5];
     uint32_t print_count = fpc_get_print_count();
+    ALOGI("%s : print count is : %lu", __func__, print_count);
 
     fpc_get_pint_index_cmd_t print_indexs = fpc_get_print_index(print_count);
 
@@ -284,7 +285,7 @@ static int fingerprint_remove(struct fingerprint_device __unused *dev,
 
     ALOGI("%s : delete print : %lu", __func__,(unsigned long) fid);
 
-    for (int i = 0; i < 5; i++){
+    for (int i = 0; i < print_count; i++){
         uint32_t print_id = fpc_get_print_id(prints[i]);
 
         ALOGI("%s : found print : %lu at index %d", __func__,(unsigned long) print_id, i);
