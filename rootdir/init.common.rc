@@ -114,6 +114,7 @@ on charger
     wait /dev/block/bootdevice/by-name/system
     mount ext4 /dev/block/bootdevice/by-name/system /system ro barrier=1
     start rmt_storage
+    start mlog_qmi_service
     start irsc_util
 
 on early-boot
