@@ -166,7 +166,7 @@ int send_modified_command_to_tz(uint32_t cmd, struct QSEECom_handle * handle, vo
     return 0;
 }
 
-int send_normal_command(uint32_t cmd, uint32_t param, struct QSEECom_handle * handle)
+uint32_t send_normal_command(uint32_t cmd, uint32_t param, struct QSEECom_handle * handle)
 {
 
     fpc_send_std_cmd_t* send_cmd = (fpc_send_std_cmd_t*) handle->ion_sbuffer;
@@ -398,7 +398,7 @@ int fpc_enroll_end()
 
     uint32_t ret = send_normal_command(FPC_ENROLL_END,0x0,mHandle);
 
-    if (ret != 0) {
+    if (ret < 0 || ret > 4) {
         ALOGE("Error sending FPC_ENROLL_END to tz\n");
         return -1;
     }
