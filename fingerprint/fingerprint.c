@@ -38,7 +38,11 @@ char db_path[255];
 void *enroll_thread_loop()
 {
     ALOGI("%s", __func__);
-    fpc_enroll_start(1);
+
+    uint32_t print_count = fpc_get_print_count();
+    ALOGI("%s : print count is : %u", __func__, print_count);
+
+    fpc_enroll_start(print_count);
 
     int status = 1;
 
@@ -69,6 +73,16 @@ void *enroll_thread_loop()
                 }
             } else {
                 int print_index = fpc_enroll_end();
+
+                if (print_index < 0){
+                    ALOGE("%s : Error getting new print index : %d", __func__,print_index);
+                    fingerprint_msg_t msg;
+                    msg.type = FINGERPRINT_ERROR;
+                    msg.data.error = FINGERPRINT_ERROR_UNABLE_TO_PROCESS;
+                    callback(&msg);
+                    break;
+                }
+
                 ALOGI("%s : Got print index : %d", __func__,print_index);
 
                 uint32_t db_length = fpc_get_user_db_length();
@@ -313,6 +327,7 @@ static int fingerprint_remove(struct fingerprint_device __unused *dev,
             }
         }
     }
+
     return FINGERPRINT_ERROR;
 }
 
