@@ -328,6 +328,11 @@ static int fingerprint_remove(struct fingerprint_device __unused *dev,
         }
     }
 
+    fingerprint_msg_t msg;
+    msg.type = FINGERPRINT_ERROR;
+    msg.data.error = FINGERPRINT_ERROR_UNABLE_TO_REMOVE;
+    callback(&msg);
+
     return FINGERPRINT_ERROR;
 }
 
