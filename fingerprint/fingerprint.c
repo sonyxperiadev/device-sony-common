@@ -40,7 +40,7 @@ void *enroll_thread_loop()
     ALOGI("%s", __func__);
 
     uint32_t print_count = fpc_get_print_count();
-    ALOGI("%s : print count is : %u", __func__, print_count);
+    ALOGD("%s : print count is : %u", __func__, print_count);
 
     fpc_enroll_start(print_count);
 
@@ -286,7 +286,7 @@ static int fingerprint_remove(struct fingerprint_device __unused *dev,
     //Maximum prints per gid is 5
     uint32_t prints[5];
     uint32_t print_count = fpc_get_print_count();
-    ALOGI("%s : print count is : %u", __func__, print_count);
+    ALOGD("%s : print count is : %u", __func__, print_count);
 
     fpc_get_pint_index_cmd_t print_indexs = fpc_get_print_index(print_count);
 
@@ -302,19 +302,19 @@ static int fingerprint_remove(struct fingerprint_device __unused *dev,
     for (uint32_t i = 0; i < print_count; i++){
         uint32_t print_id = fpc_get_print_id(prints[i]);
 
-        ALOGI("%s : found print : %lu at index %d", __func__,(unsigned long) print_id, prints[i]);
+        ALOGD("%s : found print : %lu at index %d", __func__,(unsigned long) print_id, prints[i]);
 
         if (print_id == fid){
-            ALOGI("%s : Print index found at : %d", __func__, i);
+            ALOGD("%s : Print index found at : %d", __func__, i);
 
             int ret = fpc_del_print_id(prints[i]);
 
-            ALOGI("%s : fpc_del_print_id returns : %d", __func__, ret);
+            ALOGD("%s : fpc_del_print_id returns : %d", __func__, ret);
 
             if (ret == 0){
 
                 uint32_t db_length = fpc_get_user_db_length();
-                ALOGI("%s : User Database Length Is : %lu", __func__,(unsigned long) db_length);
+                ALOGD("%s : User Database Length Is : %lu", __func__,(unsigned long) db_length);
                 fpc_store_user_db(db_length, db_path);
 
                 fingerprint_msg_t msg;
@@ -353,7 +353,7 @@ static int fingerprint_enumerate(struct fingerprint_device *dev,
 {
 
     uint32_t print_count = fpc_get_print_count();
-    ALOGI("%s : print count is : %u", __func__, print_count);
+    ALOGD("%s : print count is : %u", __func__, print_count);
     fpc_get_pint_index_cmd_t print_indexs = fpc_get_print_index(print_count);
     uint32_t prints[5];
 
@@ -371,7 +371,7 @@ static int fingerprint_enumerate(struct fingerprint_device *dev,
         for (size_t i = 0; i < *max_size && i < print_count; i++) {
 
             uint32_t print_id = fpc_get_print_id(prints[i]);
-            ALOGI("%s : found print : %lu at index %d", __func__,(unsigned long) print_id, prints[i]);
+            ALOGD("%s : found print : %lu at index %d", __func__,(unsigned long) print_id, prints[i]);
 
             results[i].fid = print_id;
             results[i].gid = 0;
