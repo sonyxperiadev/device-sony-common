@@ -396,9 +396,9 @@ int fpc_enroll_start(int print_index)
 int fpc_enroll_end()
 {
 
-    uint32_t ret = send_normal_command(FPC_ENROLL_END,0x0,mHandle);
+    int ret = send_normal_command(FPC_ENROLL_END,0x0,mHandle);
 
-    if (ret != 0) {
+    if (ret < 0 || ret > 4) {
         ALOGE("Error sending FPC_ENROLL_END to tz\n");
         return -1;
     }

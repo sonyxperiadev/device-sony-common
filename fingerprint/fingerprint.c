@@ -38,7 +38,11 @@ char db_path[255];
 void *enroll_thread_loop()
 {
     ALOGI("%s", __func__);
-    fpc_enroll_start(1);
+
+    uint32_t print_count = fpc_get_print_count();
+    ALOGD("%s : print count is : %u", __func__, print_count);
+
+    fpc_enroll_start(print_count);
 
     int status = 1;
 
@@ -69,6 +73,16 @@ void *enroll_thread_loop()
                 }
             } else {
                 int print_index = fpc_enroll_end();
+
+                if (print_index < 0){
+                    ALOGE("%s : Error getting new print index : %d", __func__,print_index);
+                    fingerprint_msg_t msg;
+                    msg.type = FINGERPRINT_ERROR;
+                    msg.data.error = FINGERPRINT_ERROR_UNABLE_TO_PROCESS;
+                    callback(&msg);
+                    break;
+                }
+
                 ALOGI("%s : Got print index : %d", __func__,print_index);
 
                 uint32_t db_length = fpc_get_user_db_length();
@@ -272,6 +286,7 @@ static int fingerprint_remove(struct fingerprint_device __unused *dev,
     //Maximum prints per gid is 5
     uint32_t prints[5];
     uint32_t print_count = fpc_get_print_count();
+    ALOGD("%s : print count is : %u", __func__, print_count);
 
     fpc_get_pint_index_cmd_t print_indexs = fpc_get_print_index(print_count);
 
@@ -284,22 +299,22 @@ static int fingerprint_remove(struct fingerprint_device __unused *dev,
 
     ALOGI("%s : delete print : %lu", __func__,(unsigned long) fid);
 
-    for (int i = 0; i < 5; i++){
+    for (uint32_t i = 0; i < print_count; i++){
         uint32_t print_id = fpc_get_print_id(prints[i]);
 
-        ALOGI("%s : found print : %lu at index %d", __func__,(unsigned long) print_id, i);
+        ALOGD("%s : found print : %lu at index %d", __func__,(unsigned long) print_id, prints[i]);
 
         if (print_id == fid){
-            ALOGI("%s : Print index found at : %d", __func__, i);
+            ALOGD("%s : Print index found at : %d", __func__, i);
 
             int ret = fpc_del_print_id(prints[i]);
 
-            ALOGI("%s : fpc_del_print_id returns : %d", __func__, ret);
+            ALOGD("%s : fpc_del_print_id returns : %d", __func__, ret);
 
             if (ret == 0){
 
                 uint32_t db_length = fpc_get_user_db_length();
-                ALOGI("%s : User Database Length Is : %lu", __func__,(unsigned long) db_length);
+                ALOGD("%s : User Database Length Is : %lu", __func__,(unsigned long) db_length);
                 fpc_store_user_db(db_length, db_path);
 
                 fingerprint_msg_t msg;
@@ -312,6 +327,12 @@ static int fingerprint_remove(struct fingerprint_device __unused *dev,
             }
         }
     }
+
+    fingerprint_msg_t msg;
+    msg.type = FINGERPRINT_ERROR;
+    msg.data.error = FINGERPRINT_ERROR_UNABLE_TO_REMOVE;
+    callback(&msg);
+
     return FINGERPRINT_ERROR;
 }
 
@@ -324,6 +345,40 @@ static int fingerprint_set_active_group(struct fingerprint_device __unused *dev,
     fpc_load_user_db(db_path);
     return 0;
 
+}
+
+static int fingerprint_enumerate(struct fingerprint_device *dev,
+                                 fingerprint_finger_id_t *results,
+                                 uint32_t *max_size)
+{
+
+    uint32_t print_count = fpc_get_print_count();
+    ALOGD("%s : print count is : %u", __func__, print_count);
+    fpc_get_pint_index_cmd_t print_indexs = fpc_get_print_index(print_count);
+    uint32_t prints[5];
+
+    //populate print array with index
+    prints[0] = print_indexs.p1;
+    prints[1] = print_indexs.p2;
+    prints[2] = print_indexs.p3;
+    prints[3] = print_indexs.p4;
+    prints[4] = print_indexs.p5;
+
+
+    if (*max_size == 0) {
+        *max_size = print_count;
+    } else {
+        for (size_t i = 0; i < *max_size && i < print_count; i++) {
+
+            uint32_t print_id = fpc_get_print_id(prints[i]);
+            ALOGD("%s : found print : %lu at index %d", __func__,(unsigned long) print_id, prints[i]);
+
+            results[i].fid = print_id;
+            results[i].gid = 0;
+        }
+    }
+
+    return print_count;
 }
 
 static int fingerprint_authenticate(struct fingerprint_device __unused *dev,
@@ -388,6 +443,7 @@ static int fingerprint_open(const hw_module_t* module, const char __unused *id,
     dev->cancel = fingerprint_cancel;
     dev->remove = fingerprint_remove;
     dev->set_active_group = fingerprint_set_active_group;
+    dev->enumerate = fingerprint_enumerate;
     dev->authenticate = fingerprint_authenticate;
     dev->set_notify = set_notify_callback;
     dev->notify = NULL;
