@@ -344,6 +344,7 @@ service iprenew_bt-pan /system/bin/dhcpcd -n
 on property:ro.boot.baseband=apq
     setprop ro.radio.noril yes
     stop ril-daemon
+    enable qmuxd
 
 on property:ro.boot.baseband=msm
     enable qmuxd
