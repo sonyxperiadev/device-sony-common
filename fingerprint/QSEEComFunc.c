@@ -139,7 +139,6 @@ int open_handle()
     return 1;
 }
 
-
 int32_t qcom_km_ION_memalloc(struct qcom_km_ion_info_t *handle,
                              uint32_t size)
 {
@@ -223,7 +222,6 @@ alloc_fail:
         close(ion_fd);
     return ret;
 }
-
 
 int32_t qcom_km_ion_dealloc(struct qcom_km_ion_info_t *handle)
 {

@@ -651,7 +651,6 @@ uint32_t fpc_store_user_db(uint32_t length, char* path)
         return -1;
     }
 
-
     FILE *f = fopen(path, "w");
 
     if (f == NULL) {

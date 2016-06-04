@@ -25,7 +25,6 @@
 #include <pthread.h>
 #include "fpc_imp.h"
 
-
 uint64_t challenge = NULL;
 bool auth_thread_running = false;
 
@@ -120,7 +119,6 @@ void *enroll_thread_loop()
     return NULL;
 }
 
-
 void *auth_thread_loop()
 {
     ALOGI("%s", __func__);
@@ -210,7 +208,6 @@ static int fingerprint_enroll(struct fingerprint_device __unused *dev,
                               uint32_t __unused gid,
                               uint32_t __unused timeout_sec)
 {
-
 
     pthread_mutex_lock(&lock);
     bool thread_running = auth_thread_running;
@@ -462,7 +459,7 @@ fingerprint_module_t HAL_MODULE_INFO_SYM = {
         .module_api_version = FINGERPRINT_MODULE_API_VERSION_2_0,
         .hal_api_version    = HARDWARE_HAL_API_VERSION,
         .id                 = FINGERPRINT_HARDWARE_MODULE_ID,
-        .name               = "Kitakami Fingerprint HAL",
+        .name               = "Sony Fingerprint HAL",
         .author             = "Shane Francis / Jens Andersen",
         .methods            = &fingerprint_module_methods,
     },

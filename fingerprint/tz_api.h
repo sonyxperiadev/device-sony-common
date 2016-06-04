@@ -73,15 +73,12 @@ typedef struct {
     uint32_t extra; //Some length of data supplied by previous modified command
 } fpc_send_std_cmd_t;
 
-
-
 typedef struct {
     uint32_t cmd_id;
     uint32_t ret_val; //Some cases this is used for return value of the command
     uint32_t length; //Some length of data supplied by previous modified command
     uint32_t id; //Some length of data supplied by previous modified command
 } fpc_send_auth_cmd_t;
-
 
 typedef struct {
     uint32_t cmd_id;
@@ -92,7 +89,6 @@ typedef struct {
     uint32_t na4; //???
     uint32_t print_index;
 } fpc_send_enroll_start_cmd_t;
-
 
 typedef struct {
     uint32_t cmd_id;
@@ -110,7 +106,6 @@ typedef struct {
     uint32_t length; //Length of data on ion buffer
     uint32_t extra; //???
 } fpc_send_mod_cmd_t;
-
 
 typedef struct {
     uint32_t cmd_id;
