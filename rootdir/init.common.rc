@@ -114,6 +114,7 @@ on charger
     wait /dev/block/bootdevice/by-name/system
     mount ext4 /dev/block/bootdevice/by-name/system /system ro barrier=1
     start rmt_storage
+    start mlog_qmi_service
     start irsc_util
 
 on early-boot
@@ -343,13 +344,14 @@ service iprenew_bt-pan /system/bin/dhcpcd -n
 on property:ro.boot.baseband=apq
     setprop ro.radio.noril yes
     stop ril-daemon
+    enable qmuxd
 
 on property:ro.boot.baseband=msm
-    start qmuxd
-    start netmgrd
+    enable qmuxd
+    enable netmgrd
 
 on property:persist.radio.multisim.config=dsds
-    start ril-daemon2
+    enable ril-daemon2
 
 on property:init.svc.wpa_supplicant=stopped
     stop dhcpcd

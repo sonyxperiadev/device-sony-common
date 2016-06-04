@@ -14,16 +14,15 @@
 
 DEVICE_PACKAGE_OVERLAYS += device/sony/common-aosp/overlay
 
+# Common Specific Permissions
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
     frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
     frameworks/native/data/etc/android.hardware.camera.full.xml:system/etc/permissions/android.hardware.camera.full.xml \
     frameworks/native/data/etc/android.hardware.camera.raw.xml:system/etc/permissions/android.hardware.camera.raw.xml \
-    frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
     frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
-    frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
     frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
     frameworks/native/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml \
     frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
@@ -57,7 +56,6 @@ PRODUCT_COPY_FILES += \
     device/sony/common-aosp/rootdir/system/etc/nfcee_access.xml:system/etc/nfcee_access.xml \
     device/sony/common-aosp/rootdir/system/etc/sensors/sensors_settings:system/etc/sensors/sensors_settings
 #        device/sony/common-aosp/rootdir/system/etc/sec_config:system/etc/sec_config \ <!-- NOT NEEDED ON CM! -->
-
 
 
 # Audio
@@ -137,7 +135,6 @@ PRODUCT_PACKAGES += \
 
 # AOSP Packages
 PRODUCT_PACKAGES += \
-    InCallUI \
     Launcher3
 
 PRODUCT_PACKAGES += \
@@ -225,10 +222,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     media.aac_51_output_enabled=true \
     audio.deep_buffer.media=1
 
-# Media
-PRODUCT_PROPERTY_OVERRIDES += \
-    audio.offload.video=1
-
 # Property to enable user to access Google WFD settings.
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.debug.wfd.enable=1
@@ -261,12 +254,3 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.qualcomm.sns.daemon=0 \
     debug.qualcomm.sns.hal=0 \
     debug.qualcomm.sns.libsensor1=0
-
-# Power HAL Values
-PRODUCT_PROPERTY_OVERRIDES += \
-    rqbalance.low.balance_level=80 \
-    rqbalance.low.up_threshold=200 450 550 580 600 640 750 4294967295 \
-    rqbalance.low.down_threshold=0 120 320 400 440 500 550 700 \
-    rqbalance.normal.balance_level=40 \
-    rqbalance.normal.up_threshold=100 300 400 500 525 600 700 4294967295 \
-    rqbalance.normal.down_threshold=0 100 300 400 425 500 600 650
