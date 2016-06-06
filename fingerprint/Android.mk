@@ -16,20 +16,23 @@
 
 ifeq ($(filter-out satsuki sumire suzuran,$(TARGET_DEVICE)),)
 LOCAL_PATH:= $(call my-dir)
-
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := fingerprint.$(TARGET_DEVICE)
 LOCAL_MODULE_RELATIVE_PATH := hw
-LOCAL_SRC_FILES := fingerprint.c \
-		   QSEEComFunc.c \
-		   fpc_imp.c
+
+LOCAL_SRC_FILES := \
+        fingerprint.c \
+        QSEEComFunc.c \
+        fpc_imp.c
 
 LOCAL_CFLAGS += -std=c99
-LOCAL_SHARED_LIBRARIES := liblog \
-			libdl \
-			libutils
-LOCAL_MODULE_TAGS := optional
 
+LOCAL_SHARED_LIBRARIES := \
+        liblog \
+        libdl \
+        libutils
+
+LOCAL_MODULE_TAGS := optional
 include $(BUILD_SHARED_LIBRARY)
 endif
