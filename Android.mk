@@ -1,4 +1,4 @@
-ifneq ($(filter yukon rhine shinano kanuti kitakami,$(PRODUCT_PLATFORM)),)
+ifneq ($(filter yukon rhine shinano kanuti kitakami loire,$(PRODUCT_PLATFORM)),)
 
 LOCAL_PATH := $(call my-dir)
 
