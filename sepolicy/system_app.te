@@ -1,1 +1,0 @@
-allow system_app timekeep_prop:property_service set;

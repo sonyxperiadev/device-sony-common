@@ -1,6 +1,0 @@
-allow system_server sysfs_addrsetup:file { getattr open read };
-allow system_server init:unix_stream_socket { getopt };
-allow system_server sysfs_usb_supply:file { getattr open read };
-allow system_server sysfs_usb_supply:dir { search };
-allow system_server qemu_hw_mainkeys_prop:file { getattr open };
-allow system_server timekeep_app_data_file:dir getattr;

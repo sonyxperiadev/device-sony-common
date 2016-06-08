@@ -1,1 +1,0 @@
-allow nfc device:chr_file { ioctl };
