@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-PRODUCT_VENDOR_KERNEL_HEADERS := device/sony/common/kernel-headers
-
 TARGET_NO_RADIOIMAGE := true
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RECOVERY := false
@@ -69,6 +67,7 @@ ifeq ($(HOST_OS),linux)
 endif
 
 BUILD_KERNEL := true
+include device/sony/common-headers/KernelHeaders.mk
 -include device/sony/common-kernel/KernelConfig.mk
 
 # Include build helpers for QCOM proprietary
