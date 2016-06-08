@@ -88,9 +88,6 @@ on post-fs-data
     mkdir /data/shared 0755
     chown system system /data/shared
 
-    # Create directory for IPA services
-    mkdir /data/misc/ipa 0700 net_admin net_admin
-
     # Enable the setgid bit on the directory
     mkdir /data/audio 0770 media audio
     chmod 2770 /data/audio
@@ -278,13 +275,6 @@ service netmgrd /system/vendor/bin/netmgrd
     class main
     disabled
 
-# QCOM OSS
-service ipacm /system/bin/ipacm
-    class main
-    user net_admin
-    group net_admin inet
-    disabled
-
 # QCOM prop
 service irsc_util /system/vendor/bin/irsc_util "/etc/sec_config"
     class main
@@ -365,7 +355,6 @@ on property:ro.boot.baseband=apq
 
 on property:ro.boot.baseband=msm
     enable qmuxd
-    enable ipacm
     enable netmgrd
 
 on property:persist.radio.multisim.config=dsds
