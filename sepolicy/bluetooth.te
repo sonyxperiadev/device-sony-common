@@ -1,2 +1,0 @@
-# Allow MAC address file reading
-allow bluetooth addrsetup_data_file:file r_file_perms;

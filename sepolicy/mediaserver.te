@@ -1,2 +1,0 @@
-allow mediaserver system_data_file:dir { write add_name };
-allow mediaserver system_data_file:file r_file_perms;

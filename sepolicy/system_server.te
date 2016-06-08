@@ -1,4 +1,0 @@
-allow system_server sysfs_addrsetup:file { getattr open read };
-allow system_server init:unix_stream_socket { getopt };
-allow system_server sysfs_usb_supply:file { getattr open read };
-allow system_server sysfs_usb_supply:dir { search };

@@ -1,2 +1,0 @@
-allow system_app timekeep_prop:property_service set;
-allow system_app system_data_file:dir { add_name create setattr };
