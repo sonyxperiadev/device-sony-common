@@ -1,5 +1,21 @@
 /* IPC Security Config */
 /* <GPS QMI Service ID - 16>:<GPS QMI Instance ID - all instances>:<Client Group ID> */
 16:4294967295:1000:3004
+/* <UIMRMT QMI Service ID - 16>:<UIMRMT QMI Instance ID - all instances>:<Client Group ID> */
+50:4294967295:1001
 /* Allow SS CTL service to be used by system and net_raw processes */
 43:4294967295:1000:3004
+/* Allow RCS service to aquire net_raw permission */
+18:4294967295:1001:3004
+/* Allow QMID service to aquire net_raw permission */
+3:4294967295:1001:3004
+2:4294967295:1001:3004
+42:4294967295:1001:3004
+18:4294967295:1001:3004
+9:4294967295:1001:3004
+1:4294967295:1001:3004:1000
+4:4294967295:1001:3004
+7:4294967295:1001:3004
+8:4294967295:1001:3004
+/*UIM*/
+11:4294967295:1001
