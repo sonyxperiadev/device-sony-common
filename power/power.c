@@ -29,6 +29,7 @@
 
 #define CPUQUIET_MIN_CPUS "/sys/devices/system/cpu/cpuquiet/nr_min_cpus"
 #define CPUQUIET_MAX_CPUS "/sys/devices/system/cpu/cpuquiet/nr_power_max_cpus"
+#define CPUQUIET_THERMAL_CPUS "/sys/devices/system/cpu/cpuquiet/nr_thermal_max_cpus"
 #define RQBALANCE_BALANCE_LEVEL "/sys/devices/system/cpu/cpuquiet/rqbalance/balance_level"
 #define RQBALANCE_UP_THRESHOLD "/sys/devices/system/cpu/cpuquiet/rqbalance/nr_run_thresholds"
 #define RQBALANCE_DOWN_THRESHOLD "/sys/devices/system/cpu/cpuquiet/rqbalance/nr_down_run_thresholds"
@@ -132,6 +133,9 @@ static void power_init(struct power_module *module)
     ALOGI("NORMAL_POWER_UP_THRESHOLD: %s", normal_up);
     property_get(NORMAL_POWER_DOWN_THRESHOLD, normal_down, "0");
     ALOGI("NORMAL_POWER_DOWN_THRESHOLD: %s", normal_down);
+
+    // init thermal maximum prior to setting normal power profile
+    sysfs_write(CPUQUIET_THERMAL_CPUS, normal_max_cpus);
 
     set_normal_power();
 }
