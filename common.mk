@@ -161,6 +161,10 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.data.qmi.adb_logmask=0
 
+# Black conceal color
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.vidc.dec.conceal_color=32784
+
 # Default to LTE/GSM/WCDMA.
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.default_network=9
