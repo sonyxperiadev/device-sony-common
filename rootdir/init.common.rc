@@ -162,6 +162,9 @@ on boot
     chown radio radio /data/misc/radio/copy_complete
     chmod 0660 /data/misc/radio/copy_complete
 
+    # Create folder for timekeep
+    mkdir /data/time/ 0700 system system
+
     # Camera Recording
     mkdir /dev/video
     symlink /dev/video32 /dev/video/venus_dec
