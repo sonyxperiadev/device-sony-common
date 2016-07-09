@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-ifeq ($(filter-out satsuki sumire suzuran,$(TARGET_DEVICE)),)
+ifeq ($(filter-out satsuki sumire suzu suzuran,$(TARGET_DEVICE)),)
 LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
