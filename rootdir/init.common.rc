@@ -183,6 +183,9 @@ on boot
     mkdir /dev/socket/qmux_gps 0770 gps gps
     chmod 2770 /dev/socket/qmux_gps
 
+    # Create folder for timekeep
+    mkdir /data/time/ 0700 system system
+
     # Camera Recording
     mkdir /dev/video
     symlink /dev/video32 /dev/video/venus_dec
