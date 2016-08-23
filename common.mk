@@ -253,7 +253,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
-    camera.disable_zsl_mode=0 \
     persist.camera.HAL3.enabled=0 \
     persist.camera.gyro.disable=1 \
     persist.camera.feature.cac=0 \
