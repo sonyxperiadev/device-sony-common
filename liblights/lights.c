@@ -130,6 +130,7 @@ set_light_backlight(struct light_device_t* dev,
 
 	pthread_mutex_lock(&g_lcd_lock);
 
+#ifdef LOW_PERSISTENCE_DISPLAY
 	// If we're not in lp mode and it has been enabled or if we are in lp mode
 	// and it has been disabled send an ioctl to the display with the update
 	if ((g_last_backlight_mode != state->brightnessMode && lpEnabled) ||
@@ -154,6 +155,7 @@ set_light_backlight(struct light_device_t* dev,
 
 
 	g_last_backlight_mode = state->brightnessMode;
+#endif
 
 	if (!err) {
 		err = write_int(LCD_FILE, brightness);
@@ -319,7 +321,11 @@ static int open_lights(const struct hw_module_t* module, char const* name,
 	memset(dev, 0, sizeof(*dev));
 
 	dev->common.tag = HARDWARE_DEVICE_TAG;
+#ifdef LOW_PERSISTENCE_DISPLAY
 	dev->common.version = LIGHTS_DEVICE_API_VERSION_2_0;
+#else
+	dev->common.version = 0;
+#endif
 	dev->common.module = (struct hw_module_t*)module;
 	dev->common.close = (int (*)(struct hw_device_t*))close_lights;
 	dev->set_light = set_light;
