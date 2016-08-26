@@ -39,8 +39,6 @@ on init
     chown system system /sys/devices/mdss_dsi_panel/panel_id
     chmod 0440 /sys/devices/mdss_dsi_panel/panel_id
 
-    # Support legacy storage paths
-    symlink /sdcard /mnt/sdcard
     symlink /sdcard /storage/sdcard0
 
 on post-fs-data
@@ -321,36 +319,6 @@ service timekeep /system/bin/timekeep restore
     group root
     oneshot
 
-service dhcpcd_wlan0 /system/bin/dhcpcd -aABDKL
-    class late_start
-    disabled
-    oneshot
-
-service dhcpcd_p2p /system/bin/dhcpcd -aABKL
-    class late_start
-    disabled
-    oneshot
-
-service iprenew_wlan0 /system/bin/dhcpcd -n
-    class late_start
-    disabled
-    oneshot
-
-service iprenew_p2p /system/bin/dhcpcd -n
-    class late_start
-    disabled
-    oneshot
-
-service dhcpcd_bt-pan /system/bin/dhcpcd -BKLG
-    class late_start
-    disabled
-    oneshot
-
-service iprenew_bt-pan /system/bin/dhcpcd -n
-    class late_start
-    disabled
-    oneshot
-
 on property:ro.boot.baseband=apq
     setprop ro.radio.noril yes
     stop ril-daemon
@@ -362,7 +330,3 @@ on property:ro.boot.baseband=msm
 
 on property:persist.radio.multisim.config=dsds
     enable ril-daemon2
-
-on property:init.svc.wpa_supplicant=stopped
-    stop dhcpcd
-
