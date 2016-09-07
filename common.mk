@@ -162,9 +162,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.data.qmi.adb_logmask=0
 
-# ADBoverWIFI
+# configure adb over wifi only on the eng build
+ifneq (,$(filter eng, $(TARGET_BUILD_VARIANT)))
 PRODUCT_PROPERTY_OVERRIDES += \
     service.adb.tcp.port=5555
+endif
 
 # Enable MultiWindow
 PRODUCT_PROPERTY_OVERRIDES += \
