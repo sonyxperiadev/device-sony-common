@@ -168,10 +168,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     service.adb.tcp.port=5555
 endif
 
-# Enable MultiWindow
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.sys.debug.multi_window=true
-
 # Default to LTE/GSM/WCDMA.
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.default_network=9
