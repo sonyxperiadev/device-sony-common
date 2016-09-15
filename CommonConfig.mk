@@ -18,10 +18,13 @@ TARGET_NO_RECOVERY := false
 TARGET_NO_KERNEL := false
 
 # common cmdline parameters
-BOARD_KERNEL_CMDLINE += user_debug=31 androidboot.selinux=permissive
 BOARD_KERNEL_CMDLINE += msm_rtb.filter=0x3F ehci-hcd.park=3
 BOARD_KERNEL_CMDLINE += dwc3.maximum_speed=high dwc3_msm.prop_chg_detect=Y
 BOARD_KERNEL_CMDLINE += coherent_pool=8M
+# extra cmdline parameters for development
+ifneq (,$(filter eng, $(TARGET_BUILD_VARIANT)))
+BOARD_KERNEL_CMDLINE += user_debug=31 androidboot.selinux=permissive
+endif
 
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
