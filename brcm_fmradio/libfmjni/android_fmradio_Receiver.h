@@ -70,16 +70,6 @@ enum RadioMode_t {
 typedef bool ValidEventsForStates_t[FMRADIO_NUMBER_OF_EVENTS]
 [FMRADIO_NUMBER_OF_STATES];
 
-struct FmRadioCallbacks_t {
-    void (*onStateChanged) (int, int);
-    void (*onError) (void);
-    void (*onStarted) (void);
-    void (*onScan) (int, int, int, bool);    /* RX only */
-    void (*onFullScan) (int, int *, int *, bool);       /* RX only */
-    void (*onBlockScan) (int, int *, int *, bool);      /* TX only */
-    void (*onForcedReset) (enum fmradio_reset_reason_t);
-    void (*onSendExtraCommand) (char*, struct fmradio_extra_command_ret_item_t *);
-};
 
 struct bundle_descriptor_offsets_t {
     jclass mClass;
@@ -107,7 +97,6 @@ struct FmSession_t {
     enum FmRadioState_t state;
     struct fmradio_vendor_methods_t *vendorMethods_p;
     const ValidEventsForStates_t *validEventsForStates_p;
-    const struct FmRadioCallbacks_t *callbacks_p;
     JavaVM *jvm_p;
     jobject jobj;
     struct FmSession_t *partnerSession_p;
@@ -121,7 +110,7 @@ struct FmSession_t {
     struct ThreadCtrl_t *signalStrengthThreadCtrl_p;    /* RX Only */
 };
 
-#define FMRADIO_SET_STATE(_session_p,_newState) {int _oldState = (_session_p)->state; (_session_p)->state = _newState;(_session_p)->callbacks_p->onStateChanged(_oldState, _newState);}
+#define FMRADIO_SET_STATE(_session_p,_newState) {int _oldState = (_session_p)->state; (_session_p)->state = _newState;}
 
 /* exceptions */
 
@@ -178,9 +167,7 @@ bool androidFmRadioLoadFmLibrary(struct FmSession_t *session_p,
 
 void androidFmRadioUnLoadFmLibrary(struct FmSession_t *session_p);
 
-int
-        androidFmRadioStart(struct FmSession_t *session_p, enum RadioMode_t mode,
-                            const struct fmradio_vendor_callbacks_t *callbacks,
+int  androidFmRadioStart(struct FmSession_t *session_p, enum RadioMode_t mode,
                             bool async, int lowFreq, int highFreq, int defaultFreq,
                             int grid);
 
@@ -190,12 +177,12 @@ int androidFmRadioResume(struct FmSession_t *session_p);
 
 int androidFmRadioReset(struct FmSession_t *session_p);
 
-void androidFmRadioSetFrequency(struct FmSession_t *session_p,
+int androidFmRadioSetFrequency(struct FmSession_t *session_p,
                                 int frequency);
 
 int androidFmRadioGetFrequency(struct FmSession_t *session_p);
 
-void androidFmRadioStopScan(struct FmSession_t *session_p);
+int androidFmRadioStopScan(struct FmSession_t *session_p);
 
 void
         androidFmRadioSendExtraCommand(struct FmSession_t *session_p, JNIEnv * env,
@@ -203,4 +190,5 @@ void
 
 void start(JNIEnv *env, jobject instance);
 
+int androidFmRadioMute(struct FmSession_t *session_p, int mute);
 #endif

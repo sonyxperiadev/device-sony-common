@@ -62,10 +62,9 @@
 /* structs for passing startup arguments to threads */
 
 struct FmRadioStartAsyncParameters {
-    int (*startFunc) (void **, const struct fmradio_vendor_callbacks_t*, int, int, int,
+    int (*startFunc) (void **, int, int, int,
                       int);
     struct FmSession_t *session_p;
-    const struct fmradio_vendor_callbacks_t *callbacks_p;
     int lowFreq;
     int highFreq;
     int defaultFreq;
@@ -224,13 +223,7 @@ void androidFmRadioPauseIfTempResumed(struct FmSession_t *session_p)
             if (retval != FMRADIO_OK) {
                 ALOGE("androidFmRadioPauseIfTempResumed: CRITICAL ERROR: "
                               "can't reset device");
-                /* if we can't even reset we have a critical problem */
-                session_p->callbacks_p->onForcedReset(FMRADIO_RESET_CRITICAL);
-            } else {
-                /* now we are in known state */
-                session_p->callbacks_p->onForcedReset(FMRADIO_RESET_NON_CRITICAL);
             }
-
             /* unload vendor driver */
             androidFmRadioUnLoadFmLibrary(session_p);
             session_p->isRegistered = false;
@@ -531,7 +524,6 @@ static bool androidFmRadioStartSyncPartner(struct FmSession_t *session_p)
             session_p->partnerSession_p->vendorMethods_p->reset(&session_p->partnerSession_p->vendorData_p);
             pthread_mutex_lock(session_p->dataMutex_p);
             FMRADIO_SET_STATE(session_p->partnerSession_p, FMRADIO_STATE_IDLE);
-            session_p->partnerSession_p->callbacks_p->onForcedReset(FMRADIO_RESET_OTHER_IN_USE);
         }
         /* unload partner vendor driver */
         if (session_p->partnerSession_p->isRegistered) {
@@ -547,11 +539,9 @@ static void *execute_androidFmRadioStartAsync(void *args)
 {
     struct FmRadioStartAsyncParameters *inArgs_p = (struct FmRadioStartAsyncParameters *)args;
 
-    int (*startFunc) (void **, const struct fmradio_vendor_callbacks_t *, int, int, int,
+    int (*startFunc) (void **, int, int, int,
                       int) = inArgs_p->startFunc;
     struct FmSession_t *session_p = inArgs_p->session_p;
-
-    const struct fmradio_vendor_callbacks_t *callbacks_p = inArgs_p->callbacks_p;
 
     int lowFreq = inArgs_p->lowFreq;
     int highFreq = inArgs_p->highFreq;
@@ -576,7 +566,7 @@ static void *execute_androidFmRadioStartAsync(void *args)
     pthread_mutex_unlock(session_p->dataMutex_p);
 
     retval =
-            startFunc(&session_p->vendorData_p, callbacks_p, lowFreq, highFreq,
+            startFunc(&session_p->vendorData_p, lowFreq, highFreq,
                       defaultFreq, grid);
 
     pthread_mutex_lock(session_p->dataMutex_p);
@@ -596,16 +586,6 @@ static void *execute_androidFmRadioStartAsync(void *args)
         session_p->isRegistered = false;
     }
 
-    /*
-     * these need to be called after state is updated and after the lock
-     * has been dropped
-     */
-    if (retval >= 0) {
-        session_p->callbacks_p->onStarted();
-    } else {
-        session_p->callbacks_p->onError();
-    }
-
     pthread_mutex_unlock(session_p->dataMutex_p);
 
     pthread_exit(NULL);
@@ -614,14 +594,12 @@ static void *execute_androidFmRadioStartAsync(void *args)
 
 int
 androidFmRadioStart(struct FmSession_t *session_p, enum RadioMode_t mode,
-                    const struct fmradio_vendor_callbacks_t *callbacks_p,
                     bool async, int lowFreq, int highFreq, int defaultFreq,
                     int grid)
 {
     int retval = 0;
 
-    int (*startFunc) (void **, const struct fmradio_vendor_callbacks_t *,
-                      int, int, int, int) = NULL;
+    int (*startFunc) (void **, int, int, int, int) = NULL;
 
     pthread_mutex_lock(session_p->dataMutex_p);
     if (!androidFmRadioIsValidEventForState
@@ -678,7 +656,6 @@ androidFmRadioStart(struct FmSession_t *session_p, enum RadioMode_t mode,
 
         args_p->startFunc = startFunc;
         args_p->session_p = session_p;
-        args_p->callbacks_p = callbacks_p;
         args_p->lowFreq = lowFreq;
         args_p->highFreq = highFreq;
         args_p->defaultFreq = defaultFreq;
@@ -708,7 +685,7 @@ androidFmRadioStart(struct FmSession_t *session_p, enum RadioMode_t mode,
          */
         pthread_mutex_unlock(session_p->dataMutex_p);
         retval =
-                startFunc(&session_p->vendorData_p, callbacks_p, lowFreq,
+                startFunc(&session_p->vendorData_p, lowFreq,
                           highFreq, defaultFreq, grid);
         /* regain lock */
         pthread_mutex_lock(session_p->dataMutex_p);
@@ -825,6 +802,26 @@ int androidFmRadioResume(struct FmSession_t *session_p)
     return retval;
 }
 
+
+int androidFmRadioMute(struct FmSession_t *session_p, int mute)
+{
+    int retval = 0;
+
+    pthread_mutex_lock(session_p->dataMutex_p);
+
+    retval = session_p->vendorMethods_p->mute(&session_p->vendorData_p, mute);
+
+    drop_lock:
+    if (retval == FMRADIO_INVALID_STATE) {
+        THROW_INVALID_STATE(session_p);
+    } else if (retval < 0) {
+        THROW_IO_ERROR(session_p);
+    }
+
+    pthread_mutex_unlock(session_p->dataMutex_p);
+    return retval;
+}
+
 int androidFmRadioReset(struct FmSession_t *session_p)
 {
     int retval = FMRADIO_OK;
@@ -908,7 +905,7 @@ int androidFmRadioReset(struct FmSession_t *session_p)
     return retval;
 }
 
-void
+int
 androidFmRadioSetFrequency(struct FmSession_t *session_p, int frequency)
 {
     int retval = 0;
@@ -949,6 +946,7 @@ androidFmRadioSetFrequency(struct FmSession_t *session_p, int frequency)
     }
 
     pthread_mutex_unlock(session_p->dataMutex_p);
+    return retval;
 }
 
 int androidFmRadioGetFrequency(struct FmSession_t *session_p)
@@ -988,7 +986,7 @@ int androidFmRadioGetFrequency(struct FmSession_t *session_p)
     return retval;
 }
 
-void androidFmRadioStopScan(struct FmSession_t *session_p)
+int androidFmRadioStopScan(struct FmSession_t *session_p)
 {
     int retval = 0;
 
@@ -1023,6 +1021,7 @@ void androidFmRadioStopScan(struct FmSession_t *session_p)
         ALOGE("androidFmRadioStopScan failed (%d), ignored.\n", retval);
     }
     pthread_mutex_unlock(session_p->dataMutex_p);
+    return retval;
 }
 
 static void *execute_androidFmRadioSendExtraCommand(void *args_p)
@@ -1070,12 +1069,6 @@ static void *execute_androidFmRadioSendExtraCommand(void *args_p)
     }
 
     session_p->pendingPause = false;
-
-    if (retval >= 0) {
-        session_p->callbacks_p->onSendExtraCommand(c_command, returnParam);
-    } else {
-        session_p->callbacks_p->onError();
-    }
 
     if (returnParam != NULL) {
         freeExtraCommandRetList(returnParam);
@@ -1183,4 +1176,3 @@ extern "C" jint JNI_OnLoad(JavaVM* vm, void* reserved)
 
     return JNI_VERSION_1_4;
 }
-

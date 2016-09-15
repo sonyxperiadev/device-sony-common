@@ -9,4 +9,3 @@ LOCAL_MODULE_TAG := optional
 LOCAL_SHARED_LIBRARIES := liblog
 LOCAL_SRC_FILES := v4l2_fm.c v4l2_ioctl.c
 include $(BUILD_SHARED_LIBRARY)
-
