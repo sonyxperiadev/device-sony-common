@@ -27,6 +27,8 @@
 #include <fcntl.h>
 #include <pthread.h>
 
+#include <linux/msm_mdp.h>
+
 #include <sys/ioctl.h>
 #include <sys/types.h>
 
@@ -34,49 +36,38 @@
 
 /******************************************************************************/
 
+#define DEFAULT_LOW_PERSISTENCE_MODE_BRIGHTNESS 255
+
 static pthread_once_t g_init = PTHREAD_ONCE_INIT;
 static pthread_mutex_t g_lock = PTHREAD_MUTEX_INITIALIZER;
 static pthread_mutex_t g_lcd_lock = PTHREAD_MUTEX_INITIALIZER;
 static struct light_state_t g_notification;
+static int g_last_backlight_mode = BRIGHTNESS_MODE_USER;
 static struct light_state_t g_battery;
 
-enum led_ident {
-	LED_RED,
-	LED_GREEN,
-	LED_BLUE,
-	LED_BACKLIGHT
-};
+char const*const RED_LED_FILE
+		= "/sys/class/leds/led:rgb_red/brightness";
 
-static struct led_desc {
-	int max_brightness;
-	const char *max_brightness_s;
-	const char *brightness;
-	const char *blink;
-} led_descs[] = {
-	[LED_BACKLIGHT] = {
-		.max_brightness = 0,
-		.max_brightness_s = "/sys/class/leds/lcd-backlight/max_brightness",
-		.brightness = "/sys/class/leds/lcd-backlight/brightness",
-	},
-	[LED_RED] = {
-		.max_brightness = 0,
-		.max_brightness_s = "/sys/class/leds/led:rgb_red/max_brightness",
-		.brightness = "/sys/class/leds/led:rgb_red/brightness",
-		.blink = "/sys/class/leds/led:rgb_red/blink",
-	},
-	[LED_GREEN] = {
-		.max_brightness = 0,
-		.max_brightness_s = "/sys/class/leds/led:rgb_green/max_brightness",
-		.brightness = "/sys/class/leds/led:rgb_green/brightness",
-		.blink = "/sys/class/leds/led:rgb_green/blink",
-	},
-	[LED_BLUE] = {
-		.max_brightness = 0,
-		.max_brightness_s = "/sys/class/leds/led:rgb_blue/max_brightness",
-		.brightness = "/sys/class/leds/led:rgb_blue/brightness",
-		.blink = "/sys/class/leds/led:rgb_blue/blink",
-	},
-};
+char const*const GREEN_LED_FILE
+		= "/sys/class/leds/led:rgb_green/brightness";
+
+char const*const BLUE_LED_FILE
+		= "/sys/class/leds/led:rgb_blue/brightness";
+
+char const*const LCD_FILE
+		= "/sys/class/leds/lcd-backlight/brightness";
+
+char const*const RED_BLINK_FILE
+		= "/sys/class/leds/led:rgb_red/blink";
+
+char const*const GREEN_BLINK_FILE
+		= "/sys/class/leds/led:rgb_green/blink";
+
+char const*const BLUE_BLINK_FILE
+		= "/sys/class/leds/led:rgb_blue/blink";
+
+char const*const DISPLAY_FB_DEV_PATH
+		= "/dev/graphics/fb0";
 
 /**
  * device methods
@@ -112,32 +103,6 @@ write_int(char const* path, int value)
 }
 
 static int
-read_int(const char *path)
-{
-	static int already_warned = 0;
-	char buffer[12];
-	int fd, rc;
-
-	fd = open(path, O_RDONLY);
-	if (fd < 0) {
-		if (already_warned == 0) {
-			ALOGE("read_int failed to open %s\n", path);
-			already_warned = 1;
-		}
-		return -1;
-	}
-
-	rc = read(fd, buffer, sizeof(buffer) - 1);
-	close(fd);
-	if (rc <= 0)
-		return -1;
-
-	buffer[rc] = 0;
-
-	return strtol(buffer, 0, 0);
-}
-
-static int
 is_lit(struct light_state_t const* state)
 {
 	return state->color & 0x00ffffff;
@@ -157,20 +122,45 @@ set_light_backlight(struct light_device_t* dev,
 {
 	int err = 0;
 	int brightness = rgb_to_brightness(state);
-	int max_brightness = read_int(led_descs[LED_BACKLIGHT].max_brightness_s);
-	int scaled;
+	unsigned int lpEnabled = state->brightnessMode == BRIGHTNESS_MODE_LOW_PERSISTENCE;
 
 	if(!dev) {
 		return -1;
 	}
 
-	if (brightness > max_brightness)
-		scaled = max_brightness;
-	else
-		scaled = brightness;
-
 	pthread_mutex_lock(&g_lcd_lock);
-	err = write_int(led_descs[LED_BACKLIGHT].brightness, scaled);
+
+#ifdef LOW_PERSISTENCE_DISPLAY
+	// If we're not in lp mode and it has been enabled or if we are in lp mode
+	// and it has been disabled send an ioctl to the display with the update
+	if ((g_last_backlight_mode != state->brightnessMode && lpEnabled) ||
+			(!lpEnabled && g_last_backlight_mode == BRIGHTNESS_MODE_LOW_PERSISTENCE)) {
+		int fd = -1;
+		fd = open(DISPLAY_FB_DEV_PATH, O_RDWR);
+		if (fd >= 0) {
+			if ((err = ioctl(fd, MSMFB_SET_PERSISTENCE_MODE, &lpEnabled)) != 0) {
+				ALOGE("%s: Failed in ioctl call to %s: %s\n", __FUNCTION__, DISPLAY_FB_DEV_PATH,
+						strerror(errno));
+				err = -1;
+			}
+			close(fd);
+
+			brightness = DEFAULT_LOW_PERSISTENCE_MODE_BRIGHTNESS;
+		} else {
+			ALOGE("%s: Failed to open %s: %s\n", __FUNCTION__, DISPLAY_FB_DEV_PATH,
+					strerror(errno));
+			err = -1;
+		}
+	}
+
+
+	g_last_backlight_mode = state->brightnessMode;
+#endif
+
+	if (!err) {
+		err = write_int(LCD_FILE, brightness);
+	}
+
 	pthread_mutex_unlock(&g_lcd_lock);
 	return err;
 }
@@ -228,21 +218,21 @@ set_speaker_light_locked(struct light_device_t* dev,
 
 	if (blink) {
 		if (red) {
-			if (write_int(led_descs[LED_RED].blink, blink))
-				write_int(led_descs[LED_RED].brightness, 0);
+			if (write_int(RED_BLINK_FILE, blink))
+				write_int(RED_LED_FILE, 0);
 	}
 		if (green) {
-			if (write_int(led_descs[LED_GREEN].blink, blink))
-				write_int(led_descs[LED_GREEN].brightness, 0);
+			if (write_int(GREEN_BLINK_FILE, blink))
+				write_int(GREEN_LED_FILE, 0);
 	}
 		if (blue) {
-			if (write_int(led_descs[LED_BLUE].blink, blink))
-				write_int(led_descs[LED_BLUE].brightness, 0);
+			if (write_int(BLUE_BLINK_FILE, blink))
+				write_int(BLUE_LED_FILE, 0);
 	}
 	} else {
-		write_int(led_descs[LED_RED].brightness, red);
-		write_int(led_descs[LED_GREEN].brightness, green);
-		write_int(led_descs[LED_BLUE].brightness, blue);
+		write_int(RED_LED_FILE, red);
+		write_int(GREEN_LED_FILE, green);
+		write_int(BLUE_LED_FILE, blue);
 	}
 
 	return 0;
@@ -331,7 +321,11 @@ static int open_lights(const struct hw_module_t* module, char const* name,
 	memset(dev, 0, sizeof(*dev));
 
 	dev->common.tag = HARDWARE_DEVICE_TAG;
+#ifdef LOW_PERSISTENCE_DISPLAY
+	dev->common.version = LIGHTS_DEVICE_API_VERSION_2_0;
+#else
 	dev->common.version = 0;
+#endif
 	dev->common.module = (struct hw_module_t*)module;
 	dev->common.close = (int (*)(struct hw_device_t*))close_lights;
 	dev->set_light = set_light;
