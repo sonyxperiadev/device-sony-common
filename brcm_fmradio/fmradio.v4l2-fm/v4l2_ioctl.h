@@ -39,4 +39,3 @@ int get_RDS_cap(int fd);
 int get_tun_radio_cap(int fd);
 int set_mute(int fd, int value);
 int set_volume(int fd, int vol);
-

@@ -36,7 +36,7 @@
 #include <string.h>
 
 int get_v4l2_tuner(int fd, struct v4l2_tuner *vt){
-    int ret; 
+    int ret;
 
     vt->index=0;
 
@@ -49,7 +49,7 @@ int get_v4l2_tuner(int fd, struct v4l2_tuner *vt){
 }
 
 int set_v4l2_tuner(int fd, struct v4l2_tuner *vt){
-    int ret; 
+    int ret;
 
     vt->index=0;
 
@@ -62,15 +62,15 @@ int set_v4l2_tuner(int fd, struct v4l2_tuner *vt){
 }
 
 float get_fact(int fd, struct v4l2_tuner *vt){
-  
+
     if (get_v4l2_tuner(fd, vt)<0)
         return -1;
 
     if ((vt->capability & V4L2_TUNER_CAP_LOW) == 0)
-        return 0.016; 
+        return 0.016;
     else
         return 16.;
-    
+
     return -1;
 }
 
@@ -99,7 +99,7 @@ int get_tun_radio_cap(int fd){
     struct v4l2_capability vc;
 
     ret = ioctl(fd, VIDIOC_QUERYCAP, &vc);
-    
+
     if (ret < 0) {
         ALOGE("ioctl VIDIOC_QUERYCAP\n");
         return -1;
@@ -108,15 +108,15 @@ int get_tun_radio_cap(int fd){
 }
 
 int open_dev(char *dev){
-    int fd; 
+    int fd;
 
     ALOGI("Open default device %s\n", dev);
-    fd = open(dev, O_RDONLY | O_NONBLOCK); 
+    fd = open(dev, O_RDONLY | O_NONBLOCK);
     if (fd < 0) {
         ALOGE("Unable to open %s: %s\n", dev, strerror(errno));
         return -1;
     }
-    
+
     return fd;
 }
 
@@ -124,7 +124,7 @@ int close_dev(int fd){
     int ret;
 
     ALOGI("Close radio device fd %d\n", fd);
-    ret = close(fd); 
+    ret = close(fd);
     if (ret < 0) {
         ALOGE("Unable to close radio dev fd %d\n", fd);
         return -1;
@@ -138,17 +138,17 @@ int set_volume(int fd, int vol){
     struct  v4l2_control vc;
 
     vc.id = V4L2_CID_AUDIO_VOLUME;
-    vc.value = vol;  
+    vc.value = vol;
 
     ret = ioctl(fd, VIDIOC_S_CTRL, &vc);
     if (ret < 0) {
         ALOGE("ioctl V4L2_CID_AUDIO_VOLUME \n");
         return -1;
     }
-    
+
     ALOGI("Radio on at %2.2f%% volume\n", (vol / 655.36));
 
-    return 0;  
+    return 0;
 }
 
 int set_mute(int fd, int value){
@@ -167,8 +167,8 @@ int set_mute(int fd, int value){
     return 0;
 }
 
-int  set_freq(int fd, int freq){       
-    int ret; 
+int  set_freq(int fd, int freq){
+    int ret;
     struct v4l2_frequency vf;
 
     vf.tuner=0;
@@ -185,7 +185,7 @@ int  set_freq(int fd, int freq){
     return freq;
 }
 
-int get_freq(int fd){  
+int get_freq(int fd){
     int ret;
     struct v4l2_frequency vf;
 
@@ -201,7 +201,7 @@ int get_freq(int fd){
     return vf.frequency;
 }
 
-int get_signal_strength(int fd, struct v4l2_tuner *vt){ 
+int get_signal_strength(int fd, struct v4l2_tuner *vt){
     int totsig, rate, i;
     float perc;
 
@@ -211,7 +211,7 @@ int get_signal_strength(int fd, struct v4l2_tuner *vt){
 
         if (i>0)
             usleep(SAMPLEDELAY);
-    
+
         if (get_v4l2_tuner(fd, vt) < 0) {
         return -1;
         }
@@ -224,7 +224,7 @@ int get_signal_strength(int fd, struct v4l2_tuner *vt){
     perc = (totsig / (65535.0 * TRIES));
     rate = perc * 1000.0;   // changed in 0 - 1000 scale
 
-    ALOGI("signal strenght in SE scale %d \n", rate); 
+    ALOGI("signal strenght in SE scale %d \n", rate);
 
     return rate;
 }
@@ -238,6 +238,3 @@ int set_force_mono(int fd, struct v4l2_tuner *vt, int force_mono){
 
     return set_v4l2_tuner(fd, vt);
 }
-
-
-

@@ -86,23 +86,10 @@ struct fmradio_extra_command_ret_item_t {
     union fmradio_extra_data_t data;
 };
 
-/* vendor callbacks only for RX */
-struct fmradio_vendor_callbacks_t {
-    void (*on_playing_in_stereo_changed) (int is_stereo);
-    void (*on_rds_data_found) (struct fmradio_rds_bundle_t * rds_bundle,
-                               int frequency);
-    void (*on_signal_strength_changed) (int new_level);
-    void (*on_automatic_switch) (int new_freq,
-                                 enum fmradio_switch_reason_t reason);
-    void (*on_forced_reset) (enum fmradio_reset_reason_t reason);
-};
-
 struct fmradio_vendor_methods_t {
     int (*rx_start) (void ** session_data,
-                     const struct fmradio_vendor_callbacks_t * callbacks,
                      int low_freq, int high_freq, int default_freq, int grid);
     int (*tx_start) (void ** session_data,
-                     const struct fmradio_vendor_callbacks_t * callbacks,
                      int low_freq, int high_freq, int default_freq, int grid);
     int (*pause) (void ** session_data);
     int (*resume) (void ** session_data);
@@ -122,8 +109,6 @@ struct fmradio_vendor_methods_t {
     int (*is_playing_in_stereo) (void ** session_data);
     int (*is_rds_data_supported) (void ** session_data);
     int (*is_tuned_to_valid_channel) (void ** session_data);
-    int (*set_automatic_af_switching) (void ** session_data, int automatic);
-    int (*set_automatic_ta_switching) (void ** session_data, int automatic);
     int (*set_force_mono) (void ** session_data, int force_mono);
     int (*get_threshold) (void ** session_data);
     int (*set_threshold) (void ** session_data, int threshold);
@@ -132,6 +117,8 @@ struct fmradio_vendor_methods_t {
     int (*block_scan) (void ** session_data, int low_freq, int high_freq,
                        int ** found_freqs, int ** signal_strenghts);
     int (*set_rds_data) (void ** session_data, char * key, void * value);
+    int (*mute)(void** session_data, int mute);
+    int (*get_rds)(void** session_data, struct fmradio_rds_bundle_t * fmradio_rds_bundle);
 };
 
 typedef int (*fmradio_reg_func_t) (unsigned int * signature_p,

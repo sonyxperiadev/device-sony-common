@@ -110,29 +110,6 @@ static void androidFmRadioRxCallbackOnExtraCommand(char* command,
                                                    fmradio_extra_command_ret_item_t
                                                    *retItem);
 
-static void androidFmRadioRxCallbackOnAutomaticSwitch(int newFrequency, enum fmradio_switch_reason_t reason);
-
-static const FmRadioCallbacks_t FmRadioRxCallbacks = {
-    androidFmRadioRxCallbackOnStateChanged,
-    androidFmRadioRxCallbackOnError,
-    androidFmRadioRxCallbackOnStarted,
-    androidFmRadioRxCallbackOnScan,
-    androidFmRadioRxCallbackOnFullScan,
-    NULL,
-    androidFmRadioRxCallbackOnForcedReset,
-    androidFmRadioRxCallbackOnExtraCommand,
-};
-
-/* callbacks from vendor layer */
-
-static const fmradio_vendor_callbacks_t FmRadioRxVendorCallbacks = {
-    androidFmRadioRxCallbackOnPlayingInStereo,
-    androidFmRadioRxCallbackOnRDSDataFound,
-    androidFmRadioRxCallbackOnSignalStrengthChanged,
-    androidFmRadioRxCallbackOnAutomaticSwitch,
-    androidFmRadioRxCallbackOnVendorForcedReset
-};
-
 struct FmSession_t fmTransmitterSession;
 
 struct FmSession_t fmReceiverSession = {
@@ -142,7 +119,6 @@ struct FmSession_t fmReceiverSession = {
     FMRADIO_STATE_IDLE,
     NULL,
     &IsValidRxEventForState,
-    &FmRadioRxCallbacks,
     NULL,
     NULL,
     &fmTransmitterSession,
@@ -155,463 +131,6 @@ struct FmSession_t fmReceiverSession = {
     PTHREAD_COND_INITIALIZER,
     NULL,
 };
-
-// make sure we don't refer the TransmitterSession anymore from here
-#define fmTransmitterSession ERRORDONOTUSERECEIVERSESSIONINTRANSMITTER
-
-/*
-* Implementation of callbacks from within service layer. For these the
-*  mutex lock is always held on entry and need to be released before doing
-*  calls to java layer (env->Call*Method)  becasue these might trigger new
-*  calls from java and a deadlock would occure if lock was still held.
-*/
-
-static void androidFmRadioRxCallbackOnStateChanged(int oldState,
-                                                   int newState)
-{
-    jmethodID notifyOnStateChangedMethod;
-    JNIEnv *env;
-    jclass clazz;
-    bool reAttached = false;
-
-    ALOGI("androidFmRadioRxCallbackOnStateChanged: Old state %d, new state %d", oldState, newState);
-
-    /* since we might be both in main thread and subthread both test getenv
-     * and attach */
-    if (fmReceiverSession.jvm_p->GetEnv((void **) &env, JNI_VERSION_1_4) !=
-        JNI_OK) {
-        reAttached = true;
-        if (fmReceiverSession.jvm_p->AttachCurrentThread(&env, NULL) != JNI_OK) {
-            ALOGE("Error, can't attach current thread");
-            return;
-        }
-    }
-
-    clazz = env->GetObjectClass(fmReceiverSession.jobj);
-
-    notifyOnStateChangedMethod =
-        env->GetMethodID(clazz, "notifyOnStateChanged", "(II)V");
-    if (notifyOnStateChangedMethod != NULL) {
-        jobject jobj = fmReceiverSession.jobj;
-        pthread_mutex_unlock(fmReceiverSession.dataMutex_p);
-        env->CallVoidMethod(jobj,
-                            notifyOnStateChangedMethod, oldState,
-                            newState);
-        pthread_mutex_lock(fmReceiverSession.dataMutex_p);
-    } else {
-        ALOGE("ERROR - JNI can't find java notifyOnStateChanged method");
-    }
-
-    if (reAttached) {
-        fmReceiverSession.jvm_p->DetachCurrentThread();
-    }
-}
-
-static void androidFmRadioRxCallbackOnError(void)
-{
-    jmethodID notifyMethod;
-    JNIEnv *env;
-    jclass clazz;
-
-    ALOGI("androidFmRadioRxCallbackOnError");
-
-    if (fmReceiverSession.jvm_p->AttachCurrentThread(&env, NULL) != JNI_OK) {
-        ALOGE("Error, can't attch current thread");
-        return;
-    }
-
-    clazz = env->GetObjectClass(fmReceiverSession.jobj);
-    notifyMethod = env->GetMethodID(clazz, "notifyOnError", "()V");
-
-    if (notifyMethod != NULL) {
-        jobject jobj = fmReceiverSession.jobj;
-        pthread_mutex_unlock(fmReceiverSession.dataMutex_p);
-        env->CallVoidMethod(jobj, notifyMethod);
-        pthread_mutex_lock(fmReceiverSession.dataMutex_p);
-    } else {
-        ALOGE("ERROR - JNI can't find java notifyOnError method");
-    }
-
-    fmReceiverSession.jvm_p->DetachCurrentThread();
-}
-
-static void androidFmRadioRxCallbackOnStarted(void)
-{
-    jmethodID notifyMethod;
-    JNIEnv *env;
-    jclass clazz;
-
-    ALOGI("androidFmRadioRxCallbackOnStarted");
-
-    if (fmReceiverSession.jvm_p->AttachCurrentThread(&env, NULL) != JNI_OK) {
-        ALOGE("Error, can't attch current thread");
-        return;
-    }
-
-    clazz = env->GetObjectClass(fmReceiverSession.jobj);
-    notifyMethod = env->GetMethodID(clazz, "notifyOnStarted", "()V");
-
-    if (notifyMethod != NULL) {
-        jobject jobj = fmReceiverSession.jobj;
-        pthread_mutex_unlock(fmReceiverSession.dataMutex_p);
-        env->CallVoidMethod(jobj, notifyMethod);
-        pthread_mutex_lock(fmReceiverSession.dataMutex_p);
-    } else {
-        ALOGE("ERROR - JNI can't find java notifyOnStarted method");
-    }
-
-    fmReceiverSession.jvm_p->DetachCurrentThread();
-}
-
-
-static void androidFmRadioRxCallbackOnScan(int foundFreq,
-                                           int signalStrength,
-                                           int scanDirection,
-                                           bool aborted)
-{
-    jmethodID notifyMethod;
-    JNIEnv *env;
-    jclass clazz;
-
-    ALOGI("androidFmRadioRxCallbackOnScan: Callback foundFreq %d, signalStrength %d,"
-         " scanDirection %d, aborted %u", foundFreq, signalStrength, scanDirection,
-         aborted);
-
-    if (fmReceiverSession.jvm_p->AttachCurrentThread(&env, NULL) != JNI_OK) {
-        ALOGE("Error, can't attch current thread");
-        return;
-    }
-
-    clazz = env->GetObjectClass(fmReceiverSession.jobj);
-
-    notifyMethod = env->GetMethodID(clazz, "notifyOnScan", "(IIIZ)V");
-
-    if (notifyMethod != NULL) {
-        jobject jobj = fmReceiverSession.jobj;
-        pthread_mutex_unlock(fmReceiverSession.dataMutex_p);
-        env->CallVoidMethod(jobj, notifyMethod, foundFreq, signalStrength,
-                            scanDirection, aborted);
-        pthread_mutex_lock(fmReceiverSession.dataMutex_p);
-    } else {
-        ALOGE("ERROR - JNI can't find java notifyOnScan method");
-    }
-
-    fmReceiverSession.jvm_p->DetachCurrentThread();
-}
-
-static void androidFmRadioRxCallbackOnFullScan(int noItems,
-                                               int *frequencies,
-                                               int *sigStrengths,
-                                               bool aborted)
-{
-    jmethodID notifyMethod;
-    JNIEnv *env;
-    jclass clazz;
-    jintArray jFreqs;
-    jintArray jSigStrengths;
-
-    int d;
-
-    ALOGI("androidFmRadioRxCallbackOnFullScan: No items %d, aborted %d",
-         noItems, aborted);
-
-    for (d = 0; d < noItems; d++) {
-        ALOGI("%d -> %d", frequencies[d], sigStrengths[d]);
-    }
-
-    if (fmReceiverSession.jvm_p->AttachCurrentThread(&env, NULL) != JNI_OK) {
-        ALOGE("Error, can't attch current thread");
-        return;
-    }
-
-    jFreqs = env->NewIntArray(noItems);
-    jSigStrengths = env->NewIntArray(noItems);
-    clazz = env->GetObjectClass(fmReceiverSession.jobj);
-
-    env->SetIntArrayRegion(jFreqs, 0, noItems, frequencies);
-    env->SetIntArrayRegion(jSigStrengths, 0, noItems, sigStrengths);
-
-
-    notifyMethod = env->GetMethodID(clazz, "notifyOnFullScan", "([I[IZ)V");
-
-    if (notifyMethod != NULL) {
-        jobject jobj = fmReceiverSession.jobj;
-        pthread_mutex_unlock(fmReceiverSession.dataMutex_p);
-
-        env->CallVoidMethod(jobj, notifyMethod,
-                            jFreqs, jSigStrengths, aborted);
-        pthread_mutex_lock(fmReceiverSession.dataMutex_p);
-    } else {
-        ALOGE("ERROR - JNI can't find java notifyOnFullScan method");
-    }
-
-    fmReceiverSession.jvm_p->DetachCurrentThread();
-}
-
-static void androidFmRadioRxCallbackOnForcedReset(enum fmradio_reset_reason_t reason)
-{
-    jmethodID notifyMethod;
-    JNIEnv *env;
-    jclass clazz;
-    bool reAttached = false;
-
-    ALOGI("androidFmRadioRxCallbackOnForcedReset");
-
-    if (fmReceiverSession.jvm_p->GetEnv((void **) &env, JNI_VERSION_1_4) !=
-        JNI_OK) {
-        reAttached = true;
-        if (fmReceiverSession.jvm_p->AttachCurrentThread(&env, NULL) != JNI_OK) {
-            ALOGE("Error, can't attch current thread");
-            return;
-        }
-    }
-
-    clazz = env->GetObjectClass(fmReceiverSession.jobj);
-
-    notifyMethod = env->GetMethodID(clazz, "notifyOnForcedReset", "(I)V");
-    if (notifyMethod != NULL) {
-        jobject jobj = fmReceiverSession.jobj;
-        pthread_mutex_unlock(fmReceiverSession.dataMutex_p);
-        env->CallVoidMethod(jobj, notifyMethod,
-                            reason);
-        pthread_mutex_lock(fmReceiverSession.dataMutex_p);
-    }
-
-    if (reAttached) {
-        fmReceiverSession.jvm_p->DetachCurrentThread();
-    }
-}
-
-static void androidFmRadioRxCallbackOnVendorForcedReset(enum fmradio_reset_reason_t reason)
-{
-
-    ALOGI("androidFmRadioRxCallbackOnVendorForcedReset");
-    pthread_mutex_lock(fmReceiverSession.dataMutex_p);
-    if (fmReceiverSession.state != FMRADIO_STATE_IDLE) {
-        FMRADIO_SET_STATE(&fmReceiverSession, FMRADIO_STATE_IDLE);
-        androidFmRadioUnLoadFmLibrary(&fmReceiverSession);
-        fmReceiverSession.isRegistered = false;
-    }
-    fmReceiverSession.callbacks_p->onForcedReset(reason);
-    pthread_mutex_unlock(fmReceiverSession.dataMutex_p);
-}
-
-
-static void androidFmRadioRxCallbackOnExtraCommand(char* command,
-                                                   struct
-                                                   fmradio_extra_command_ret_item_t
-                                                   *retList)
-{
-    jmethodID notifyMethod;
-    JNIEnv *env;
-    jclass clazz;
-
-    struct bundle_descriptor_offsets_t *bundle_p =
-        fmReceiverSession.bundleOffsets_p;
-
-    ALOGI("androidFmRadioRxCallbackOnSendExtraCommand");
-
-    if (fmReceiverSession.jvm_p->AttachCurrentThread(&env, NULL) != JNI_OK) {
-        ALOGE("Error, can't attch current thread");
-        return;
-    }
-
-    clazz = env->GetObjectClass(fmReceiverSession.jobj);
-    jobject retBundle = extraCommandRetList2Bundle(env, bundle_p, retList);
-    jstring jcommand = env->NewStringUTF(command);
-
-    notifyMethod =
-        env->GetMethodID(clazz, "notifyOnExtraCommand",
-                         "(Ljava/lang/String;Landroid/os/Bundle;)V");
-    if (notifyMethod != NULL) {
-        jobject jobj = fmReceiverSession.jobj;
-        pthread_mutex_unlock(fmReceiverSession.dataMutex_p);
-
-        env->CallVoidMethod(jobj, notifyMethod, jcommand, retBundle);
-        pthread_mutex_lock(fmReceiverSession.dataMutex_p);
-    }
-
-    fmReceiverSession.jvm_p->DetachCurrentThread();
-}
-
-/*
-* Implementation of callbacks from vendor layer. For these the  mutex lock
-* is NOT held on entry and need to be taken and released before doing
-*  calls to java layer (env->Call*Method)  becasue these might trigger new
-*  calls from java and a deadlock would occure
-*/
-
-static void
-androidFmRadioRxCallbackOnRDSDataFound(struct fmradio_rds_bundle_t *t,
-                                       int frequency)
-{
-    jmethodID notifyMethod;
-    JNIEnv *env;
-    jclass clazz;
-    jobject bundle;
-    jshortArray jsArr;
-
-    pthread_mutex_lock(fmReceiverSession.dataMutex_p);
-    struct bundle_descriptor_offsets_t *bundle_p =
-        fmReceiverSession.bundleOffsets_p;
-
-    if (fmReceiverSession.jvm_p->AttachCurrentThread(&env, NULL) != JNI_OK) {
-        ALOGE("Error, can't attch current thread");
-        goto drop_lock;
-    }
-    bundle = env->NewObject(bundle_p->mClass,
-                                    bundle_p->mConstructor);
-    /* note, these calls are to predefined methods, no need to release lock */
-    env->CallVoidMethod(bundle, bundle_p->mPutShort,
-                        env->NewStringUTF("PI"), t->pi);
-    env->CallVoidMethod(bundle, bundle_p->mPutShort,
-                        env->NewStringUTF("TP"), t->tp);
-    env->CallVoidMethod(bundle, bundle_p->mPutShort,
-                        env->NewStringUTF("PTY"), t->pty);
-    env->CallVoidMethod(bundle, bundle_p->mPutShort,
-                        env->NewStringUTF("TA"), t->ta);
-    env->CallVoidMethod(bundle, bundle_p->mPutShort,
-                        env->NewStringUTF("M/S"), t->ms);
-
-    if (t->num_afs > 0 && t->num_afs < RDS_MAX_AFS) {
-        jintArray jArr = env->NewIntArray(t->num_afs);
-        env->SetIntArrayRegion(jArr, 0, t->num_afs, t->af);
-        env->CallVoidMethod(bundle, bundle_p->mPutIntArray,
-                            env->NewStringUTF("AF"), jArr);
-    }
-    env->CallVoidMethod(bundle, bundle_p->mPutString,
-                        env->NewStringUTF("PSN"),
-                        env->NewStringUTF(t->psn));
-    env->CallVoidMethod(bundle, bundle_p->mPutString,
-                        env->NewStringUTF("RT"),
-                        env->NewStringUTF(t->rt));
-    env->CallVoidMethod(bundle, bundle_p->mPutString,
-                        env->NewStringUTF("CT"),
-                        env->NewStringUTF(t->ct));
-    env->CallVoidMethod(bundle, bundle_p->mPutString,
-                        env->NewStringUTF("PTYN"),
-                        env->NewStringUTF(t->ptyn));
-
-    jsArr = env->NewShortArray(3);
-
-    env->SetShortArrayRegion(jsArr, 0, 3, t->tmc);
-    env->CallVoidMethod(bundle, bundle_p->mPutShortArray,
-                        env->NewStringUTF("TMC"), jsArr);
-
-    env->CallVoidMethod(bundle, bundle_p->mPutInt,
-                        env->NewStringUTF("TAF"), t->taf);
-
-    clazz = env->GetObjectClass(fmReceiverSession.jobj);
-
-    notifyMethod =
-        env->GetMethodID(clazz, "notifyOnRDSDataFound",
-                         "(Landroid/os/Bundle;I)V");
-    if (notifyMethod != NULL) {
-        jobject jobj = fmReceiverSession.jobj;
-        pthread_mutex_unlock(fmReceiverSession.dataMutex_p);
-        env->CallVoidMethod(jobj, notifyMethod,
-                            bundle, frequency);
-        pthread_mutex_lock(fmReceiverSession.dataMutex_p);
-    }
-    fmReceiverSession.jvm_p->DetachCurrentThread();
-
- drop_lock:
-    pthread_mutex_unlock(fmReceiverSession.dataMutex_p);
-}
-
-static void androidFmRadioRxCallbackOnSignalStrengthChanged(int newLevel)
-{
-    jmethodID notifyMethod;
-    JNIEnv *env;
-    jclass clazz;
-
-    pthread_mutex_lock(fmReceiverSession.dataMutex_p);
-    if (fmReceiverSession.jvm_p->AttachCurrentThread(&env, NULL) != JNI_OK) {
-        ALOGE("Error, can't attch current thread");
-        goto drop_lock;
-    }
-    clazz = env->GetObjectClass(fmReceiverSession.jobj);
-    notifyMethod =
-        env->GetMethodID(clazz, "notifyOnSignalStrengthChanged", "(I)V");
-    if (notifyMethod != NULL) {
-        jobject jobj = fmReceiverSession.jobj;
-        pthread_mutex_unlock(fmReceiverSession.dataMutex_p);
-        env->CallVoidMethod(jobj, notifyMethod,
-                            newLevel);
-        pthread_mutex_lock(fmReceiverSession.dataMutex_p);
-    }
-
-    fmReceiverSession.jvm_p->DetachCurrentThread();
- drop_lock:
-    pthread_mutex_unlock(fmReceiverSession.dataMutex_p);
-}
-
-static void androidFmRadioRxCallbackOnPlayingInStereo(int
-                                                      isPlayingInStereo)
-{
-    jmethodID notifyMethod;
-    JNIEnv *env;
-    jclass clazz;
-
-    ALOGI("androidFmRadioRxCallbackOnPlayingInStereo (%d)",
-         isPlayingInStereo);
-
-    pthread_mutex_lock(fmReceiverSession.dataMutex_p);
-    if (fmReceiverSession.jvm_p->AttachCurrentThread(&env, NULL) != JNI_OK) {
-        ALOGE("Error, can't attch current thread");
-        goto drop_lock;
-    }
-    clazz = env->GetObjectClass(fmReceiverSession.jobj);
-    notifyMethod =
-        env->GetMethodID(clazz, "notifyOnPlayingInStereo", "(Z)V");
-    if (notifyMethod != NULL) {
-        jobject jobj = fmReceiverSession.jobj;
-        pthread_mutex_unlock(fmReceiverSession.dataMutex_p);
-        env->CallVoidMethod(jobj, notifyMethod,
-                            (bool) isPlayingInStereo);
-        pthread_mutex_lock(fmReceiverSession.dataMutex_p);
-    }
-
-    fmReceiverSession.jvm_p->DetachCurrentThread();
- drop_lock:
-    pthread_mutex_unlock(fmReceiverSession.dataMutex_p);
-}
-
-/*
- * currently frequency changed event is not supported by interface, to be
- * implemented quite soon...
- */
-
-static void androidFmRadioRxCallbackOnAutomaticSwitch(int newFrequency, enum fmradio_switch_reason_t reason)
-{
-    jmethodID notifyMethod;
-    JNIEnv *env;
-    jclass clazz;
-
-    ALOGI("androidFmRadioRxCallbackOnAutomaticSwitch: new frequency %d, reason %d",
-         newFrequency, (int) reason);
-
-    pthread_mutex_lock(fmReceiverSession.dataMutex_p);
-    if (fmReceiverSession.jvm_p->AttachCurrentThread(&env, NULL) != JNI_OK) {
-        ALOGE("Error, can't attch current thread");
-        goto drop_lock;
-    }
-    clazz = env->GetObjectClass(fmReceiverSession.jobj);
-    notifyMethod =
-        env->GetMethodID(clazz, "notifyOnAutomaticSwitching", "(II)V");
-    if (notifyMethod != NULL) {
-        jobject jobj = fmReceiverSession.jobj;
-        pthread_mutex_unlock(fmReceiverSession.dataMutex_p);
-        env->CallVoidMethod(jobj, notifyMethod, (jint)newFrequency,
-                            (jint)reason);
-        pthread_mutex_lock(fmReceiverSession.dataMutex_p);
-    }
-
-
-    fmReceiverSession.jvm_p->DetachCurrentThread();
- drop_lock:
-    pthread_mutex_unlock(fmReceiverSession.dataMutex_p);
-}
 
 /*
  *  function calls from java layer.
@@ -631,7 +150,7 @@ static jint androidFmRadioRxGetState(JNIEnv * env, jobject obj)
 
 /* common ones with tx, just forward to the generic androidFmRadioxxxxx version */
 
-static void
+static bool
 androidFmRadioRxStart(JNIEnv * env, jobject obj, int lowFreq,
                       int highFreq, int defaultFreq, int grid)
 {
@@ -639,43 +158,41 @@ androidFmRadioRxStart(JNIEnv * env, jobject obj, int lowFreq,
 
     if (fmReceiverSession.jobj == NULL)
         fmReceiverSession.jobj = env->NewGlobalRef(obj);
-    (void) androidFmRadioStart(&fmReceiverSession, FMRADIO_RX,
-                               &FmRadioRxVendorCallbacks, false, lowFreq,
+    return androidFmRadioStart(&fmReceiverSession, FMRADIO_RX, false, lowFreq,
                                highFreq, defaultFreq, grid);
 }
 
 
-static void
+static bool
 androidFmRadioRxStartAsync(JNIEnv * env, jobject obj, int lowFreq,
                            int highFreq, int defaultFreq, int grid)
 {
-    ALOGI("androidFmRadioRxStartAsync...");
+  //  ALOGI("androidFmRadioRxStartAsync...");
 
     if (fmReceiverSession.jobj == NULL)
         fmReceiverSession.jobj = env->NewGlobalRef(obj);
-    (void) androidFmRadioStart(&fmReceiverSession, FMRADIO_RX,
-                               &FmRadioRxVendorCallbacks, true, lowFreq,
-                               highFreq, defaultFreq, grid);
+    return androidFmRadioStart(&fmReceiverSession, FMRADIO_RX,true,
+                               lowFreq, highFreq, defaultFreq, grid);
 }
 
 static void androidFmRadioRxPause(JNIEnv * env, jobject obj)
 {
-    ALOGI("androidFmRadioRxPause\n");
+  //  ALOGI("androidFmRadioRxPause\n");
 
     (void)androidFmRadioPause(&fmReceiverSession);
 }
 
 static void androidFmRadioRxResume(JNIEnv * env, jobject obj)
 {
-    ALOGI("androidFmRadioRxResume\n");
+  //  ALOGI("androidFmRadioRxResume\n");
     (void)androidFmRadioResume(&fmReceiverSession);
 }
 
-static jint androidFmRadioRxReset(JNIEnv * env, jobject obj)
+static jboolean androidFmRadioRxReset(JNIEnv * env, jobject obj)
 {
     int retval = 0;
 
-    ALOGI("androidFmRadioRxReset");
+  //  ALOGI("androidFmRadioRxReset");
     retval = androidFmRadioReset(&fmReceiverSession);
 
     if (retval >= 0 && fmReceiverSession.state == FMRADIO_STATE_IDLE &&
@@ -687,23 +204,30 @@ static jint androidFmRadioRxReset(JNIEnv * env, jobject obj)
     return retval;
 }
 
-static void
+static int androidFmRadioRxMute(JNIEnv * env, jobject obj, jint mute)
+{
+  //  ALOGI("androidFmRadioRxPause\n");
+
+    return androidFmRadioMute(&fmReceiverSession, mute);
+}
+
+static int
 androidFmRadioRxSetFrequency(JNIEnv * env, jobject obj, jint frequency)
 {
-    ALOGI("androidFmRadioRxSetFrequency tuneTo:%d\n", (int) frequency);
+  //  ALOGI("androidFmRadioRxSetFrequency tuneTo:%d\n", (int) frequency);
     return androidFmRadioSetFrequency(&fmReceiverSession, (int) frequency);
 }
 
 static jint androidFmRadioRxGetFrequency(JNIEnv * env, jobject obj)
 {
-    ALOGI("androidFmRadioRxGetFrequency:\n");
+  //  ALOGI("androidFmRadioRxGetFrequency:\n");
     return androidFmRadioGetFrequency(&fmReceiverSession);
 }
 
-static void androidFmRadioRxStopScan(JNIEnv * env, jobject obj)
+static jint androidFmRadioRxStopScan(JNIEnv * env, jobject obj)
 {
-    ALOGI("androidFmRadioRxStopScan\n");
-    androidFmRadioStopScan(&fmReceiverSession);
+  //  ALOGI("androidFmRadioRxStopScan\n");
+    return androidFmRadioStopScan(&fmReceiverSession);
 }
 
 /* the rest of the calls are specific for RX */
@@ -712,7 +236,7 @@ static jint androidFmRadioRxGetSignalStrength(JNIEnv * env, jobject obj)
 {
     int retval = SIGNAL_STRENGTH_UNKNOWN;
 
-    ALOGI("androidFmRadioRxGetSignalStrength\n");
+  //  ALOGI("androidFmRadioRxGetSignalStrength\n");
 
     pthread_mutex_lock(fmReceiverSession.dataMutex_p);
 
@@ -749,7 +273,7 @@ androidFmRadioRxIsPlayingInStereo(JNIEnv * env, jobject obj)
 {
     bool retval;
 
-    ALOGI("androidFmRadioRxIsPlayingInStereo:\n");
+  //  ALOGI("androidFmRadioRxIsPlayingInStereo:\n");
 
     pthread_mutex_lock(fmReceiverSession.dataMutex_p);
 
@@ -774,12 +298,12 @@ androidFmRadioRxIsPlayingInStereo(JNIEnv * env, jobject obj)
     return retval;
 }
 
-static jboolean
+static int
 androidFmRadioRxIsRDSDataSupported(JNIEnv * env, jobject obj)
 {
     bool retval;
 
-    ALOGI("androidFmRadioRxIsRDSDataSupported:\n");
+ //   ALOGI("androidFmRadioRxIsRDSDataSupported:\n");
 
     pthread_mutex_lock(fmReceiverSession.dataMutex_p);
 
@@ -808,7 +332,7 @@ androidFmRadioRxIsTunedToValidChannel(JNIEnv * env, jobject obj)
 {
     bool retval;
 
-    ALOGI("androidFmRadioRxIsTunedToValidChannel:\n");
+ //   ALOGI("androidFmRadioRxIsTunedToValidChannel:\n");
 
     pthread_mutex_lock(fmReceiverSession.dataMutex_p);
 
@@ -832,16 +356,12 @@ androidFmRadioRxIsTunedToValidChannel(JNIEnv * env, jobject obj)
     return retval;
 }
 
-static void *execute_androidFmRadioRxScan(void *args)
+static bool androidFmRadioRxScan(enum fmradio_seek_direction_t scanDirection, jint *frequency)
 {
-    enum fmradio_seek_direction_t scanDirection =
-        *(enum fmradio_seek_direction_t *) args;
     int signalStrength = -1;
     int retval;
-    enum FmRadioState_t oldState;
 
     pthread_mutex_lock(fmReceiverSession.dataMutex_p);
-    free(args);
     // we should still be in SCANNING mode, but we can't be 100.00 % sure since main thread released lock
     // before we could run
 
@@ -855,14 +375,6 @@ static void *execute_androidFmRadioRxScan(void *args)
      */
     if (fmReceiverSession.state == FMRADIO_STATE_IDLE) {
         goto drop_lock;
-    }
-
-    oldState = fmReceiverSession.oldState;
-
-    // temporary resume chip if sleeping
-    if (oldState == FMRADIO_STATE_PAUSED) {
-        (void) fmReceiverSession.
-            vendorMethods_p->resume(&fmReceiverSession.vendorData_p);
     }
 
     if (pthread_cond_signal(&fmReceiverSession.sync_cond) != 0) {
@@ -892,17 +404,7 @@ static void *execute_androidFmRadioRxScan(void *args)
              fmReceiverSession.state);
         retval = -1;
     } else {
-        // put back to sleep if we did a temporary wake-up
-        if ((oldState == FMRADIO_STATE_PAUSED
-             || fmReceiverSession.pendingPause))
-            (void) fmReceiverSession.
-                vendorMethods_p->pause(&fmReceiverSession.vendorData_p);
-        if (fmReceiverSession.pendingPause) {
-            FMRADIO_SET_STATE(&fmReceiverSession, FMRADIO_STATE_PAUSED);
-        } else {
-            FMRADIO_SET_STATE(&fmReceiverSession, oldState);
-        }
-
+        FMRADIO_SET_STATE(&fmReceiverSession, FMRADIO_STATE_STARTED);
         // if we failed but we have a pending abort just read the current frequency to give a proper
         // onScan return
 
@@ -915,113 +417,35 @@ static void *execute_androidFmRadioRxScan(void *args)
     fmReceiverSession.pendingPause = false;
 
     if (retval >= 0) {
-        fmReceiverSession.callbacks_p->onScan(retval,
-                                              signalStrength,
-                                              scanDirection,
-                                              fmReceiverSession.
-                                              lastScanAborted);
-    } else {
-        fmReceiverSession.callbacks_p->onError();
-    }
-    drop_lock:
-    /* Wake up the main thread if it is currently waiting on the condition variable */
-    if (pthread_cond_signal(&fmReceiverSession.sync_cond) != 0) {
-        ALOGE("execute_androidFmRadioRxScan - signal failed\n");
+        *frequency = retval;
     }
 
+drop_lock:
     pthread_mutex_unlock(fmReceiverSession.dataMutex_p);
 
-    pthread_exit(NULL);
-    return NULL;
+    return 0;
 }
 
-
-static void androidFmRadioRxScan(enum fmradio_seek_direction_t scanDirection)
+static bool
+androidFmRadioRxScanUp(JNIEnv * env, jobject obj, jint *frequency)
 {
-    int retval = 0;
-
-    pthread_mutex_lock(fmReceiverSession.dataMutex_p);
-
-    if (!androidFmRadioIsValidEventForState
-        (&fmReceiverSession, FMRADIO_EVENT_SCAN)) {
-        retval = FMRADIO_INVALID_STATE;
-        goto drop_lock;
-    }
-
-    if (fmReceiverSession.vendorMethods_p->scan) {
-        enum fmradio_seek_direction_t *scanDirectionParam_p =
-            (enum fmradio_seek_direction_t *)
-            malloc(sizeof(*scanDirectionParam_p));
-
-        pthread_t execute_thread;
-
-        // we need to create a new thread actually executing the command
-
-        fmReceiverSession.oldState = fmReceiverSession.state;
-        FMRADIO_SET_STATE(&fmReceiverSession, FMRADIO_STATE_SCANNING);
-        *scanDirectionParam_p = scanDirection;
-
-        fmReceiverSession.lastScanAborted = false;
-
-        if (pthread_create
-            (&execute_thread, NULL, execute_androidFmRadioRxScan,
-             (void *) scanDirectionParam_p) != 0) {
-
-            ALOGE("pthread_create failure...\n");
-            free(scanDirectionParam_p);
-            FMRADIO_SET_STATE(&fmReceiverSession, fmReceiverSession.oldState);
-            retval = FMRADIO_IO_ERROR;
-        } else {
-            /* await thread startup, THREAD_WAIT_TIMEOUT_S sec timeout */
-            struct timespec ts;
-            clock_gettime(CLOCK_REALTIME, &ts);
-            ts.tv_sec += THREAD_WAIT_TIMEOUT_S;
-            if (pthread_cond_timedwait(&fmReceiverSession.sync_cond,
-                                       fmReceiverSession.dataMutex_p,
-                                       &ts) != 0) {
-                ALOGE("androidFmRadioRxScan: warning, wait failure\n");
-            }
-            pthread_detach(execute_thread);
-
-        }
-    } else {
-        retval = FMRADIO_UNSUPPORTED_OPERATION;
-    }
-
-  drop_lock:
-    if (retval == FMRADIO_INVALID_STATE) {
-        THROW_INVALID_STATE(&fmReceiverSession);
-    } else if (retval < 0) {
-        THROW_IO_ERROR(&fmReceiverSession);
-    }
-
-    pthread_mutex_unlock(fmReceiverSession.dataMutex_p);
-
-    if (retval < 0) {
-        ALOGE("androidFmRadioRxScan failed\n");
-    }
+  //  ALOGI("androidFmRadioRxScanUp\n");
+    FMRADIO_SET_STATE(&fmReceiverSession, FMRADIO_STATE_SCANNING);
+    androidFmRadioRxScan(FMRADIO_SEEK_UP, frequency);
+    return 0;
 }
 
-static void
-androidFmRadioRxScanUp(JNIEnv * env, jobject obj, jlong * frequency)
+static bool
+androidFmRadioRxScanDown(JNIEnv * env, jobject obj, jint *frequency)
 {
-    ALOGI("androidFmRadioRxScanUp\n");
-
-    androidFmRadioRxScan(FMRADIO_SEEK_UP);
+  //  ALOGI("androidFmRadioRxScanDown\n");
+    FMRADIO_SET_STATE(&fmReceiverSession, FMRADIO_STATE_SCANNING);
+    return androidFmRadioRxScan(FMRADIO_SEEK_DOWN, frequency);
 }
 
-static void
-androidFmRadioRxScanDown(JNIEnv * env, jobject obj, jlong * frequency)
-{
-    ALOGI("androidFmRadioRxScanDown\n");
-
-    androidFmRadioRxScan(FMRADIO_SEEK_DOWN);
-}
-
-static void *execute_androidFmRadioRxFullScan(void *args)
+static int androidFmRadioRxFullScan(int *frequencies)
 {
     int retval;
-    enum FmRadioState_t oldState = fmReceiverSession.oldState;
     int *frequencies_p = NULL;
     int *rssi_p = NULL;
 
@@ -1041,23 +465,16 @@ static void *execute_androidFmRadioRxFullScan(void *args)
     if (fmReceiverSession.state == FMRADIO_STATE_IDLE) {
         goto drop_lock;
     }
-    // temporary resume chip if sleeping
-    if (oldState == FMRADIO_STATE_PAUSED) {
-        (void) fmReceiverSession.
-            vendorMethods_p->resume(&fmReceiverSession.vendorData_p);
-    }
 
     if (pthread_cond_signal(&fmReceiverSession.sync_cond) != 0) {
         ALOGE("execute_androidFmRadioRxFullScan - warning, signal failed\n");
     }
     pthread_mutex_unlock(fmReceiverSession.dataMutex_p);
 
-    retval =
-        fmReceiverSession.vendorMethods_p->full_scan(&fmReceiverSession.
+    retval = fmReceiverSession.vendorMethods_p->full_scan(&fmReceiverSession.
                                                     vendorData_p,
                                                     &frequencies_p,
                                                     &rssi_p);
-
     pthread_mutex_lock(fmReceiverSession.dataMutex_p);
 
     /*
@@ -1069,23 +486,15 @@ static void *execute_androidFmRadioRxFullScan(void *args)
              fmReceiverSession.state);
         retval = -1;
     } else {
-        if (fmReceiverSession.pendingPause) {
-            FMRADIO_SET_STATE(&fmReceiverSession, FMRADIO_STATE_PAUSED);
-        } else {
-            FMRADIO_SET_STATE(&fmReceiverSession, oldState);
-        }
-
-        fmReceiverSession.pendingPause = false;
+        FMRADIO_SET_STATE(&fmReceiverSession, FMRADIO_STATE_STARTED);
     }
 
     if (retval >= 0) {
-        fmReceiverSession.callbacks_p->onFullScan(retval,
-                                                  frequencies_p,
-                                                  rssi_p,
-                                                  fmReceiverSession.
-                                                  lastScanAborted);
-    } else {
-        fmReceiverSession.callbacks_p->onError();
+        for (int i=0; i < 50; i++) {
+           if (frequencies_p[i] <= 0)
+                break;
+           frequencies[i] = frequencies_p[i];
+        }
     }
 
     if (frequencies_p != NULL) {
@@ -1103,131 +512,17 @@ static void *execute_androidFmRadioRxFullScan(void *args)
     }
     pthread_mutex_unlock(fmReceiverSession.dataMutex_p);
 
-    pthread_exit(NULL);
-    return NULL;
+    return 0;
 }
 
-static void androidFmRadioRxStartFullScan(JNIEnv * env, jobject obj)
+static int androidFmRadioRxStartFullScan(JNIEnv * env, jobject obj, int *frequencies)
 {
-    ALOGI("androidFmRadioRxStartFullScan\n");
+  //  ALOGI("androidFmRadioRxStartFullScan\n");
     int retval = 0;
 
-    pthread_mutex_lock(fmReceiverSession.dataMutex_p);
-
-    if (!androidFmRadioIsValidEventForState
-        (&fmReceiverSession, FMRADIO_EVENT_FULL_SCAN)) {
-        retval = FMRADIO_INVALID_STATE;
-        goto drop_lock;
-    }
-
-
-    if (fmReceiverSession.vendorMethods_p->full_scan) {
-        pthread_t execute_thread;
-
-        fmReceiverSession.oldState = fmReceiverSession.state;
-        FMRADIO_SET_STATE(&fmReceiverSession, FMRADIO_STATE_SCANNING);
-        fmReceiverSession.lastScanAborted = false;
-
-        if (pthread_create
-            (&execute_thread, NULL, execute_androidFmRadioRxFullScan,
-             NULL) != 0) {
-
-            ALOGE("pthread_create failure...\n");
-            FMRADIO_SET_STATE(&fmReceiverSession, fmReceiverSession.oldState);
-            retval = FMRADIO_IO_ERROR;
-        } else {
-            /* await thread startup, THREAD_WAIT_TIMEOUT_S sec timeout */
-            struct timespec ts;
-            clock_gettime(CLOCK_REALTIME, &ts);
-            ts.tv_sec += THREAD_WAIT_TIMEOUT_S;
-            if (pthread_cond_timedwait(&fmReceiverSession.sync_cond,
-                                       fmReceiverSession.dataMutex_p,
-                                       &ts) != 0) {
-                ALOGE("androidFmRadioRxStartFullScan: warning, wait failure\n");
-            }
-            pthread_detach(execute_thread);
-        }
-    } else {
-        retval = FMRADIO_UNSUPPORTED_OPERATION;
-    }
-
-  drop_lock:
-    if (retval == FMRADIO_INVALID_STATE) {
-        THROW_INVALID_STATE(&fmReceiverSession);
-    } else if (retval < 0) {
-        THROW_IO_ERROR(&fmReceiverSession);
-    }
-
-    pthread_mutex_unlock(fmReceiverSession.dataMutex_p);
-}
-
-static void androidFmRadioRxSetAutomaticAFSwitching(JNIEnv * env,
-                                                  jobject obj,
-                                                  jboolean automatic)
-{
-    int retval = -1;
-
-    ALOGI("androidFmRadioRxSetAutomaticAFSwitching\n");
-
-    pthread_mutex_lock(fmReceiverSession.dataMutex_p);
-
-    if (!androidFmRadioIsValidEventForState
-        (&fmReceiverSession, FMRADIO_EVENT_SET_PARAMETER)) {
-        retval = FMRADIO_INVALID_STATE;
-        goto drop_lock;
-    }
-
-
-    if (fmReceiverSession.vendorMethods_p->set_automatic_af_switching) {
-        retval =
-            fmReceiverSession.vendorMethods_p->
-            set_automatic_af_switching(&fmReceiverSession.vendorData_p, automatic);
-    } else {
-        retval = FMRADIO_UNSUPPORTED_OPERATION;
-    }
-
-  drop_lock:
-    if (retval == FMRADIO_INVALID_STATE) {
-        THROW_INVALID_STATE(&fmReceiverSession);
-    } else if (retval < 0) {
-        THROW_IO_ERROR(&fmReceiverSession);
-    }
-
-    pthread_mutex_unlock(fmReceiverSession.dataMutex_p);
-}
-
-static void androidFmRadioRxSetAutomaticTASwitching(JNIEnv * env, jobject obj,
-                                                    jboolean automatic)
-{
-    int retval = -1;
-
-    ALOGI("androidFmRadioRxSetAutomaticTASwitching\n");
-
-    pthread_mutex_lock(fmReceiverSession.dataMutex_p);
-
-    if (!androidFmRadioIsValidEventForState
-        (&fmReceiverSession, FMRADIO_EVENT_SET_PARAMETER)) {
-        retval = FMRADIO_INVALID_STATE;
-        goto drop_lock;
-    }
-
-
-    if (fmReceiverSession.vendorMethods_p->set_automatic_ta_switching) {
-        retval =
-            fmReceiverSession.vendorMethods_p->
-            set_automatic_ta_switching(&fmReceiverSession.vendorData_p, automatic);
-    } else {
-        retval = FMRADIO_UNSUPPORTED_OPERATION;
-    }
-
-  drop_lock:
-    if (retval == FMRADIO_INVALID_STATE) {
-        THROW_INVALID_STATE(&fmReceiverSession);
-    } else if (retval < 0) {
-        THROW_IO_ERROR(&fmReceiverSession);
-    }
-
-    pthread_mutex_unlock(fmReceiverSession.dataMutex_p);
+    FMRADIO_SET_STATE(&fmReceiverSession, FMRADIO_STATE_SCANNING);
+    androidFmRadioRxFullScan(frequencies);
+    return retval;
 }
 
 static void androidFmRadioRxSetForceMono(JNIEnv * env, jobject obj,
@@ -1235,7 +530,7 @@ static void androidFmRadioRxSetForceMono(JNIEnv * env, jobject obj,
 {
     int retval = -1;
 
-    ALOGI("androidFmRadioRxSetForceMono\n");
+   // ALOGI("androidFmRadioRxSetForceMono\n");
 
     pthread_mutex_lock(fmReceiverSession.dataMutex_p);
 
@@ -1274,7 +569,7 @@ androidFmRadioRxSetThreshold(JNIEnv * env, jobject obj, jint threshold)
 {
     int retval;
 
-    ALOGI("androidFmRadioRxSetThreshold threshold:%d\n", (int) threshold);
+  //  ALOGI("androidFmRadioRxSetThreshold threshold:%d\n", (int) threshold);
 
     pthread_mutex_lock(fmReceiverSession.dataMutex_p);
     if (!androidFmRadioIsValidEventForState
@@ -1312,7 +607,7 @@ static jint androidFmRadioRxGetThreshold(JNIEnv * env, jobject obj)
 {
     int retval;
 
-    ALOGI("androidFmRadioRxGetThreshold\n");
+   // ALOGI("androidFmRadioRxGetThreshold\n");
     pthread_mutex_lock(fmReceiverSession.dataMutex_p);
 
     if (!androidFmRadioIsValidEventForState
@@ -1343,55 +638,11 @@ static jint androidFmRadioRxGetThreshold(JNIEnv * env, jobject obj)
     return retval;
 }
 
-static void androidFmRadioRxSetRDS(JNIEnv * env, jobject obj,
-                                   jboolean receiveRDS)
-{
-    int retval = -1;
-
-    ALOGI("androidFmRadioRxSetRDS(%d)", (int)receiveRDS);
-
-    pthread_mutex_lock(fmReceiverSession.dataMutex_p);
-
-    if (!androidFmRadioIsValidEventForState
-        (&fmReceiverSession, FMRADIO_EVENT_SET_PARAMETER)) {
-        retval = FMRADIO_INVALID_STATE;
-        goto drop_lock;
-    }
-
-    if (fmReceiverSession.vendorMethods_p->set_rds_reception) {
-        /* if in pause state temporary resume */
-        androidFmRadioTempResumeIfPaused(&fmReceiverSession);
-
-        /* temporary unlock to avoid deadlock with RDS callback */
-        pthread_mutex_unlock(fmReceiverSession.dataMutex_p);
-        retval = fmReceiverSession.vendorMethods_p->
-            set_rds_reception(&fmReceiverSession.vendorData_p, receiveRDS);
-        pthread_mutex_lock(fmReceiverSession.dataMutex_p);
-
-        androidFmRadioPauseIfTempResumed(&fmReceiverSession);
-    } else {
-        retval = FMRADIO_UNSUPPORTED_OPERATION;
-    }
-
-  drop_lock:
-    /*
-     * Set rds is not executed by explicit command but rather triggered
-     * on startup and on adding and removal of listeners. Because of this
-     * it should not trigger exceptions, just ALOG any failure.
-     */
-
-    if (retval != FMRADIO_OK) {
-        ALOGE("androidFmRadioRxSetRDS failed, retval = %d.", retval);
-    }
-
-    pthread_mutex_unlock(fmReceiverSession.dataMutex_p);
-}
-
 static jboolean androidFmRadioRxSendExtraCommand(JNIEnv * env, jobject obj,
                                                  jstring command,
                                                  jobjectArray parameters)
 {
-    ALOGI("androidFmRadioRxSendExtraCommand");
+   // ALOGI("androidFmRadioRxSendExtraCommand");
 
 /* we need to set jobj since this might be called before start */
 
@@ -1404,59 +655,253 @@ static jboolean androidFmRadioRxSendExtraCommand(JNIEnv * env, jobject obj,
     return true;
 }
 
+jboolean tune(JNIEnv *env, jobject thiz, jfloat freq)
+{
+    int ret = 0;
+    int tmp_freq;
+
+    tmp_freq = (int)(freq * 1000);        //Eg, 87.5 * 10 --> 875
+    ret = androidFmRadioRxSetFrequency(env, thiz, tmp_freq);
+
+    ALOGD("%s, [ret=%d]\n", __func__, ret);
+    return ret <= 0 ? JNI_FALSE:JNI_TRUE;
+}
+
+jboolean powerUp(JNIEnv *env, jobject thiz, jfloat freq)
+{
+    int ret = 0;
+    int tmp_freq;
+
+    if (androidFmRadioRxGetState(env, thiz) != FMRADIO_STATE_IDLE) {
+       androidFmRadioRxResume(env, thiz);
+       return false;
+   }
+
+ //   ALOGI("%s, [freq=%d]\n", __func__, (int)freq);
+    tmp_freq = (int)(freq * 1000);        //Eg, 87.5 * 10 --> 875
+    ret = androidFmRadioRxStart(env, thiz, 87500, 108000,  tmp_freq, 100);
+ //   ALOGD("%s, [ret=%d]\n", __func__, ret);
+    return ret?JNI_FALSE:JNI_TRUE;
+}
+
+jint setMute(JNIEnv *env, jobject thiz, jboolean mute)
+{
+    int ret = 1;
+
+    ret = androidFmRadioRxMute(env, thiz, (int)mute);
+    if (ret) {
+        ALOGE("%s, error, [ret=%d]\n", __func__, ret);
+    }
+   // ALOGD("%s, [mute=%d] [ret=%d]\n", __func__, (int)mute, ret);
+    return ret?JNI_FALSE:JNI_TRUE;
+}
+
+jint isRdsSupport(JNIEnv *env, jobject thiz)
+{
+    int ret = 0;
+/*
+    ret = androidFmRadioRxIsRDSDataSupported(env, thiz);
+    if (!ret) {
+        ALOGE("%s, error, [ret=%d]\n", __func__, ret);
+    }
+    ALOGD("%s, [ret=%d]\n", __func__, ret);
+*/
+    return JNI_TRUE;//ret?JNI_TRUE:JNI_FALSE;
+}
+
+jshort readRds(JNIEnv *env, jobject thiz)
+{
+    int ret = 0;
+   // ALOGD("%s, [ret=%d]\n", __func__, ret);
+    return 0x0040; //Java: RDS_EVENT_LAST_RADIOTEXT
+}
+
+jint setRds(JNIEnv *env, jobject thiz, jboolean rdson)
+{
+    int ret = 0;
+    int onoff = -1;
+/*
+    ret = androidFmRadioRxSetRDS(env, thiz, rdson);
+    if (ret) {
+        ALOGE("%s, error, [ret=%d]\n", __func__, ret);
+    }
+    ALOGD("%s, [onoff=%d] [ret=%d]\n", __func__, onoff, ret);
+*/
+    return JNI_TRUE;
+}
+
+
+jbyteArray getLrText(JNIEnv *env, jobject thiz)
+{
+    int ret = 0;
+    int len = 0;
+    jbyteArray LastRadioText;
+    struct fmradio_rds_bundle_t fmradio_rds_bundle;
+    // ALOGD("%s, enter\n", __func__, ret);
+
+    ret = fmReceiverSession.vendorMethods_p->get_rds(&fmReceiverSession.vendorData_p, &fmradio_rds_bundle);//FMR_get_ps(g_idx, &ps, &ps_len);
+
+    if (ret) {
+       // ALOGE("%s, error, [ret=%d]\n", __func__, ret);
+        return NULL;
+    }
+
+    len = strlen(fmradio_rds_bundle.psn);
+    LastRadioText = env->NewByteArray(len);
+    env->SetByteArrayRegion(LastRadioText, 0,  len, (const jbyte*)fmradio_rds_bundle.psn);
+
+
+  //  ALOGD("%s, exit: [ret=%d]\n", __func__, ret);
+    return LastRadioText;
+}
+
+jbyteArray getPs(JNIEnv *env, jobject thiz)
+{
+    int ret = 0;
+    jbyteArray PSName;
+    uint8_t *rt = NULL;
+    int rt_len = 0;
+ //   ALOGD("%s, enter\n", __func__, ret);
+    ret = 1;//FMR_get_rt(g_idx, &rt, &rt_len);
+    if (ret) {
+        ALOGE("%s, error, [ret=%d]\n", __func__, ret);
+        return NULL;
+    }
+    PSName = env->NewByteArray(rt_len);
+    env->SetByteArrayRegion(PSName, 0, rt_len, (const jbyte*)rt);
+ //   ALOGD("%s, [ret=%d]\n", __func__, ret);
+    return PSName;
+}
+
+
+jshortArray autoScan(JNIEnv *env, jobject thiz)
+{
+    int ret = 0;
+    jshortArray scanChlarray;
+    int chl_cnt = 0;
+    int ScanTBL[50];
+    int short fixedTable[50];
+
+    ret = androidFmRadioRxStartFullScan(env, thiz, ScanTBL);
+    if (ret < 0) {
+        ALOGE("scan failed!\n");
+        scanChlarray = NULL;
+        goto out;
+    }
+
+    for (int i =0; i <= 50; i++) {
+         int val = ScanTBL[i]/100;
+         if (val <= 0)
+              break;
+         fixedTable[i] = val & 0xFFFF;
+       //  ALOGD("Add freq: %d", fixedTable[i]);
+         chl_cnt++;
+    }
+
+    if (chl_cnt > 0) {
+        scanChlarray = env->NewShortArray(chl_cnt);
+        env->SetShortArrayRegion(scanChlarray, 0, chl_cnt, fixedTable);
+    } else {
+        ALOGE("cnt error, [cnt=%d]\n", chl_cnt);
+        scanChlarray = NULL;
+    }
+
+out:
+    ALOGD("%s, [cnt=%d] [ret=%d]\n", __func__, chl_cnt, ret);
+    return scanChlarray;
+}
+
+jint switchAntenna(JNIEnv *env, jobject thiz, jint antenna)
+{
+    int ret = 0;
+    int ana = -1;
+    ALOGD("%s: [antenna=%d] [ret=%d]\n", __func__, ana, ret);
+    return ret;
+}
+
+jboolean stopScan(JNIEnv *env, jobject thiz)
+{
+    int ret = 0;
+
+    ret = androidFmRadioRxStopScan(env, thiz);
+    if (ret) {
+        ALOGE("%s, error, [ret=%d]\n", __func__, ret);
+    }
+    ALOGD("%s, [ret=%d]\n", __func__, ret);
+    return ret?JNI_TRUE:JNI_FALSE;
+}
+
+
+jfloat seek(JNIEnv *env, jobject thiz, jfloat freq, jboolean isUp) //jboolean isUp;
+{
+    int ret = 0;
+    int tmp_freq;
+    jint ret_freq;
+    float val;
+
+    tmp_freq = (int)(freq * 1000);       //Eg, 87.55 * 100 --> 8755
+
+    ret = setMute(env, thiz, 1);
+    if (ret) {
+        ALOGE("%s, error, [ret=%d]\n", __func__, ret);
+    }
+  //  ALOGD("%s, [mute] [ret=%d]\n", __func__, ret);
+
+    if (isUp) {
+          ret = androidFmRadioRxScanUp(env, thiz, &ret_freq);
+    } else {
+          ret = androidFmRadioRxScanDown(env, thiz, &ret_freq);
+    }
+
+    if (ret) {
+        ret_freq = tmp_freq; //seek error, so use original freq
+    }
+
+    val = roundf((ret_freq/1000.00F) * 100) / 100;
+
+  //  ALOGD("%s, [freq=%f] [ret=%d]\n", __func__, val, ret);
+
+    return val;
+}
+
+jboolean powerDown(JNIEnv *env, jobject thiz, jint type)
+{
+    int ret = 0;
+
+    ret = androidFmRadioRxReset(env, thiz);
+
+    ALOGD("%s, [ret=%d]\n", __func__, ret);
+    return ret?JNI_TRUE:JNI_FALSE;
+}
+
+static jboolean openDev(JNIEnv * env, jobject obj,
+                                   jboolean receiveRDS) {
+    return JNI_TRUE;
+}
+
+static jboolean closeDev(JNIEnv * env, jobject obj,
+                                   jboolean receiveRDS) {
+    return JNI_TRUE;
+}
+
 
 static JNINativeMethod gMethods[] = {
-    {(char *)"_fm_receiver_getState", (char *)"()I",
-     (void *) androidFmRadioRxGetState},
-    {(char *)"_fm_receiver_start", (char *)"(IIII)V",
-     (void *) androidFmRadioRxStart},
-    {(char *)"_fm_receiver_startAsync", (char *)"(IIII)V",
-     (void *) androidFmRadioRxStartAsync},
-    {(char *)"_fm_receiver_pause", (char *)"()V",
-     (void *) androidFmRadioRxPause},
-    {(char *)"_fm_receiver_resume", (char *)"()V",
-     (void *) androidFmRadioRxResume},
-    {(char *)"_fm_receiver_reset", (char *)"()I",
-     (void *) androidFmRadioRxReset},
-    {(char *)"_fm_receiver_setFrequency", (char *)"(I)V",
-     (void *) androidFmRadioRxSetFrequency},
-    {(char *)"_fm_receiver_getFrequency", (char *)"()I",
-     (void *) androidFmRadioRxGetFrequency},
-    {(char *)"_fm_receiver_getSignalStrength", (char *)"()I",
-     (void *) androidFmRadioRxGetSignalStrength},
-    {(char *)"_fm_receiver_scanUp", (char *)"()V",
-     (void *) androidFmRadioRxScanUp},
-    {(char *)"_fm_receiver_scanDown", (char *)"()V",
-     (void *) androidFmRadioRxScanDown},
-    {(char *)"_fm_receiver_startFullScan", (char *)"()V",
-     (void *) androidFmRadioRxStartFullScan},
-    {(char *)"_fm_receiver_isPlayingInStereo", (char *)"()Z",
-     (void *) androidFmRadioRxIsPlayingInStereo},
-    {(char *)"_fm_receiver_isRDSDataSupported", (char *)"()Z",
-     (void *) androidFmRadioRxIsRDSDataSupported},
-    {(char *)"_fm_receiver_isTunedToValidChannel", (char *)"()Z",
-     (void *) androidFmRadioRxIsTunedToValidChannel},
-    {(char *)"_fm_receiver_stopScan", (char *)"()V",
-     (void *) androidFmRadioRxStopScan},
-    {(char *)"_fm_receiver_setAutomaticAFSwitching", (char *)"(Z)V",
-     (void *) androidFmRadioRxSetAutomaticAFSwitching},
-    {(char *)"_fm_receiver_setAutomaticTASwitching", (char *)"(Z)V",
-     (void *) androidFmRadioRxSetAutomaticTASwitching},
-    {(char *)"_fm_receiver_setForceMono", (char *)"(Z)V",
-     (void *) androidFmRadioRxSetForceMono},
-    {(char *)"_fm_receiver_sendExtraCommand",
-     (char *)"(Ljava/lang/String;[Ljava/lang/String;)Z",
-     (void *) androidFmRadioRxSendExtraCommand},
-    {(char *)"_fm_receiver_getThreshold", (char *)"()I",
-     (void *) androidFmRadioRxGetThreshold},
-    {(char *)"_fm_receiver_setThreshold", (char *)"(I)V",
-     (void *) androidFmRadioRxSetThreshold},
-    {(char *)"_fm_receiver_setRDS", (char *)"(Z)V",
-     (void *) androidFmRadioRxSetRDS},
+    {"openDev", "()Z", (void*)openDev },
+    {"closeDev", "()Z", (void*)closeDev },
+    {"powerUp", "(F)Z", (void*)powerUp },
+    {"powerDown", "(I)Z", (void*)powerDown },
+    {"tune", "(F)Z", (void*)tune },
+    {"seek", "(FZ)F", (void*)seek },
+    {"autoScan",  "()[S", (void*)autoScan },
+    {"stopScan",  "()Z", (void*)stopScan },
+    {"setRds",    "(Z)I", (void*)setRds  },
+    {"readRds",   "()S", (void*)readRds },
+    {"getPs",     "()[B", (void*)getPs  },
+    {"getLrText", "()[B", (void*)getLrText},
+    {"setMute",	"(Z)I", (void*)setMute},
+    {"isRdsSupport",	"()I", (void*)isRdsSupport},
+    {"switchAntenna", "(I)I", (void*)switchAntenna},
 };
-
-
-
 
 int registerAndroidFmRadioReceiver(JavaVM * vm, JNIEnv * env)
 {
@@ -1469,7 +914,7 @@ int registerAndroidFmRadioReceiver(JavaVM * vm, JNIEnv * env)
     struct bundle_descriptor_offsets_t *bundle_p =
         (struct bundle_descriptor_offsets_t *)
         malloc(sizeof(struct bundle_descriptor_offsets_t));
-#if 1
+
     clazz = env->FindClass("android/os/Bundle");
     bundle_p->mClass = (jclass) env->NewGlobalRef(clazz);
     bundle_p->mConstructor = env->GetMethodID(clazz, "<init>", "()V");
@@ -1487,7 +932,7 @@ int registerAndroidFmRadioReceiver(JavaVM * vm, JNIEnv * env)
                          "(Ljava/lang/String;Ljava/lang/String;)V");
 
     fmReceiverSession.bundleOffsets_p = bundle_p;
-#endif
+
     pthread_mutex_unlock(fmReceiverSession.dataMutex_p);
     return jniRegisterNativeMethods(env,
                                     "com/android/fmradio/FmNative",
