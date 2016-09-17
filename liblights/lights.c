@@ -44,6 +44,7 @@ static pthread_mutex_t g_lcd_lock = PTHREAD_MUTEX_INITIALIZER;
 static struct light_state_t g_notification;
 static int g_last_backlight_mode = BRIGHTNESS_MODE_USER;
 static struct light_state_t g_battery;
+static short backlight_bits = 8;
 
 char const*const RED_LED_FILE
 		= "/sys/class/leds/led:rgb_red/brightness";
@@ -56,6 +57,9 @@ char const*const BLUE_LED_FILE
 
 char const*const LCD_FILE
 		= "/sys/class/leds/lcd-backlight/brightness";
+
+char const*const LCD_MAX_FILE
+		= "/sys/class/leds/lcd-backlight/max_brightness";
 
 char const*const RED_BLINK_FILE
 		= "/sys/class/leds/led:rgb_red/blink";
@@ -72,12 +76,15 @@ char const*const DISPLAY_FB_DEV_PATH
 /**
  * device methods
  */
+static int read_int(char const* path);
 
 void init_globals(void)
 {
 	// init the mutex
 	pthread_mutex_init(&g_lock, NULL);
 	pthread_mutex_init(&g_lcd_lock, NULL);
+
+	backlight_bits = (read_int(LCD_MAX_FILE) == 4095 ? 12 : 8);
 }
 
 static int
@@ -100,6 +107,27 @@ write_int(char const* path, int value)
 		}
 		return -errno;
 	}
+}
+
+static int
+read_int(char const* path)
+{
+	static int already_warned = 0;
+	int fd;
+
+	fd = open(path, O_RDONLY);
+	if (fd >= 0) {
+		char read_str[10] = {0,0,0,0,0,0,0,0,0,0};
+		ssize_t err = read(fd, &read_str, sizeof(read_str));
+		close(fd);
+		return err < 2 ? -errno : atoi(read_str);
+	} else {
+		if (already_warned == 0) {
+			ALOGE("read_int failed to open %s\n", path);
+			already_warned = 1;
+		}
+		return -errno;
+	};
 }
 
 static int
@@ -158,6 +186,9 @@ set_light_backlight(struct light_device_t* dev,
 #endif
 
 	if (!err) {
+		if (backlight_bits > 8)
+			brightness = brightness << (backlight_bits - 8);
+
 		err = write_int(LCD_FILE, brightness);
 	}
 
