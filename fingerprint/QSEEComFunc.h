@@ -68,4 +68,6 @@ int open_handle();
 int32_t qcom_km_ion_dealloc(struct qcom_km_ion_info_t *handle);
 int32_t qcom_km_ION_memalloc(struct qcom_km_ion_info_t *handle, uint32_t size);
 
+char* qsee_error_strings(int err);
+
 #endif
