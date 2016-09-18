@@ -243,3 +243,26 @@ int32_t qcom_km_ion_dealloc(struct qcom_km_ion_info_t *handle)
     close(handle->ion_fd);
     return ret;
 }
+
+
+char* qsee_error_strings(int err)
+{
+    switch (err)
+    {
+        case QSEECOM_LISTENER_REGISTER_FAIL:
+            return "QSEECom: Failed to register listener\n";
+        case QSEECOM_LISTENER_ALREADY_REGISTERED:
+            return "QSEECom: Listener already registered\n";
+        case QSEECOM_LISTENER_UNREGISTERED:
+            return "QSEECom: Listener unregistered\n";
+        case QSEECOM_APP_ALREADY_LOADED:
+            return "QSEECom: Trustlet already loaded\n";
+        case QSEECOM_APP_NOT_LOADED:
+            return "QSEECom: Trustlet not loaded\n";
+        case QSEECOM_APP_QUERY_FAILED:
+            return "QSEECom: Failed to query trustlet\n";
+        default:
+            return "QSEECom: Unknown error\n";
+    }
+}
+
