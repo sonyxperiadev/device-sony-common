@@ -31,6 +31,25 @@
 #define SPI_WAKE_FILE "/sys/bus/spi/devices/spi0.1/wakeup_enable"
 #define SPI_IRQ_FILE "/sys/bus/spi/devices/spi0.1/irq"
 
+static int qsee_load_trustlet(struct QSEECom_handle **clnt_handle,
+                       const char *path, const char *fname,
+                       uint32_t sb_size)
+{
+    int ret = 0;
+    char* errstr;
+
+    ALOGE("Starting app %s\n", fname);
+    ret = mStartApp(&mHandle, path, fname, 1024);
+    if (ret < 0) {
+        errstr = qsee_error_strings(ret);
+        ALOGE("Could not load app %s. Error: %s (%d)\n",
+              fname, errstr, ret);
+    } else
+        ALOGE("TZ App loaded : %s\n", fname);
+
+    return ret;
+}
+
 int sysfs_write(char *path, char *s)
 {
     char buf[80];
@@ -678,6 +697,7 @@ int fpc_close()
 
 int fpc_init()
 {
+    int ret = 0;
 
     ALOGE("INIT FPC TZ APP\n");
 
@@ -693,20 +713,13 @@ int fpc_init()
         return -1;
     }
 
-    ALOGE("Starting app %s\n", FP_TZAPP_NAME);
-    if (mStartApp(&mHandle, FP_TZAPP_PATH, FP_TZAPP_NAME, 1024) < 0) {
-        ALOGE("Could not load app : %s\n", FP_TZAPP_NAME);
+    if (qsee_load_trustlet(&mHandle, FP_TZAPP_PATH,
+                             FP_TZAPP_NAME, 1024) < 0)
         return -1;
-    }
-    ALOGE("TZ App loaded : %s\n", FP_TZAPP_NAME);
 
-
-    ALOGE("Starting app %s\n", KM_TZAPP_NAME);
-    if (mStartApp(&mHdl, KM_TZAPP_PATH, KM_TZAPP_NAME, 1024) < 0) {
-        ALOGE("Could not load app : %s\n", KM_TZAPP_NAME);
+    if (qsee_load_trustlet(&mHandle, KM_TZAPP_PATH,
+                             KM_TZAPP_NAME, 1024) < 0)
         return -1;
-    }
-    ALOGE("TZ App loaded : %s\n", KM_TZAPP_NAME);
 
     // Start creating one off command to get cert from keymaster
     fpc_send_std_cmd_t *req = (fpc_send_std_cmd_t *) mHdl->ion_sbuffer;
