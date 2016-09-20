@@ -103,6 +103,9 @@ on post-fs-data
     mkdir /data/nfc 0770 nfc nfc
     mkdir /data/nfc/param 0770 nfc nfc
 
+    # FM Radio
+    mkdir /data/misc/fm 0770 system system
+
     chown system /dev/block/bootdevice/by-name
 
     setprop vold.post_fs_data_done 1
