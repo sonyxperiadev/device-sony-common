@@ -59,8 +59,9 @@ void *enroll_thread_loop()
         //image captured
         if (status == FINGERPRINT_ACQUIRED_GOOD) {
             ALOGI("%s : Enroll Step", __func__);
-            if (fpc_enroll_step() < 100) {
-                int remaining_touches = fpc_get_remaining_touches();
+            uint32_t remaining_touches = 0;
+            int ret = fpc_enroll_step(&remaining_touches);
+            if (ret > 0) {
                 ALOGI("%s : Touches Remaining : %d", __func__, remaining_touches);
                 if (remaining_touches > 0) {
                     fingerprint_msg_t msg;
@@ -131,6 +132,7 @@ void *auth_thread_loop()
     while((status = fpc_capture_image()) >= 0) {
         ALOGD("%s : Got Input", __func__);
 
+        ALOGE("Status: %d\n", status);
         if (status <= FINGERPRINT_ACQUIRED_TOO_FAST) {
             fingerprint_msg_t msg;
             msg.type = FINGERPRINT_ACQUIRED;
@@ -144,29 +146,31 @@ void *auth_thread_loop()
             ALOGI("%s : Auth step = %d", __func__, verify_state);
 
             if (verify_state >= 0) {
-
                 uint32_t print_id = fpc_get_print_id(verify_state);
-                ALOGI("%s : Got print id : %lu", __func__, (unsigned long) print_id);
+                if(print_id > 0)
+                {
+                    ALOGI("%s : Got print id : %lu", __func__, (unsigned long) print_id);
 
-                hw_auth_token_t hat;
-                fpc_get_hw_auth_obj(&hat, sizeof(hw_auth_token_t));
+                    hw_auth_token_t hat;
+                    fpc_get_hw_auth_obj(&hat, sizeof(hw_auth_token_t));
 
-                ALOGI("%s : hat->challange %lu",__func__,(unsigned long) hat.challenge);
-                ALOGI("%s : hat->user_id %lu",__func__,(unsigned long) hat.user_id);
-                ALOGI("%s : hat->authenticator_id %lu",__func__,(unsigned long) hat.authenticator_id);
-                ALOGI("%s : hat->authenticator_type %d",__func__, hat.authenticator_type);
-                ALOGI("%s : hat->timestamp %lu",__func__,(unsigned long) hat.timestamp);
-                ALOGI("%s : hat size %lu",__func__,(unsigned long) sizeof(hw_auth_token_t));
+                    ALOGI("%s : hat->challenge %lu",__func__,(unsigned long) hat.challenge);
+                    ALOGI("%s : hat->user_id %lu",__func__,(unsigned long) hat.user_id);
+                    ALOGI("%s : hat->authenticator_id %lu",__func__,(unsigned long) hat.authenticator_id);
+                    ALOGI("%s : hat->authenticator_type %d",__func__, hat.authenticator_type);
+                    ALOGI("%s : hat->timestamp %lu",__func__,(unsigned long) hat.timestamp);
+                    ALOGI("%s : hat size %lu",__func__,(unsigned long) sizeof(hw_auth_token_t));
 
-                fingerprint_msg_t msg;
-                msg.type = FINGERPRINT_AUTHENTICATED;
-                msg.data.authenticated.finger.gid = 0;
-                msg.data.authenticated.finger.fid = print_id;
+                    fingerprint_msg_t msg;
+                    msg.type = FINGERPRINT_AUTHENTICATED;
+                    msg.data.authenticated.finger.gid = 0;
+                    msg.data.authenticated.finger.fid = print_id;
 
-                msg.data.authenticated.hat = hat;
+                    msg.data.authenticated.hat = hat;
 
-                callback(&msg);
-                break;
+                    callback(&msg);
+                    break;
+                }
             }
         }
 
@@ -200,8 +204,8 @@ static int fingerprint_close(hw_device_t *dev)
 
 static uint64_t fingerprint_pre_enroll(struct fingerprint_device __unused *dev)
 {
-    challenge = fpc_load_auth_challange();
-    ALOGI("%s : Challange is : %jd",__func__,challenge);
+    challenge = fpc_load_auth_challenge();
+    ALOGI("%s : Challenge is : %jd",__func__,challenge);
     return challenge;
 }
 
@@ -222,14 +226,14 @@ static int fingerprint_enroll(struct fingerprint_device __unused *dev,
     }
 
 
-    ALOGI("%s : hat->challange %lu",__func__,(unsigned long) hat->challenge);
+    ALOGI("%s : hat->challenge %lu",__func__,(unsigned long) hat->challenge);
     ALOGI("%s : hat->user_id %lu",__func__,(unsigned long) hat->user_id);
     ALOGI("%s : hat->authenticator_id %lu",__func__,(unsigned long) hat->authenticator_id);
     ALOGI("%s : hat->authenticator_type %d",__func__,hat->authenticator_type);
     ALOGI("%s : hat->timestamp %lu",__func__,(unsigned long) hat->timestamp);
     ALOGI("%s : hat size %lu",__func__,(unsigned long) sizeof(hw_auth_token_t));
 
-    fpc_verify_auth_challange((void*) hat, sizeof(hw_auth_token_t));
+    fpc_verify_auth_challenge((void*) hat, sizeof(hw_auth_token_t));
 
     pthread_mutex_lock(&lock);
     auth_thread_running = true;
@@ -280,34 +284,25 @@ static int fingerprint_cancel(struct fingerprint_device __unused *dev)
 }
 
 static int fingerprint_remove(struct fingerprint_device __unused *dev,
-                              uint32_t __unused gid, uint32_t __unused fid)
+                              uint32_t gid, uint32_t fid)
 {
 
-    //Maximum prints per gid is 5
-    uint32_t prints[5];
     uint32_t print_count = fpc_get_print_count();
     ALOGD("%s : print count is : %u", __func__, print_count);
 
     fpc_fingerprint_index_t print_indexs = fpc_get_print_index(print_count);
 
-    //populate print array with index
-    prints[0] = print_indexs.p1;
-    prints[1] = print_indexs.p2;
-    prints[2] = print_indexs.p3;
-    prints[3] = print_indexs.p4;
-    prints[4] = print_indexs.p5;
-
     ALOGI("%s : delete print : %lu", __func__,(unsigned long) fid);
 
-    for (uint32_t i = 0; i < print_count; i++){
-        uint32_t print_id = fpc_get_print_id(prints[i]);
+    for (uint32_t i = 0; i < print_indexs.print_count; i++){
+        uint32_t print_id = fpc_get_print_id(print_indexs.prints[i]);
 
-        ALOGD("%s : found print : %lu at index %d", __func__,(unsigned long) print_id, prints[i]);
+        ALOGD("%s : found print : %lu at index %d", __func__,(unsigned long) print_id, print_indexs.prints[i]);
 
         if (print_id == fid){
             ALOGD("%s : Print index found at : %d", __func__, i);
 
-            int ret = fpc_del_print_id(prints[i]);
+            int ret = fpc_del_print_id(print_indexs.prints[i]);
 
             ALOGD("%s : fpc_del_print_id returns : %d", __func__, ret);
 
@@ -320,7 +315,7 @@ static int fingerprint_remove(struct fingerprint_device __unused *dev,
                 fingerprint_msg_t msg;
                 msg.type = FINGERPRINT_TEMPLATE_REMOVED;
                 msg.data.removed.finger.fid = print_id;
-                msg.data.removed.finger.gid = 0;
+                msg.data.removed.finger.gid = gid;
                 callback(&msg);
 
                 return 0;
@@ -337,17 +332,26 @@ static int fingerprint_remove(struct fingerprint_device __unused *dev,
 }
 
 static int fingerprint_set_active_group(struct fingerprint_device __unused *dev,
-                                        uint32_t __unused gid, const char __unused *store_path)
+                                        uint32_t gid, const char *store_path)
 {
-
+    int result;
+    // FIXME: suzu hal uses a single db with multiple gid. Support this!
     sprintf(db_path,"%s/data_%d.db",store_path,gid);
     ALOGI("%s : storage path set to : %s",__func__, db_path);
-    fpc_load_user_db(db_path);
-    return 0;
+    if((result = fpc_load_user_db(db_path)) != 0)
+    {
+        ALOGE("Error loading user database: %d\n", result);
+        return result;
+    }
+    if((result = fpc_set_gid(gid)) != 0)
+    {
+        ALOGE("Error setting current gid: %d\n", result);
+    }
+    return result;
 
 }
 
-static int fingerprint_enumerate(struct fingerprint_device *dev,
+static int fingerprint_enumerate(struct fingerprint_device __unused *dev,
                                  fingerprint_finger_id_t *results,
                                  uint32_t *max_size)
 {
@@ -355,23 +359,14 @@ static int fingerprint_enumerate(struct fingerprint_device *dev,
     uint32_t print_count = fpc_get_print_count();
     ALOGD("%s : print count is : %u", __func__, print_count);
     fpc_fingerprint_index_t print_indexs = fpc_get_print_index(print_count);
-    uint32_t prints[5];
-
-    //populate print array with index
-    prints[0] = print_indexs.p1;
-    prints[1] = print_indexs.p2;
-    prints[2] = print_indexs.p3;
-    prints[3] = print_indexs.p4;
-    prints[4] = print_indexs.p5;
-
 
     if (*max_size == 0) {
         *max_size = print_count;
     } else {
         for (size_t i = 0; i < *max_size && i < print_count; i++) {
 
-            uint32_t print_id = fpc_get_print_id(prints[i]);
-            ALOGD("%s : found print : %lu at index %d", __func__,(unsigned long) print_id, prints[i]);
+            uint32_t print_id = fpc_get_print_id(print_indexs.prints[i]);
+            ALOGD("%s : found print : %lu at index %d", __func__,(unsigned long) print_id, print_indexs.prints[i]);
 
             results[i].fid = print_id;
             results[i].gid = 0;
@@ -393,6 +388,9 @@ static int fingerprint_authenticate(struct fingerprint_device __unused *dev,
     pthread_mutex_lock(&lock);
     auth_thread_running = true;
     pthread_mutex_unlock(&lock);
+
+    // FIXME: Verify whether this needs to run on each 
+    fpc_set_auth_challenge(0);
 
     if(pthread_create(&thread, NULL, auth_thread_loop, NULL)) {
         ALOGE("%s : Error creating thread\n", __func__);

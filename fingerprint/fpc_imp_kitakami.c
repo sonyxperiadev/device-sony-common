@@ -211,12 +211,12 @@ uint64_t get_int64_command(uint32_t cmd, uint32_t param, struct QSEECom_handle *
 
 }
 
-uint32_t fpc_set_auth_challange()
+uint32_t fpc_set_auth_challenge(int64_t __unused challenge)
 {
-    return send_normal_command(FPC_SET_AUTH_CHALLANGE,0,mHandle);
+    return send_normal_command(FPC_SET_AUTH_CHALLENGE,0,mHandle);
 }
 
-uint64_t fpc_load_auth_challange()
+uint64_t fpc_load_auth_challenge()
 {
     return get_int64_command(FPC_GET_AUTH_CHALLENGE,0,mHandle);
 }
@@ -273,12 +273,12 @@ int fpc_get_hw_auth_obj(void * buffer, int length)
 
 }
 
-int fpc_verify_auth_challange(void* hat, uint32_t size)
+int fpc_verify_auth_challenge(void* hat, uint32_t size)
 {
     return send_modified_command_to_tz(FPC_VERIFY_AUTH_CHALLENGE,mHandle,hat,size);
 }
 
-uint32_t fpc_get_remaining_touches()
+static uint32_t fpc_get_remaining_touches()
 {
     return send_normal_command(FPC_GET_REMAINING_TOUCHES,0,mHandle);
 }
@@ -364,7 +364,7 @@ int fpc_capture_image()
     return ret;
 }
 
-int fpc_enroll_step()
+int fpc_enroll_step(uint32_t *remaining_touches)
 {
 
     fpc_send_std_cmd_t* send_cmd = (fpc_send_std_cmd_t*) mHandle->ion_sbuffer;
@@ -378,6 +378,8 @@ int fpc_enroll_step()
     if(ret < 0) {
         return -1;
     }
+
+    *remaining_touches = fpc_get_remaining_touches();
 
     return rec_cmd->ret_val;
 }
@@ -675,6 +677,12 @@ uint32_t fpc_store_user_db(uint32_t length, char* path)
     qcom_km_ion_dealloc(&ihandle);
     return 0;
 }
+
+uint32_t fpc_set_gid(uint32_t __unused gid)
+{
+    // Not used on kitakami
+    return 0;
+};
 
 int fpc_close()
 {

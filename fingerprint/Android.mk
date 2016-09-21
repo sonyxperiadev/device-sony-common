@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-ifeq ($(filter-out satsuki sumire suzuran,$(TARGET_DEVICE)),)
+ifeq ($(filter-out satsuki sumire suzuran suzu kugo,$(TARGET_DEVICE)),)
 LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
@@ -26,6 +26,10 @@ LOCAL_SRC_FILES := fingerprint.c \
 
 ifeq ($(filter-out satsuki sumire suzuran,$(TARGET_DEVICE)),)
 LOCAL_SRC_FILES += fpc_imp_kitakami.c
+endif
+
+ifeq ($(filter-out kugo suzu,$(TARGET_DEVICE)),)
+LOCAL_SRC_FILES += fpc_imp_loire.c
 endif
 
 LOCAL_CFLAGS += -std=c99
