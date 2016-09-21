@@ -288,7 +288,7 @@ static int fingerprint_remove(struct fingerprint_device __unused *dev,
     uint32_t print_count = fpc_get_print_count();
     ALOGD("%s : print count is : %u", __func__, print_count);
 
-    fpc_get_pint_index_cmd_t print_indexs = fpc_get_print_index(print_count);
+    fpc_fingerprint_index_t print_indexs = fpc_get_print_index(print_count);
 
     //populate print array with index
     prints[0] = print_indexs.p1;
@@ -354,7 +354,7 @@ static int fingerprint_enumerate(struct fingerprint_device *dev,
 
     uint32_t print_count = fpc_get_print_count();
     ALOGD("%s : print count is : %u", __func__, print_count);
-    fpc_get_pint_index_cmd_t print_indexs = fpc_get_print_index(print_count);
+    fpc_fingerprint_index_t print_indexs = fpc_get_print_index(print_count);
     uint32_t prints[5];
 
     //populate print array with index

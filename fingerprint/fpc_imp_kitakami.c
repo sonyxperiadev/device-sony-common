@@ -14,7 +14,10 @@
  * limitations under the License.
  */
 
+#include "QSEEComAPI.h"
+#include "QSEEComFunc.h"
 #include "fpc_imp.h"
+#include "tz_api_kitakami.h"
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
@@ -30,6 +33,11 @@
 #define SPI_PREP_FILE "/sys/bus/spi/devices/spi0.1/spi_prepare"
 #define SPI_WAKE_FILE "/sys/bus/spi/devices/spi0.1/wakeup_enable"
 #define SPI_IRQ_FILE "/sys/bus/spi/devices/spi0.1/irq"
+
+
+static struct QSEECom_handle * mHandle;
+static struct QSEECom_handle * mHdl;
+
 
 int sysfs_write(char *path, char *s)
 {
@@ -410,21 +418,22 @@ int fpc_auth_start()
 {
 
     int print_count = fpc_get_print_count();
+    fpc_fingerprint_index_t prints;
     ALOGI("%s : Number Of Prints Available : %d",__func__,print_count);
 
-    fpc_get_pint_index_cmd_t print_idx = fpc_get_print_index(print_count);
+    prints = fpc_get_print_index(print_count);
 
     fpc_get_pint_index_cmd_t* send_cmd = (fpc_get_pint_index_cmd_t*) mHandle->ion_sbuffer;
     fpc_send_std_cmd_t* rec_cmd = (fpc_send_std_cmd_t*) mHandle->ion_sbuffer + 64;
 
 
     send_cmd->cmd_id = FPC_AUTH_START;
-    send_cmd->p1 = print_idx.p1;
-    send_cmd->p2 = print_idx.p2;
-    send_cmd->p3 = print_idx.p3;
-    send_cmd->p4 = print_idx.p4;
-    send_cmd->p5 = print_idx.p5;
-    send_cmd->print_count = print_idx.print_count;
+    send_cmd->p1 = prints.p1;
+    send_cmd->p2 = prints.p2;
+    send_cmd->p3 = prints.p3;
+    send_cmd->p4 = prints.p4;
+    send_cmd->p5 = prints.p5;
+    send_cmd->print_count = prints.print_count;
 
     int ret = send_cmd_fn(mHandle,send_cmd,64,rec_cmd,64);
 
@@ -509,10 +518,10 @@ uint32_t fpc_get_print_count()
 }
 
 
-fpc_get_pint_index_cmd_t fpc_get_print_index(int count)
+fpc_fingerprint_index_t fpc_get_print_index(int count)
 {
 
-    fpc_get_pint_index_cmd_t data;
+    fpc_fingerprint_index_t data;
 
     fpc_send_std_cmd_t* send_cmd = (fpc_send_std_cmd_t*) mHandle->ion_sbuffer;
     fpc_get_pint_index_cmd_t* rec_cmd = (fpc_get_pint_index_cmd_t*) mHandle->ion_sbuffer + 64;
