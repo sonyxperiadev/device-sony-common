@@ -430,11 +430,11 @@ int fpc_auth_start()
 
 
     send_cmd->cmd_id = FPC_AUTH_START;
-    send_cmd->p1 = prints.p1;
-    send_cmd->p2 = prints.p2;
-    send_cmd->p3 = prints.p3;
-    send_cmd->p4 = prints.p4;
-    send_cmd->p5 = prints.p5;
+    send_cmd->p1 = prints.prints[0];
+    send_cmd->p2 = prints.prints[1];
+    send_cmd->p3 = prints.prints[2];
+    send_cmd->p4 = prints.prints[3];
+    send_cmd->p5 = prints.prints[4];
     send_cmd->print_count = prints.print_count;
 
     int ret = send_cmd_fn(mHandle,send_cmd,64,rec_cmd,64);
@@ -534,11 +534,11 @@ fpc_fingerprint_index_t fpc_get_print_index(int count)
 
     int ret = send_cmd_fn(mHandle,send_cmd,64,rec_cmd,64);
 
-    data.p1 = rec_cmd->p1;
-    data.p2 = rec_cmd->p2;
-    data.p3 = rec_cmd->p3;
-    data.p4 = rec_cmd->p4;
-    data.p5 = rec_cmd->p5;
+    data.prints[0] = rec_cmd->p1;
+    data.prints[1] = rec_cmd->p2;
+    data.prints[2] = rec_cmd->p3;
+    data.prints[3] = rec_cmd->p4;
+    data.prints[4] = rec_cmd->p5;
     data.print_count = rec_cmd->print_count;
 
     return data;
