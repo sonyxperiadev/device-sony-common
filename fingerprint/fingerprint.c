@@ -336,7 +336,11 @@ static int fingerprint_set_active_group(struct fingerprint_device __unused *dev,
 {
     int result;
     // FIXME: suzu hal uses a single db with multiple gid. Support this!
-    sprintf(db_path,"%s/data_%d.db",store_path,gid);
+    #ifdef FPC_DB_PER_GID
+    sprintf(db_path,"%s/data_%d.db", store_path, gid);
+    #else
+    sprintf(db_path,"%s/user.db", store_path);
+    #endif
     ALOGI("%s : storage path set to : %s",__func__, db_path);
     if((result = fpc_load_user_db(db_path)) != 0)
     {
