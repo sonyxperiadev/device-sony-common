@@ -1,4 +1,4 @@
-ifneq ($(filter shinano kitakami loire,$(PRODUCT_PLATFORM)),)
+ifeq ($(BOARD_HAVE_BCM_FM), true)
 
 LOCAL_PATH := $(call my-dir)
 
