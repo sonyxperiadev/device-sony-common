@@ -24,6 +24,7 @@
 #include <fcntl.h>
 #include <poll.h>
 #include <stdlib.h>
+#include <sys/stat.h>
 
 #define LOG_TAG "FPC IMP"
 #define LOG_NDEBUG 0
@@ -71,6 +72,10 @@ int sys_fs_irq_poll(char *path)
     int ret = 0;
     int result;
     struct pollfd pollfds[2];
+
+    sysfs_write(SPI_WAKE_FILE, "disable");
+    sysfs_write(SPI_WAKE_FILE, "enable");
+
     pollfds[0].fd = open(path, O_RDONLY | O_NONBLOCK);
 
     if (pollfds[0].fd < 0) {
@@ -81,27 +86,28 @@ int sys_fs_irq_poll(char *path)
 
     char dummybuf;
     read(pollfds[0].fd, &dummybuf, 1);
+    ALOGE("Read result :%d\n", dummybuf);
     pollfds[0].events = POLLPRI;
 
     result = poll(pollfds, 1, 1000);
+    sysfs_write(SPI_IRQ_FILE, "1");
 
     switch (result) {
     case 0:
         ALOGD ("timeout\n");
         close(pollfds[0].fd);
-        return -1;
+        return -2;
     case -1:
         ALOGE ("poll error \n");
         close(pollfds[0].fd);
         return -1;
     default:
         ALOGD ("IRQ GOT \n");
-        close(pollfds[0].fd);
         break;
     }
 
     close(pollfds[0].fd);
-
+    sysfs_write(SPI_WAKE_FILE, "disable");
     return ret;
 }
 
@@ -129,6 +135,38 @@ int device_disable()
     return 1;
 }
 
+const char *fpc_error_str(int err)
+{
+    int realerror = err + 10;
+
+    switch(realerror)
+    {
+        case 0:
+            return "FPC_ERROR_CONFIG";
+        case 1:
+            return "FPC_ERROR_HARDWARE";
+        case 2:
+            return "FPC_ERROR_NOENTITY";
+        case 3:
+            return "FPC_ERROR_CANCELLED";
+        case 4:
+            return "FPC_ERROR_IO";
+        case 5:
+            return "FPC_ERROR_NOSPACE";
+        case 6:
+            return "FPC_ERROR_COMM";
+        case 7:
+            return "FPC_ERROR_ALLOC";
+        case 8:
+            return "FPC_ERROR_TIMEDOUT";
+        case 9:
+            return "FPC_ERROR_INPUT";
+        default:
+            return "FPC_ERROR_UNKNOWN";
+    }
+}
+
+
 int send_modified_command_to_tz(struct QSEECom_handle * handle, struct qcom_km_ion_info_t ihandle)
 {
 
@@ -142,13 +180,21 @@ int send_modified_command_to_tz(struct QSEECom_handle * handle, struct qcom_km_i
     ion_fd_info.data[0].cmd_buf_offset = 4;
 
     send_cmd->v_addr = (intptr_t) ihandle.ion_sbuffer;
-    send_cmd->length = ihandle.sbuf_len;
+    uint32_t length = (ihandle.sbuf_len + 4095) & (~4095);
+    send_cmd->length = length;
     int result = send_modified_cmd_fn(handle,send_cmd,64,rec_cmd,64,&ion_fd_info);
 
-    if(result || (result = *((uint32_t*)&handle->ion_sbuffer[16])) != 0) {
-        ALOGE("Error sending modified command: %u\n", result);
+    if(result)
+    {
+        ALOGE("Error sending modified command: %d\n", result);
         return -1;
     }
+    if((result = *(int32_t*)rec_cmd) != 0)
+    {
+        ALOGE("Error in tz command (%d) : %s\n", result, fpc_error_str(result));
+        return -2;
+    }
+
 
     return result;
 }
@@ -189,21 +235,19 @@ int send_buffer_command(struct QSEECom_handle * handle, uint32_t group_id, uint3
         ALOGE("ION allocation  failed");
         return -1;
     }
-    fpc_send_buffer_t *keydata_cmd = (fpc_send_buffer_t*)ihandle.ion_sbuffer;
+    fpc_send_buffer_t *cmd_data = (fpc_send_buffer_t*)ihandle.ion_sbuffer;
     memset(ihandle.ion_sbuffer, 0, length + sizeof(fpc_send_buffer_t));
-    keydata_cmd->group_id = group_id;
-    keydata_cmd->cmd_id = cmd_id;
-    keydata_cmd->length = length;
-    // FIXME: A bit of a hack for simple single-parameter functions
-    if(buffer != NULL)
-        memcpy(&keydata_cmd->data[0], buffer, length);
+    cmd_data->group_id = group_id;
+    cmd_data->cmd_id = cmd_id;
+    cmd_data->length = length;
+    memcpy(&cmd_data->data, buffer, length);
 
     if(send_modified_command_to_tz(handle, ihandle) < 0) {
         ALOGE("Error sending data to tz\n");
         return -1;
     }
 
-    int result = keydata_cmd->status;
+    int result = cmd_data->status;
     qcom_km_ion_dealloc(&ihandle);
     return result;
 }
@@ -233,7 +277,7 @@ int send_command_result_buffer(struct QSEECom_handle * handle, uint32_t group_id
     return result;
 }
 
-uint32_t send_custom_cmd(struct QSEECom_handle * handle, void *buffer, uint32_t len)
+int send_custom_cmd(struct QSEECom_handle * handle, void *buffer, uint32_t len)
 {
     ALOGD(__func__);
     struct qcom_km_ion_info_t ihandle;
@@ -245,7 +289,7 @@ uint32_t send_custom_cmd(struct QSEECom_handle * handle, void *buffer, uint32_t 
 
     memcpy(ihandle.ion_sbuffer, buffer, len);
 
-    if(send_modified_command_to_tz(mHandle, ihandle) < 0) {
+    if(send_modified_command_to_tz(handle, ihandle) < 0) {
         ALOGE("Error sending data to tz\n");
         return -1;
     }
@@ -258,13 +302,7 @@ uint32_t send_custom_cmd(struct QSEECom_handle * handle, void *buffer, uint32_t 
 };
 
 
-uint64_t get_int64_command(uint32_t cmd, uint32_t param, struct QSEECom_handle * handle)
-{
-    ALOGD(__func__);
-    return 0;
-}
-
-uint32_t fpc_set_auth_challenge(int64_t challenge)
+int fpc_set_auth_challenge(int64_t challenge)
 {
     ALOGD(__func__);
 
@@ -361,29 +399,46 @@ uint32_t fpc_del_print_id(uint32_t id)
     return cmd.status;
 }
 
-// Returns -1 on error, 1 on check again and 0 on ready to capture
-int fpc_wait_for_finger()
+int fpc_wait_finger_lost()
 {
     ALOGD(__func__);
     int result;
     result = send_normal_command(mHandle, FPC_WAIT_FINGER_LOST);
-    ALOGD("Finger_state = %d\n", result);
-    if(result)
+    if(result > 0)
+        return 0;
+
+    return result;
+}
+
+int fpc_wait_finger_down()
+{
+    ALOGD(__func__);
+    int result=-1;
+    int i;
+
+//    while(1)
     {
         result = send_normal_command(mHandle, FPC_WAIT_FINGER_DOWN);
+        ALOGE("Wait finger down result: %d\n", result);
         if(result)
-            return -1;
+            return result;
 
-        if(sys_fs_irq_poll(SPI_IRQ_FILE) < 0) {
-            ALOGE("Error waiting for irq\n");
-            return -1;
+        if((result = sys_fs_irq_poll(SPI_IRQ_FILE)) == -1) {
+                ALOGE("Error waiting for irq: %d\n", result);
+                return -1;
         }
 
         result = send_normal_command(mHandle, FPC_GET_FINGER_STATUS);
+        if(result < 0)
+        {
+            ALOGE("Get finger status failed: %d\n", result);
+            return result;
+        }
         ALOGD("Finger status: %d\n", result);
+        if(result)
+            return 0;
     }
-
-    return result;
+    return -1;
 }
 
 // Attempt to capture image
@@ -395,11 +450,18 @@ int fpc_capture_image()
         return -1;
     }
 
-    int ret = fpc_wait_for_finger();
-
-    if(ret == 0)
+    int ret = fpc_wait_finger_lost();
+    if(!ret)
     {
-        ret = send_normal_command(mHandle, FPC_CAPTURE_IMAGE);
+        ALOGE("Finger lost as expected\n");
+        ret = fpc_wait_finger_down();
+        if(!ret)
+        {
+            ALOGE("Finger down, capturing image\n");
+            ret = send_normal_command(mHandle, FPC_CAPTURE_IMAGE);
+            ALOGE("Image capture result :%d\n", ret);
+        } else
+            ret = 1001;
     } else {
         ret = 1000;
     }
@@ -430,7 +492,7 @@ int fpc_enroll_step(uint32_t *remaining_touches)
     return cmd.status;
 }
 
-int fpc_enroll_start(int print_index)
+int fpc_enroll_start(int __unused print_index)
 {
     ALOGD(__func__);
     int ret = send_normal_command(mHandle, FPC_BEGIN_ENROL);
@@ -502,12 +564,12 @@ uint32_t fpc_get_print_count()
 }
 
 
-fpc_fingerprint_index_t fpc_get_print_index(int count)
+fpc_fingerprint_index_t fpc_get_print_index(int __unused count)
 {
     ALOGD(__func__);
     fpc_fingerprint_index_t data = {0};
     fpc_fingerprint_list_t cmd = {0};
-    int i;
+    unsigned int i;
 
     cmd.group_id = FPC_GROUP_NORMAL;
     cmd.cmd_id = FPC_GET_FINGERPRINTS;
@@ -535,33 +597,49 @@ uint32_t fpc_get_user_db_length()
 }
 
 
-uint32_t fpc_load_user_db(char* path)
+int fpc_load_user_db(char* path)
 {
     int result;
-
-    ALOGD("Loading user db from %s\n", path);
-    result = send_buffer_command(mHandle, FPC_GROUP_DB, FPC_LOAD_DB, path, strlen(path)+1);
-
+    struct stat sb;
+    if(stat(path, &sb) == -1)
+    {
+        result = send_normal_command(mHandle, FPC_LOAD_EMPTY_DB);
+        if(result)
+        {
+            ALOGE("Error creating new empty database: %d\n", result);
+            return result;
+        }
+    } else
+    {
+       ALOGD("Loading user db from %s\n", path);
+        result = send_buffer_command(mHandle, FPC_GROUP_DB, FPC_LOAD_DB, (const uint8_t*)path, (uint32_t)strlen(path)+1);
+    }
     return result;
 }
 
-uint32_t fpc_set_gid(uint32_t gid)
+int fpc_set_gid(uint32_t gid)
 {
     int result;
+    fpc_set_gid_t cmd = {0};
+    cmd.group_id = FPC_GROUP_NORMAL;
+    cmd.cmd_id = FPC_SET_GID;
+    cmd.gid = gid;
 
     ALOGD("Setting GID to %d\n", gid);
-    result = send_buffer_command(mHandle, FPC_GROUP_NORMAL, FPC_SET_GID, NULL, gid);
+    result = send_custom_cmd(mHandle, &cmd, sizeof(cmd));
+    if(!result)
+        result = cmd.status;
 
     return result;
 }
 
-uint32_t fpc_store_user_db(uint32_t __unused length, char* path)
+int fpc_store_user_db(uint32_t __unused length, char* path)
 {
     ALOGD(__func__);
 
     char temp_path[PATH_MAX];
     snprintf(temp_path, PATH_MAX - 1, "%s.tmp", path);
-    int ret = send_buffer_command(mHandle, FPC_GROUP_STORE, FPC_STORE_DB, temp_path, strlen(temp_path)+1);
+    int ret = send_buffer_command(mHandle, FPC_GROUP_DB, FPC_STORE_DB, (const uint8_t*)temp_path, (uint32_t)strlen(temp_path)+1);
     if(ret < 0)
     {
         ALOGE("storing database failed: %d\n", ret);
@@ -663,6 +741,5 @@ int fpc_init()
         return result;
     }
 
-    result = send_normal_command(mHandle, FPC_LOAD_EMPTY_DB);
     return 1;
 }

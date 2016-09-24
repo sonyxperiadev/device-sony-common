@@ -33,11 +33,9 @@ extern "C" {
 
 enum fingerprint_group_t {
   FPC_GROUP_NORMAL = 0x1,
-  FPC_GROUP_STORE = 0x2,
+  FPC_GROUP_DB = 0x2,
   FPC_GROUP_FPCDATA = 0x3,
   FPC_GROUP_DEBUG = 0x6, // I think?
-  FPC_GROUP_DB = 0xA,
-  
 };
 
 //enumerate tz app command ID's
@@ -47,9 +45,9 @@ enum fingerprint_normal_cmd_t {
     FPC_END_ENROL = 0x02,
     FPC_IDENTIFY = 0x03,
     FPC_WAIT_FINGER_LOST = 0x04,
-    FPC_SET_KEY_DATA= 0x05,
     FPC_WAIT_FINGER_DOWN = 0x06,
     FPC_GET_FINGER_STATUS =0x07,
+    FPC_LOAD_EMPTY_DB = 0x09,
     FPC_GET_FINGERPRINTS = 0x0C,
     FPC_DELETE_FINGERPRINT = 0x0D,
     FPC_CAPTURE_IMAGE = 0x0E,
@@ -63,15 +61,12 @@ enum fingerprint_fpcdata_cmd_t {
     FPC_GET_AUTH_CHALLENGE = 0x02,
     FPC_AUTHORIZE_ENROL = 0x03,
     FPC_GET_AUTH_RESULT = 0x04,
+    FPC_SET_KEY_DATA= 0x05,
 };
 
 enum fingerprint_db_cmd_t {
-    FPC_LOAD_DB = 0x02,
-    FPC_LOAD_EMPTY_DB = 0x09,
-};
-
-enum fingerprint_store_cmd_t {
-    FPC_STORE_DB = 0xB,
+    FPC_LOAD_DB = 0x0A,
+    FPC_STORE_DB = 0x0B,
 };
 
 enum fingerprint_debug_cmd_t {
@@ -104,6 +99,13 @@ typedef struct {
     uint64_t challenge;
     int32_t status;
 } fpc_send_auth_cmd_t;
+
+typedef struct {
+    uint32_t group_id;
+    uint32_t cmd_id;
+    uint32_t gid;
+    int32_t status;
+} fpc_set_gid_t;
 
 typedef struct {
   uint32_t group_id;
@@ -139,7 +141,7 @@ typedef struct {
   uint32_t cmd_id;
   int32_t status;
   uint32_t length;
-  char data[];
+  char* data;
 } fpc_send_buffer_t;
 
 typedef struct {

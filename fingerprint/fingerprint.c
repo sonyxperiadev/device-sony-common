@@ -33,7 +33,8 @@ pthread_t thread;
 pthread_mutex_t lock;
 
 fingerprint_notify_t callback;
-char db_path[255];
+static char db_path[255];
+static uint32_t fpc_gid = 0;
 
 void *enroll_thread_loop()
 {
@@ -42,12 +43,16 @@ void *enroll_thread_loop()
     uint32_t print_count = fpc_get_print_count();
     ALOGD("%s : print count is : %u", __func__, print_count);
 
-    fpc_enroll_start(print_count);
+    int ret = fpc_enroll_start(print_count);
+    if(ret < 0)
+    {
+        ALOGE("Starting enrol failed: %d\n", ret);
+    }
 
     int status = 1;
 
     while((status = fpc_capture_image()) >= 0) {
-        ALOGD("%s : Got Input", __func__);
+        ALOGD("%s : Got Input status=%d", __func__, status);
 
         if (status <= FINGERPRINT_ACQUIRED_TOO_FAST) {
             fingerprint_msg_t msg;
@@ -61,6 +66,7 @@ void *enroll_thread_loop()
             ALOGI("%s : Enroll Step", __func__);
             uint32_t remaining_touches = 0;
             int ret = fpc_enroll_step(&remaining_touches);
+            ALOGE("%s: step: %d, touches=%d\n", __func__, ret, remaining_touches);
             if (ret > 0) {
                 ALOGI("%s : Touches Remaining : %d", __func__, remaining_touches);
                 if (remaining_touches > 0) {
@@ -96,14 +102,13 @@ void *enroll_thread_loop()
                 fingerprint_msg_t msg;
                 msg.type = FINGERPRINT_TEMPLATE_ENROLLING;
                 msg.data.enroll.finger.fid = print_id;
-                msg.data.enroll.finger.gid = 0;
+                msg.data.enroll.finger.gid = fpc_gid;
                 msg.data.enroll.samples_remaining = 0;
                 msg.data.enroll.msg = 0;
                 callback(&msg);
                 break;
             }
         }
-
         pthread_mutex_lock(&lock);
         if (!auth_thread_running) {
             pthread_mutex_unlock(&lock);
@@ -129,10 +134,11 @@ void *auth_thread_loop()
 
     int status = 1;
 
-    while((status = fpc_capture_image()) >= 0) {
-        ALOGD("%s : Got Input", __func__);
+    while((status = fpc_capture_image()) >= 0 ) {
+        ALOGD("%s : Got Input with status %d", __func__, status);
+        if(status >= 1000)
+            continue;
 
-        ALOGE("Status: %d\n", status);
         if (status <= FINGERPRINT_ACQUIRED_TOO_FAST) {
             fingerprint_msg_t msg;
             msg.type = FINGERPRINT_ACQUIRED;
@@ -163,7 +169,7 @@ void *auth_thread_loop()
 
                     fingerprint_msg_t msg;
                     msg.type = FINGERPRINT_AUTHENTICATED;
-                    msg.data.authenticated.finger.gid = 0;
+                    msg.data.authenticated.finger.gid = fpc_gid;
                     msg.data.authenticated.finger.fid = print_id;
 
                     msg.data.authenticated.hat = hat;
@@ -210,7 +216,7 @@ static uint64_t fingerprint_pre_enroll(struct fingerprint_device __unused *dev)
 }
 
 static int fingerprint_enroll(struct fingerprint_device __unused *dev,
-                              const hw_auth_token_t __unused *hat,
+                              const hw_auth_token_t *hat,
                               uint32_t __unused gid,
                               uint32_t __unused timeout_sec)
 {
@@ -341,6 +347,8 @@ static int fingerprint_set_active_group(struct fingerprint_device __unused *dev,
     #else
     sprintf(db_path,"%s/user.db", store_path);
     #endif
+    fpc_gid = gid;
+
     ALOGI("%s : storage path set to : %s",__func__, db_path);
     if((result = fpc_load_user_db(db_path)) != 0)
     {
@@ -373,7 +381,7 @@ static int fingerprint_enumerate(struct fingerprint_device __unused *dev,
             ALOGD("%s : found print : %lu at index %d", __func__,(unsigned long) print_id, print_indexs.prints[i]);
 
             results[i].fid = print_id;
-            results[i].gid = 0;
+            results[i].gid = fpc_gid;
         }
     }
 
