@@ -28,7 +28,7 @@ typedef struct
 
 uint64_t fpc_load_db_id(); //load db ID, used as authenticator ID in android
 uint64_t fpc_load_auth_challenge(); //genertate and load an auth challenge for pre enroll
-uint32_t fpc_set_auth_challenge(int64_t challenge); //set auth challenge during authenticate
+int fpc_set_auth_challenge(int64_t challenge); //set auth challenge during authenticate
 int fpc_verify_auth_challenge(void* hat, uint32_t size); //verify auth challenge before enroll (ensure its still valid)
 int fpc_get_hw_auth_obj(void * buffer, int length); //get HAT object (copied into buffer) on authenticate
 // FIXME: This should probably only exist inside kitakami implementation?
@@ -49,10 +49,10 @@ uint32_t fpc_auth_step(); //step forward auth & process image (only available if
 int fpc_auth_end(); //end auth
 // FIXME: This should be internal to kitakami implementation
 uint32_t fpc_get_user_db_length(); //get size of working db
-uint32_t fpc_set_gid(uint32_t gid);
-uint32_t fpc_load_user_db(char* path); //load user DB into TZ app from storage
+int fpc_set_gid(uint32_t gid);
+int fpc_load_user_db(char* path); //load user DB into TZ app from storage
 // FIXME: length should be fetched internally in kitakami implementation
-uint32_t fpc_store_user_db(uint32_t length, char* path); //store running TZ db
+int fpc_store_user_db(uint32_t length, char* path); //store running TZ db
 int fpc_close(); //close this implementation
 int fpc_init(); //init sensor
 
