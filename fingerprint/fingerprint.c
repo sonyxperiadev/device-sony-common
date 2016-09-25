@@ -286,6 +286,12 @@ static int fingerprint_cancel(struct fingerprint_device __unused *dev)
     pthread_join(thread, NULL);
 
     ALOGI("%s : -",__func__);
+
+    fingerprint_msg_t msg;
+    msg.type = FINGERPRINT_ERROR;
+    msg.data.error = FINGERPRINT_ERROR_CANCELED;
+    callback(&msg);
+
     return 0;
 }
 
