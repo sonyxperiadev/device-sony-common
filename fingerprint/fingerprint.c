@@ -79,7 +79,9 @@ void *enroll_thread_loop()
                     callback(&msg);
                 }
             } else {
-                int print_index = fpc_enroll_end();
+
+                uint32_t print_id = 0;
+                int print_index = fpc_enroll_end(&print_id);
 
                 if (print_index < 0){
                     ALOGE("%s : Error getting new print index : %d", __func__,print_index);
@@ -90,13 +92,10 @@ void *enroll_thread_loop()
                     break;
                 }
 
-                ALOGI("%s : Got print index : %d", __func__,print_index);
-
                 uint32_t db_length = fpc_get_user_db_length();
                 ALOGI("%s : User Database Length Is : %lu", __func__,(unsigned long) db_length);
                 fpc_store_user_db(db_length, db_path);
 
-                uint32_t print_id = fpc_get_print_id(print_index);
                 ALOGI("%s : Got print id : %lu", __func__,(unsigned long) print_id);
 
                 fingerprint_msg_t msg;
@@ -117,7 +116,8 @@ void *enroll_thread_loop()
         pthread_mutex_unlock(&lock);
     }
 
-    fpc_enroll_end();
+    uint32_t print_id = 0;
+    fpc_enroll_end(&print_id);
     ALOGI("%s : finishing",__func__);
 
     pthread_mutex_lock(&lock);
@@ -136,6 +136,14 @@ void *auth_thread_loop()
 
     while((status = fpc_capture_image()) >= 0 ) {
         ALOGD("%s : Got Input with status %d", __func__, status);
+
+        pthread_mutex_lock(&lock);
+        if (!auth_thread_running) {
+            pthread_mutex_unlock(&lock);
+            break;
+        }
+        pthread_mutex_unlock(&lock);
+
         if(status >= 1000)
             continue;
 
@@ -148,11 +156,11 @@ void *auth_thread_loop()
 
         if (status == FINGERPRINT_ACQUIRED_GOOD) {
 
-            int verify_state = fpc_auth_step();
+            uint32_t print_id = 0;
+            int verify_state = fpc_auth_step(&print_id);
             ALOGI("%s : Auth step = %d", __func__, verify_state);
 
             if (verify_state >= 0) {
-                uint32_t print_id = fpc_get_print_id(verify_state);
                 if(print_id > 0)
                 {
                     ALOGI("%s : Got print id : %lu", __func__, (unsigned long) print_id);
@@ -179,13 +187,6 @@ void *auth_thread_loop()
                 }
             }
         }
-
-        pthread_mutex_lock(&lock);
-        if (!auth_thread_running) {
-            pthread_mutex_unlock(&lock);
-            break;
-        }
-        pthread_mutex_unlock(&lock);
     }
 
     fpc_auth_end();
@@ -299,48 +300,26 @@ static int fingerprint_remove(struct fingerprint_device __unused *dev,
                               uint32_t gid, uint32_t fid)
 {
 
-    uint32_t print_count = fpc_get_print_count();
-    ALOGD("%s : print count is : %u", __func__, print_count);
 
-    fpc_fingerprint_index_t print_indexs = fpc_get_print_index(print_count);
+    if (fpc_del_print_id(fid) == 0){
+        fingerprint_msg_t msg;
+        msg.type = FINGERPRINT_TEMPLATE_REMOVED;
+        msg.data.removed.finger.fid = fid;
+        msg.data.removed.finger.gid = gid;
+        callback(&msg);
 
-    ALOGI("%s : delete print : %lu", __func__,(unsigned long) fid);
+        uint32_t db_length = fpc_get_user_db_length();
+        ALOGD("%s : User Database Length Is : %lu", __func__,(unsigned long) db_length);
+        fpc_store_user_db(db_length, db_path);
+        return 0;
+    } else {
+        fingerprint_msg_t msg;
+        msg.type = FINGERPRINT_ERROR;
+        msg.data.error = FINGERPRINT_ERROR_UNABLE_TO_REMOVE;
+        callback(&msg);
 
-    for (uint32_t i = 0; i < print_indexs.print_count; i++){
-        uint32_t print_id = fpc_get_print_id(print_indexs.prints[i]);
-
-        ALOGD("%s : found print : %lu at index %d", __func__,(unsigned long) print_id, print_indexs.prints[i]);
-
-        if (print_id == fid){
-            ALOGD("%s : Print index found at : %d", __func__, i);
-
-            int ret = fpc_del_print_id(print_indexs.prints[i]);
-
-            ALOGD("%s : fpc_del_print_id returns : %d", __func__, ret);
-
-            if (ret == 0){
-
-                uint32_t db_length = fpc_get_user_db_length();
-                ALOGD("%s : User Database Length Is : %lu", __func__,(unsigned long) db_length);
-                fpc_store_user_db(db_length, db_path);
-
-                fingerprint_msg_t msg;
-                msg.type = FINGERPRINT_TEMPLATE_REMOVED;
-                msg.data.removed.finger.fid = print_id;
-                msg.data.removed.finger.gid = gid;
-                callback(&msg);
-
-                return 0;
-            }
-        }
+        return FINGERPRINT_ERROR;
     }
-
-    fingerprint_msg_t msg;
-    msg.type = FINGERPRINT_ERROR;
-    msg.data.error = FINGERPRINT_ERROR_UNABLE_TO_REMOVE;
-    callback(&msg);
-
-    return FINGERPRINT_ERROR;
 }
 
 static int fingerprint_set_active_group(struct fingerprint_device __unused *dev,
@@ -382,11 +361,9 @@ static int fingerprint_enumerate(struct fingerprint_device __unused *dev,
         *max_size = print_count;
     } else {
         for (size_t i = 0; i < *max_size && i < print_count; i++) {
+            ALOGD("%s : found print : %lu at index %lu", __func__,(unsigned long) print_indexs.prints[i], i);
 
-            uint32_t print_id = fpc_get_print_id(print_indexs.prints[i]);
-            ALOGD("%s : found print : %lu at index %d", __func__,(unsigned long) print_id, print_indexs.prints[i]);
-
-            results[i].fid = print_id;
+            results[i].fid = print_indexs.prints[i];
             results[i].gid = fpc_gid;
         }
     }
