@@ -39,6 +39,8 @@
 static struct QSEECom_handle * mHandle;
 static struct QSEECom_handle * mHdl;
 
+uint32_t auth_id = 0;
+
 int sysfs_write(char *path, char *s)
 {
     char buf[80];
@@ -503,7 +505,7 @@ int fpc_enroll_start(int __unused print_index)
     return ret;
 }
 
-int fpc_enroll_end()
+int fpc_enroll_end(uint32_t *print_id)
 {
     ALOGD(__func__);
     fpc_end_enrol_t cmd = {0};
@@ -519,7 +521,8 @@ int fpc_enroll_end()
         return -2;
     }
 
-    return cmd.print_id;
+    *print_id = cmd.print_id;
+    return 0;
 }
 
 
@@ -529,7 +532,7 @@ int fpc_auth_start()
     return 0;
 }
 
-uint32_t fpc_auth_step()
+uint32_t fpc_auth_step(uint32_t *print_id)
 {
     fpc_send_identify_t identify_cmd = {0};
     identify_cmd.commandgroup = FPC_GROUP_NORMAL;
@@ -540,6 +543,10 @@ uint32_t fpc_auth_step()
         ALOGE("Error identifying: %d || %d\n", result, identify_cmd.status);
         return -1;
     }
+
+    ALOGD("Print identified as %d\n", identify_cmd.id);
+
+    *print_id = identify_cmd.id;
     return identify_cmd.status;
 }
 
@@ -547,13 +554,6 @@ int fpc_auth_end()
 {
     ALOGD(__func__);
     return 0;
-}
-
-uint32_t fpc_get_print_id(int id)
-{
-    // FIXME: get_print_id is specific to kitakami hal and should probably be
-    // abstracted away from fingerprint.c
-    return id;
 }
 
 

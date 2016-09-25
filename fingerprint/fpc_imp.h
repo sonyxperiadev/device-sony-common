@@ -33,7 +33,6 @@ int fpc_verify_auth_challenge(void* hat, uint32_t size); //verify auth challenge
 int fpc_get_hw_auth_obj(void * buffer, int length); //get HAT object (copied into buffer) on authenticate
 // FIXME: This should probably only exist inside kitakami implementation?
 // Make all functions return resolved index->id
-uint32_t fpc_get_print_id(int id); //gets uid of print from index provided
 // FIXME: Internal to kitakami:
 uint32_t fpc_get_print_count(); //get count of enrolled prints
 uint32_t fpc_del_print_id(uint32_t id); //delete print at index
@@ -43,9 +42,9 @@ int fpc_capture_image(); //capture image ready for enroll / auth
 int fpc_enroll_step(uint32_t *remaining_touches); //step forward enroll & process image (only available if capture image returns OK)
 // FIXME: index of next print should be retrieved using fpc_get-print_count internally in kitakami impl.
 int fpc_enroll_start(int print_index); //start enrollment
-int fpc_enroll_end(); //end enrollment
+int fpc_enroll_end(uint32_t *print_id); //end enrollment
 int fpc_auth_start(); //start auth
-uint32_t fpc_auth_step(); //step forward auth & process image (only available if capture image returns OK)
+uint32_t fpc_auth_step(uint32_t *print_id); //step forward auth & process image (only available if capture image returns OK)
 int fpc_auth_end(); //end auth
 // FIXME: This should be internal to kitakami implementation
 uint32_t fpc_get_user_db_length(); //get size of working db
