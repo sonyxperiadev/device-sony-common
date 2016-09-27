@@ -34,8 +34,10 @@ int fpc_get_hw_auth_obj(void * buffer, int length); //get HAT object (copied int
 // FIXME: This should probably only exist inside kitakami implementation?
 // Make all functions return resolved index->id
 // FIXME: Internal to kitakami:
+uint32_t fpc_get_print_id(int id);
 uint32_t fpc_get_print_count(); //get count of enrolled prints
 uint32_t fpc_del_print_id(uint32_t id); //delete print at index
+fpc_fingerprint_index_t fpc_get_print_ids(int count); //get list of print index's available
 fpc_fingerprint_index_t fpc_get_print_index(int count); //get list of print index's available
 int fpc_wait_for_finger(); //wait for event IRQ on print reader
 int fpc_capture_image(); //capture image ready for enroll / auth

@@ -211,7 +211,7 @@ uint64_t get_int64_command(uint32_t cmd, uint32_t param, struct QSEECom_handle *
 
 }
 
-uint32_t fpc_set_auth_challenge(int64_t __unused challenge)
+int fpc_set_auth_challenge(int64_t __unused challenge)
 {
     return send_normal_command(FPC_SET_AUTH_CHALLENGE,0,mHandle);
 }
@@ -285,7 +285,23 @@ static uint32_t fpc_get_remaining_touches()
 
 uint32_t fpc_del_print_id(uint32_t id)
 {
-    return send_normal_command(FPC_GET_DEL_PRINT,id,mHandle);
+
+    uint32_t print_count = fpc_get_print_count();
+    ALOGD("%s : print count is : %u", __func__, print_count);
+    fpc_fingerprint_index_t print_indexs = fpc_get_print_ids(print_count);
+    ALOGI("%s : delete print : %lu", __func__,(unsigned long) id);
+
+    for (uint32_t i = 0; i < print_indexs.print_count; i++){
+
+        uint32_t print_id = fpc_get_print_id(print_indexs.prints[i]);
+
+        if (print_id == id){
+                ALOGD("%s : Print index found at : %d", __func__, i);
+                return send_normal_command(FPC_GET_DEL_PRINT,print_indexs.prints[i],mHandle);
+        }
+    }
+
+    return -1;
 }
 
 // Returns -1 on error, 1 on check again and 0 on ready to capture
@@ -403,18 +419,44 @@ int fpc_enroll_start(int print_index)
     return rec_cmd->ret_val;
 }
 
-int fpc_enroll_end()
+int fpc_enroll_end(uint32_t *print_id)
 {
 
-    int ret = send_normal_command(FPC_ENROLL_END,0x0,mHandle);
+    int index = send_normal_command(FPC_ENROLL_END,0x0,mHandle);
 
-    if (ret < 0 || ret > 4) {
+    if (index < 0 || index > 4) {
         ALOGE("Error sending FPC_ENROLL_END to tz\n");
         return -1;
     }
-    return ret;
+
+    *print_id = fpc_get_print_id(index);
+
+    return 0;
 }
 
+fpc_fingerprint_index_t fpc_get_print_ids(int count)
+{
+
+    fpc_fingerprint_index_t data;
+
+    fpc_send_std_cmd_t* send_cmd = (fpc_send_std_cmd_t*) mHandle->ion_sbuffer;
+    fpc_get_pint_index_cmd_t* rec_cmd = (fpc_get_pint_index_cmd_t*) mHandle->ion_sbuffer + 64;
+
+    send_cmd->cmd_id = FPC_GET_ID_LIST;
+    send_cmd->ret_val = count;
+    send_cmd->length = count;
+
+    int ret = send_cmd_fn(mHandle,send_cmd,64,rec_cmd,64);
+
+    data.prints[0] = rec_cmd->p1;
+    data.prints[1] = rec_cmd->p2;
+    data.prints[2] = rec_cmd->p3;
+    data.prints[3] = rec_cmd->p4;
+    data.prints[4] = rec_cmd->p5;
+    data.print_count = rec_cmd->print_count;
+
+    return data;
+}
 
 int fpc_auth_start()
 {
@@ -423,7 +465,7 @@ int fpc_auth_start()
     fpc_fingerprint_index_t prints;
     ALOGI("%s : Number Of Prints Available : %d",__func__,print_count);
 
-    prints = fpc_get_print_index(print_count);
+    prints = fpc_get_print_ids(print_count);
 
     fpc_get_pint_index_cmd_t* send_cmd = (fpc_get_pint_index_cmd_t*) mHandle->ion_sbuffer;
     fpc_send_std_cmd_t* rec_cmd = (fpc_send_std_cmd_t*) mHandle->ion_sbuffer + 64;
@@ -447,7 +489,7 @@ int fpc_auth_start()
     return rec_cmd->ret_val;
 }
 
-uint32_t fpc_auth_step()
+uint32_t fpc_auth_step(uint32_t *print_id)
 {
 
     fpc_send_std_cmd_t* send_cmd = (fpc_send_std_cmd_t*) mHandle->ion_sbuffer;
@@ -467,7 +509,10 @@ uint32_t fpc_auth_step()
         return -1;
     }
 
-    return rec_cmd->id;
+
+
+    *print_id = fpc_get_print_id(rec_cmd->id);
+    return 0;
 }
 
 int fpc_auth_end()
@@ -534,11 +579,11 @@ fpc_fingerprint_index_t fpc_get_print_index(int count)
 
     int ret = send_cmd_fn(mHandle,send_cmd,64,rec_cmd,64);
 
-    data.prints[0] = rec_cmd->p1;
-    data.prints[1] = rec_cmd->p2;
-    data.prints[2] = rec_cmd->p3;
-    data.prints[3] = rec_cmd->p4;
-    data.prints[4] = rec_cmd->p5;
+    data.prints[0] = fpc_get_print_id(rec_cmd->p1);
+    data.prints[1] = fpc_get_print_id(rec_cmd->p2);
+    data.prints[2] = fpc_get_print_id(rec_cmd->p3);
+    data.prints[3] = fpc_get_print_id(rec_cmd->p4);
+    data.prints[4] = fpc_get_print_id(rec_cmd->p5);
     data.print_count = rec_cmd->print_count;
 
     return data;
@@ -564,7 +609,7 @@ uint32_t fpc_get_user_db_length()
 }
 
 
-uint32_t fpc_load_user_db(char* path)
+int fpc_load_user_db(char* path)
 {
 
     FILE *f = fopen(path, "r");
@@ -622,7 +667,7 @@ uint32_t fpc_load_user_db(char* path)
 
 }
 
-uint32_t fpc_store_user_db(uint32_t length, char* path)
+int fpc_store_user_db(uint32_t length, char* path)
 {
 
     fpc_send_mod_cmd_t* send_cmd = (fpc_send_mod_cmd_t*) mHandle->ion_sbuffer;
@@ -678,7 +723,7 @@ uint32_t fpc_store_user_db(uint32_t length, char* path)
     return 0;
 }
 
-uint32_t fpc_set_gid(uint32_t __unused gid)
+int fpc_set_gid(uint32_t __unused gid)
 {
     // Not used on kitakami
     return 0;
