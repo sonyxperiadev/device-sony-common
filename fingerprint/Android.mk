@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-ifeq ($(filter-out satsuki sumire suzuran,$(TARGET_DEVICE)),)
+ifeq ($(filter-out satsuki sumire suzuran suzu kugo,$(TARGET_DEVICE)),)
 LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
@@ -22,8 +22,16 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := fingerprint.$(TARGET_DEVICE)
 LOCAL_MODULE_RELATIVE_PATH := hw
 LOCAL_SRC_FILES := fingerprint.c \
-		   QSEEComFunc.c \
-		   fpc_imp.c
+		   QSEEComFunc.c
+
+ifeq ($(filter-out satsuki sumire suzuran,$(TARGET_DEVICE)),)
+LOCAL_SRC_FILES += fpc_imp_kitakami.c
+LOCAL_CFLAGS += -DFPC_DB_PER_GID
+endif
+
+ifeq ($(filter-out kugo suzu,$(TARGET_DEVICE)),)
+LOCAL_SRC_FILES += fpc_imp_loire.c
+endif
 
 LOCAL_CFLAGS += -std=c99
 LOCAL_SHARED_LIBRARIES := liblog \
