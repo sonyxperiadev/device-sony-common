@@ -34,6 +34,9 @@
 #define SPI_WAKE_FILE "/sys/bus/spi/devices/spi0.1/wakeup_enable"
 #define SPI_IRQ_FILE "/sys/bus/spi/devices/spi0.1/irq"
 
+static struct QSEECom_handle * mHandle;
+static struct QSEECom_handle * mHdl;
+
 static int qsee_load_trustlet(struct QSEECom_handle **clnt_handle,
                        const char *path, const char *fname,
                        uint32_t sb_size)
@@ -52,10 +55,6 @@ static int qsee_load_trustlet(struct QSEECom_handle **clnt_handle,
 
     return ret;
 }
-
-static struct QSEECom_handle * mHandle;
-static struct QSEECom_handle * mHdl;
-
 
 int sysfs_write(char *path, char *s)
 {
