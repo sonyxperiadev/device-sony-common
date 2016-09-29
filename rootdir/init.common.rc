@@ -244,26 +244,31 @@ service tad_static /system/vendor/bin/tad_static /dev/block/bootdevice/by-name/T
     group root
     socket tad stream 0660 system system
     seclabel u:r:tad:s0
+    writepid /dev/cpuset/system-background/tasks
 
 # SONY misc
 service ta_qmi_service /system/vendor/bin/ta_qmi_service
     class core
     user root
+    writepid /dev/cpuset/system-background/tasks
 
 # SONY prop
 service sct_service /system/vendor/bin/sct_service
     class core
     user root
+    writepid /dev/cpuset/system-background/tasks
 
 # SONY prop
 service mlog_qmi_service /system/vendor/bin/mlog_qmi_service
     class core
     user root
+    writepid /dev/cpuset/system-background/tasks
 
 # QCOM prop
 service rmt_storage /system/vendor/bin/rmt_storage
     class core
     user root
+    writepid /dev/cpuset/system-background/tasks
 
 # DSDS second ril
 service ril-daemon2 /system/bin/rild -c 2
@@ -281,11 +286,13 @@ service qmuxd /system/vendor/bin/qmuxd
     user root
     group radio audio bluetooth gps nfc diag
     disabled
+    writepid /dev/cpuset/system-background/tasks
 
 # QCOM prop
 service netmgrd /system/vendor/bin/netmgrd
     class main
     disabled
+    writepid /dev/cpuset/system-background/tasks
 
 # QCOM prop
 service irsc_util /system/vendor/bin/irsc_util "/etc/sec_config"
@@ -298,30 +305,35 @@ service qcamerasvr /system/vendor/bin/mm-qcamera-daemon
     class late_start
     user camera
     group camera system inet input graphics
+    writepid /dev/cpuset/camera-daemon/tasks
 
 # QCOM sensors
 service sensors /system/vendor/bin/sensors.qcom
     class main
     user root
     group root
+    writepid /dev/cpuset/system-background/tasks
 
 # QCOM Secure
 service qseecomd /system/vendor/bin/qseecomd
     class core
     user root
     group root
+    writepid /dev/cpuset/system-background/tasks
 
 # OSS thermal management
 service thermanager /system/bin/thermanager /system/etc/thermanager.xml
     class main
     user root
     group root
+    writepid /dev/cpuset/system-background/tasks
 
 # Offline charger
 service charger /sbin/healthd -c
     class charger
     critical
     seclabel u:r:healthd:s0
+    writepid /dev/cpuset/system-background/tasks
 
 # OSS time
 service timekeep /system/bin/timekeep restore
@@ -329,6 +341,7 @@ service timekeep /system/bin/timekeep restore
     user root
     group root
     oneshot
+    writepid /dev/cpuset/system-background/tasks
 
 on property:ro.boot.baseband=apq
     setprop ro.radio.noril yes
