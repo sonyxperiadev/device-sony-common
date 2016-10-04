@@ -13,7 +13,7 @@
 # limitations under the License.
 
 on early-init
-    mount debugfs debugfs /sys/kernel/debug
+    mount debugfs /sys/kernel/debug /sys/kernel/debug mode=755
 
 on init
     # Enable subsystem restart
