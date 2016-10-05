@@ -409,7 +409,7 @@ int fpc_wait_finger_lost()
     if(result > 0)
         return 0;
 
-    return result;
+    return -1;
 }
 
 int fpc_wait_finger_down()
