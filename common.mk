@@ -124,6 +124,7 @@ PRODUCT_PACKAGES += \
     hostapd \
     libwpa_client \
     wificond \
+    wifilogd \
     wpa_supplicant \
     wpa_supplicant.conf
 
