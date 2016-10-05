@@ -468,6 +468,11 @@ int fpc_capture_image()
         ret = 1000;
     }
 
+    if (device_disable() < 0) {
+        ALOGE("Error stopping device\n");
+        return -1;
+    }
+
     send_normal_command(mHandle, FPC_INIT);
     return ret;
 }
@@ -739,6 +744,11 @@ int fpc_init()
     if(result != 0)
     {
         return result;
+    }
+
+    if (device_disable() < 0) {
+        ALOGE("Error stopping device\n");
+        return -1;
     }
 
     return 1;
