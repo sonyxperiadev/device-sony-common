@@ -74,7 +74,8 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.nfc@1.0-impl \
     android.hardware.vibrator@1.0-impl \
-    android.hardware.memtrack@1.0-impl
+    android.hardware.memtrack@1.0-impl \
+    android.hardware.power@1.0-impl
 
 # Audio
 PRODUCT_PACKAGES += \
