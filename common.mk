@@ -76,7 +76,8 @@ PRODUCT_PACKAGES += \
     android.hardware.vibrator@1.0-impl \
     android.hardware.memtrack@1.0-impl \
     android.hardware.power@1.0-impl \
-    android.hardware.light@2.0-impl
+    android.hardware.light@2.0-impl \
+    android.hardware.sensors@1.0-impl
 
 # Audio
 PRODUCT_PACKAGES += \
