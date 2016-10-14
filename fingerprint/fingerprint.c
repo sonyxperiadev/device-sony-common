@@ -78,7 +78,8 @@ void *enroll_thread_loop()
                     msg.data.enroll.msg = 0;
                     callback(&msg);
                 }
-            } else {
+            }
+            else if (ret == 0) {
 
                 uint32_t print_id = 0;
                 int print_index = fpc_enroll_end(&print_id);
@@ -107,6 +108,14 @@ void *enroll_thread_loop()
                 callback(&msg);
                 break;
             }
+            else {
+                ALOGE("Error in enroll step, aborting enroll: %d\n", ret);
+                fingerprint_msg_t msg;
+                msg.type = FINGERPRINT_ERROR;
+                msg.data.error = FINGERPRINT_ERROR_UNABLE_TO_PROCESS;
+                callback(&msg);
+                break;
+            }
         }
         pthread_mutex_lock(&lock);
         if (!auth_thread_running) {
@@ -117,7 +126,6 @@ void *enroll_thread_loop()
     }
 
     uint32_t print_id = 0;
-    fpc_enroll_end(&print_id);
     ALOGI("%s : finishing",__func__);
 
     pthread_mutex_lock(&lock);
@@ -384,7 +392,7 @@ static int fingerprint_authenticate(struct fingerprint_device __unused *dev,
     auth_thread_running = true;
     pthread_mutex_unlock(&lock);
 
-    // FIXME: Verify whether this needs to run on each 
+    // FIXME: Verify whether this needs to run on each
     fpc_set_auth_challenge(0);
 
     if(pthread_create(&thread, NULL, auth_thread_loop, NULL)) {
