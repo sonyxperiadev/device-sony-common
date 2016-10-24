@@ -251,7 +251,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # BT address
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.bt.bdaddr_path=/data/etc/bluetooth_bdaddr
+    ro.bt.bdaddr_path=/data/misc/bluetooth/bluetooth_bdaddr
 
 # System prop for NFC DT
 PRODUCT_PROPERTY_OVERRIDES += \
