@@ -32,9 +32,9 @@
 #include <cutils/log.h>
 
 #define SPI_CLK_FILE "/sys/bus/spi/devices/spi0.1/clk_enable"
-#define SPI_PREP_FILE "/sys/devices/soc.0/fpc1145_device/spi_prepare"
-#define SPI_WAKE_FILE "/sys/devices/soc.0/fpc1145_device/wakeup_enable"
-#define SPI_IRQ_FILE "/sys/devices/soc.0/fpc1145_device/irq"
+#define SPI_PREP_FILE "/sys/devices/soc/fpc1145_device/spi_prepare"
+#define SPI_WAKE_FILE "/sys/devices/soc/fpc1145_device/wakeup_enable"
+#define SPI_IRQ_FILE "/sys/devices/soc/fpc1145_device/irq"
 
 static struct QSEECom_handle * mHandle;
 static struct QSEECom_handle * mHdl;
