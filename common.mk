@@ -80,6 +80,11 @@ PRODUCT_PACKAGES += \
     android.hardware.sensors@1.0-impl \
     android.hardware.audio@2.0-impl
 
+ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
+PRODUCT_PACKAGES += \
+    android.hardware.tests.libhwbinder@1.0-impl
+endif
+
 # Audio
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
