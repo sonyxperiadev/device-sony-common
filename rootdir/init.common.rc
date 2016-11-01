@@ -349,10 +349,10 @@ service thermanager /system/bin/thermanager /system/etc/thermanager.xml
     writepid /dev/cpuset/system-background/tasks
 
 # Offline charger
-service charger /sbin/healthd -c
+service charger /charger
     class charger
     critical
-    seclabel u:r:healthd:s0
+    seclabel u:r:charger:s0
     writepid /dev/cpuset/system-background/tasks
 
 # OSS time
