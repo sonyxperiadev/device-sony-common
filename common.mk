@@ -78,7 +78,8 @@ PRODUCT_PACKAGES += \
     android.hardware.power@1.0-impl \
     android.hardware.light@2.0-impl \
     android.hardware.sensors@1.0-impl \
-    android.hardware.audio@2.0-impl
+    android.hardware.audio@2.0-impl \
+    android.hardware.audio.effect@2.0-impl
 
 ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
 PRODUCT_PACKAGES += \
