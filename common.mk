@@ -148,6 +148,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libemoji
 
+# RIL
+PRODUCT_PACKAGES += \
+    libprotobuf-cpp-full
+
 # ExtendedSettings
 PRODUCT_PACKAGES += \
     ExtendedSettings
