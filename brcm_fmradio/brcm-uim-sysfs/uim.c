@@ -110,7 +110,8 @@ bdaddr_t bd_addr;
 static char hw_cfg_string[CFG_PARAM_STRING_SIZE] = {0}; /* pass as parameter to ldisc */
 static unsigned long cust_baud_rate = 3000000;
 static char driver_module_path[MAX_KMODULE_PATH_SIZE] = "/system/lib/modules/";
-static char uart_port_name[UART_PORT_NAME_SIZE] = "/dev/ttyS1";
+// static char uart_port_name[UART_PORT_NAME_SIZE] = "/dev/ttyS1";
+static char uart_port_name[UART_PORT_NAME_SIZE] = "/dev/ttyHS0";
 int lpmenable;
 int hci_snoop_enable = 0;
 char hci_snoop_path[HCI_SNOOP_PATH_LEN] = "/sdcard/btsnoop_hci.log";

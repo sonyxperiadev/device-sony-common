@@ -141,12 +141,12 @@ typedef struct {
 /* Sys_fs entry. The Line discipline driver sets this to 1 when bluedroid open BT protocol driver */
 /* Note: This entry is used in bt_hci_bdroid.c (Android source). Also present in
  *  brcm_sh_ldisc.c (v4l2_drivers) and board specific file (android kernel source) */
-#define INSTALL_SYSFS_ENTRY "/sys/bus/platform/drivers/bcm_ldisc/bcmbt_ldisc.93/install"
-#define LDISC_VENDOR_PARAMS   "/sys/bus/platform/drivers/bcm_ldisc/bcmbt_ldisc.93/vendor_params"
+#define INSTALL_SYSFS_ENTRY "/sys/bus/platform/drivers/bcm_ldisc/bcmbt_ldisc.94/install"
+#define LDISC_VENDOR_PARAMS   "/sys/bus/platform/drivers/bcm_ldisc/bcmbt_ldisc.94/vendor_params"
 
-#define BDADDR_SYSFS_ENTRY  "/sys/bus/platform/drivers/bcm_ldisc/bcmbt_ldisc.93/bdaddr"
-#define FW_PATCHFILE_SYSFS_ENTRY  "/sys/bus/platform/drivers/bcm_ldisc/bcmbt_ldisc.93/fw_patchfile"
-#define LDISC_SYSFS_SNOOP     "/sys/bus/platform/drivers/bcm_ldisc/bcmbt_ldisc.93/snoop_enable"
+#define BDADDR_SYSFS_ENTRY  "/sys/bus/platform/drivers/bcm_ldisc/bcmbt_ldisc.94/bdaddr"
+#define FW_PATCHFILE_SYSFS_ENTRY  "/sys/bus/platform/drivers/bcm_ldisc/bcmbt_ldisc.94/fw_patchfile"
+#define LDISC_SYSFS_SNOOP     "/sys/bus/platform/drivers/bcm_ldisc/bcmbt_ldisc.94/snoop_enable"
 
 /* install sysfs entry values */
 #define V4L2_STATUS_ERR '2'  // error occured in BT application (HCI command timeout or HW error)
@@ -166,7 +166,7 @@ typedef struct {
 #define MAX_KMODULE_PATH_SIZE 100
 #define UART_PORT_NAME_SIZE 20
 
-#define N_BRCM_HCI 26
+#define N_BRCM_HCI 25
 
 
 /* Functions to insert and remove the kernel modules from the system*/

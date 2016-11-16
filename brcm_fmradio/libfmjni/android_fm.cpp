@@ -40,7 +40,7 @@
 #include "android_fmradio_Receiver.h"
 
 #ifndef LIBRARY_PATH
-#define LIBRARY_PATH "/system/lib64/"
+#define LIBRARY_PATH "/system/lib/"
 #endif
 
 #ifndef LIBRARY_PREFIX
