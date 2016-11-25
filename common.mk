@@ -261,7 +261,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.HAL3.enabled=0 \
     persist.camera.gyro.disable=1 \
     persist.camera.feature.cac=0 \
-    persist.camera.ois.disable=0
+    persist.camera.ois.disable=0 \
+    persist.camera.zsl.mode=1
 
 # Sensors debug
 PRODUCT_PROPERTY_OVERRIDES += \
