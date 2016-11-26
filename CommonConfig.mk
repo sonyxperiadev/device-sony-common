@@ -57,6 +57,9 @@ BOARD_CHARGER_ENABLE_SUSPEND := true
 # Include an expanded selection of fonts
 EXTENDED_FONT_FOOTPRINT := true
 
+# Set seccomp policy for media server
+BOARD_SECCOMP_POLICY += device/sony/common/seccomp
+
 # Enable dex-preoptimization to speed up first boot sequence
 ifeq ($(HOST_OS),linux)
   ifneq ($(TARGET_BUILD_VARIANT),eng)
