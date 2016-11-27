@@ -166,7 +166,7 @@ typedef struct {
 #define MAX_KMODULE_PATH_SIZE 100
 #define UART_PORT_NAME_SIZE 20
 
-#define N_BRCM_HCI 26
+#define N_BRCM_HCI 25
 
 
 /* Functions to insert and remove the kernel modules from the system*/
