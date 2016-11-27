@@ -20,6 +20,11 @@ LOCAL_MODULE    := libfmjni
 LOCAL_SRC_FILES := android_fm.cpp \
                    android_fmradio_Receiver.cpp
 
+ifneq ($(strip $(TARGET_ARCH)),arm64)
+LIBRARY_PATH:="/system/lib/"
+LOCAL_CFLAGS:= -DLIBRARY_PATH=\"$(LIBRARY_PATH)\"
+endif
+
 LOCAL_REQUIRED_MODULES := libfmradio.v4l2-fm brcm-uim-sysfs
 LOCAL_SHARED_LIBRARIES += liblog libnativehelper
 
