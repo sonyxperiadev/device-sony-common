@@ -86,7 +86,7 @@
 #define PERSIST_BDADDR_PROPERTY         "persist.service.bdroid.bdaddr"
 #define STACK_CONF_FILE "/etc/bluetooth/bt_stack.conf"
 #define FW_PATCH_FILENAME_MAXLEN 80
-#define fw_patchfile_path "/vendor/firmware"
+#define fw_patchfile_path "/system/etc/firmware"
 #define FW_PATCHFILE_EXTENSION      ".hcd"
 #define FW_PATCHFILE_EXTENSION_LEN  4
 #define HCI_EVT_CMD_CMPL_LOCAL_NAME_STRING 7
@@ -110,7 +110,7 @@ bdaddr_t bd_addr;
 static char hw_cfg_string[CFG_PARAM_STRING_SIZE] = {0}; /* pass as parameter to ldisc */
 static unsigned long cust_baud_rate = 3000000;
 static char driver_module_path[MAX_KMODULE_PATH_SIZE] = "/system/lib/modules/";
-static char uart_port_name[UART_PORT_NAME_SIZE] = "/dev/ttyS1";
+static char uart_port_name[UART_PORT_NAME_SIZE] = "/dev/ttyHS0";
 int lpmenable;
 int hci_snoop_enable = 0;
 char hci_snoop_path[HCI_SNOOP_PATH_LEN] = "/sdcard/btsnoop_hci.log";
