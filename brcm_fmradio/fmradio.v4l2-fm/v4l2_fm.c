@@ -49,7 +49,7 @@
 #define GETBYTE(blockNuber,byteNum)      blockNuber*2+byteNum
 #define CLEAN_RDS                        last_block_num= -1; next_expected_block= 0; group_status = GROUP_EMPTY;
 //Mute
-#define DEFAULT_VOLUME                  34000
+#define DEFAULT_VOLUME                  255
 #define MUTE_OFF                        0
 #define MUTE_ON                         1
 //Scan
