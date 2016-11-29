@@ -23,4 +23,9 @@ LOCAL_SRC_FILES := android_fm.cpp \
 LOCAL_REQUIRED_MODULES := libfmradio.v4l2-fm brcm-uim-sysfs
 LOCAL_SHARED_LIBRARIES += liblog libnativehelper
 
+ifneq ($(TARGET_ARCH),arm64)
+  LOCAL_CPPFLAGS=-DLIBRARY_PATH=\"/system/lib/\"
+  LOCAL_32_BIT_ONLY := true
+endif
+
 include $(BUILD_SHARED_LIBRARY)
