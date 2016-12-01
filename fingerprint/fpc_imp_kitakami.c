@@ -45,7 +45,7 @@ static int qsee_load_trustlet(struct QSEECom_handle **clnt_handle,
     char* errstr;
 
     ALOGE("Starting app %s\n", fname);
-    ret = mStartApp(&mHandle, path, fname, 1024);
+    ret = mStartApp(clnt_handle, path, fname, 1024);
     if (ret < 0) {
         errstr = qsee_error_strings(ret);
         ALOGE("Could not load app %s. Error: %s (%d)\n",
@@ -782,7 +782,7 @@ int fpc_init()
                              FP_TZAPP_NAME, 1024) < 0)
         return -1;
 
-    if (qsee_load_trustlet(&mHandle, KM_TZAPP_PATH,
+    if (qsee_load_trustlet(&mHdl, KM_TZAPP_PATH,
                              KM_TZAPP_NAME, 1024) < 0)
         return -1;
 
