@@ -293,6 +293,7 @@ service qmuxd /system/vendor/bin/qmuxd
 # QCOM prop
 service netmgrd /system/vendor/bin/netmgrd
     class main
+    group system
     disabled
     writepid /dev/cpuset/system-background/tasks
 
