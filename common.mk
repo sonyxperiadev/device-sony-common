@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# include additional build utilities
+-include device/sony/common/utils.mk
+
 DEVICE_PACKAGE_OVERLAYS += device/sony/common/overlay
 
 # Common Specific Permissions
