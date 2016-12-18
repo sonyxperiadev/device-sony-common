@@ -41,7 +41,7 @@ TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
 BOARD_USES_ALSA_AUDIO := true
 AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := true
 
-#Camera
+# Camera
 TARGET_USES_AOSP := true
 BOARD_QTI_CAMERA_32BIT_ONLY := true
 BOARD_QTI_CAMERA_V2 := true
@@ -53,6 +53,10 @@ TARGET_NO_RPC := true
 
 # Charger
 BOARD_CHARGER_ENABLE_SUSPEND := true
+
+# HW Encryption
+TARGET_HW_DISK_ENCRYPTION := false
+TARGET_CRYPTFS_HW_PATH := device/sony/common/cryptfs_hw
 
 # Include an expanded selection of fonts
 EXTENDED_FONT_FOOTPRINT := true
