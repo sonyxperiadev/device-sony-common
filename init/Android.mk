@@ -12,6 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Abort if the device is not handled by init_sony
+ifeq (,$(findstring DEV_BLOCK_FOTA_NUM,$(BOARD_SONY_INIT_FLAGS)))
+$(error device-sony-common-init: DEV_BLOCK_FOTA_NUM missing in "$(TARGET_DEVICE)", platform "$(PRODUCT_PLATFORM)", with '$(BOARD_SONY_INIT_FLAGS)')
+endif
+
+# Debug current init_sony settings
+$(info device-sony-common-init: init_sony for "$(TARGET_DEVICE)", platform "$(PRODUCT_PLATFORM)", with '$(BOARD_SONY_INIT_FLAGS)')
+
 # Init overrides for init_sony
 root_init      := $(TARGET_ROOT_OUT)/init
 root_init_real := $(TARGET_ROOT_OUT)/init.real
