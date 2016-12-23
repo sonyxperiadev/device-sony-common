@@ -265,11 +265,18 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.camera.HAL3.enabled=1 \
     persist.camera.gyro.disable=1 \
     persist.camera.feature.cac=0 \
     persist.camera.ois.disable=0 \
     persist.camera.zsl.mode=1
+
+ifneq ($(filter shinano rhine, $(SOMC_PLATFORM)),)
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.camera.HAL3.enabled=0
+else
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.camera.HAL3.enabled=1
+endif
 
 # Sensors debug
 PRODUCT_PROPERTY_OVERRIDES += \
