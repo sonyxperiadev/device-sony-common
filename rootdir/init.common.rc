@@ -47,6 +47,7 @@ on init
     write /sys/block/zram0/comp_algorithm lz4
     write /sys/block/zram0/max_comp_streams 4
     write /proc/sys/vm/page-cluster 0
+    write /proc/sys/vm/swappiness 100
 
 on post-fs-data
     # Create directory used by bluetooth subsystem
