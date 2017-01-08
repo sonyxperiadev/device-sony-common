@@ -91,4 +91,8 @@ include $(call all-makefiles-under,$(audio-hal))
 include $(call all-makefiles-under,$(gps-hal))
 include $(call all-makefiles-under,$(media-hal))
 
+ifeq ($(BOARD_WLAN_DEVICE),qcwcn)
+  include $(call all-makefiles-under,hardware/qcom/wlan/qcwcn)
+endif
+
 endif
