@@ -739,13 +739,6 @@ int fpc_init()
     if(result != 0)
         return result;
 
-    result = send_normal_command(mHandle, FPC_PRINT_INFO);
-    ALOGD("FPC_PRINT_INFO Res: %d\n", result);
-    if(result != 0)
-    {
-        return result;
-    }
-
     if (device_disable() < 0) {
         ALOGE("Error stopping device\n");
         return -1;
