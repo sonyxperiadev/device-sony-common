@@ -39,7 +39,7 @@ static struct QSEECom_handle * mHdl;
 
 static int qsee_load_trustlet(struct QSEECom_handle **clnt_handle,
                        const char *path, const char *fname,
-                       uint32_t sb_size)
+                       uint32_t __attribute__((unused))sb_size)
 {
     int ret = 0;
     char* errstr;
