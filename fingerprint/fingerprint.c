@@ -369,7 +369,7 @@ static int fingerprint_enumerate(struct fingerprint_device __unused *dev,
         *max_size = print_count;
     } else {
         for (size_t i = 0; i < *max_size && i < print_count; i++) {
-            ALOGD("%s : found print : %lu at index %lu", __func__,(unsigned long) print_indexs.prints[i], i);
+            ALOGD("%s : found print : %lu at index %zu", __func__,(unsigned long) print_indexs.prints[i], i);
 
             results[i].fid = print_indexs.prints[i];
             results[i].gid = fpc_gid;
