@@ -356,27 +356,25 @@ static int fingerprint_set_active_group(struct fingerprint_device __unused *dev,
 
 }
 
-static int fingerprint_enumerate(struct fingerprint_device __unused *dev,
-                                 fingerprint_finger_id_t *results,
-                                 uint32_t *max_size)
-{
 
+static int fingerprint_enumerate(struct fingerprint_device *dev)
+{
     uint32_t print_count = fpc_get_print_count();
     ALOGD("%s : print count is : %u", __func__, print_count);
     fpc_fingerprint_index_t print_indexs = fpc_get_print_index(print_count);
+    if(print_count < 0)
+        return FINGERPRINT_ERROR;
 
-    if (*max_size == 0) {
-        *max_size = print_count;
-    } else {
-        for (size_t i = 0; i < *max_size && i < print_count; i++) {
-            ALOGD("%s : found print : %lu at index %lu", __func__,(unsigned long) print_indexs.prints[i], i);
-
-            results[i].fid = print_indexs.prints[i];
-            results[i].gid = fpc_gid;
-        }
+    for (size_t i = 0; i < print_count; i++) {
+        ALOGD("%s : found print : %lu at index %lu", __func__,(unsigned long) print_indexs.prints[i], i);
+        fingerprint_msg_t msg;
+        msg.type = FINGERPRINT_TEMPLATE_ENUMERATING;
+        msg.data.enumerated.finger.fid = print_indexs.prints[i];
+        msg.data.enumerated.finger.gid = fpc_gid;
+        msg.data.enumerated.remaining_templates = print_count - i - 1;
+        callback(&msg);
     }
-
-    return print_count;
+    return 0;
 }
 
 static int fingerprint_authenticate(struct fingerprint_device __unused *dev,

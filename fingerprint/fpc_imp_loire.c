@@ -39,6 +39,27 @@
 static struct QSEECom_handle * mHandle;
 static struct QSEECom_handle * mHdl;
 
+static int qsee_load_trustlet(struct QSEECom_handle **clnt_handle,
+                       const char *path, const char *fname,
+                       uint32_t sb_size)
+{
+    int ret = 0;
+    char* errstr;
+
+    ALOGE("Starting app %s\n", fname);
+    ret = mStartApp(clnt_handle, path, fname, 1024);
+    if (ret < 0) {
+        errstr = qsee_error_strings(ret);
+        ALOGE("Could not load app %s. Error: %s (%d)\n",
+              fname, errstr, ret);
+    } else
+        ALOGE("TZ App loaded : %s\n", fname);
+
+    return ret;
+}
+
+
+
 uint32_t auth_id = 0;
 
 int sysfs_write(char *path, char *s)
@@ -671,7 +692,7 @@ int fpc_close()
 
 int fpc_init()
 {
-
+    int ret=0;
     ALOGE("INIT FPC TZ APP\n");
 
     open_handle();
@@ -686,24 +707,25 @@ int fpc_init()
         return -1;
     }
 
+    ALOGE("Starting app %s\n", KM_TZAPP_NAME);
+    if (qsee_load_trustlet(&mHdl, KM_TZAPP_PATH, KM_TZAPP_NAME, 1024) < 0) {
+        if (qsee_load_trustlet(&mHdl, KM_TZAPP_PATH, "keymaster", 1024) < 0) {
+            ALOGE("Could not load app %s or %s\n", KM_TZAPP_NAME, "keymaster");
+            return -1;
+        }
+    }
+
+
     ALOGE("Starting app %s\n", FP_TZAPP_NAME);
-    if (mStartApp(&mHandle, FP_TZAPP_PATH, FP_TZAPP_NAME, 128) < 0) {
+    if (qsee_load_trustlet(&mHandle, FP_TZAPP_PATH, FP_TZAPP_NAME, 128) < 0) {
         ALOGE("Could not load app : %s\n", FP_TZAPP_NAME);
         return -1;
     }
-    ALOGE("TZ App loaded : %s\n", FP_TZAPP_NAME);
 
-    if (send_normal_command(mHandle, FPC_INIT) != 0) {
-        ALOGE("Error sending FPC_INIT to tz\n");
+    if ((ret = send_normal_command(mHandle, FPC_INIT)) != 0) {
+        ALOGE("Error sending FPC_INIT to tz: %d\n", ret);
         return -1;
     }
-
-    ALOGE("Starting app %s\n", KM_TZAPP_NAME);
-    if (mStartApp(&mHdl, KM_TZAPP_PATH, KM_TZAPP_NAME, 1024) < 0) {
-        ALOGE("Could not load app : %s\n", KM_TZAPP_NAME);
-        return -1;
-    }
-    ALOGE("TZ App loaded : %s\n", KM_TZAPP_NAME);
 
     // Start creating one off command to get cert from keymaster
     keymaster_cmd_t *req = (keymaster_cmd_t *) mHdl->ion_sbuffer;
@@ -738,13 +760,6 @@ int fpc_init()
     ALOGD("FPC_SET_KEY_DATA Result: %d\n", result);
     if(result != 0)
         return result;
-
-    result = send_normal_command(mHandle, FPC_PRINT_INFO);
-    ALOGD("FPC_PRINT_INFO Res: %d\n", result);
-    if(result != 0)
-    {
-        return result;
-    }
 
     if (device_disable() < 0) {
         ALOGE("Error stopping device\n");
