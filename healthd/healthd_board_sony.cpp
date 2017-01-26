@@ -29,6 +29,7 @@
 #define BACKLIGHT_PATH         "/sys/class/leds/lcd-backlight/brightness"
 #define BACKLIGHT_ON_LEVEL     100
 #define CHARGING_ENABLED_PATH  "/sys/class/power_supply/battery/charging_enabled"
+#define STR_LEN                8
 
 #define LOGV(x...) do { KLOG_DEBUG("charger", x); } while (0)
 #define LOGE(x...) do { KLOG_ERROR("charger", x); } while (0)
@@ -37,6 +38,19 @@
 void healthd_board_mode_charger_draw_battery(
                 struct android::BatteryProperties *batt_prop)
 {
+    char cap_str[STR_LEN];
+    int x, y;
+    int str_len_px;
+    static int char_height = -1, char_width = -1;
+
+    if (char_height == -1 && char_width == -1)
+        gr_font_size(&char_width, &char_height);
+    snprintf(cap_str, (STR_LEN - 1), "%d%%", batt_prop->batteryLevel);
+    str_len_px = gr_measure(cap_str);
+    x = (gr_fb_width() - str_len_px) / 2;
+    y = (gr_fb_height() + char_height) / 2;
+    gr_color(0, 0, 0, 255);
+    gr_text(x, y, cap_str, 0);
 }
 
 void healthd_board_mode_charger_battery_update(
