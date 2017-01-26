@@ -26,8 +26,12 @@
 #include "healthd.h"
 #include "minui/minui.h"
 
+#define BACKLIGHT_PATH         "/sys/class/leds/lcd-backlight/brightness"
+#define BACKLIGHT_ON_LEVEL     100
 #define CHARGING_ENABLED_PATH  "/sys/class/power_supply/battery/charging_enabled"
 
+#define LOGV(x...) do { KLOG_DEBUG("charger", x); } while (0)
+#define LOGE(x...) do { KLOG_ERROR("charger", x); } while (0)
 #define LOGW(x...) do { KLOG_WARNING("charger", x); } while (0)
 
 void healthd_board_mode_charger_draw_battery(
@@ -40,8 +44,31 @@ void healthd_board_mode_charger_battery_update(
 {
 }
 
-void healthd_board_mode_charger_set_backlight()
+void healthd_board_mode_charger_set_backlight(bool enable)
 {
+    int fd;
+    char buffer[10];
+
+    if (access(BACKLIGHT_PATH, R_OK | W_OK) != 0) {
+        LOGW("Backlight control not support\n");
+        return;
+    }
+
+    memset(buffer, '\0', sizeof(buffer));
+    fd = open(BACKLIGHT_PATH, O_RDWR);
+    if (fd < 0) {
+        LOGE("Could not open backlight node : %s\n", strerror(errno));
+        goto cleanup;
+    }
+    LOGV("Enabling backlight\n");
+    snprintf(buffer, sizeof(buffer), "%d\n", enable ? BACKLIGHT_ON_LEVEL : 0);
+    if (write(fd, buffer,strlen(buffer)) < 0) {
+        LOGE("Could not write to backlight node : %s\n", strerror(errno));
+        goto cleanup;
+    }
+cleanup:
+    if (fd >= 0)
+        close(fd);
 }
 
 void healthd_board_mode_charger_init()
