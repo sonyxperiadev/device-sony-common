@@ -26,6 +26,10 @@
 #include "healthd.h"
 #include "minui/minui.h"
 
+#define CHARGING_ENABLED_PATH  "/sys/class/power_supply/battery/charging_enabled"
+
+#define LOGW(x...) do { KLOG_WARNING("charger", x); } while (0)
+
 void healthd_board_mode_charger_draw_battery(
                 struct android::BatteryProperties *batt_prop)
 {
@@ -42,6 +46,24 @@ void healthd_board_mode_charger_set_backlight()
 
 void healthd_board_mode_charger_init()
 {
+    int ret;
+    char buff[8] = "\0";
+    int charging_enabled = 0;
+    int fd;
+
+    /* check the charging is enabled or not */
+    fd = open(CHARGING_ENABLED_PATH, O_RDONLY);
+    if (fd < 0)
+        return;
+    ret = read(fd, buff, sizeof(buff));
+    close(fd);
+    if (ret > 0 && sscanf(buff, "%d\n", &charging_enabled)) {
+        /* if charging is disabled, reboot and exit power off charging */
+        if (charging_enabled)
+            return;
+        LOGW("android charging is disabled, exit!\n");
+        android_reboot(ANDROID_RB_RESTART, 0, 0);
+    }
 }
 
 void healthd_board_init(struct healthd_config*)
