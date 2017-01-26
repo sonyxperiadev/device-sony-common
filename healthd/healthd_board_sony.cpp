@@ -23,7 +23,7 @@
 #include <cutils/klog.h>
 #include <batteryservice/BatteryService.h>
 #include <cutils/android_reboot.h>
-#include "healthd.h"
+#include "healthd/healthd.h"
 #include "minui/minui.h"
 
 #define BACKLIGHT_PATH         "/sys/class/leds/lcd-backlight/brightness"
