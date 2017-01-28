@@ -136,7 +136,7 @@ struct FmSession_t fmReceiverSession = {
  *  function calls from java layer.
  */
 
-static jint androidFmRadioRxGetState(JNIEnv * env, jobject obj)
+static jint androidFmRadioRxGetState(JNIEnv * __attribute__((unused)) env, jobject __attribute__((unused)) obj)
 {
     FmRadioState_t state;
 
@@ -175,20 +175,20 @@ androidFmRadioRxStartAsync(JNIEnv * env, jobject obj, int lowFreq,
                                lowFreq, highFreq, defaultFreq, grid);
 }
 
-static void androidFmRadioRxPause(JNIEnv * env, jobject obj)
+static void androidFmRadioRxPause(JNIEnv * __attribute__((unused)) env, jobject __attribute__((unused)) obj)
 {
   //  ALOGI("androidFmRadioRxPause\n");
 
     (void)androidFmRadioPause(&fmReceiverSession);
 }
 
-static void androidFmRadioRxResume(JNIEnv * env, jobject obj)
+static void androidFmRadioRxResume(JNIEnv * __attribute__((unused)) env, jobject __attribute__((unused)) obj)
 {
   //  ALOGI("androidFmRadioRxResume\n");
     (void)androidFmRadioResume(&fmReceiverSession);
 }
 
-static jboolean androidFmRadioRxReset(JNIEnv * env, jobject obj)
+static jboolean androidFmRadioRxReset(JNIEnv * __attribute__((unused)) env, jobject __attribute__((unused)) obj)
 {
     int retval = 0;
 
@@ -204,7 +204,7 @@ static jboolean androidFmRadioRxReset(JNIEnv * env, jobject obj)
     return retval;
 }
 
-static int androidFmRadioRxMute(JNIEnv * env, jobject obj, jint mute)
+static int androidFmRadioRxMute(JNIEnv * __attribute__((unused)) env, jobject __attribute__((unused)) obj, jint mute)
 {
   //  ALOGI("androidFmRadioRxPause\n");
 
@@ -212,19 +212,19 @@ static int androidFmRadioRxMute(JNIEnv * env, jobject obj, jint mute)
 }
 
 static int
-androidFmRadioRxSetFrequency(JNIEnv * env, jobject obj, jint frequency)
+androidFmRadioRxSetFrequency(JNIEnv * __attribute__((unused)) env, jobject __attribute__((unused)) obj, jint frequency)
 {
   //  ALOGI("androidFmRadioRxSetFrequency tuneTo:%d\n", (int) frequency);
     return androidFmRadioSetFrequency(&fmReceiverSession, (int) frequency);
 }
 
-static jint androidFmRadioRxGetFrequency(JNIEnv * env, jobject obj)
+static jint androidFmRadioRxGetFrequency(JNIEnv * __attribute__((unused)) env, jobject __attribute__((unused)) obj)
 {
   //  ALOGI("androidFmRadioRxGetFrequency:\n");
     return androidFmRadioGetFrequency(&fmReceiverSession);
 }
 
-static jint androidFmRadioRxStopScan(JNIEnv * env, jobject obj)
+static jint androidFmRadioRxStopScan(JNIEnv * __attribute__((unused)) env, jobject __attribute__((unused)) obj)
 {
   //  ALOGI("androidFmRadioRxStopScan\n");
     return androidFmRadioStopScan(&fmReceiverSession);
@@ -232,7 +232,7 @@ static jint androidFmRadioRxStopScan(JNIEnv * env, jobject obj)
 
 /* the rest of the calls are specific for RX */
 
-static jint androidFmRadioRxGetSignalStrength(JNIEnv * env, jobject obj)
+static jint androidFmRadioRxGetSignalStrength(JNIEnv * __attribute__((unused)) env, jobject __attribute__((unused)) obj)
 {
     int retval = SIGNAL_STRENGTH_UNKNOWN;
 
@@ -269,7 +269,7 @@ static jint androidFmRadioRxGetSignalStrength(JNIEnv * env, jobject obj)
 }
 
 static jboolean
-androidFmRadioRxIsPlayingInStereo(JNIEnv * env, jobject obj)
+androidFmRadioRxIsPlayingInStereo(JNIEnv * __attribute__((unused)) env, jobject __attribute__((unused)) obj)
 {
     bool retval;
 
@@ -299,7 +299,7 @@ androidFmRadioRxIsPlayingInStereo(JNIEnv * env, jobject obj)
 }
 
 static int
-androidFmRadioRxIsRDSDataSupported(JNIEnv * env, jobject obj)
+androidFmRadioRxIsRDSDataSupported(JNIEnv * __attribute__((unused)) env, jobject __attribute__((unused)) obj)
 {
     bool retval;
 
@@ -328,7 +328,7 @@ androidFmRadioRxIsRDSDataSupported(JNIEnv * env, jobject obj)
 }
 
 static jboolean
-androidFmRadioRxIsTunedToValidChannel(JNIEnv * env, jobject obj)
+androidFmRadioRxIsTunedToValidChannel(JNIEnv * __attribute__((unused)) env, jobject __attribute__((unused)) obj)
 {
     bool retval;
 
@@ -427,7 +427,7 @@ drop_lock:
 }
 
 static bool
-androidFmRadioRxScanUp(JNIEnv * env, jobject obj, jint *frequency)
+androidFmRadioRxScanUp(JNIEnv * __attribute__((unused)) env, jobject __attribute__((unused)) obj, jint *frequency)
 {
   //  ALOGI("androidFmRadioRxScanUp\n");
     FMRADIO_SET_STATE(&fmReceiverSession, FMRADIO_STATE_SCANNING);
@@ -436,7 +436,7 @@ androidFmRadioRxScanUp(JNIEnv * env, jobject obj, jint *frequency)
 }
 
 static bool
-androidFmRadioRxScanDown(JNIEnv * env, jobject obj, jint *frequency)
+androidFmRadioRxScanDown(JNIEnv * __attribute__((unused)) env, jobject __attribute__((unused)) obj, jint *frequency)
 {
   //  ALOGI("androidFmRadioRxScanDown\n");
     FMRADIO_SET_STATE(&fmReceiverSession, FMRADIO_STATE_SCANNING);
@@ -515,7 +515,7 @@ static int androidFmRadioRxFullScan(int *frequencies)
     return 0;
 }
 
-static int androidFmRadioRxStartFullScan(JNIEnv * env, jobject obj, int *frequencies)
+static int androidFmRadioRxStartFullScan(JNIEnv * __attribute__((unused)) env, jobject __attribute__((unused)) obj, int *frequencies)
 {
   //  ALOGI("androidFmRadioRxStartFullScan\n");
     int retval = 0;
@@ -525,7 +525,7 @@ static int androidFmRadioRxStartFullScan(JNIEnv * env, jobject obj, int *frequen
     return retval;
 }
 
-static void androidFmRadioRxSetForceMono(JNIEnv * env, jobject obj,
+static void androidFmRadioRxSetForceMono(JNIEnv * __attribute__((unused)) env, jobject __attribute__((unused)) obj,
                                          jboolean forceMono)
 {
     int retval = -1;
@@ -565,7 +565,7 @@ static void androidFmRadioRxSetForceMono(JNIEnv * env, jobject obj,
 }
 
 static void
-androidFmRadioRxSetThreshold(JNIEnv * env, jobject obj, jint threshold)
+androidFmRadioRxSetThreshold(JNIEnv * __attribute__((unused)) env, jobject __attribute__((unused)) obj, jint threshold)
 {
     int retval;
 
@@ -603,7 +603,7 @@ androidFmRadioRxSetThreshold(JNIEnv * env, jobject obj, jint threshold)
     pthread_mutex_unlock(fmReceiverSession.dataMutex_p);
 }
 
-static jint androidFmRadioRxGetThreshold(JNIEnv * env, jobject obj)
+static jint androidFmRadioRxGetThreshold(JNIEnv * __attribute__((unused)) env, jobject __attribute__((unused)) obj)
 {
     int retval;
 
@@ -696,7 +696,7 @@ jint setMute(JNIEnv *env, jobject thiz, jboolean mute)
     return ret?JNI_FALSE:JNI_TRUE;
 }
 
-jint isRdsSupport(JNIEnv *env, jobject thiz)
+jint isRdsSupport(JNIEnv * __attribute__((unused)) env, jobject __attribute__((unused)) thiz)
 {
     int ret = 0;
 /*
@@ -709,14 +709,14 @@ jint isRdsSupport(JNIEnv *env, jobject thiz)
     return JNI_TRUE;//ret?JNI_TRUE:JNI_FALSE;
 }
 
-jshort readRds(JNIEnv *env, jobject thiz)
+jshort readRds(JNIEnv * __attribute__((unused)) env, jobject __attribute__((unused)) thiz)
 {
     int ret = 0;
    // ALOGD("%s, [ret=%d]\n", __func__, ret);
     return 0x0040; //Java: RDS_EVENT_LAST_RADIOTEXT
 }
 
-jint setRds(JNIEnv *env, jobject thiz, jboolean rdson)
+jint setRds(JNIEnv * __attribute__((unused)) env, jobject __attribute__((unused)) thiz, jboolean __attribute__((unused)) rdson)
 {
     int ret = 0;
     int onoff = -1;
@@ -731,7 +731,7 @@ jint setRds(JNIEnv *env, jobject thiz, jboolean rdson)
 }
 
 
-jbyteArray getLrText(JNIEnv *env, jobject thiz)
+jbyteArray getLrText(JNIEnv * __attribute__((unused)) env, jobject __attribute__((unused)) thiz)
 {
     int ret = 0;
     int len = 0;
@@ -755,7 +755,7 @@ jbyteArray getLrText(JNIEnv *env, jobject thiz)
     return LastRadioText;
 }
 
-jbyteArray getPs(JNIEnv *env, jobject thiz)
+jbyteArray getPs(JNIEnv * __attribute__((unused)) env, jobject __attribute__((unused)) thiz)
 {
     int ret = 0;
     jbyteArray PSName;
@@ -811,7 +811,7 @@ out:
     return scanChlarray;
 }
 
-jint switchAntenna(JNIEnv *env, jobject thiz, jint antenna)
+jint switchAntenna(JNIEnv * __attribute__((unused)) env, jobject __attribute__((unused)) thiz, jint __attribute__((unused)) antenna)
 {
     int ret = 0;
     int ana = -1;
@@ -864,7 +864,7 @@ jfloat seek(JNIEnv *env, jobject thiz, jfloat freq, jboolean isUp) //jboolean is
     return val;
 }
 
-jboolean powerDown(JNIEnv *env, jobject thiz, jint type)
+jboolean powerDown(JNIEnv * __attribute__((unused)) env, jobject __attribute__((unused)) thiz, jint __attribute__((unused)) type)
 {
     int ret = 0;
 
@@ -874,13 +874,13 @@ jboolean powerDown(JNIEnv *env, jobject thiz, jint type)
     return ret?JNI_TRUE:JNI_FALSE;
 }
 
-static jboolean openDev(JNIEnv * env, jobject obj,
-                                   jboolean receiveRDS) {
+static jboolean openDev(JNIEnv * __attribute__((unused)) env, jobject __attribute__((unused)) obj,
+                                   jboolean __attribute__((unused)) receiveRDS) {
     return JNI_TRUE;
 }
 
-static jboolean closeDev(JNIEnv * env, jobject obj,
-                                   jboolean receiveRDS) {
+static jboolean closeDev(JNIEnv * __attribute__((unused)) env, jobject __attribute__((unused)) obj,
+                                   jboolean __attribute__((unused)) receiveRDS) {
     return JNI_TRUE;
 }
 
