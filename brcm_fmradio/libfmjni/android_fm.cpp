@@ -1160,7 +1160,7 @@ int registerAndroidFmRadioReceiver(JavaVM* vm, JNIEnv *env);
 
 using namespace android;
 
-extern "C" jint JNI_OnLoad(JavaVM* vm, void* reserved)
+extern "C" jint JNI_OnLoad(JavaVM* vm, void* __attribute__((unused)) reserved)
 {
     JNIEnv* env = NULL;
     jint result = -1;
