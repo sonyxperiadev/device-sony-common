@@ -275,6 +275,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.kpi.debug=0 \
     persist.camera.global.debug=0
 
+# Disable Dual Camera
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.camera.dual.camera.mpo=0 \
+    persist.camera.dc.frame.sync=0 \
+    persist.camera.dcrf.enable=0
+
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.HAL3.enabled=0 \
