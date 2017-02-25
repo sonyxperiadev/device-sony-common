@@ -237,6 +237,7 @@ void healthd_board_mode_charger_init()
 {
     int ret;
     char buff[40] = "\0";
+    char *pos;
     int charging_enabled = 0;
     int bms_ready = 0;
     int wait_count = 0;
@@ -254,6 +255,8 @@ void healthd_board_mode_charger_init()
     }
     ret = read_file(CHARGER_TYPE_PATH, buff, sizeof(buff));
     if (ret >= 0) {
+        /* get rid of the new line charcter */
+        buff[strcspn(buff, "\n")] = '\0';
         if (!strcmp(buff, "USB"))
             usb_type_is_sdp = true;
     }
