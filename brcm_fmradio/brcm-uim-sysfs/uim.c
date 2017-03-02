@@ -481,7 +481,7 @@ typedef struct {
  * Currently supported entries in vendor_conf and corresponding action functions
  */
 static const conf_entry_t vendor_conf_table[] = {
-    {"UartPort", userial_set_port},
+    {"UimUartPort", userial_set_port},
     {"UartBaudRate", hw_set_uart_baudrate},
     {"FwPatchSettlementDelay", hw_set_patchram_settlement_delay},
     {"LpmWakePolarity",hw_set_lpm_polarity},
