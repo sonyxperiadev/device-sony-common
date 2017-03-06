@@ -297,3 +297,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.qualcomm.sns.daemon=0 \
     debug.qualcomm.sns.hal=0 \
     debug.qualcomm.sns.libsensor1=0
+
+# BT/FMRadio
+ifeq ($(filter rhine kanuti,$(SOMC_PLATFORM)),)
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.rfkilldisabled=1
+endif
