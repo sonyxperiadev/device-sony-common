@@ -180,7 +180,7 @@
          Empty is viewed as "all".  Only used on devices which
          don't support RIL_REQUEST_GET_RADIO_CAPABILITY
          format is UMTS|LTE|... -->
-    <string translatable="false" name="config_radio_access_family">GSM | WCDMA | LTE</string>
+    <string translatable="false" name="config_radio_access_family">GSM | GPRS | EDGE | WCDMA | LTE</string>
 
     <!-- Configure mobile tcp buffer sizes in the form:
          rat-name:rmem_min,rmem_def,rmem_max,wmem_min,wmem_def,wmem_max
