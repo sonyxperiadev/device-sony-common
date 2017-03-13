@@ -93,7 +93,7 @@ static int is_rfkill_disabled(void)
 {
     char value[PROPERTY_VALUE_MAX];
 
-    property_get("ro.rfkilldisableduim", value, "0");
+    property_get("ro.rfkilldisabled.uim", value, "0");
     UPIODBG("is_rfkill_disabled ? [%s]", value);
 
     if (strcmp(value, "1") == 0) {
