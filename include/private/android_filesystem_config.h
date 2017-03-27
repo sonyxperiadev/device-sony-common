@@ -33,7 +33,7 @@
 #endif
 
 // #define SONY_UID
-// #define CAF_UID
+#define CAF_UID
 
 #define CAP_MASK_LONG(cap_name)  (1ULL << (cap_name))
 
