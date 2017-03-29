@@ -34,11 +34,6 @@ BOARD_KERNEL_CMDLINE += sched_enable_power_aware=1 user_debug=31
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 
-# Override the default android_filesystem_config.h
-TARGET_SPECIFIC_HEADER_PATH := $(COMMON_PATH)/include
-TARGET_ANDROID_FILESYSTEM_CONFIG_H := \
-    $(COMMON_PATH)/include/private/android_filesystem_config.h
-
 # GFX
 USE_OPENGL_RENDERER := true
 TARGET_USES_ION := true
