@@ -1,0 +1,4 @@
+service offload-hal-1-0 /vendor/bin/hw/android.hardware.wifi.offload@1.0-service
+    class hal
+    user wifi
+    group wifi

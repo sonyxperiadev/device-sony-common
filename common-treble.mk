@@ -37,7 +37,8 @@ PRODUCT_PACKAGES += \
 
 # Wi-Fi
 PRODUCT_PACKAGES += \
-    android.hardware.wifi@1.0-service
+    android.hardware.wifi@1.0-service \
+    android.hardware.wifi.offload@1.0-service
 
 # Bluetooth
 PRODUCT_PACKAGES += \
