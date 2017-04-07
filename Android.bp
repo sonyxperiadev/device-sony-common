@@ -1,0 +1,3 @@
+subdirs = [
+    "hardware/wifi_offload",
+]
