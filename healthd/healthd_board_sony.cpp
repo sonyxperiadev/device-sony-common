@@ -122,13 +122,13 @@ void healthd_board_mode_charger_draw_battery(
     static int char_height = -1, char_width = -1;
 
     if (char_height == -1 && char_width == -1)
-        gr_font_size(&char_width, &char_height);
+        gr_font_size(gr_sys_font(), &char_width, &char_height);
     snprintf(cap_str, (STR_LEN - 1), "%d%%", batt_prop->batteryLevel);
-    str_len_px = gr_measure(cap_str);
+    str_len_px = gr_measure(gr_sys_font(), cap_str);
     x = (gr_fb_width() - str_len_px) / 2;
     y = (gr_fb_height() + char_height) / 2;
     gr_color(0, 0, 0, 255);
-    gr_text(x, y, cap_str, 0);
+    gr_text(gr_sys_font(), x, y, cap_str, 0);
 }
 
 void healthd_board_mode_charger_battery_update(
