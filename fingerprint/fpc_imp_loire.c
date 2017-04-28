@@ -18,6 +18,8 @@
 #include "QSEEComFunc.h"
 #include "fpc_imp.h"
 #include "tz_api_loire.h"
+#include "common.h"
+
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
@@ -42,77 +44,18 @@ static struct QSEECom_handle * mKeymasterHandle;
 static struct qsee_handle_t* qsee_handle = NULL;
 uint32_t auth_id = 0;
 
-static err_t sysfs_write(char *path, char *s)
+static err_t poll_irq(char *path)
 {
-    char buf[80];
-    ssize_t len;
-    int ret = 0;
-    int fd = open(path, O_WRONLY);
-
-    if (fd < 0) {
-        strerror_r(errno, buf, sizeof(buf));
-        ALOGE("Error opening %s: %s\n", path, buf);
-        return -1 ;
-    }
-
-    len = write(fd, s, strlen(s));
-    if (len < 0) {
-        strerror_r(errno, buf, sizeof(buf));
-        ALOGE("Error writing to %s: %s\n", path, buf);
-
-        ret = -1;
-    }
-
-    close(fd);
-
-    return ret;
-}
-
-static err_t sys_fs_irq_poll(char *path)
-{
-
-    char buf[80];
-    int ret = 0;
-    int result;
-    struct pollfd pollfds[2];
-
+    err_t ret = 0;
     sysfs_write(SPI_WAKE_FILE, "disable");
     sysfs_write(SPI_WAKE_FILE, "enable");
 
-    pollfds[0].fd = open(path, O_RDONLY | O_NONBLOCK);
+    ret = sys_fs_irq_poll(path);
 
-    if (pollfds[0].fd < 0) {
-        strerror_r(errno, buf, sizeof(buf));
-        ALOGE("Error opening %s: %s\n", path, buf);
-        return -1 ;
-    }
-
-    char dummybuf;
-    read(pollfds[0].fd, &dummybuf, 1);
-    ALOGE("Read result :%d\n", dummybuf);
-    pollfds[0].events = POLLPRI;
-
-    result = poll(pollfds, 1, 1000);
-    sysfs_write(SPI_IRQ_FILE, "1");
-
-    switch (result) {
-    case 0:
-        ALOGD ("timeout\n");
-        close(pollfds[0].fd);
-        return -2;
-    case -1:
-        ALOGE ("poll error \n");
-        close(pollfds[0].fd);
-        return -1;
-    default:
-        ALOGD ("IRQ GOT \n");
-        break;
-    }
-
-    close(pollfds[0].fd);
     sysfs_write(SPI_WAKE_FILE, "disable");
     return ret;
 }
+
 
 err_t device_enable()
 {
@@ -426,7 +369,7 @@ err_t fpc_wait_finger_down()
         if(result)
             return result;
 
-        if((result = sys_fs_irq_poll(SPI_IRQ_FILE)) == -1) {
+        if((result = poll_irq(SPI_IRQ_FILE)) == -1) {
                 ALOGE("Error waiting for irq: %d\n", result);
                 return -1;
         }

@@ -19,6 +19,7 @@
 
 #include <stdbool.h>
 #include <stdint.h>
+#include "common.h"
 
 #define MAX_FINGERPRINTS 5
 typedef struct
@@ -27,7 +28,6 @@ typedef struct
     uint32_t prints[MAX_FINGERPRINTS];
 } fpc_fingerprint_index_t;
 
-typedef int32_t err_t;
 
 int64_t fpc_load_db_id(); //load db ID, used as authenticator ID in android
 int64_t fpc_load_auth_challenge(); //genertate and load an auth challenge for pre enroll
