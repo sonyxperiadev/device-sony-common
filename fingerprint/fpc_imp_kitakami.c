@@ -18,16 +18,14 @@
 #include "QSEEComFunc.h"
 #include "fpc_imp.h"
 #include "tz_api_kitakami.h"
-#include <stdio.h>
 #include <string.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <poll.h>
+#include "common.h"
 
 #define LOG_TAG "FPC IMP"
 #define LOG_NDEBUG 0
 
 #include <cutils/log.h>
+
 
 #define SPI_CLK_FILE "/sys/bus/spi/devices/spi0.1/clk_enable"
 #define SPI_PREP_FILE "/sys/bus/spi/devices/spi0.1/spi_prepare"
@@ -38,72 +36,6 @@ static struct QSEECom_handle * mFPCHandle;
 static struct QSEECom_handle * mKeymasterHandle;
 static struct qsee_handle_t *qsee_handle = NULL;
 
-static err_t sysfs_write(char *path, char *s)
-{
-    char buf[80];
-    ssize_t len;
-    int ret = 0;
-    int fd = open(path, O_WRONLY);
-
-    if (fd < 0) {
-        strerror_r(errno, buf, sizeof(buf));
-        ALOGE("Error opening %s: %s\n", path, buf);
-        return -1 ;
-    }
-
-    len = write(fd, s, strlen(s));
-    if (len < 0) {
-        strerror_r(errno, buf, sizeof(buf));
-        ALOGE("Error writing to %s: %s\n", path, buf);
-
-        ret = -1;
-    }
-
-    close(fd);
-
-    return ret;
-}
-
-static err_t sys_fs_irq_poll(char *path)
-{
-
-    char buf[80];
-    int ret = 0;
-    int result;
-    struct pollfd pollfds[2];
-    pollfds[0].fd = open(path, O_RDONLY | O_NONBLOCK);
-
-    if (pollfds[0].fd < 0) {
-        strerror_r(errno, buf, sizeof(buf));
-        ALOGE("Error opening %s: %s\n", path, buf);
-        return -1 ;
-    }
-
-    char dummybuf;
-    read(pollfds[0].fd, &dummybuf, 1);
-    pollfds[0].events = POLLPRI;
-
-    result = poll(pollfds, 1, 1000);
-
-    switch (result) {
-    case 0:
-        ALOGD ("timeout\n");
-        close(pollfds[0].fd);
-        return -1;
-    case -1:
-        ALOGE ("poll error \n");
-        close(pollfds[0].fd);
-        return -1;
-    default:
-        ALOGD ("IRQ GOT \n");
-        close(pollfds[0].fd);
-        break;
-    }
-
-    close(pollfds[0].fd);
-
-    return ret;
-}
 
 err_t device_enable()
 {
