@@ -15,132 +15,197 @@
  */
 
 #include "QSEEComFunc.h"
+#include <stdlib.h>
+#include <errno.h>
+#include <string.h>
 
 #define LOG_TAG "QSEE_WRAPPER"
-#define LOG_NDEBUG 0
+//#define LOG_NDEBUG 0
 
 //#define USE_QSEE_WRAPPER 1
+#ifdef USE_QSEE_WRAPPER
+#define QSEE_LIBRARY "libDSEEComAPI.so"
+#else
+#define QSEE_LIBRARY "libQSEEComAPI.so"
+#endif
 
 #include <cutils/log.h>
 
-int open_handle()
+//Forward declarations
+
+static int qsee_load_trustlet(struct qsee_handle_t* qsee_handle,
+                              struct QSEECom_handle **clnt_handle,
+                              const char *path, const char *fname,
+                              uint32_t sb_size);
+char* qsee_error_strings(int err);
+int32_t qcom_km_ion_dealloc(struct qcom_km_ion_info_t *handle);
+int32_t qcom_km_ion_memalloc(struct qcom_km_ion_info_t *handle,
+                             uint32_t size);
+typedef struct {
+    void *libHandle;
+} _priv_data_t;
+
+
+
+int32_t qsee_open_handle(struct qsee_handle_t** ret_handle)
 {
+    struct qsee_handle_t *handle = NULL;
+    _priv_data_t *data = NULL;
+    int32_t ret = -1;
 
-#ifdef USE_QSEE_WRAPPER
-    printf("Open Target Lib : libDSEEComAPI\n");
-    mLibHandle = dlopen("libDSEEComAPI.so", RTLD_NOW);
-#else
-    printf("Open Target Lib : libQSEEComAPI\n");
-    mLibHandle = dlopen("libQSEEComAPI.so", RTLD_NOW);
-#endif
+    ALOGD("Using Target Lib : %s\n", QSEE_LIBRARY);
+    data = (_priv_data_t*)malloc(sizeof(_priv_data_t));
+    if(data == NULL)
+    {
+        ALOGE("Error allocating memory: %s\n", strerror(errno));
+        goto exit;
+    }
+    data->libHandle = dlopen(QSEE_LIBRARY, RTLD_NOW);
+    if(data->libHandle == NULL)
+    {
+        ALOGE("Failed to load QSEECom API library: %s\n", strerror(errno));
+        goto exit_err_data;
+    }
+    ALOGD("Loaded QSEECom API library at %p\n", data->libHandle);
 
-    if (!mLibHandle) {
-        printf("Failed to initialize QSEECom API library\n");
-        return -1;
-    } else {
-        printf("Initialized QSEECom API library\n");
+    handle =(struct qsee_handle_t*)malloc(sizeof(struct qsee_handle_t));
+    if(handle == NULL)
+    {
+        ALOGE("Error allocating memory: %s\n", strerror(errno));
+        goto exit_err_dlhandle;
+    }
 
-        bool hasError = false;
+    handle->_data = data;
 
-        mStartApp = (start_app_fn) dlsym(mLibHandle, "QSEECom_start_app");
+    ALOGD("Loaded QSEECom API library...\n");
+    // Setup internal functions
+    handle->ion_alloc = qcom_km_ion_memalloc;
+    handle->ion_free = qcom_km_ion_dealloc;
+    handle->load_trustlet = qsee_load_trustlet;
 
-        if (!mStartApp) {
-            printf("Failed to initialize QSEECom_start_app API function\n");
-            hasError = true;
-        }
+    // Setup QSEECom Functions
+    // NOTE: dlsym doesn't allocate anything, so there's nothing extra to free from these calls!
 
-        mStopApp = (shutdown_app_fn) dlsym(mLibHandle, "QSEECom_shutdown_app");
+    handle->start_app = (start_app_def) dlsym(data->libHandle, "QSEECom_start_app");
+    if(handle->start_app == NULL)
+    {
+        ALOGE("Error loading QSEECom_start_app: %s\n", strerror(errno));
+        goto exit_err_handle;
+    }
 
-        if (!mStopApp) {
-            printf("Failed to initialize QSEECom_shutdown_app API function");
-            hasError = true;
-        }
-
-        load_external_elf_fn = (load_external_elf) dlsym(mLibHandle, "QSEECom_load_external_elf");
-
-        if (!load_external_elf_fn) {
-            printf("Failed to initialize QSEECom_load_external_elf API function\n");
-            hasError = true;
-        }
-
-        unload_external_elf_fn = (unload_external_elf) dlsym(mLibHandle, "QSEECom_unload_external_elf");
-
-        if (!unload_external_elf_fn) {
-            printf("Failed to initialize QSEECom_unload_external_elf API function\n");
-            hasError = true;
-        }
-
-        register_listener_fn = (register_listener) dlsym(mLibHandle, "QSEECom_register_listener");
-
-        if (!register_listener_fn) {
-            printf("Failed to initialize QSEECom_register_listener API function\n");
-            hasError = true;
-        }
-
-        unregister_listener_fn = (unregister_listener) dlsym(mLibHandle, "QSEECom_unregister_listener");
-
-        if (!unregister_listener_fn) {
-            printf("Failed to initialize QSEECom_unregister_listener API function\n");
-            hasError = true;
-        }
-
-        send_cmd_fn = (send_cmd) dlsym(mLibHandle, "QSEECom_send_cmd");
-
-        if (!send_cmd_fn) {
-            printf("Failed to initialize QSEECom_send_cmd API function\n");
-            hasError = true;
-        }
-
-        send_modified_cmd_fn = (send_modified_cmd) dlsym(mLibHandle, "QSEECom_send_modified_cmd");
-
-        if (!send_modified_cmd_fn) {
-            printf("Failed to initialize QSEECom_send_modified_cmd API function\n");
-            hasError = true;
-        }
-
-        receive_req_fn = (receive_req) dlsym(mLibHandle, "QSEECom_receive_req");
-
-        if (!receive_req_fn) {
-            printf("Failed to initialize QSEECom_receive_req API function\n");
-            hasError = true;
-        }
-
-        send_resp_fn = (send_resp) dlsym(mLibHandle, "QSEECom_send_resp");
-
-        if (!send_resp_fn) {
-            printf("Failed to initialize QSEECom_send_resp API function\n");
-            hasError = true;
-        }
-
-        set_bandwidth_fn = (set_bandwidth) dlsym(mLibHandle, "QSEECom_set_bandwidth");
-
-        if (!set_bandwidth_fn) {
-            printf("Failed to initialize QSEECom_set_bandwidth API function\n");
-            hasError = true;
-        }
-
-        app_load_query_fn = (app_load_query) dlsym(mLibHandle, "QSEECom_app_load_query");
-
-        if (!app_load_query_fn) {
-            printf("Failed to initialize QSEECom_app_load_query API function\n");
-            hasError = true;
-        }
-
-
-        if (hasError) {
-            printf("Close Target Lib : libQSEEComAPI\n");
-            dlclose(mLibHandle);
-            mLibHandle = NULL;
-            return -1;
-        }
+    handle->shutdown_app = (shutdown_app_def) dlsym(data->libHandle, "QSEECom_shutdown_app");
+    if(handle->shutdown_app == NULL)
+    {
+        ALOGE("Error loading QSEECom_shutdown_app: %s\n", strerror(errno));
+        goto exit_err_handle;
 
     }
 
-    return 1;
+    handle->load_external_elf  = (load_external_elf_def) dlsym(data->libHandle, "QSEECom_load_external_elf");
+    if(handle->load_external_elf == NULL)
+    {
+        ALOGE("Error loading QSEECom_load_external_elf: %s\n", strerror(errno));
+        goto exit_err_handle;
+    }
+
+    handle->unload_external_elf = (unload_external_elf_def) dlsym(data->libHandle, "QSEECom_unload_external_elf");
+    if(handle->unload_external_elf == NULL)
+    {
+        ALOGE("Error loading QSEECom_unload_external_elf: %s\n", strerror(errno));
+        goto exit_err_handle;
+    }
+
+    handle->register_listener = (register_listener_def) dlsym(data->libHandle, "QSEECom_register_listener");
+    if(handle->register_listener == NULL)
+    {
+        ALOGE("Error loading QSEECom_register_listener: %s\n", strerror(errno));
+        goto exit_err_handle;
+    }
+
+    handle->unregister_listener = (unregister_listener_def) dlsym(data->libHandle, "QSEECom_unregister_listener");
+    if(handle->unregister_listener == NULL)
+    {
+        ALOGE("Error loading QSEECom_unregister_listener: %s\n", strerror(errno));
+        goto exit_err_handle;
+    }
+
+    handle->send_cmd = (send_cmd_def) dlsym(data->libHandle, "QSEECom_send_cmd");
+    if(handle->send_cmd == NULL)
+    {
+        ALOGE("Error loading QSEECom_send_cmd: %s\n", strerror(errno));
+        goto exit_err_handle;
+    }
+
+    handle->send_modified_cmd = (send_modified_cmd_def) dlsym(data->libHandle, "QSEECom_send_modified_cmd");
+    if(handle->send_modified_cmd == NULL)
+    {
+        ALOGE("Error loading QSEECom_send_modified_cmd: %s\n", strerror(errno));
+        goto exit_err_handle;
+    }
+
+    handle->receive_req = (receive_req_def) dlsym(data->libHandle, "QSEECom_receive_req");
+    if(handle->receive_req == NULL)
+    {
+        ALOGE("Error loading QSEECom_receive_req: %s\n", strerror(errno));
+        goto exit_err_handle;
+    }
+
+    handle->send_resp = (send_resp_def) dlsym(data->libHandle, "QSEECom_send_resp");
+    if(handle->send_resp == NULL)
+    {
+        ALOGE("Error loading QSEECom_send_resp: %s\n", strerror(errno));
+        goto exit_err_handle;
+    }
+
+    handle->set_bandwidth = (set_bandwidth_def) dlsym(data->libHandle, "QSEECom_set_bandwidth");
+    if(handle->set_bandwidth == NULL)
+    {
+        ALOGE("Error loading QSEECom_set_bandwidth: %s\n", strerror(errno));
+        goto exit_err_handle;
+    }
+
+    handle->app_load_query = (app_load_query_def) dlsym(data->libHandle, "QSEECom_app_load_query");
+    if(handle->app_load_query == NULL)
+    {
+        ALOGE("Error loading QSEECom_app_load_query: %s\n", strerror(errno));
+        goto exit_err_handle;
+    }
+
+    *ret_handle = handle;
+    return 0;
+
+exit_err_handle:
+    if(handle != NULL) {
+        free(handle);
+    }
+exit_err_dlhandle:
+    if(data->libHandle != NULL) {
+        dlclose(data->libHandle);
+        data->libHandle = NULL;
+    }
+exit_err_data:
+    if(data != NULL)
+        free(data);
+exit:
+    return ret;
+}
+
+int qsee_free_handle(struct qsee_handle_t** handle_ptr)
+{
+    _priv_data_t *data = NULL;
+    struct qsee_handle_t *handle;
+    handle = *handle_ptr;
+    data = (_priv_data_t*)handle->_data;
+
+    dlclose(data->libHandle);
+    free(data);
+    free(handle);
+    *handle_ptr = NULL;
+    return 0;
 }
 
 
-int32_t qcom_km_ION_memalloc(struct qcom_km_ion_info_t *handle,
+int32_t qcom_km_ion_memalloc(struct qcom_km_ion_info_t *handle,
                              uint32_t size)
 {
     int32_t ret = 0;
@@ -244,7 +309,6 @@ int32_t qcom_km_ion_dealloc(struct qcom_km_ion_info_t *handle)
     return ret;
 }
 
-
 char* qsee_error_strings(int err)
 {
     switch (err)
@@ -264,5 +328,31 @@ char* qsee_error_strings(int err)
         default:
             return "QSEECom: Unknown error\n";
     }
+}
+
+int qsee_load_trustlet(struct qsee_handle_t* qsee_handle,
+                              struct QSEECom_handle **clnt_handle,
+                              const char *path, const char *fname,
+                              uint32_t sb_size)
+{
+    int ret = 0;
+    char* errstr;
+    int sz = sb_size;
+    // Too small size causes failures, so force a reasonable size
+    if(sz < 1024) {
+        ALOGD("Warning: sb_size too small, increasing to avoid breakage");
+        sz = 1024;
+    }
+
+    ALOGE("Starting app %s\n", fname);
+    ret = qsee_handle->start_app(clnt_handle, path, fname, sz);
+    if (ret < 0) {
+        errstr = qsee_error_strings(ret);
+        ALOGE("Could not load app %s. Error: %s (%d)\n",
+              fname, errstr, ret);
+    } else
+        ALOGE("TZ App loaded : %s\n", fname);
+
+    return ret;
 }
 
