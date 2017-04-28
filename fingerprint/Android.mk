@@ -22,7 +22,8 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := fingerprint.$(TARGET_DEVICE)
 LOCAL_MODULE_RELATIVE_PATH := hw
 LOCAL_SRC_FILES := fingerprint.c \
-		   QSEEComFunc.c
+		   QSEEComFunc.c \
+		   common.c
 
 ifeq ($(filter-out satsuki sumire suzuran,$(TARGET_DEVICE)),)
 LOCAL_SRC_FILES += fpc_imp_kitakami.c
