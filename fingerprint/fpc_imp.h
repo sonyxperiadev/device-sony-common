@@ -39,8 +39,8 @@ err_t fpc_get_hw_auth_obj(void * buffer, uint32_t length); //get HAT object (cop
 err_t fpc_get_print_id(int id);
 err_t fpc_get_print_count(); //get count of enrolled prints
 err_t fpc_del_print_id(uint32_t id); //delete print at index
-fpc_fingerprint_index_t fpc_get_print_ids(int count); //get list of print index's available
-fpc_fingerprint_index_t fpc_get_print_index(int count); //get list of print index's available
+fpc_fingerprint_index_t fpc_get_print_ids(uint32_t count); //get list of print index's available
+fpc_fingerprint_index_t fpc_get_print_index(uint32_t count); //get list of print index's available
 err_t fpc_wait_for_finger(); //wait for event IRQ on print reader
 err_t fpc_capture_image(); //capture image ready for enroll / auth
 err_t fpc_enroll_step(uint32_t *remaining_touches); //step forward enroll & process image (only available if capture image returns OK)

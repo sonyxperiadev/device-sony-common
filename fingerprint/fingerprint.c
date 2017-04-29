@@ -300,10 +300,10 @@ static int fingerprint_cancel(struct fingerprint_device __attribute__((unused)) 
 
     ALOGI("%s : -",__func__);
 
-    fingerprint_msg_t msg;
+    /*fingerprint_msg_t msg;
     msg.type = FINGERPRINT_ERROR;
     msg.data.error = FINGERPRINT_ERROR_CANCELED;
-    callback(&msg);
+    callback(&msg);*/
 
     return 0;
 }
@@ -464,7 +464,11 @@ static int fingerprint_open(const hw_module_t* module, const char __attribute__(
     memset(dev, 0, sizeof(fingerprint_device_t));
 
     dev->common.tag = HARDWARE_DEVICE_TAG;
+#if PLATFORM_SDK_VERSION >= 24
+    dev->common.version = FINGERPRINT_MODULE_API_VERSION_2_1;
+#else
     dev->common.version = FINGERPRINT_MODULE_API_VERSION_2_0;
+#endif
     dev->common.module = (struct hw_module_t*) module;
     dev->common.close = fingerprint_close;
 
@@ -490,7 +494,11 @@ static struct hw_module_methods_t fingerprint_module_methods = {
 fingerprint_module_t HAL_MODULE_INFO_SYM = {
     .common = {
         .tag                = HARDWARE_MODULE_TAG,
+#if PLATFORM_SDK_VERSION >= 24
+        .module_api_version = FINGERPRINT_MODULE_API_VERSION_2_1,
+#else
         .module_api_version = FINGERPRINT_MODULE_API_VERSION_2_0,
+#endif
         .hal_api_version    = HARDWARE_HAL_API_VERSION,
         .id                 = FINGERPRINT_HARDWARE_MODULE_ID,
         .name               = "Kitakami Fingerprint HAL",
