@@ -286,8 +286,15 @@ int64_t fpc_load_auth_challenge()
 int64_t fpc_load_db_id()
 {
     ALOGD(__func__);
-    return 0;
-//    return get_int64_command(mFPC_handle, FPC_GET_DB_ID);
+    fpc_get_db_id_cmd_t cmd = {0};
+    cmd.group_id = FPC_GROUP_NORMAL;
+    cmd.cmd_id = FPC_GET_TEMPLATE_ID;
+
+    if(send_custom_cmd(mFPC_handle, &cmd, sizeof(cmd)) < 0) {
+        ALOGE("Error sending data to TZ\n");
+        return -1;
+    }
+    return cmd.auth_id;
 }
 
 err_t fpc_get_hw_auth_obj(void * buffer, uint32_t length)
@@ -511,7 +518,7 @@ err_t fpc_get_print_count()
 }
 
 
-fpc_fingerprint_index_t fpc_get_print_index(int __unused count)
+fpc_fingerprint_index_t fpc_get_print_index(uint32_t __unused count)
 {
     ALOGD(__func__);
     fpc_fingerprint_index_t data = {0};
