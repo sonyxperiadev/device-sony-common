@@ -53,6 +53,7 @@ enum fingerprint_normal_cmd_t {
     FPC_DELETE_FINGERPRINT = 0x0D,
     FPC_CAPTURE_IMAGE = 0x0E,
     FPC_SET_GID = 0x0F,
+    FPC_GET_TEMPLATE_ID = 0x10,
     FPC_INIT = 0x11,
     FPC_PRINT_INFO = 0x12,
 };
@@ -186,6 +187,13 @@ typedef struct {
     uint32_t length; //Length of data on ion buffer
     uint32_t v_addr; //Virtual address of ion mmap buffer
 } fpc_send_mod_cmd_t;
+
+typedef struct {
+    uint32_t group_id;
+    uint32_t cmd_id;
+    uint32_t result;
+    uint32_t auth_id;
+} fpc_get_db_id_cmd_t;
 
 #ifdef __cplusplus
 }

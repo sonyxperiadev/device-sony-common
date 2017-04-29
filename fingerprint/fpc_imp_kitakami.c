@@ -447,14 +447,14 @@ err_t fpc_auth_step(uint32_t *print_id)
 
 
 
-    *print_id = fpc_get_print_id(rec_cmd->id);
+    *print_id = (uint32_t)fpc_get_print_id(rec_cmd->id);
     return 0;
 }
 
 err_t fpc_auth_end()
 {
 
-    uint32_t ret = send_normal_command(FPC_AUTH_END,0x0,mFPCHandle);
+    err_t ret = send_normal_command(FPC_AUTH_END,0x0,mFPCHandle);
 
     if (ret != 0) {
         ALOGE("Error sending FPC_AUTH_END to tz\n");
@@ -501,12 +501,10 @@ static err_t fpc_get_print_count()
 }
 
 
-fpc_fingerprint_index_t fpc_get_print_index()
+fpc_fingerprint_index_t fpc_get_print_index(uint32_t count)
 {
 
     fpc_fingerprint_index_t data;
-
-    uint32_t count = fpc_get_print_count();
 
     fpc_send_std_cmd_t* send_cmd = (fpc_send_std_cmd_t*) mFPCHandle->ion_sbuffer;
     fpc_get_pint_index_cmd_t* rec_cmd = (fpc_get_pint_index_cmd_t*) mFPCHandle->ion_sbuffer + 64;
@@ -517,11 +515,11 @@ fpc_fingerprint_index_t fpc_get_print_index()
 
     int ret = qsee_handle->send_cmd(mFPCHandle,send_cmd,64,rec_cmd,64);
 
-    data.prints[0] = fpc_get_print_id(rec_cmd->p1);
-    data.prints[1] = fpc_get_print_id(rec_cmd->p2);
-    data.prints[2] = fpc_get_print_id(rec_cmd->p3);
-    data.prints[3] = fpc_get_print_id(rec_cmd->p4);
-    data.prints[4] = fpc_get_print_id(rec_cmd->p5);
+    data.prints[0] = (uint32_t)fpc_get_print_id(rec_cmd->p1);
+    data.prints[1] = (uint32_t)fpc_get_print_id(rec_cmd->p2);
+    data.prints[2] = (uint32_t)fpc_get_print_id(rec_cmd->p3);
+    data.prints[3] = (uint32_t)fpc_get_print_id(rec_cmd->p4);
+    data.prints[4] = (uint32_t)fpc_get_print_id(rec_cmd->p5);
     data.print_count = rec_cmd->print_count;
 
     return data;
