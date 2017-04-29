@@ -28,7 +28,6 @@ typedef struct
     uint32_t prints[MAX_FINGERPRINTS];
 } fpc_fingerprint_index_t;
 
-
 int64_t fpc_load_db_id(); //load db ID, used as authenticator ID in android
 int64_t fpc_load_auth_challenge(); //genertate and load an auth challenge for pre enroll
 err_t fpc_set_auth_challenge(int64_t challenge); //set auth challenge during authenticate
