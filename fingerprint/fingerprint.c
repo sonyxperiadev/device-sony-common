@@ -23,7 +23,10 @@
 #include <cutils/log.h>
 #include <hardware/hardware.h>
 #include <hardware/fingerprint.h>
+#include <inttypes.h>
 #include <pthread.h>
+#include <netinet/in.h>
+#include <byteswap.h>
 #include "fpc_imp.h"
 
 
@@ -172,17 +175,17 @@ void *auth_thread_loop()
             if (verify_state >= 0) {
                 if(print_id > 0)
                 {
-                    ALOGI("%s : Got print id : %lu", __func__, (unsigned long) print_id);
+                    ALOGI("%s : Got print id : %u", __func__, print_id);
 
                     hw_auth_token_t hat;
                     fpc_get_hw_auth_obj(&hat, sizeof(hw_auth_token_t));
 
-                    ALOGI("%s : hat->challenge %lu",__func__,(unsigned long) hat.challenge);
-                    ALOGI("%s : hat->user_id %lu",__func__,(unsigned long) hat.user_id);
-                    ALOGI("%s : hat->authenticator_id %lu",__func__,(unsigned long) hat.authenticator_id);
-                    ALOGI("%s : hat->authenticator_type %d",__func__, hat.authenticator_type);
-                    ALOGI("%s : hat->timestamp %lu",__func__,(unsigned long) hat.timestamp);
-                    ALOGI("%s : hat size %lu",__func__,(unsigned long) sizeof(hw_auth_token_t));
+                    ALOGI("%s : hat->challenge %" PRIu64, __func__, hat.challenge);
+                    ALOGI("%s : hat->user_id %" PRIu64, __func__, hat.user_id);
+                    ALOGI("%s : hat->authenticator_id %" PRIu64, __func__, hat.authenticator_id);
+                    ALOGI("%s : hat->authenticator_type %u", __func__, ntohl(hat.authenticator_type));
+                    ALOGI("%s : hat->timestamp %" PRIu64, __func__, bswap_64(hat.timestamp));
+                    ALOGI("%s : hat size %zu", __func__, sizeof(hw_auth_token_t));
 
                     fingerprint_msg_t msg;
                     msg.type = FINGERPRINT_AUTHENTICATED;
