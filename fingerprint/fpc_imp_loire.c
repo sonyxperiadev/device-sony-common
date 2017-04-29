@@ -20,11 +20,8 @@
 #include "tz_api_loire.h"
 #include "common.h"
 
-#include <stdio.h>
 #include <string.h>
 #include <errno.h>
-#include <fcntl.h>
-#include <poll.h>
 #include <stdlib.h>
 #include <sys/stat.h>
 
