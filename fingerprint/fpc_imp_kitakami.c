@@ -332,7 +332,7 @@ err_t fpc_enroll_step(uint32_t *remaining_touches)
     if(touches < 0)
         return touches;
 
-    *remaining_touches = touches;
+    *remaining_touches = (uint32_t)touches;
     return rec_cmd->ret_val;
 }
 
@@ -370,7 +370,7 @@ err_t fpc_enroll_end(uint32_t *print_id)
     return 0;
 }
 
-fpc_fingerprint_index_t fpc_get_print_ids(int count)
+fpc_fingerprint_index_t fpc_get_print_ids(uint32_t count)
 {
 
     fpc_fingerprint_index_t data;
@@ -397,7 +397,7 @@ fpc_fingerprint_index_t fpc_get_print_ids(int count)
 err_t fpc_auth_start()
 {
 
-    int print_count = fpc_get_print_count();
+    uint32_t print_count = (uint32_t)fpc_get_print_count();
     fpc_fingerprint_index_t prints;
     ALOGI("%s : Number Of Prints Available : %d",__func__,print_count);
 
@@ -482,7 +482,7 @@ err_t fpc_get_print_id(int id)
 }
 
 
-static err_t fpc_get_print_count()
+err_t fpc_get_print_count()
 {
 
     fpc_send_std_cmd_t* send_cmd = (fpc_send_std_cmd_t*) mFPCHandle->ion_sbuffer;
