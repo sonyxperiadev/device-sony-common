@@ -18,6 +18,7 @@
 
 #include <errno.h>
 #include <malloc.h>
+#include <stdio.h>
 #include <string.h>
 #include <cutils/log.h>
 #include <hardware/hardware.h>
@@ -40,7 +41,7 @@ void *enroll_thread_loop()
 {
     ALOGI("%s", __func__);
 
-    uint32_t print_count = fpc_get_print_count();
+    int32_t print_count = fpc_get_print_count();
     ALOGD("%s : print count is : %u", __func__, print_count);
 
     int ret = fpc_enroll_start(print_count);
@@ -217,17 +218,17 @@ static int fingerprint_close(hw_device_t *dev)
     }
 }
 
-static uint64_t fingerprint_pre_enroll(struct fingerprint_device __unused *dev)
+static uint64_t fingerprint_pre_enroll(struct fingerprint_device __attribute__((unused)) *dev)
 {
     challenge = fpc_load_auth_challenge();
     ALOGI("%s : Challenge is : %jd",__func__,challenge);
     return challenge;
 }
 
-static int fingerprint_enroll(struct fingerprint_device __unused *dev,
+static int fingerprint_enroll(struct fingerprint_device __attribute__((unused)) *dev,
                               const hw_auth_token_t *hat,
-                              uint32_t __unused gid,
-                              uint32_t __unused timeout_sec)
+                              uint32_t __attribute__((unused)) gid,
+                              uint32_t __attribute__((unused)) timeout_sec)
 {
 
 
@@ -264,7 +265,7 @@ static int fingerprint_enroll(struct fingerprint_device __unused *dev,
 
 }
 
-static uint64_t fingerprint_get_auth_id(struct fingerprint_device __unused *dev)
+static uint64_t fingerprint_get_auth_id(struct fingerprint_device __attribute__((unused)) *dev)
 {
 
     uint64_t id = fpc_load_db_id();
@@ -273,7 +274,7 @@ static uint64_t fingerprint_get_auth_id(struct fingerprint_device __unused *dev)
 
 }
 
-static int fingerprint_cancel(struct fingerprint_device __unused *dev)
+static int fingerprint_cancel(struct fingerprint_device __attribute__((unused)) *dev)
 {
     ALOGI("%s : +",__func__);
 
@@ -304,7 +305,7 @@ static int fingerprint_cancel(struct fingerprint_device __unused *dev)
     return 0;
 }
 
-static int fingerprint_remove(struct fingerprint_device __unused *dev,
+static int fingerprint_remove(struct fingerprint_device __attribute__((unused)) *dev,
                               uint32_t gid, uint32_t fid)
 {
 
@@ -330,7 +331,7 @@ static int fingerprint_remove(struct fingerprint_device __unused *dev,
     }
 }
 
-static int fingerprint_set_active_group(struct fingerprint_device __unused *dev,
+static int fingerprint_set_active_group(struct fingerprint_device __attribute__((unused)) *dev,
                                         uint32_t gid, const char *store_path)
 {
     int result;
@@ -356,7 +357,32 @@ static int fingerprint_set_active_group(struct fingerprint_device __unused *dev,
 
 }
 
-static int fingerprint_enumerate(struct fingerprint_device __unused *dev,
+#if PLATFORM_SDK_VERSION >= 24
+static int fingerprint_enumerate(struct fingerprint_device *dev)
+{
+    ALOGE(__func__);
+    uint32_t print_count = fpc_get_print_count();
+    ALOGD("%s : print count is : %u", __func__, print_count);
+
+    fpc_fingerprint_index_t print_indexs = fpc_get_print_index(print_count);
+    if(print_indexs.print_count != print_count)
+    {
+        ALOGW("Print count mismatch: %d != %d", print_count, print_indexs.print_count);
+    }
+
+    for (size_t i = 0; i < print_indexs.print_count; i++) {
+        ALOGD("%s : found print : %lu at index %zu", __func__, (unsigned long) print_indexs.prints[i], i);
+        fingerprint_msg_t msg;
+        msg.type = FINGERPRINT_TEMPLATE_ENUMERATING;
+        msg.data.enumerated.finger.fid = print_indexs.prints[i];
+        msg.data.enumerated.finger.gid = fpc_gid;
+        msg.data.enumerated.remaining_templates = (uint32_t)(print_indexs.print_count - i - 1);
+        callback(&msg);
+    }
+    return 0;
+}
+#else
+static int fingerprint_enumerate(struct fingerprint_device __attribute__((unused)) *dev,
                                  fingerprint_finger_id_t *results,
                                  uint32_t *max_size)
 {
@@ -368,7 +394,7 @@ static int fingerprint_enumerate(struct fingerprint_device __unused *dev,
     if (*max_size == 0) {
         *max_size = print_count;
     } else {
-        for (size_t i = 0; i < *max_size && i < print_count; i++) {
+        for (size_t i = 0; i < *max_size && i < print_indexs.print_count; i++) {
             ALOGD("%s : found print : %lu at index %zu", __func__,(unsigned long) print_indexs.prints[i], i);
 
             results[i].fid = print_indexs.prints[i];
@@ -378,9 +404,10 @@ static int fingerprint_enumerate(struct fingerprint_device __unused *dev,
 
     return print_count;
 }
+#endif
 
-static int fingerprint_authenticate(struct fingerprint_device __unused *dev,
-                                    uint64_t __unused operation_id, __unused uint32_t gid)
+static int fingerprint_authenticate(struct fingerprint_device __attribute__((unused)) *dev,
+                                    uint64_t __attribute__((unused)) operation_id, __attribute__((unused)) uint32_t gid)
 {
 
     if (auth_thread_running) {
@@ -413,7 +440,7 @@ static int set_notify_callback(struct fingerprint_device *dev,
     return 0;
 }
 
-static int fingerprint_open(const hw_module_t* module, const char __unused *id,
+static int fingerprint_open(const hw_module_t* module, const char __attribute__((unused)) *id,
                             hw_device_t** device)
 {
 

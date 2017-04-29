@@ -482,7 +482,7 @@ err_t fpc_get_print_id(int id)
 }
 
 
-err_t fpc_get_print_count()
+static err_t fpc_get_print_count()
 {
 
     fpc_send_std_cmd_t* send_cmd = (fpc_send_std_cmd_t*) mFPCHandle->ion_sbuffer;
@@ -501,10 +501,12 @@ err_t fpc_get_print_count()
 }
 
 
-fpc_fingerprint_index_t fpc_get_print_index(int count)
+fpc_fingerprint_index_t fpc_get_print_index()
 {
 
     fpc_fingerprint_index_t data;
+
+    uint32_t count = fpc_get_print_count();
 
     fpc_send_std_cmd_t* send_cmd = (fpc_send_std_cmd_t*) mFPCHandle->ion_sbuffer;
     fpc_get_pint_index_cmd_t* rec_cmd = (fpc_get_pint_index_cmd_t*) mFPCHandle->ion_sbuffer + 64;
