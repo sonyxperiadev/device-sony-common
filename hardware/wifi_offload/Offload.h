@@ -3,6 +3,7 @@
 
 #include <android/hardware/wifi/offload/1.0/IOffload.h>
 
+#include <android-base/macros.h>
 #include <hidl/MQDescriptor.h>
 #include <hidl/Status.h>
 
