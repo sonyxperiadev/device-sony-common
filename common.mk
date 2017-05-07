@@ -173,6 +173,19 @@ PRODUCT_COPY_FILES += \
     device/sample/etc/old-apns-conf.xml:system/etc/old-apns-conf.xml \
     device/sample/etc/apns-full-conf.xml:system/etc/apns-conf.xml
 
+# Select the highest setting of dex optimization
+PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.dex2oat-filter=everything-profile \
+    dalvik.vm.image-dex2oat-filter=everything-profile \
+    pm.dexopt.bg-dexopt=everything-profile \
+    pm.dexopt.boot=everything-profile \
+    pm.dexopt.core-app=everything-profile \
+    pm.dexopt.first-boot=everything-profile \
+    pm.dexopt.forced-dexopt=everything \
+    pm.dexopt.install=everything-profile \
+    pm.dexopt.nsys-library=everything-profile \
+    pm.dexopt.shared-apk=everything
+
 # Limit dex2oat threads to improve thermals
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.dex2oat-threads=2 \
