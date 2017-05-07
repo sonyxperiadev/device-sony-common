@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Adam Farden
+ * Copyright (C) 2017 AngeloGioacchino Del Regno <kholk11@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,59 +18,52 @@
 #include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <dlfcn.h>
 #include <fcntl.h>
+#include <stdlib.h>
+#include <assert.h>
 
-#define LOG_TAG "Simple PowerHAL"
 #include <cutils/properties.h>
 #include <utils/Log.h>
 
 #include <hardware/hardware.h>
 #include <hardware/power.h>
 
-#define CPUQUIET_MIN_CPUS "/sys/devices/system/cpu/cpuquiet/nr_min_cpus"
-#define CPUQUIET_MAX_CPUS "/sys/devices/system/cpu/cpuquiet/nr_power_max_cpus"
-#define CPUQUIET_THERMAL_CPUS "/sys/devices/system/cpu/cpuquiet/nr_thermal_max_cpus"
-#define RQBALANCE_BALANCE_LEVEL "/sys/devices/system/cpu/cpuquiet/rqbalance/balance_level"
-#define RQBALANCE_UP_THRESHOLD "/sys/devices/system/cpu/cpuquiet/rqbalance/nr_run_thresholds"
-#define RQBALANCE_DOWN_THRESHOLD "/sys/devices/system/cpu/cpuquiet/rqbalance/nr_down_run_thresholds"
+#include "power.h"
 
-#define LOW_MIN_CPUS "cpuquiet.low.min_cpus"
-#define LOW_MAX_CPUS "cpuquiet.low.max_cpus"
-#define LOW_POWER_BALANCE_LEVEL "rqbalance.low.balance_level"
-#define LOW_POWER_UP_THRESHOLD "rqbalance.low.up_threshold"
-#define LOW_POWER_DOWN_THRESHOLD "rqbalance.low.down_threshold"
+#define LOG_TAG "RQBalance-PowerHAL"
 
-#define NORMAL_MIN_CPUS "cpuquiet.normal.min_cpus"
-#define NORMAL_MAX_CPUS "cpuquiet.normal.max_cpus"
-#define NORMAL_POWER_BALANCE_LEVEL "rqbalance.normal.balance_level"
-#define NORMAL_POWER_UP_THRESHOLD "rqbalance.normal.up_threshold"
-#define NORMAL_POWER_DOWN_THRESHOLD "rqbalance.normal.down_threshold"
+static struct rqbalance_params *rqb;
+static int hal_init_ok = false;
 
-#define PROPERTY_VALUE_MAX 128
+/* Remove this when all platforms will be migrated? */
+static bool param_perf_supported = false;
 
-char low_min_cpus[PROPERTY_VALUE_MAX];
-char low_max_cpus[PROPERTY_VALUE_MAX];
-char low_balance[PROPERTY_VALUE_MAX];
-char low_up[PROPERTY_VALUE_MAX];
-char low_down[PROPERTY_VALUE_MAX];
+/* Extension library support */
+static void *ext_library;
+lock_acq_t perf_lock_acquire;
+lock_rel_t perf_lock_release;
 
-char normal_min_cpus[PROPERTY_VALUE_MAX];
-char normal_max_cpus[PROPERTY_VALUE_MAX];
-char normal_balance[PROPERTY_VALUE_MAX];
-char normal_up[PROPERTY_VALUE_MAX];
-char normal_down[PROPERTY_VALUE_MAX];
+#define UNUSED __attribute__((unused))
 
-int sysfs_write(char *path, char *s)
+/*
+ * sysfs_write - Write string to sysfs path
+ *
+ * \param path - Path to the sysfs file
+ * \param s    - String to write
+ * \return Returns success (true) or failure (false)
+ */
+static bool sysfs_write(char *path, char *s)
 {
     char buf[80];
     int len;
-    int ret = 0;
     int fd = open(path, O_WRONLY);
+    bool ret = true;
 
     if (fd < 0) {
         strerror_r(errno, buf, sizeof(buf));
         ALOGE("Error opening %s: %s\n", path, buf);
-        return -1 ;
+        return false ;
     }
 
     len = write(fd, s, strlen(s));
@@ -78,7 +71,7 @@ int sysfs_write(char *path, char *s)
         strerror_r(errno, buf, sizeof(buf));
         ALOGE("Error writing to %s: %s\n", path, buf);
 
-        ret = -1;
+        ret = false;
     }
 
     close(fd);
@@ -86,77 +79,277 @@ int sysfs_write(char *path, char *s)
     return ret;
 }
 
-void set_low_power()
+/*
+ * rqb_param_string - Get power mode string
+ *
+ * \param pwrmode - RQBalance Power Mode (from enum rqb_pwr_mode_t)
+ * \param compat - Switch for compatibility string
+ * \return Returns compat or new power mode string
+ */
+static char* rqb_param_string(rqb_pwr_mode_t pwrmode, bool compat)
 {
-    ALOGI("Setting low power mode");
-    // MIN before MAX is intentional
-    sysfs_write(CPUQUIET_MIN_CPUS, low_min_cpus);
-    sysfs_write(CPUQUIET_MAX_CPUS, low_max_cpus);
-    sysfs_write(RQBALANCE_BALANCE_LEVEL, low_balance);
-    sysfs_write(RQBALANCE_UP_THRESHOLD, low_up);
-    sysfs_write(RQBALANCE_DOWN_THRESHOLD, low_down);
+    char* type_string;
+    char* compat_string;
+
+    switch (pwrmode) {
+        case POWER_MODE_BATTERYSAVE:
+            type_string = "batterysave";
+            compat_string = "low";
+            break;
+        case POWER_MODE_BALANCED:
+            type_string = "balanced";
+            compat_string = "normal";
+            break;
+        case POWER_MODE_PERFORMANCE:
+            type_string = "performance";
+            compat_string = "performance";
+            break;
+        default:
+            return "unknown";
+    }
+
+    if (compat)
+        return compat_string;
+
+    return type_string;
 }
 
-void set_normal_power()
+/*
+ * print_parameters - Print PowerHAL RQBalance parameters to ALOG
+ *
+ * \param pwrmode - RQBalance Power Mode (from enum rqb_pwr_mode_t)
+ */
+static void print_parameters(rqb_pwr_mode_t pwrmode)
 {
-    ALOGI("Setting normal power mode");
-    // MAX before MIN is intentional
-    sysfs_write(CPUQUIET_MAX_CPUS, normal_max_cpus);
-    sysfs_write(CPUQUIET_MIN_CPUS, normal_min_cpus);
-    sysfs_write(RQBALANCE_BALANCE_LEVEL, normal_balance);
-    sysfs_write(RQBALANCE_UP_THRESHOLD, normal_up);
-    sysfs_write(RQBALANCE_DOWN_THRESHOLD, normal_down);
+    char* mode_string = rqb_param_string(pwrmode, false);
+    struct rqbalance_params *cur_params = &rqb[pwrmode];
+
+    ALOGI("Parameters for %s mode:", mode_string);
+    ALOGI("Minimum cores:       %s", cur_params->min_cpus);
+    ALOGI("Maximum cores:       %s", cur_params->max_cpus);
+    ALOGI("Upcore thresholds:   %s", cur_params->up_thresholds);
+    ALOGI("Downcore thresholds: %s", cur_params->down_thresholds);
+    ALOGI("Balance level:       %s", cur_params->balance_level);
 }
 
-static void power_init(struct power_module *module)
+/*
+ * parse_rqbalance_params - Parse parameters for RQBalance power modes
+ *
+ * TODO: Is there any more-human-readable way for error checking?
+ * \param pwrmode - RQBalance Power Mode (from enum rqb_pwr_mode_t)
+ * \return Returns success (true) or failure (false)
+ */
+static bool parse_rqbalance_params(rqb_pwr_mode_t pwrmode)
 {
-    ALOGI("Simple PowerHAL is alive!.");
+    int ret = -1;
+    size_t sz;
+    char* mode_string = rqb_param_string(pwrmode, true);
+    char* prop_string = NULL;
+    struct rqbalance_params *cur_params = &rqb[pwrmode];
 
-    property_get(LOW_MIN_CPUS, low_min_cpus, "0");
-    ALOGI("LOW_MIN_CPUS: %s", low_min_cpus);
-    property_get(LOW_MAX_CPUS, low_max_cpus, "0");
-    ALOGI("LOW_MAX_CPUS: %s", low_max_cpus);
-    property_get(LOW_POWER_BALANCE_LEVEL, low_balance, "0");
-    ALOGI("LOW_POWER_BALANCE_LEVEL: %s", low_balance);
-    property_get(LOW_POWER_UP_THRESHOLD, low_up, "0");
-    ALOGI("LOW_POWER_UP_THRESHOLD: %s", low_up);
-    property_get(LOW_POWER_DOWN_THRESHOLD, low_down, "0");
-    ALOGI("LOW_POWER_DOWN_THRESHOLD: %s", low_down);
+    if (cur_params == NULL)
+        goto fail;
 
-    property_get(NORMAL_MIN_CPUS, normal_min_cpus, "0");
-    ALOGI("NORMAL_MIN_CPUS: %s", normal_min_cpus);
-    property_get(NORMAL_MAX_CPUS, normal_max_cpus, "0");
-    ALOGI("NORMAL_MAX_CPUS: %s", normal_max_cpus);
-    property_get(NORMAL_POWER_BALANCE_LEVEL, normal_balance, "0");
-    ALOGI("NORMAL_POWER_BALANCE_LEVEL: %s", normal_balance);
-    property_get(NORMAL_POWER_UP_THRESHOLD, normal_up, "0");
-    ALOGI("NORMAL_POWER_UP_THRESHOLD: %s", normal_up);
-    property_get(NORMAL_POWER_DOWN_THRESHOLD, normal_down, "0");
-    ALOGI("NORMAL_POWER_DOWN_THRESHOLD: %s", normal_down);
+    /* Allocate a decent amount of memory, to make any
+     * property string to fit */
+    sz = sizeof(char)*((sizeof(PROP_MIN_CPUS)*2)+sizeof(mode_string));
+    prop_string = (char*)malloc(sz);
 
-    // init thermal maximum prior to setting normal power profile
-    sysfs_write(CPUQUIET_THERMAL_CPUS, normal_max_cpus);
+    snprintf(prop_string, sz, PROP_MAX_CPUS, mode_string);
+    ret = property_get(prop_string, cur_params->max_cpus, "0");
+    if (!ret)
+        goto freemem;
 
-    set_normal_power();
+    snprintf(prop_string, sz, PROP_MIN_CPUS, mode_string);
+    ret = property_get(prop_string, cur_params->min_cpus, "0");
+    if (!ret)
+        goto freemem;
+
+    snprintf(prop_string, sz, PROP_UPCORE_THRESH, mode_string);
+    ret = property_get(prop_string, cur_params->up_thresholds, "0");
+    if (!ret)
+        goto freemem;
+
+    snprintf(prop_string, sz, PROP_DNCORE_THRESH, mode_string);
+    ret = property_get(prop_string, cur_params->down_thresholds, "0");
+    if (!ret)
+        goto freemem;
+
+    snprintf(prop_string, sz, PROP_BALANCE_LVL, mode_string);
+    ret = property_get(prop_string, cur_params->balance_level, "0");
+    if (!ret)
+        goto freemem;
+
+freemem:
+    free(prop_string);
+    if (ret)
+        return true;
+fail:
+    ALOGE("FATAL: RQBalance %s parameters parsing error!!!", mode_string);
+    return false;
 }
 
-static void power_hint(struct power_module *module, power_hint_t hint,
+/*
+ * _set_power_mode - Writes power configuration to the RQBalance driver
+ *
+ * \param rqparm - RQBalance Power Mode parameters struct
+ */
+void __set_power_mode(struct rqbalance_params *rqparm)
+{
+    sysfs_write(SYS_MAX_CPUS, rqparm->max_cpus);
+    sysfs_write(SYS_MIN_CPUS, rqparm->min_cpus);
+    sysfs_write(SYS_UPCORE_THRESH, rqparm->up_thresholds);
+    sysfs_write(SYS_DNCORE_THRESH, rqparm->down_thresholds);
+    sysfs_write(SYS_BALANCE_LVL, rqparm->balance_level);
+
+    return;
+}
+
+/*
+ * set_power_mode - Writes power configuration to the RQBalance driver
+ *
+ * \param mode - RQBalance Power Mode (from enum rqb_pwr_mode_t)
+ */
+void set_power_mode(rqb_pwr_mode_t mode)
+{
+    char* mode_string = rqb_param_string(mode, false);
+
+    if (mode == POWER_MODE_PERFORMANCE && !param_perf_supported)
+        return;
+
+    ALOGI("Setting %s mode", mode_string);
+
+    __set_power_mode(&rqb[mode]);
+}
+
+/*
+ * power_init - Initializes the PowerHAL structs and configurations
+ */
+static void power_init(struct power_module *module UNUSED)
+{
+    int ret, dbg_lvl;
+    char ext_lib_path[127];
+    char propval[2];
+    struct rqbalance_params *rqbparm;
+
+    ALOGI("Initializing PowerHAL...");
+
+    rqb = malloc(sizeof(struct rqbalance_params) * POWER_MODE_MAX);
+    assert(rqb != NULL);
+
+    /* Initialize all parameters */
+    ret = parse_rqbalance_params(POWER_MODE_BATTERYSAVE);
+    if (!ret)
+        goto general_error;
+
+    ret = parse_rqbalance_params(POWER_MODE_BALANCED);
+    if (!ret)
+        goto general_error;
+
+    ret = parse_rqbalance_params(POWER_MODE_PERFORMANCE);
+    if (!ret) {
+        ALOGW("No performance parameters. Going on.");
+    } else {
+        param_perf_supported = true;
+    }
+
+    hal_init_ok = true;
+
+    property_get(PROP_DEBUGLVL, propval, "0");
+    dbg_lvl = atoi(propval);
+
+    if (dbg_lvl > 0) {
+        ALOGW("WARNING: Starting in debug mode");
+        print_parameters(POWER_MODE_BATTERYSAVE);
+        print_parameters(POWER_MODE_BALANCED);
+        if (param_perf_supported)
+            print_parameters(POWER_MODE_PERFORMANCE);
+    } else {
+        ALOGI("Loading with debug off. To turn on, set %s", PROP_DEBUGLVL);
+    }
+
+    /* Init thermal_max_cpus and default profile */
+    rqbparm = &rqb[POWER_MODE_BALANCED];
+    sysfs_write(SYS_THERM_CPUS, rqbparm->max_cpus);
+    set_power_mode(POWER_MODE_BALANCED);
+
+    ALOGI("Initialized successfully.");
+
+    /* Get librqbalance (or others) support */
+    ret = property_get(PROP_EXTLIB, ext_lib_path, NULL);
+    if (!ret) {
+        ALOGI("No PowerHAL Extension Library (%s) specified. Going on.",
+                PROP_EXTLIB);
+        return;
+    }
+
+    ext_library = dlopen(ext_lib_path, RTLD_NOW);
+    if (ext_library == NULL)
+        return;
+
+    perf_lock_acquire = (lock_acq_t)dlsym(ext_library, "perf_lock_acq");
+    if (perf_lock_acquire == NULL) {
+        ALOGE("Oops! Cannot find perf_lock_acq function in %s", ext_lib_path);
+        goto extlib_error;
+    }
+
+    perf_lock_release = (lock_rel_t)dlsym(ext_library, "perf_lock_rel");
+    if (perf_lock_release == NULL) {
+        ALOGE("Oops! Cannot find perf_lock_rel function in %s", ext_lib_path);
+        goto extlib_error;
+    }
+
+    ALOGI("Extension library support detected!");
+
+    return;
+
+general_error:
+    ALOGE("PowerHAL initialization FAILED.");
+extlib_error:
+    if (ext_library != NULL)
+        dlclose(ext_library);
+
+    return;
+}
+
+/*
+ * power_hint - Passes hints on power requirements from userspace
+ *
+ * \param module - This HAL's info sym struct
+ * \param hint - Power hint (from power_hint_t)
+ * \param data - Any kind of supplementary variable relative to the hint
+ */
+static void power_hint(struct power_module *module UNUSED, power_hint_t hint,
                             void *data)
 {
+    if (!hal_init_ok)
+        return;
+
     switch (hint) {
         case POWER_HINT_VSYNC:
             break;
 
-        case POWER_HINT_INTERACTION:
-            // When touching the screen, pressing buttons etc.
+        case POWER_HINT_LOW_POWER:
+            if (data) {
+                set_power_mode(POWER_MODE_BATTERYSAVE);
+            } else {
+                set_power_mode(POWER_MODE_BALANCED);
+            }
             break;
 
-        case POWER_HINT_LOW_POWER:
-            // When we want to save battery.
-            if (data) {
-                set_low_power();
+        case POWER_HINT_VR_MODE:
+            if (data && param_perf_supported) {
+                set_power_mode(POWER_MODE_PERFORMANCE);
             } else {
-                set_normal_power();
+                set_power_mode(POWER_MODE_BALANCED);
+            }
+            break;
+
+        case POWER_HINT_LAUNCH:
+            if (data && param_perf_supported) {
+                set_power_mode(POWER_MODE_PERFORMANCE);
+            } else {
+                set_power_mode(POWER_MODE_BALANCED);
             }
             break;
 
@@ -165,21 +358,34 @@ static void power_hint(struct power_module *module, power_hint_t hint,
     }
 }
 
-static void set_interactive(struct power_module *module, int on)
+/*
+ * set_interactive - Performs power management actions for awake/sleep
+ *
+ * \param module - This HAL's info sym struct
+ * \param on - 1: System awake 0: System asleep
+ */
+static void set_interactive(struct power_module *module UNUSED, int on)
 {
-    // set interactive means change governor, cpufreqs etc
-    // for when device is awake and ready to be used.
+    if (!hal_init_ok)
+        return;
 
     if (!on) {
         ALOGI("Device is asleep.");
-        set_low_power();
+        set_power_mode(POWER_MODE_BATTERYSAVE);
     } else {
         ALOGI("Device is awake.");
-        set_normal_power();
+        set_power_mode(POWER_MODE_BALANCED);
     }
 }
 
-void set_feature(struct power_module *module, feature_t feature, int state)
+/*
+ * set_feature - Manages extra features
+ *
+ * \param module - This HAL's info sym struct
+ * \param feature - Extra feature (from feature_t)
+ * \param state - 1: enable 0: disable
+ */
+void set_feature(struct power_module *module UNUSED, feature_t feature, int state)
 {
 #ifdef TAP_TO_WAKE_NODE
     if (feature == POWER_FEATURE_DOUBLE_TAP_TO_WAKE) {
@@ -200,8 +406,8 @@ struct power_module HAL_MODULE_INFO_SYM = {
         .module_api_version = POWER_MODULE_API_VERSION_0_3,
         .hal_api_version = HARDWARE_HAL_API_VERSION,
         .id = POWER_HARDWARE_MODULE_ID,
-        .name = "Simple Power HAL",
-        .author = "Adam Farden",
+        .name = "RQBalance-based Power HAL",
+        .author = "AngeloGioacchino Del Regno",
         .methods = &power_module_methods,
     },
 
