@@ -240,9 +240,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vidc.debug.level=1
 
 # Audio
-# Fluencetype can be "fluence" or "fluencepro" or "none"
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.qc.sdk.audio.fluencetype=fluence \
     persist.audio.fluence.voicecall=true \
     persist.audio.fluence.voicecomm=true \
     persist.audio.fluence.voicerec=false \
