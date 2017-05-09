@@ -17,7 +17,11 @@ cc_binary {
     name: "android.hardware.wifi.offload@1.0-service",
     relative_install_path: "hw",
     init_rc: ["android.hardware.wifi.offload@1.0-service.rc"],
-    srcs: ["Offload.cpp", "service.cpp", "chre_constants.cpp"],
+    srcs: ["Offload.cpp",
+        "service.cpp",
+        "chre_constants.cpp",
+        "chre_interface.cpp",
+    ],
     cflags: ["-Wall", "-Wextra"],
     shared_libs: [
         "libbase",
@@ -27,5 +31,6 @@ cc_binary {
         "libutils",
         "android.hardware.wifi.offload@1.0",
     ],
+    static_libs: ["chre_client"],
     proprietary: true,
 }
