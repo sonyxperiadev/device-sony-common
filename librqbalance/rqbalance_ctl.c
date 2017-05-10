@@ -44,18 +44,14 @@ struct rqbalance_halext_params {
 	uint32_t arraysz;
 };
 
-typedef enum {
-	POWER_HINT_EXT_LOCK_ACQUIRE	= 0x00007FE0,
-	POWER_HINT_EXT_LOCK_SET_PARAM	= 0x00007FE1,
-	POWER_HINT_EXT_LOCK_RELEASE	= 0x00007FE2,
-	POWER_HINT_EXT_CLIENT_CONN	= 0x00007FE3,
-} extended_hint_t;
-
 static int send_powerserver_data(struct rqbalance_halext_params params)
 {
-	register int sock;
+	register int sock, recvsock;
 	int ret, len = sizeof(struct sockaddr_un);
+	int32_t halext_reply;
+	fd_set receivefd;
 	struct sockaddr_un server_address;
+	struct timeval timeout;
 
 	/* Get socket in the UNIX domain */
 	sock = socket(PF_UNIX, SOCK_SEQPACKET, 0);
@@ -77,12 +73,39 @@ static int send_powerserver_data(struct rqbalance_halext_params params)
 		goto end;
 	}
 
+	/* Send the filled struct */
 	ret = send(sock, &params, sizeof(struct rqbalance_halext_params), 0);
 	if (ret < 0) {
 		ALOGE("Cannot send data to PowerServer");
 		goto end;
 	}
 
+	/* Setup for receiving server reply (handle) */
+	/* Initialize and set a new FD for receive operation */
+	FD_ZERO(&receivefd);
+	FD_SET(sock, &receivefd);
+
+	/* Set a one second timeout for select operation */
+	timeout.tv_sec = 1;
+	timeout.tv_usec = 0;
+
+	/* Wait until the socket is ready for receive operation */
+	ret = select(sock+1, &receivefd, NULL, NULL, &timeout);
+	if (ret < 0) {
+		ALOGE("Socket error. Cannot continue.");
+		if (ret == -1) {
+			ALOGE("Socket not ready: timed out");
+			ret = -ETIMEDOUT;
+		}
+		goto end;
+	}
+
+	/* New FD is set and the socket is ready to receive data */
+	ret = recv(sock, &halext_reply, sizeof(int32_t), 0);
+	if (ret == -1) {
+		ALOGE("Cannot receive reply from PowerServer");
+		ret = halext_reply = -EINVAL;
+	} else ret = halext_reply;
 end:
 	if (sock)
 		close(sock);
