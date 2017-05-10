@@ -333,14 +333,17 @@ static void *powerserver_looper(void *unusedvar UNUSED)
 {
     register int clientsock;
     int ret;
+    int32_t halext_reply = -EINVAL;
+    uint8_t retry;
     socklen_t clientlen = sizeof(struct sockaddr_un);
     struct sockaddr_un client_addr;
     struct rqbalance_halext_params extparams;
 
-    extparams = malloc(sizeof(struct rqbalance_halext_params));
-
 reloop:
     ALOGI("PowerServer is waiting for connection...");
+    if (clientsock)
+        close(clientsock);
+    retry = 0;
     while ((clientsock = accept(sock, (struct sockaddr*)&client_addr,
             &clientlen)) > 0)
     {
@@ -357,12 +360,21 @@ reloop:
         } else ret = 0;
 
         if (extparams.acquire)
-             halext_perf_lock_acquire(&extparams);
+             halext_reply = halext_perf_lock_acquire(&extparams);
         else
-             halext_perf_lock_release(extparams.id);
-    }
+             halext_reply = halext_perf_lock_release(extparams.id);
 
-    free(extparams);
+retry_send:
+	retry++;
+        ret = send(clientsock, &halext_reply, sizeof(halext_reply), 0);
+	if (ret == -1) {
+		halext_reply = -EINVAL;
+		if (retry < 50)
+			goto retry_send;
+		ALOGE("ERROR: Cannot send reply!!!");
+		goto reloop;
+	} else retry = 0;
+    }
 
     return NULL;
 }
