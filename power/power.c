@@ -46,8 +46,10 @@ static bool param_perf_supported = true;
 
 /* PowerServer */
 static int sock;
+static int clientsock;
 static struct sockaddr_un server_addr;
 static pthread_t powerserver_thread;
+static bool psthread_run = true;
 
 /* Extension library support */
 static void *ext_library;
@@ -331,7 +333,6 @@ end:
 
 static void *powerserver_looper(void *unusedvar UNUSED)
 {
-    register int clientsock;
     int ret;
     int32_t halext_reply = -EINVAL;
     uint8_t retry;
@@ -344,8 +345,8 @@ reloop:
     if (clientsock)
         close(clientsock);
     retry = 0;
-    while ((clientsock = accept(sock, (struct sockaddr*)&client_addr,
-            &clientlen)) > 0)
+    while (((clientsock = accept(sock, (struct sockaddr*)&client_addr,
+            &clientlen)) > 0) && (psthread_run == true))
     {
         ret = recv(clientsock, &extparams,
               sizeof(struct rqbalance_halext_params), 0);
@@ -374,15 +375,35 @@ retry_send:
 		ALOGE("ERROR: Cannot send reply!!!");
 		goto reloop;
 	} else retry = 0;
+
+        if (clientsock)
+            close(clientsock);
     }
 
+    ALOGI("PowerServer terminated.");
     return NULL;
 }
 
-static int start_powerserver(void)
+static int manage_powerserver(bool start)
 {
     int ret;
     struct stat st = {0};
+
+    if (start == false) {
+        psthread_run = false;
+        if (clientsock) {
+            shutdown(clientsock, SHUT_RDWR);
+            close(clientsock);
+        }
+        if (sock) {
+            shutdown(sock, SHUT_RDWR);
+            close(sock);
+        }
+
+        return 0;
+    }
+
+    psthread_run = true;
 
     /* Create folder, if doesn't exist */
     if (stat(POWERSERVER_DIR, &st) == -1) {
@@ -407,8 +428,7 @@ static int start_powerserver(void)
     /* Bind the address to the socket */
     ret = bind(sock, (struct sockaddr*)&server_addr,
                sizeof(struct sockaddr_un));
-         // (sizeof(server_addr.sun_family) + strlen(server_addr.sun_path)));
-    if (!ret) {
+    if (ret != 0) {
         ALOGE("Cannot bind socket");
         return -EINVAL;
     }
@@ -419,7 +439,7 @@ static int start_powerserver(void)
 
     /* Listen on this socket */
     ret = listen(sock, POWERSERVER_MAXCONN);
-    if (!ret) {
+    if (ret != 0) {
         ALOGE("Cannot listen on socket");
         return ret;
     }
@@ -499,7 +519,7 @@ static void power_init(struct power_module *module UNUSED)
 
     ALOGI("Initialized successfully.");
 
-    ret = start_powerserver();
+    ret = manage_powerserver(true);
     if (ret == 0)
         ALOGI("PowerHAL PowerServer started");
     else
@@ -649,9 +669,18 @@ static void set_interactive(struct power_module *module UNUSED, int on)
 
     if (!on) {
         ALOGI("Device is asleep.");
+
+	/* Stop PowerServer: we don't need it while sleeping */
+        manage_powerserver(false);
+
         set_power_mode(POWER_MODE_BATTERYSAVE);
     } else {
         ALOGI("Device is awake.");
+
+	/* Restart PowerServer */
+        if (!psthread_run)
+            manage_powerserver(true);
+
         set_power_mode(POWER_MODE_BALANCED);
     }
 }
