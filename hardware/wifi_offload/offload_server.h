@@ -33,9 +33,9 @@ class OffloadServer {
   public:
     OffloadServer(ChreInterfaceFactory* factory);
 
-    bool configureScans(const ScanParam& param, const ScanFilter& filter);
-    std::pair<ScanStats, bool> getScanStats();
-    bool subscribeScanResults(uint32_t delayMs);
+    OffloadStatus configureScans(const ScanParam& param, const ScanFilter& filter);
+    std::pair<OffloadStatus, ScanStats> getScanStats();
+    OffloadStatus subscribeScanResults(uint32_t delayMs);
     bool unsubscribeScanResults();
     bool setEventCallback(const sp<IOffloadCallback>& cb);
 

@@ -2,7 +2,7 @@
 
 #include <android-base/logging.h>
 
-#include <chrono>
+#include "offload_status_util.h"
 
 namespace android {
 namespace hardware {
@@ -19,19 +19,20 @@ OffloadServer::OffloadServer(ChreInterfaceFactory* factory)
     LOG(VERBOSE) << "Wifi Offload HAL impl";
 }
 
-bool OffloadServer::configureScans(const ScanParam& param, const ScanFilter& filter) {
+OffloadStatus OffloadServer::configureScans(const ScanParam& param, const ScanFilter& filter) {
     LOG(INFO) << "configureScans";
-    return true;
+    return createOffloadStatus(OffloadStatusCode::OK);
 }
 
-std::pair<ScanStats, bool> OffloadServer::getScanStats() {
+std::pair<OffloadStatus, ScanStats> OffloadServer::getScanStats() {
     LOG(INFO) << "getScanStats";
-    return std::make_pair(mScanStats, true);
+    OffloadStatus status = createOffloadStatus(OffloadStatusCode::OK);
+    return std::make_pair(status, mScanStats);
 }
 
-bool OffloadServer::subscribeScanResults(uint32_t delayMs) {
+OffloadStatus OffloadServer::subscribeScanResults(uint32_t delayMs) {
     LOG(INFO) << "subscribeScanResults with delay:" << delayMs;
-    return true;
+    return createOffloadStatus(OffloadStatusCode::OK);
 }
 
 bool OffloadServer::unsubscribeScanResults() {

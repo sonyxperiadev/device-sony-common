@@ -24,17 +24,19 @@ class Offload : public IOffload {
     Offload();
 
     // Methods from ::android::hardware::wifi::offload::V1_0::IOffload follow.
-    Return<void> configureScans(const ScanParam& param,
-                                const ScanFilter& filter) override;
-    Return<void> getScanStats(
-        getScanStats_cb offloadScanStatsCallback) override;
-    Return<void> subscribeScanResults(uint32_t delayMs) override;
+    Return<void> configureScans(const ScanParam &param, const ScanFilter &filter,
+                                configureScans_cb _hidl_cb) override;
+    Return<void> getScanStats(getScanStats_cb _hidl_cb) override;
+    Return<void> subscribeScanResults(uint32_t delayMs, subscribeScanResults_cb _hidl_cb) override;
     Return<void> unsubscribeScanResults() override;
     Return<void> setEventCallback(const sp<IOffloadCallback>& cb) override;
     // Methods from ::android::hidl::base::V1_0::IBase follow.
 
    private:
      std::unique_ptr<OffloadServer> mOffloadServer;
+     OffloadStatus configureScansInternal(const ScanParam &param, const ScanFilter &filter);
+     std::pair<OffloadStatus, ScanStats> getScanStatsInternal();
+     OffloadStatus subscribeScanResultsInternal(uint32_t delayMs);
 
      DISALLOW_COPY_AND_ASSIGN(Offload);
 };

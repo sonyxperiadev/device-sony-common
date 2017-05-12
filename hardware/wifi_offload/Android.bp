@@ -23,6 +23,7 @@ cc_binary {
         "chre_interface.cpp",
         "offload_server.cpp",
         "chre_interface_factory.cpp",
+        "offload_status_util.cpp",
     ],
     cflags: ["-Wall", "-Wextra"],
     shared_libs: [
