@@ -208,11 +208,31 @@ fail:
  */
 static void __set_power_mode(struct rqbalance_params *rqparm)
 {
-    sysfs_write(SYS_MAX_CPUS, rqparm->max_cpus);
-    sysfs_write(SYS_MIN_CPUS, rqparm->min_cpus);
+    bool ret, cpus_error;
+    short retry = 0;
+
+
     sysfs_write(SYS_UPCORE_THRESH, rqparm->up_thresholds);
     sysfs_write(SYS_DNCORE_THRESH, rqparm->down_thresholds);
     sysfs_write(SYS_BALANCE_LVL, rqparm->balance_level);
+
+set_cpu:
+    ret = sysfs_write(SYS_MAX_CPUS, rqparm->max_cpus);
+    if (!ret)
+        cpus_error = true;
+
+    ret = sysfs_write(SYS_MIN_CPUS, rqparm->min_cpus);
+    if (!ret)
+        cpus_error = true;
+
+    if (cpus_error) {
+        cpus_error = false;
+        retry++;
+
+        if (retry < 2)
+            goto set_cpu;
+    }
+
 
     return;
 }
