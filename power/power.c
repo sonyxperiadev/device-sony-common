@@ -116,11 +116,11 @@ static char* rqb_param_string(rqb_pwr_mode_t pwrmode, bool compat)
             compat_string = "perf";
             break;
         case POWER_MODE_OMXDECODE:
-            type_string = "video_decoding"
+            type_string = "video_decoding";
             compat_string = "vdec";
             break;
         case POWER_MODE_OMXENCODE:
-            type_string = "video_encoding"
+            type_string = "video_encoding";
             compat_string = "venc";
         default:
             return "unknown";
@@ -390,8 +390,7 @@ static int manage_powerserver(bool start)
 
 static bool init_all_rqb_params(void)
 {
-    int i;
-    bool ret;
+    int i, ret;
 
     rqb = malloc(sizeof(struct rqbalance_params) * POWER_MODE_MAX);
     assert(rqb != NULL);
@@ -415,6 +414,7 @@ static bool init_all_rqb_params(void)
 static void power_init(struct power_module *module UNUSED)
 {
     int ret, dbg_lvl;
+    int i;
     char ext_lib_path[127];
     char propval[2];
     struct rqbalance_params *rqbparm;
