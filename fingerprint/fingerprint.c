@@ -18,11 +18,15 @@
 
 #include <errno.h>
 #include <malloc.h>
+#include <stdio.h>
 #include <string.h>
 #include <cutils/log.h>
 #include <hardware/hardware.h>
 #include <hardware/fingerprint.h>
+#include <inttypes.h>
 #include <pthread.h>
+#include <netinet/in.h>
+#include <byteswap.h>
 #include "fpc_imp.h"
 
 
@@ -40,7 +44,7 @@ void *enroll_thread_loop()
 {
     ALOGI("%s", __func__);
 
-    uint32_t print_count = fpc_get_print_count();
+    int32_t print_count = fpc_get_print_count();
     ALOGD("%s : print count is : %u", __func__, print_count);
 
     int ret = fpc_enroll_start(print_count);
@@ -171,17 +175,17 @@ void *auth_thread_loop()
             if (verify_state >= 0) {
                 if(print_id > 0)
                 {
-                    ALOGI("%s : Got print id : %lu", __func__, (unsigned long) print_id);
+                    ALOGI("%s : Got print id : %u", __func__, print_id);
 
                     hw_auth_token_t hat;
                     fpc_get_hw_auth_obj(&hat, sizeof(hw_auth_token_t));
 
-                    ALOGI("%s : hat->challenge %lu",__func__,(unsigned long) hat.challenge);
-                    ALOGI("%s : hat->user_id %lu",__func__,(unsigned long) hat.user_id);
-                    ALOGI("%s : hat->authenticator_id %lu",__func__,(unsigned long) hat.authenticator_id);
-                    ALOGI("%s : hat->authenticator_type %d",__func__, hat.authenticator_type);
-                    ALOGI("%s : hat->timestamp %lu",__func__,(unsigned long) hat.timestamp);
-                    ALOGI("%s : hat size %lu",__func__,(unsigned long) sizeof(hw_auth_token_t));
+                    ALOGI("%s : hat->challenge %" PRIu64, __func__, hat.challenge);
+                    ALOGI("%s : hat->user_id %" PRIu64, __func__, hat.user_id);
+                    ALOGI("%s : hat->authenticator_id %" PRIu64, __func__, hat.authenticator_id);
+                    ALOGI("%s : hat->authenticator_type %u", __func__, ntohl(hat.authenticator_type));
+                    ALOGI("%s : hat->timestamp %" PRIu64, __func__, bswap_64(hat.timestamp));
+                    ALOGI("%s : hat size %zu", __func__, sizeof(hw_auth_token_t));
 
                     fingerprint_msg_t msg;
                     msg.type = FINGERPRINT_AUTHENTICATED;
@@ -217,17 +221,17 @@ static int fingerprint_close(hw_device_t *dev)
     }
 }
 
-static uint64_t fingerprint_pre_enroll(struct fingerprint_device __unused *dev)
+static uint64_t fingerprint_pre_enroll(struct fingerprint_device __attribute__((unused)) *dev)
 {
     challenge = fpc_load_auth_challenge();
     ALOGI("%s : Challenge is : %jd",__func__,challenge);
     return challenge;
 }
 
-static int fingerprint_enroll(struct fingerprint_device __unused *dev,
+static int fingerprint_enroll(struct fingerprint_device __attribute__((unused)) *dev,
                               const hw_auth_token_t *hat,
-                              uint32_t __unused gid,
-                              uint32_t __unused timeout_sec)
+                              uint32_t __attribute__((unused)) gid,
+                              uint32_t __attribute__((unused)) timeout_sec)
 {
 
 
@@ -264,7 +268,7 @@ static int fingerprint_enroll(struct fingerprint_device __unused *dev,
 
 }
 
-static uint64_t fingerprint_get_auth_id(struct fingerprint_device __unused *dev)
+static uint64_t fingerprint_get_auth_id(struct fingerprint_device __attribute__((unused)) *dev)
 {
 
     uint64_t id = fpc_load_db_id();
@@ -273,7 +277,7 @@ static uint64_t fingerprint_get_auth_id(struct fingerprint_device __unused *dev)
 
 }
 
-static int fingerprint_cancel(struct fingerprint_device __unused *dev)
+static int fingerprint_cancel(struct fingerprint_device __attribute__((unused)) *dev)
 {
     ALOGI("%s : +",__func__);
 
@@ -296,15 +300,15 @@ static int fingerprint_cancel(struct fingerprint_device __unused *dev)
 
     ALOGI("%s : -",__func__);
 
-    fingerprint_msg_t msg;
+    /*fingerprint_msg_t msg;
     msg.type = FINGERPRINT_ERROR;
     msg.data.error = FINGERPRINT_ERROR_CANCELED;
-    callback(&msg);
+    callback(&msg);*/
 
     return 0;
 }
 
-static int fingerprint_remove(struct fingerprint_device __unused *dev,
+static int fingerprint_remove(struct fingerprint_device __attribute__((unused)) *dev,
                               uint32_t gid, uint32_t fid)
 {
 
@@ -330,7 +334,7 @@ static int fingerprint_remove(struct fingerprint_device __unused *dev,
     }
 }
 
-static int fingerprint_set_active_group(struct fingerprint_device __unused *dev,
+static int fingerprint_set_active_group(struct fingerprint_device __attribute__((unused)) *dev,
                                         uint32_t gid, const char *store_path)
 {
     int result;
@@ -356,7 +360,32 @@ static int fingerprint_set_active_group(struct fingerprint_device __unused *dev,
 
 }
 
-static int fingerprint_enumerate(struct fingerprint_device __unused *dev,
+#if PLATFORM_SDK_VERSION >= 24
+static int fingerprint_enumerate(struct fingerprint_device *dev)
+{
+    ALOGE(__func__);
+    uint32_t print_count = fpc_get_print_count();
+    ALOGD("%s : print count is : %u", __func__, print_count);
+
+    fpc_fingerprint_index_t print_indexs = fpc_get_print_index(print_count);
+    if(print_indexs.print_count != print_count)
+    {
+        ALOGW("Print count mismatch: %d != %d", print_count, print_indexs.print_count);
+    }
+
+    for (size_t i = 0; i < print_indexs.print_count; i++) {
+        ALOGD("%s : found print : %lu at index %zu", __func__, (unsigned long) print_indexs.prints[i], i);
+        fingerprint_msg_t msg;
+        msg.type = FINGERPRINT_TEMPLATE_ENUMERATING;
+        msg.data.enumerated.finger.fid = print_indexs.prints[i];
+        msg.data.enumerated.finger.gid = fpc_gid;
+        msg.data.enumerated.remaining_templates = (uint32_t)(print_indexs.print_count - i - 1);
+        callback(&msg);
+    }
+    return 0;
+}
+#else
+static int fingerprint_enumerate(struct fingerprint_device __attribute__((unused)) *dev,
                                  fingerprint_finger_id_t *results,
                                  uint32_t *max_size)
 {
@@ -368,7 +397,7 @@ static int fingerprint_enumerate(struct fingerprint_device __unused *dev,
     if (*max_size == 0) {
         *max_size = print_count;
     } else {
-        for (size_t i = 0; i < *max_size && i < print_count; i++) {
+        for (size_t i = 0; i < *max_size && i < print_indexs.print_count; i++) {
             ALOGD("%s : found print : %lu at index %zu", __func__,(unsigned long) print_indexs.prints[i], i);
 
             results[i].fid = print_indexs.prints[i];
@@ -378,9 +407,10 @@ static int fingerprint_enumerate(struct fingerprint_device __unused *dev,
 
     return print_count;
 }
+#endif
 
-static int fingerprint_authenticate(struct fingerprint_device __unused *dev,
-                                    uint64_t __unused operation_id, __unused uint32_t gid)
+static int fingerprint_authenticate(struct fingerprint_device __attribute__((unused)) *dev,
+                                    uint64_t __attribute__((unused)) operation_id, __attribute__((unused)) uint32_t gid)
 {
 
     if (auth_thread_running) {
@@ -413,7 +443,7 @@ static int set_notify_callback(struct fingerprint_device *dev,
     return 0;
 }
 
-static int fingerprint_open(const hw_module_t* module, const char __unused *id,
+static int fingerprint_open(const hw_module_t* module, const char __attribute__((unused)) *id,
                             hw_device_t** device)
 {
 
@@ -434,7 +464,11 @@ static int fingerprint_open(const hw_module_t* module, const char __unused *id,
     memset(dev, 0, sizeof(fingerprint_device_t));
 
     dev->common.tag = HARDWARE_DEVICE_TAG;
+#if PLATFORM_SDK_VERSION >= 24
+    dev->common.version = FINGERPRINT_MODULE_API_VERSION_2_1;
+#else
     dev->common.version = FINGERPRINT_MODULE_API_VERSION_2_0;
+#endif
     dev->common.module = (struct hw_module_t*) module;
     dev->common.close = fingerprint_close;
 
@@ -460,7 +494,11 @@ static struct hw_module_methods_t fingerprint_module_methods = {
 fingerprint_module_t HAL_MODULE_INFO_SYM = {
     .common = {
         .tag                = HARDWARE_MODULE_TAG,
+#if PLATFORM_SDK_VERSION >= 24
+        .module_api_version = FINGERPRINT_MODULE_API_VERSION_2_1,
+#else
         .module_api_version = FINGERPRINT_MODULE_API_VERSION_2_0,
+#endif
         .hal_api_version    = HARDWARE_HAL_API_VERSION,
         .id                 = FINGERPRINT_HARDWARE_MODULE_ID,
         .name               = "Kitakami Fingerprint HAL",
