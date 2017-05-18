@@ -40,6 +40,7 @@ struct rqbalance_halext_params {
 };
 
 typedef enum {
+	ALL_CPUS_PWR_CLPS_DIS		= 0x101,
 	MINCORES			= 0x700,	/* 0x7XX XX=NCores */
 	CPU0_MIN_FREQ_TURBO_MAX		= 0x2FE,
 	ALL_CORES_ONLINE		= 0x7FE,

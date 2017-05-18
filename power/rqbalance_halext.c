@@ -73,6 +73,7 @@ static struct rqbalance_ctl_locks current_locks[MAX_PERMITTED_LOCKS];
 static short number_of_locks = 0;
 static int possible_cores = -1;
 
+int get_locktype_by_tid(timer_t timerid);
 int get_locktype_by_id(unsigned int id);
 int locktype_action(int entry, int state);
 
@@ -107,13 +108,22 @@ static void timer_expired(union sigval sig)
 static int start_timer(timer_t timerid, int duration_ms)
 {
 	struct itimerspec tspec;
+	int entryno;
 
 	tspec.it_value.tv_sec = MSEC_TO_SEC(duration_ms);
 	tspec.it_value.tv_nsec = MSEC_TO_NSEC(duration_ms);
 	/* Do not auto-rearm */
 	tspec.it_interval.tv_sec = 0;
 	tspec.it_interval.tv_nsec = 0;
- 
+
+	entryno = get_locktype_by_tid(timerid);
+	if (!entryno) {
+		ALOGE("WTF: Tried to start timer for unexistant perflock!");
+		return entryno;
+	}
+
+	locktype_action(entryno, 1);
+
 	return timer_settime(timerid, 0, &tspec, NULL);
 }
 
@@ -204,16 +214,28 @@ int locktype_action(int entry, int state)
 	return 0;
 }
 
+int get_locktype_by_tid(timer_t tid)
+{
+	int i;
+
+	for (i = 0; i < number_of_locks; i++) {
+		if (current_locks[number_of_locks].tid == tid)
+			return i;
+	}
+
+	return -EINVAL;
+}
+
 int get_locktype_by_id(unsigned int id)
 {
 	int i;
 
 	for (i = 0; i < number_of_locks; i++) {
 		if (current_locks[number_of_locks].luid == id)
-			break;
+			return i;
 	}
 
-	return i;
+	return -EINVAL;
 }
 
 int get_locktype_by_type(unsigned short type)
@@ -222,47 +244,57 @@ int get_locktype_by_type(unsigned short type)
 
 	for (i = 0; i < number_of_locks; i++) {
 		if (current_locks[number_of_locks].drid == type)
-			break;
-		else if (i == number_of_locks)
-			return -1;
+			return i;
+//		else if (i == number_of_locks)
+//			return -1;
 	}
 
-	return i;
+	return -EINVAL;
 }
 
 int new_lock_init(unsigned int time, unsigned short type, int state)
 {
-	unsigned int luid = rand();
-	int ret;
+	unsigned int luid;
+	int locknum, ret;
 
-	/* If timer is already present */
+	/* If lock is already present */
 	ret = get_locktype_by_type(type);
 	if (ret) {
+		locknum = ret;
+		luid = current_locks[locknum].luid;
+
 		if (time > 0)
-			start_timer(current_locks[ret].tid, time);
-		return luid;
+			start_timer(current_locks[locknum].tid, time);
+
+		goto do_action;
+	} else {
+		luid = rand();
 	}
 
 	number_of_locks++;
 
-	/* if not failed... save in current_locks and return id */
+	/* Initialize current_locks array element with new lock infos */
 	current_locks[number_of_locks].luid = luid;
 	current_locks[number_of_locks].time = time;
 	current_locks[number_of_locks].drid = type;
 	current_locks[number_of_locks].state = state;
+	locknum = number_of_locks;
 
+do_action:
 	if (time) {
-		ret = new_timer(current_locks[number_of_locks].tid,
-				current_locks[number_of_locks].luid);
+		ret = new_timer(current_locks[locknum].tid,
+				current_locks[locknum].luid);
 		if (ret) {
 			ALOGE("ERROR: Cannot create timed lock!!");
 			return ret;
 		}
-		ret = start_timer(current_locks[number_of_locks].tid, time);
+		ret = start_timer(current_locks[locknum].tid, time);
 		if (ret) {
 			ALOGE("ERROR: Cannot start timer!!");
 			return ret;
 		}
+	} else {
+		locktype_action(locknum, 1);
 	}
 
 	return luid;
