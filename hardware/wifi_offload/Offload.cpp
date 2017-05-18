@@ -1,5 +1,8 @@
 #include "Offload.h"
+
 #include <android-base/logging.h>
+
+#include "chre_interface_factory.h"
 
 namespace android {
 namespace hardware {
@@ -8,45 +11,47 @@ namespace offload {
 namespace V1_0 {
 namespace implementation {
 
-Offload::Offload()
-    : mOffloadEnabled(false), mSubscriptionTimeMs(0), mSubscriptionDelayMs(0) {
-    // TODO: Load Nano app
+Offload::Offload() : mOffloadServer(new OffloadServer(new ChreInterfaceFactory())) {
     LOG(android::base::INFO) << "Wifi Offload HAL impl";
 }
 
 // Methods from ::android::hardware::wifi::offload::V1_0::IOffload follow.
-Return<void> Offload::configureScans(const ScanParam& param,
-                                     const ScanFilter& filter) {
-    mScanParam = param;
-    mScanFilter = filter;
-    // TODO: implement Wifi Nano app scan configuration
+Return<void> Offload::configureScans(const ScanParam& param, const ScanFilter& filter) {
+    if (!mOffloadServer->configureScans(param, filter)) {
+        LOG(ERROR) << "Failure configuring scans";
+    }
     return Void();
 }
 
 Return<void> Offload::getScanStats(getScanStats_cb offloadScanStatsCallback) {
-    ScanStats* pScanStats = new ScanStats();
-    // TODO: implement getting scan stats from Wifi Nano app
-    offloadScanStatsCallback(*pScanStats);
+    ScanStats stats;
+    bool success;
+    std::tie(stats, success) = mOffloadServer->getScanStats();
+    if (!success) {
+        LOG(ERROR) << "Invalid results reported";
+    }
+    offloadScanStatsCallback(stats);
     return Void();
 }
 
 Return<void> Offload::subscribeScanResults(uint32_t delayMs) {
-    mOffloadEnabled = true;
-    // TODO: get current system time
-    mSubscriptionTimeMs = 0;
-    mSubscriptionDelayMs = delayMs;
-    // TODO implement informing Wifi Nano App
+    if (!mOffloadServer->subscribeScanResults(delayMs)) {
+        LOG(ERROR) << "Unable to subscribe scans";
+    }
     return Void();
 }
 
 Return<void> Offload::unsubscribeScanResults() {
-    mOffloadEnabled = false;
-    // TODO: implement updating Wifi Nano app
+    if (!mOffloadServer->unsubscribeScanResults()) {
+        LOG(ERROR) << "Unable to unsubscribe";
+    }
     return Void();
 }
 
 Return<void> Offload::setEventCallback(const sp<IOffloadCallback>& cb) {
-    Offload::mScanEventCallback = cb;
+    if (!mOffloadServer->setEventCallback(cb)) {
+        LOG(ERROR) << "No callback set";
+    }
     return Void();
 }
 

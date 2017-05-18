@@ -7,6 +7,8 @@
 #include <hidl/MQDescriptor.h>
 #include <hidl/Status.h>
 
+#include "offload_server.h"
+
 namespace android {
 namespace hardware {
 namespace wifi {
@@ -32,14 +34,9 @@ class Offload : public IOffload {
     // Methods from ::android::hidl::base::V1_0::IBase follow.
 
    private:
-    bool mOffloadEnabled;
-    uint64_t mSubscriptionTimeMs;
-    uint32_t mSubscriptionDelayMs;
-    ScanParam mScanParam;
-    ScanFilter mScanFilter;
-    sp<IOffloadCallback> mScanEventCallback;
+     std::unique_ptr<OffloadServer> mOffloadServer;
 
-    DISALLOW_COPY_AND_ASSIGN(Offload);
+     DISALLOW_COPY_AND_ASSIGN(Offload);
 };
 
 }  // namespace implementation

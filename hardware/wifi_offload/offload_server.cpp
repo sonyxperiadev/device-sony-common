@@ -13,7 +13,9 @@ namespace implementation {
 
 class OffloadServer;
 
-OffloadServer::OffloadServer() : mChreInterfaceCallbacks(new ChreInterfaceCallbacksImpl(this)) {
+OffloadServer::OffloadServer(ChreInterfaceFactory* factory)
+    : mChreInterfaceCallbacks(new ChreInterfaceCallbacksImpl(this)),
+      mChreInterface(factory->getChreInterface(mChreInterfaceCallbacks.get())) {
     LOG(VERBOSE) << "Wifi Offload HAL impl";
 }
 

@@ -3,7 +3,7 @@
 
 #include <android/hardware/wifi/offload/1.0/IOffload.h>
 
-#include "chre_interface_callbacks.h"
+#include "chre_interface_factory.h"
 
 namespace android {
 namespace hardware {
@@ -31,7 +31,7 @@ class ChreInterfaceCallbacksImpl : public ChreInterfaceCallbacks {
  */
 class OffloadServer {
   public:
-    OffloadServer();
+    OffloadServer(ChreInterfaceFactory* factory);
 
     bool configureScans(const ScanParam& param, const ScanFilter& filter);
     std::pair<ScanStats, bool> getScanStats();
@@ -42,6 +42,7 @@ class OffloadServer {
   private:
     ScanStats mScanStats;
     std::unique_ptr<ChreInterfaceCallbacksImpl> mChreInterfaceCallbacks;
+    std::unique_ptr<ChreInterface> mChreInterface;
     sp<IOffloadCallback> mEventCallback;
 
     friend class ChreInterfaceCallbacksImpl;
