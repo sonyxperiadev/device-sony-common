@@ -36,6 +36,7 @@
 #include "rqbalance_halext.h"
 
 #define LOG_TAG "RQBalance-PowerHAL"
+#define USE_XML_CONFIG
 
 static struct rqbalance_params *rqb;
 static int hal_init_ok = false;
@@ -55,6 +56,10 @@ static bool psthread_run = true;
 static void *ext_library;
 lock_acq_t perf_lock_acquire;
 lock_rel_t perf_lock_release;
+
+/* XML Configuration support */
+extern int parse_xml_data(char* filepath,
+            char* node, struct rqbalance_params *therqb);
 
 #define UNUSED __attribute__((unused))
 
@@ -144,6 +149,7 @@ static void print_parameters(rqb_pwr_mode_t pwrmode)
     ALOGI("Balance level:       %s", cur_params->balance_level);
 }
 
+#ifndef USE_XML_CONFIG
 /*
  * parse_rqbalance_params - Parse parameters for RQBalance power modes
  *
@@ -200,6 +206,7 @@ fail:
     ALOGE("FATAL: RQBalance %s parameters parsing error!!!", mode_string);
     return false;
 }
+#endif
 
 /*
  * _set_power_mode - Writes power configuration to the RQBalance driver
@@ -483,6 +490,7 @@ static bool init_all_rqb_params(void)
 
     for (i = 0; i < POWER_MODE_MAX; i++)
     {
+#ifndef USE_XML_CONFIG
         ret = parse_rqbalance_params(i);
 
         if (!ret){
@@ -493,6 +501,15 @@ static bool init_all_rqb_params(void)
                 return ret;
             }
         }
+#else
+        ret = parse_xml_data(RQBHAL_CONF_FILE,
+                rqb_param_string(i, false), &rqb[i]);
+        if (ret < 0) {
+            ALOGE("Cannot parse configuration for %s mode!!!",
+                  rqb_param_string(i, false));
+        }
+#endif
+
     }
 
     return ret;
@@ -511,7 +528,7 @@ static void power_init(struct power_module *module UNUSED)
     ALOGI("Initializing PowerHAL...");
 
     ret = init_all_rqb_params();
-    if (!ret)
+    if (ret < 0)
         goto general_error;
 
     if (!param_perf_supported)
