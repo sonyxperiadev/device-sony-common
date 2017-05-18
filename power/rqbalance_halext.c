@@ -175,9 +175,9 @@ int locktype_action(int entry, int state)
 		case OMX_DECODER:
 			ALOGI("OMX Decoder hint received.");
 			if (state) {
-			/* do stuff */
+				set_power_mode(POWER_MODE_OMXDECODE);
 			} else {
-			/* revert stuff */
+				set_power_mode(POWER_MODE_BALANCED);
 			}
 			break;
 		case DISPLAY_LAYER:
@@ -191,11 +191,9 @@ int locktype_action(int entry, int state)
 		case OMX_ENCODER:
 			ALOGI("OMX Encoder hint received.");
 			if (state) {
-				set_power_mode(POWER_MODE_PERFORMANCE);
-				/* do stuff */
+				set_power_mode(POWER_MODE_OMXENCODE);
 			} else {
 				set_power_mode(POWER_MODE_BALANCED);
-			/* revert stuff */
 			}
 			break;
 		case RQB_POWERHAL:
