@@ -166,6 +166,52 @@ char* lock_type_str(int t)
 	return "Unknown";
 }
 
+/* Search functions */
+int get_locktype_by_tid(timer_t tid)
+{
+	int i;
+
+	for (i = 0; i < number_of_locks; i++) {
+		if (current_locks[number_of_locks].tid == tid)
+			return i;
+	}
+
+	return -EINVAL;
+}
+
+int get_locktype_by_id(unsigned int id)
+{
+	int i;
+
+	for (i = 0; i < number_of_locks; i++) {
+		if (current_locks[number_of_locks].luid == id)
+			return i;
+	}
+
+	return -EINVAL;
+}
+
+int get_locktype_by_type(unsigned short type)
+{
+	int i;
+
+	for (i = 0; i < number_of_locks; i++) {
+		if (current_locks[number_of_locks].drid == type)
+			return i;
+	}
+
+	return -EINVAL;
+}
+
+/* HALExt Logic */
+
+/*
+ * locktype_action - Take an action for the input lock type
+ *
+ * \param entry - Position in the locks array
+ * \param state - Requested action
+ * \return Returns success (0) or failure (negative errno)
+ */
 int locktype_action(int entry, int state)
 {
 	int type = current_locks[entry].drid;
@@ -210,44 +256,6 @@ int locktype_action(int entry, int state)
 	}
 
 	return 0;
-}
-
-int get_locktype_by_tid(timer_t tid)
-{
-	int i;
-
-	for (i = 0; i < number_of_locks; i++) {
-		if (current_locks[number_of_locks].tid == tid)
-			return i;
-	}
-
-	return -EINVAL;
-}
-
-int get_locktype_by_id(unsigned int id)
-{
-	int i;
-
-	for (i = 0; i < number_of_locks; i++) {
-		if (current_locks[number_of_locks].luid == id)
-			return i;
-	}
-
-	return -EINVAL;
-}
-
-int get_locktype_by_type(unsigned short type)
-{
-	int i;
-
-	for (i = 0; i < number_of_locks; i++) {
-		if (current_locks[number_of_locks].drid == type)
-			return i;
-//		else if (i == number_of_locks)
-//			return -1;
-	}
-
-	return -EINVAL;
 }
 
 int new_lock_init(unsigned int time, unsigned short type, int state)
@@ -306,21 +314,24 @@ int lock_set_arg(int lparm)
 
 	switch (lparm)
 	{
+		case ALL_CPUS_PWR_CLPS_DIS:
+			ALOGE("Power collapse disable not implemented");
+			return -EINVAL;
 		case CPU0_MIN_FREQ_TURBO_MAX:
 		case CPU4_MIN_FREQ_TURBO_MAX:
-			ALOGE("FAILURE: freq methods not implemented");
+			ALOGE("Frequency optimizations not implemented");
 			return -EINVAL;
 		case ALL_CORES_ONLINE:
-			snprintf(tmp, 2, "%d", possible_cores);
+			ALOGE("Special core modes not implemented");
+			//snprintf(tmp, 2, "%d", possible_cores);
 			//__set_spc_power_mode(tmp, tmp, NULL, NULL, NULL);
 			/*
 			 * TODO: Create a timer? When should we put cores back
 			 *       to the balanced/previous profile???
 			 */
-			ret = 0;
-			break;
+			return -EINVAL;
 		default:
-			ALOGE("FATAL: Parameter not implemented: 0x%x", lparm);
+			ALOGD("Parameter not implemented: 0x%x", lparm);
 			return -EINVAL;
 	}
 
@@ -351,54 +362,6 @@ end:
 	number_of_locks--;
 	return;
 }
-
-#if 0
-/*
- * get_powerhal_handles - Initialize handles to external PowerHAL library
- *
- * \return Returns success (0) or failure (negative errno)
- */
-static int get_powerhal_handles(void)
-{
-	powerhal_hndl = dlopen(POWERHAL_PATH, RTLD_NOW);
-
-	/* Crash if there's no PowerHAL: this library NEEDS it. */
-	assert(powerhal_hndl != NULL);
-
-#if !defined(__LP64__) && defined(IS_64BIT_SYSTEM)
-	ALOGI("Detected 32-bits library on a 64-bits system.");
-	ALOGI("Initializing 32bit PowerHAL internals from %s", POWERHAL_PATH);
-	powerhal_init = (__powerhal_init_t)dlsym(powerhal_hndl,
-					"power_init_ext");
-	if (powerhal_init == NULL) {
-		ALOGE("PowerHAL init hook fail");
-		goto error;
-	}
-	powerhal_init();
-#endif
-
-	__set_spc_power_mode = (__set_spc_pwr_mode_t)dlsym(powerhal_hndl,
-					"__set_special_power_mode");
-	if (__set_spc_power_mode == NULL) {
-		ALOGE("PowerHAL special power mode hook fail");
-		goto error;
-	}
-
-	set_powerhal_mode = (__set_pwr_mode_t)dlsym(powerhal_hndl,
-					"set_power_mode");
-	if (set_powerhal_mode == NULL) {
-		ALOGE("PowerHAL power mode hook fail");
-		goto error;
-	}
-
-	return 0;
-
-error:
-	free(powerhal_hndl);
-	ALOGE("FATAL: Cannot get handle to PowerHAL!!!");
-	return -EINVAL;
-}
-#endif
 
 static ssize_t sysfs_read(char *path, char *s, int num_bytes)
 {
@@ -455,7 +418,6 @@ static int get_possible_cores(void)
  *
  * \return Returns success (0) or negative errno.
  */
-//int perf_lock_acquire(int id, int time, int argument[], int arraysz)
 int halext_perf_lock_acquire(struct rqbalance_halext_params *params)
 {
 	int arraysz, id, lock_type, lock_state, i, ret = -EINVAL;
@@ -469,9 +431,9 @@ int halext_perf_lock_acquire(struct rqbalance_halext_params *params)
 	if (!id) {
 		if (arraysz > 1) {
 			ALOGE("Unexpected argument. Bailing out.");
-			ALOGE("Arguments: %d", arraysz);
+			ALOGD("Arguments: %d", arraysz);
 			for (i = 0; i <=arraysz; i++)
-				ALOGE("Arg[%d]: 0x%x", i, params->argument[i]);
+				ALOGD("Arg[%d]: 0x%x", i, params->argument[i]);
 			return -EINVAL;
 		}
 
@@ -502,9 +464,9 @@ int halext_perf_lock_release(int id)
 	 */
 	for (i = number_of_locks; i >=0; i--) {
 		if (i < 0) {
-			ALOGE("WTF: FIXME FIXME FIXME FIXME FIXME FIXME");
-			ALOGE("WTF: Tried to remove an unexistant lock.");
-			ALOGE("WTF: FIXME FIXME FIXME FIXME FIXME FIXME");
+			ALOGD("WTF: FIXME FIXME FIXME FIXME FIXME FIXME");
+			ALOGD("WTF: Tried to remove an unexistant lock.");
+			ALOGD("WTF: FIXME FIXME FIXME FIXME FIXME FIXME");
 			return -ENXIO;
 		} else if ((unsigned int)id == current_locks[i].luid) {
 			remove_and_reorder(i);

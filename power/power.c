@@ -36,7 +36,6 @@
 #include "rqbalance_halext.h"
 
 #define LOG_TAG "RQBalance-PowerHAL"
-#define USE_XML_CONFIG
 
 static struct rqbalance_params *rqb;
 static int hal_init_ok = false;
@@ -51,11 +50,6 @@ static int clientsock;
 static struct sockaddr_un server_addr;
 static pthread_t powerserver_thread;
 static bool psthread_run = true;
-
-/* Extension library support */
-static void *ext_library;
-lock_acq_t perf_lock_acquire;
-lock_rel_t perf_lock_release;
 
 /* XML Configuration support */
 extern int parse_xml_data(char* filepath,
@@ -155,65 +149,6 @@ static void print_parameters(rqb_pwr_mode_t pwrmode)
     ALOGI("Downcore thresholds: %s", cur_params->down_thresholds);
     ALOGI("Balance level:       %s", cur_params->balance_level);
 }
-
-#ifndef USE_XML_CONFIG
-/*
- * parse_rqbalance_params - Parse parameters for RQBalance power modes
- *
- * TODO: Is there any more-human-readable way for error checking?
- * \param pwrmode - RQBalance Power Mode (from enum rqb_pwr_mode_t)
- * \return Returns success (true) or failure (false)
- */
-static bool parse_rqbalance_params(rqb_pwr_mode_t pwrmode)
-{
-    int ret = -1;
-    size_t sz;
-    char* mode_string = rqb_param_string(pwrmode, true);
-    char* prop_string = NULL;
-    struct rqbalance_params *cur_params = &rqb[pwrmode];
-
-    if (cur_params == NULL)
-        goto fail;
-
-    /* Allocate a decent amount of memory, to make any
-     * property string to fit */
-    sz = sizeof(char)*((sizeof(PROP_MIN_CPUS)*2)+sizeof(mode_string));
-    prop_string = (char*)malloc(sz);
-
-    snprintf(prop_string, sz, PROP_MAX_CPUS, mode_string);
-    ret = property_get(prop_string, cur_params->max_cpus, "0");
-    if (!ret)
-        goto freemem;
-
-    snprintf(prop_string, sz, PROP_MIN_CPUS, mode_string);
-    ret = property_get(prop_string, cur_params->min_cpus, "0");
-    if (!ret)
-        goto freemem;
-
-    snprintf(prop_string, sz, PROP_UPCORE_THRESH, mode_string);
-    ret = property_get(prop_string, cur_params->up_thresholds, "0");
-    if (!ret)
-        goto freemem;
-
-    snprintf(prop_string, sz, PROP_DNCORE_THRESH, mode_string);
-    ret = property_get(prop_string, cur_params->down_thresholds, "0");
-    if (!ret)
-        goto freemem;
-
-    snprintf(prop_string, sz, PROP_BALANCE_LVL, mode_string);
-    ret = property_get(prop_string, cur_params->balance_level, "0");
-    if (!ret)
-        goto freemem;
-
-freemem:
-    free(prop_string);
-    if (ret)
-        return true;
-fail:
-    ALOGE("FATAL: RQBalance %s parameters parsing error!!!", mode_string);
-    return false;
-}
-#endif
 
 /*
  * _set_power_mode - Writes power configuration to the RQBalance driver
@@ -330,40 +265,6 @@ void set_power_mode(rqb_pwr_mode_t mode)
 
     cur_pwrmode = mode;
 }
-
-#if 0
-static int process_connection(void)
-{
-    register int clientsock;
-    int ret, clientlen = sizeof(struct sockaddr_un);
-    struct sockaddr_un client_addr;
-
-    clientsock = accept(sock, (struct sockaddr*)&client_addr, &clientlen);
-    if (!clientsock) {
-        ALOGE("Cannot accept connection");
-        ret = -EPROTO;
-        goto end;
-    }
-
-    ret = recv(clientsock, &extparams,
-           sizeof(struct rqbalance_halext_params), 0);
-    if (!ret) {
-        ALOGE("Cannot receive data from client");
-        goto end;
-    }
-
-    /* Validate the received data */
-    if (ret != sizeof(struct rqbalance_halext_params)) {
-        ALOGE("Received data size mismatch!!");
-        goto end;
-    } else ret = 0; /* Function shall return 0 on success */
-
-end:
-    close(clientsock);
-
-    return ret;
-}
-#endif
 
 static void *powerserver_looper(void *unusedvar UNUSED)
 {
@@ -497,26 +398,12 @@ static bool init_all_rqb_params(void)
 
     for (i = 0; i < POWER_MODE_MAX; i++)
     {
-#ifndef USE_XML_CONFIG
-        ret = parse_rqbalance_params(i);
-
-        if (!ret){
-            if (i == POWER_MODE_PERFORMANCE) {
-                param_perf_supported = false;
-                ret = true;
-            } else {
-                return ret;
-            }
-        }
-#else
         ret = parse_xml_data(RQBHAL_CONF_FILE,
                 rqb_param_string(i, false), &rqb[i]);
         if (ret < 0) {
             ALOGE("Cannot parse configuration for %s mode!!!",
                   rqb_param_string(i, false));
         }
-#endif
-
     }
 
     return ret;
@@ -548,10 +435,9 @@ static void power_init(struct power_module *module UNUSED)
 
     if (dbg_lvl > 0) {
         ALOGW("WARNING: Starting in debug mode");
-        print_parameters(POWER_MODE_BATTERYSAVE);
-        print_parameters(POWER_MODE_BALANCED);
-        if (param_perf_supported)
-            print_parameters(POWER_MODE_PERFORMANCE);
+        for (i = 0; i < POWER_MODE_MAX; i++) {
+	        print_parameters(i);
+	}
     } else {
         ALOGI("Loading with debug off. To turn on, set %s", PROP_DEBUGLVL);
     }
@@ -569,39 +455,10 @@ static void power_init(struct power_module *module UNUSED)
     else
         ALOGE("Could not start PowerHAL PowerServer");
 
-    /* Get librqbalance (or others) support */
-    ret = property_get(PROP_EXTLIB, ext_lib_path, NULL);
-    if (!ret) {
-        ALOGI("No PowerHAL Extension Library (%s) specified. Going on.",
-                PROP_EXTLIB);
-        return;
-    }
-
-    ext_library = dlopen(ext_lib_path, RTLD_NOW);
-    if (ext_library == NULL)
-        return;
-
-    perf_lock_acquire = (lock_acq_t)dlsym(ext_library, "perf_lock_acq");
-    if (perf_lock_acquire == NULL) {
-        ALOGE("Oops! Cannot find perf_lock_acq function in %s", ext_lib_path);
-        goto extlib_error;
-    }
-
-    perf_lock_release = (lock_rel_t)dlsym(ext_library, "perf_lock_rel");
-    if (perf_lock_release == NULL) {
-        ALOGE("Oops! Cannot find perf_lock_rel function in %s", ext_lib_path);
-        goto extlib_error;
-    }
-
-    ALOGI("Extension library support detected!");
-
     return;
 
 general_error:
     ALOGE("PowerHAL initialization FAILED.");
-extlib_error:
-    if (ext_library != NULL)
-        dlclose(ext_library);
 
     return;
 }
@@ -610,40 +467,6 @@ void power_init_ext(void)
 {
     if (init_all_rqb_params())
         hal_init_ok = true;
-}
-
-/*
- * extended_power_hint - Process extended power hints
- *
- * \param hint - Power hint (from extended_hint_t)
- * \param data - Any kind of supplementary variable relative to the hint
- */
-static void extended_power_hint(extended_hint_t hint, void *data)
-{
-    //struct rqbalance_halext_params *extparams;
-    int tmp;
-
-    switch (hint) {
-/*
-        case POWER_HINT_EXT_LOCK_ACQUIRE:
-            extparams = (struct rqbalance_halext_params*)data;
-            halext_perf_lock_acquire(extparams);
-            break;
-        case POWER_HINT_EXT_LOCK_RELEASE:
-            tmp = (int32_t)data;
-            halext_perf_lock_release(tmp);
-            break;
-*/
-        case POWER_HINT_EXT_CLIENT_CONN:
-            ALOGI("Received ext client conn");
- //           if (sock)
-   //             process_connection();
-            break;
-        default:
-            break;
-    }
-
-    return;
 }
 
 /*
@@ -656,8 +479,6 @@ static void extended_power_hint(extended_hint_t hint, void *data)
 static void power_hint(struct power_module *module UNUSED, power_hint_t hint,
                             void *data)
 {
-    bool hint_processed = true;
-
     if (!hal_init_ok)
         return;
 
@@ -690,14 +511,10 @@ static void power_hint(struct power_module *module UNUSED, power_hint_t hint,
             break;
 
         default:
-            hint_processed = false;
             break;
     }
 
-    if (hint_processed)
-        return;
-
-    extended_power_hint((extended_hint_t)hint, data);
+    return;
 }
 
 /*
