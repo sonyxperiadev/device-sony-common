@@ -31,8 +31,6 @@
 #include <hardware/power.h>
 #include <utils/Log.h>
 
-#include "powermanagerhook_compat.h"
-
 #define POWERSERVER_SOCKET		"/data/misc/powerhal/rqbsvr"
 
 #define MAX_ARGUMENTS	20
@@ -121,7 +119,7 @@ end:
 int perf_lock_acq(int id, int time, int argument[], int arraysz)
 {
 	struct rqbalance_halext_params params;
-	int i;
+	uint32_t i;
 
 	params.acquire = 1;
 	params.id = id;
