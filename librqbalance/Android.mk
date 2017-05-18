@@ -16,23 +16,10 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-
-ifneq ($(TARGET_DEVICE),)
-    LOCAL_CFLAGS += -DSOCNAME=\"$(TARGET_DEVICE)\"
-endif
-
-ifeq ($(TARGET_USES_64_BIT_BINDER),true)
-    LOCAL_CFLAGS += -DIS_64BIT_SYSTEM=1
-endif
-
 LOCAL_SRC_FILES := rqbalance_ctl.c
 LOCAL_SHARED_LIBRARIES := \
     liblog \
     libcutils \
-    libhardware \
-    libutils \
-    libbinder \
-    libpowermanager
 
 LOCAL_MODULE := librqbalance
 LOCAL_MODULE_TAGS := optional
