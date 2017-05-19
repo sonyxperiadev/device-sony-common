@@ -66,6 +66,10 @@ BOARD_HAL_STATIC_LIBRARIES += libhealthd.$(TARGET_DEVICE)
 # Include an expanded selection of fonts
 EXTENDED_FONT_FOOTPRINT := true
 
+# librqbalance enablement
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vendor.extension_library=/system/lib/librqbalance.so
+
 # Set seccomp policy for media server
 BOARD_SECCOMP_POLICY += $(COMMON_PATH)/seccomp
 
