@@ -24,7 +24,7 @@ cc_library_static {
         "offload_status_util.cpp",
         "offload_utils.cpp",
     ],
-    cflags: ["-Wall", "-Wextra"],
+    cflags: ["-Wall", "-Wextra", "-Werror"],
     shared_libs: [
         "libbase",
         "libhidlbase",

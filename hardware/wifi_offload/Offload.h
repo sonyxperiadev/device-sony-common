@@ -24,7 +24,7 @@ class HidlDeathHandler : public android::hardware::hidl_death_recipient {
 
     // Death notification for callbacks.
     void serviceDied(uint64_t cookie,
-                     const android::wp<android::hidl::base::V1_0::IBase> &who) override {
+                     const android::wp<android::hidl::base::V1_0::IBase>& /* who */) override {
         cb_.clear();
         cb_function_(cookie);
     }
