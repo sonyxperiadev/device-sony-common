@@ -164,6 +164,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     fs_config_files
 
+# librqbalance
+PRODUCT_PACKAGES += \
+    librqbalance
+
 # APN list
 PRODUCT_COPY_FILES += \
     device/sample/etc/old-apns-conf.xml:system/etc/old-apns-conf.xml \

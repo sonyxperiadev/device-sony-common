@@ -16,18 +16,12 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
+LOCAL_SRC_FILES := rqbalance_ctl.c
+LOCAL_SHARED_LIBRARIES := \
+    liblog \
+    libcutils \
 
-ifneq ($(TARGET_TAP_TO_WAKE_NODE),)
-    LOCAL_CFLAGS += -DTAP_TO_WAKE_NODE=\"$(TARGET_TAP_TO_WAKE_NODE)\"
-endif
-
-LOCAL_C_INCLUDES := external/expat/lib
-
-LOCAL_SRC_FILES := power.c rqbalance_halext.c expatparser.c
-LOCAL_SHARED_LIBRARIES := liblog libcutils
-LOCAL_STATIC_LIBRARIES := libexpat_static
-LOCAL_MODULE := power.$(TARGET_DEVICE)
+LOCAL_MODULE := librqbalance
 LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_RELATIVE_PATH := hw
 
 include $(BUILD_SHARED_LIBRARY)
