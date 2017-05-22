@@ -21,6 +21,7 @@ cc_binary {
         "service.cpp",
         "chre_constants.cpp",
         "chre_interface.cpp",
+        "offload_server.cpp",
     ],
     cflags: ["-Wall", "-Wextra"],
     shared_libs: [
