@@ -22,7 +22,8 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := fingerprint.$(TARGET_DEVICE)
 LOCAL_MODULE_RELATIVE_PATH := hw
 LOCAL_SRC_FILES := fingerprint.c \
-		   QSEEComFunc.c
+		   QSEEComFunc.c \
+		   common.c
 
 ifeq ($(filter-out satsuki sumire suzuran,$(TARGET_DEVICE)),)
 LOCAL_SRC_FILES += fpc_imp_kitakami.c
@@ -42,6 +43,8 @@ ifeq ($(TARGET_COMPILE_WITH_MSM_KERNEL),true)
 LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
 LOCAL_ADDITIONAL_DEPENDENCIES := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
 endif
+
+LOCAL_CFLAGS += -DPLATFORM_SDK_VERSION=$(PLATFORM_SDK_VERSION)
 
 LOCAL_MODULE_TAGS := optional
 
