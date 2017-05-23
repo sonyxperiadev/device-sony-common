@@ -295,11 +295,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.ois.disable=0 \
     persist.camera.zsl.mode=1
 
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.camera.HAL3.enabled=0 \
-    media.stagefright.less-secure=true \
-    media.stagefright.legacyencoder=true
-
 # Sensors debug
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.debug.sensors.hal=0 \
