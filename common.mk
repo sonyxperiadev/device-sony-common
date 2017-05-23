@@ -289,7 +289,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Camera Features
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.camera.HAL3.enabled=1 \
     persist.camera.gyro.disable=1 \
     persist.camera.stats.af.paaf=0 \
     persist.camera.feature.cac=0 \
