@@ -95,6 +95,7 @@ media-hal := hardware/qcom/media/msm8996
 endif
 
 ifeq ($(TARGET_KERNEL_VERSION),4.4)
+QCOM_MEDIA_ROOT := hardware/qcom/media/msm8998
 display-hal := hardware/qcom/display/msm8998
 media-hal := hardware/qcom/media/msm8998
 endif
