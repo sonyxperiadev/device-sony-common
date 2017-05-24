@@ -291,10 +291,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.dc.frame.sync=0 \
     persist.camera.dcrf.enable=0
 
-# Camera Features
+# Camera
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.gyro.disable=1 \
-    persist.camera.stats.af.paaf=0 \
     persist.camera.feature.cac=0 \
     persist.camera.ois.disable=0 \
     persist.camera.zsl.mode=1
