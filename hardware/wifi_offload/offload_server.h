@@ -38,6 +38,7 @@ class OffloadServer {
     OffloadStatus subscribeScanResults(uint32_t delayMs);
     bool unsubscribeScanResults();
     bool setEventCallback(const sp<IOffloadCallback>& cb);
+    void clearEventCallback();
 
   private:
     ScanStats mScanStats;

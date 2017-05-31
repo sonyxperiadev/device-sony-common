@@ -52,6 +52,13 @@ bool OffloadServer::setEventCallback(const sp<IOffloadCallback>& cb) {
     return result;
 }
 
+void OffloadServer::clearEventCallback() {
+    if (mEventCallback != nullptr) {
+        mEventCallback.clear();
+    }
+    LOG(INFO) << "Event callback cleared";
+}
+
 ChreInterfaceCallbacksImpl::ChreInterfaceCallbacksImpl(OffloadServer* server) : mServer(server) {
 }
 

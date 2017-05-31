@@ -9,6 +9,38 @@
 
 #include "offload_server.h"
 
+namespace {
+// Type of callback invoked by the death handler.
+using on_death_cb_function = std::function<void(uint64_t)>;
+
+// Private class used to keep track of death of callbacks
+template<typename CallbackType>
+class HidlDeathHandler : public android::hardware::hidl_death_recipient {
+  public:
+    HidlDeathHandler(const on_death_cb_function &user_cb_function)
+        : cb_function_(user_cb_function) {
+    }
+    ~HidlDeathHandler() = default;
+
+    // Death notification for callbacks.
+    void serviceDied(uint64_t cookie,
+                     const android::wp<android::hidl::base::V1_0::IBase> &who) override {
+        cb_.clear();
+        cb_function_(cookie);
+    }
+
+    void setCallback(android::wp<CallbackType> cb) {
+        cb_ = cb;
+    }
+
+  private:
+    android::wp<CallbackType> cb_;
+    on_death_cb_function cb_function_;
+
+    DISALLOW_COPY_AND_ASSIGN(HidlDeathHandler);
+};
+}  // namespace
+
 namespace android {
 namespace hardware {
 namespace wifi {
@@ -33,10 +65,14 @@ class Offload : public IOffload {
     // Methods from ::android::hidl::base::V1_0::IBase follow.
 
    private:
-     std::unique_ptr<OffloadServer> mOffloadServer;
      OffloadStatus configureScansInternal(const ScanParam &param, const ScanFilter &filter);
      std::pair<OffloadStatus, ScanStats> getScanStatsInternal();
      OffloadStatus subscribeScanResultsInternal(uint32_t delayMs);
+     void onObjectDeath(uint64_t cookie);
+
+     std::unique_ptr<OffloadServer> mOffloadServer;
+     uint64_t cookie_;
+     sp<HidlDeathHandler<IOffloadCallback>> death_handler_;
 
      DISALLOW_COPY_AND_ASSIGN(Offload);
 };

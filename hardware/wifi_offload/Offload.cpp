@@ -14,7 +14,10 @@ namespace implementation {
 
 using hidl_return_util::validateAndCall;
 
-Offload::Offload() : mOffloadServer(new OffloadServer(new ChreInterfaceFactory())) {
+Offload::Offload()
+    : mOffloadServer(new OffloadServer(new ChreInterfaceFactory())), cookie_(0),
+      death_handler_(new HidlDeathHandler<IOffloadCallback>(
+          std::bind(&Offload::onObjectDeath, this, std::placeholders::_1))) {
     LOG(android::base::INFO) << "Wifi Offload HAL impl";
 }
 
@@ -42,7 +45,11 @@ Return<void> Offload::unsubscribeScanResults() {
 Return<void> Offload::setEventCallback(const sp<IOffloadCallback>& cb) {
     if (!mOffloadServer->setEventCallback(cb)) {
         LOG(ERROR) << "No callback set";
+        return Void();
     }
+    cookie_ = reinterpret_cast<uint64_t>(cb.get());
+    death_handler_->setCallback(cb);
+    cb->linkToDeath(death_handler_, cookie_);
     return Void();
 }
 
@@ -58,6 +65,13 @@ OffloadStatus Offload::subscribeScanResultsInternal(uint32_t delayMs) {
     return mOffloadServer->subscribeScanResults(delayMs);
 }
 
+void Offload::onObjectDeath(uint64_t cookie) {
+    if (cookie == cookie_) {
+        LOG(DEBUG) << "OffloadCallback death notification received";
+        mOffloadServer->clearEventCallback();
+        cookie_ = 0;
+    }
+}
 // Methods from ::android::hidl::base::V1_0::IBase follow.
 
 }  // namespace implementation
