@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The Android Open Source Project
+ * Copyright (C) 2016 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,11 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef WIFI_OFFLOAD_CHRE_INTERFACE_FACTORY_H_
-#define WIFI_OFFLOAD_CHRE_INTERFACE_FACTORY_H_
 
-#include "chre_interface.h"
-#include "chre_interface_callbacks.h"
+#include "mock_chre_interface_factory.h"
 
 namespace android {
 namespace hardware {
@@ -26,12 +23,8 @@ namespace offload {
 namespace V1_0 {
 namespace implementation {
 
-class ChreInterfaceFactory {
-  public:
-    ChreInterfaceFactory() = default;
-    virtual ~ChreInterfaceFactory() = default;
-    virtual ChreInterface* getChreInterface(ChreInterfaceCallbacks* server);
-};
+MockChreInterfaceFactory::MockChreInterfaceFactory() {
+}
 
 }  // namespace implementation
 }  // namespace V1_0
@@ -39,5 +32,3 @@ class ChreInterfaceFactory {
 }  // namespace wifi
 }  // namespace hardware
 }  // namespace android
-
-#endif  // WIFI_OFFLOAD_CHRE_INTERFACE_FACTORY_H_

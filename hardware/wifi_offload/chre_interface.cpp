@@ -121,7 +121,8 @@ void SocketCallbacks::handleUnloadNanoappResponse(const fbs::UnloadNanoappRespon
 }
 
 ChreInterface::ChreInterface(ChreInterfaceCallbacks* callback)
-    : mSocketCallbacks(new SocketCallbacks(this)), mServerCallbacks(callback) {
+    : mSocketCallbacks(new SocketCallbacks(this)), mServerCallbacks(callback),
+      mSocketConnected(false) {
     if (!mClient.connectInBackground(chre_constants::kSocketName, mSocketCallbacks)) {
         LOG(ERROR) << "Offload HAL is not connected to Chre";
     }
@@ -132,20 +133,26 @@ ChreInterface::~ChreInterface() {
 }
 
 bool ChreInterface::isConnected() {
-    return mClient.isConnected();
+    std::lock_guard<std::mutex> lock(mChreInterfaceLock);
+    return mSocketConnected;
 }
 
 void ChreInterface::reportConnectionEvent(ChreInterfaceCallbacks::ConnectionEvent event) {
+    bool connectionStatus = false;
     switch (event) {
         case ChreInterfaceCallbacks::ConnectionEvent::CONNECTED:
+            connectionStatus = true;
             break;
         case ChreInterfaceCallbacks::ConnectionEvent::DISCONNECTED:
-            break;
         case ChreInterfaceCallbacks::ConnectionEvent::CONNECTION_ABORT:
             break;
         default:
             LOG(WARNING) << "Invalid connection event recieved";
             return;
+    }
+    {
+        std::lock_guard<std::mutex> lock(mChreInterfaceLock);
+        mSocketConnected = connectionStatus;
     }
     mServerCallbacks->handleConnectionEvents(event);
 }

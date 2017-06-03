@@ -75,6 +75,8 @@ class ChreInterface {
     ::android::chre::SocketClient mClient;
     sp<SocketCallbacks> mSocketCallbacks;
     ChreInterfaceCallbacks* mServerCallbacks;
+    std::mutex mChreInterfaceLock;
+    bool mSocketConnected;
 };
 
 }  // namespace implementation

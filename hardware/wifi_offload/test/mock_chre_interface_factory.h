@@ -13,11 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef WIFI_OFFLOAD_CHRE_INTERFACE_FACTORY_H_
-#define WIFI_OFFLOAD_CHRE_INTERFACE_FACTORY_H_
 
-#include "chre_interface.h"
+#ifndef WIFI_OFFLOAD_MOCK_CHRE_INTERFACE_FACTORY_H_
+#define WIFI_OFFLOAD_MOCK_CHRE_INTERFACE_FACTORY_H_
+
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
+
 #include "chre_interface_callbacks.h"
+#include "chre_interface_factory.h"
 
 namespace android {
 namespace hardware {
@@ -26,11 +30,12 @@ namespace offload {
 namespace V1_0 {
 namespace implementation {
 
-class ChreInterfaceFactory {
+class MockChreInterfaceFactory : public ChreInterfaceFactory {
   public:
-    ChreInterfaceFactory() = default;
-    virtual ~ChreInterfaceFactory() = default;
-    virtual ChreInterface* getChreInterface(ChreInterfaceCallbacks* server);
+    MockChreInterfaceFactory();
+    ~MockChreInterfaceFactory() override = default;
+
+    MOCK_METHOD1(getChreInterface, ChreInterface*(ChreInterfaceCallbacks* handlers));
 };
 
 }  // namespace implementation
@@ -40,4 +45,4 @@ class ChreInterfaceFactory {
 }  // namespace hardware
 }  // namespace android
 
-#endif  // WIFI_OFFLOAD_CHRE_INTERFACE_FACTORY_H_
+#endif  // WIFI_OFFLOAD_MOCK_CHRE_INTERFACE_FACTORY_H_

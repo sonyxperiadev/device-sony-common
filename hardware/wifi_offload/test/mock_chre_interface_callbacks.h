@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The Android Open Source Project
+ * Copyright (C) 2016 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,10 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef WIFI_OFFLOAD_CHRE_INTERFACE_FACTORY_H_
-#define WIFI_OFFLOAD_CHRE_INTERFACE_FACTORY_H_
 
-#include "chre_interface.h"
+#ifndef WIFI_OFFLOAD_MOCK_CHRE_INTERFACE_CALLBACKS_H_
+#define WIFI_OFFLOAD_MOCK_CHRE_INTERFACE_CALLBACKS_H_
+
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
+
 #include "chre_interface_callbacks.h"
 
 namespace android {
@@ -26,11 +29,13 @@ namespace offload {
 namespace V1_0 {
 namespace implementation {
 
-class ChreInterfaceFactory {
+class MockChreInterfaceCallbacks : public ChreInterfaceCallbacks {
   public:
-    ChreInterfaceFactory() = default;
-    virtual ~ChreInterfaceFactory() = default;
-    virtual ChreInterface* getChreInterface(ChreInterfaceCallbacks* server);
+    MockChreInterfaceCallbacks();
+    ~MockChreInterfaceCallbacks() override = default;
+
+    MOCK_METHOD1(handleConnectionEvents, void(ChreInterfaceCallbacks::ConnectionEvent event));
+    MOCK_METHOD2(handleMessage, void(uint32_t messageType, const std::vector<uint8_t>& message));
 };
 
 }  // namespace implementation
@@ -39,5 +44,4 @@ class ChreInterfaceFactory {
 }  // namespace wifi
 }  // namespace hardware
 }  // namespace android
-
-#endif  // WIFI_OFFLOAD_CHRE_INTERFACE_FACTORY_H_
+#endif  // WIFI_OFFLOAD_MOCK_CHRE_INTERFACE_CALLBACKS_H_
