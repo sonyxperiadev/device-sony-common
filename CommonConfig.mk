@@ -41,6 +41,8 @@ TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 
+# Use mke2fs to create ext4 images
+TARGET_USES_MKE2FS := true
 TARGET_USERIMAGES_USE_EXT4 := true
 
 BOARD_ROOT_EXTRA_FOLDERS := bt_firmware dsp firmware persist odm
