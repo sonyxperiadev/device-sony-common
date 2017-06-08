@@ -80,6 +80,15 @@ BOARD_SONY_INIT_FLAGS += -DDEV_BLOCK_FOTA_MINOR="16"
 endif
 endif
 
+# Board: yoshino
+ifneq ($(filter yoshino,$(PRODUCT_PLATFORM)),)
+ifneq ($(filter maple,$(TARGET_DEVICE)),)
+BOARD_SONY_INIT_FLAGS += -DDEV_BLOCK_FOTA_NUM="45"
+BOARD_SONY_INIT_FLAGS += -DDEV_BLOCK_FOTA_MAJOR="259"
+BOARD_SONY_INIT_FLAGS += -DDEV_BLOCK_FOTA_MINOR="29"
+endif
+endif
+
 # FOTA check is broken on all devices
 BOARD_SONY_INIT_FLAGS += -DFOTA_RAMDISK_CHECK="0"
 
