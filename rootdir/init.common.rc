@@ -127,6 +127,9 @@ on early-boot
     # Set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
 
+    # Set backlight property
+    setprop sys.backlight_on 1
+
 on boot
     # Bluetooth modules
     chown system system /sys/module/bluetooth/parameters/disable_ertm

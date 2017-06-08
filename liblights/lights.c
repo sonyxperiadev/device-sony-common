@@ -32,6 +32,7 @@
 #include <sys/ioctl.h>
 #include <sys/types.h>
 
+#include <cutils/properties.h>
 #include <hardware/lights.h>
 
 /******************************************************************************/
@@ -72,6 +73,9 @@ char const*const BLUE_BLINK_FILE
 
 char const*const DISPLAY_FB_DEV_PATH
 		= "/dev/graphics/fb0";
+
+char const*const BACKLIGHT_STATUS_PROPERTY
+		= "sys.backlight_on";
 
 /**
  * device methods
@@ -151,6 +155,7 @@ set_light_backlight(struct light_device_t* dev,
 	int err = 0;
 	int brightness = rgb_to_brightness(state);
 	unsigned int lpEnabled = state->brightnessMode == BRIGHTNESS_MODE_LOW_PERSISTENCE;
+	char prop[PROPERTY_VALUE_MAX];
 
 	if(!dev) {
 		return -1;
@@ -190,6 +195,22 @@ set_light_backlight(struct light_device_t* dev,
 			brightness = brightness << (backlight_bits - 8);
 
 		err = write_int(LCD_FILE, brightness);
+
+		if (!err) {
+			memset(prop, 0x0, PROPERTY_VALUE_MAX);
+			property_get(BACKLIGHT_STATUS_PROPERTY, prop, "0");
+			if ((strcmp(prop, "0") == 0) && (brightness > 0)) {
+				property_set(BACKLIGHT_STATUS_PROPERTY, "1");
+				ALOGI("%s: %s = 1 - brightness: %d", __FUNCTION__,
+						BACKLIGHT_STATUS_PROPERTY, brightness);
+			} else {
+				if ((strcmp(prop, "1") == 0) && (brightness == 0)) {
+					property_set(BACKLIGHT_STATUS_PROPERTY, "0");
+					ALOGI("%s: %s = 0 - brightness: %d", __FUNCTION__,
+							BACKLIGHT_STATUS_PROPERTY, brightness);
+				}
+			}
+		}
 	}
 
 	pthread_mutex_unlock(&g_lcd_lock);
