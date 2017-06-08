@@ -310,7 +310,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.sys.sdcardfs=true
 
 # BT/FMRadio
-ifeq ($(filter rhine kanuti tone,$(SOMC_PLATFORM)),)
+ifeq ($(filter rhine kanuti tone yoshino,$(SOMC_PLATFORM)),)
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.rfkilldisabled=1
 endif
