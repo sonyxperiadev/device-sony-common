@@ -23,7 +23,11 @@
 extern "C" {
 #endif
 
+#ifdef FP_TZAPP_PATH_318
+#define FP_TZAPP_PATH "/vendor/firmware/"
+#else
 #define FP_TZAPP_PATH "/etc/firmware/"
+#endif
 #define FP_TZAPP_NAME "tzfingerprint"
 
 #define KM_TZAPP_PATH "/firmware/image/"
