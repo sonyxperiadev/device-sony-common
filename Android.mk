@@ -109,7 +109,7 @@ ifeq ($(BOARD_HAVE_BLUETOOTH_QCOM),true)
 ifneq ($(filter rhine,$(PRODUCT_PLATFORM)),)
   include $(call all-makefiles-under,hardware/qcom/bt/msm8960)
 else
-  include $(call all-makefiles-under,hardware/qcom/bt/msm8992)
+  include $(call all-makefiles-under,hardware/qcom/bt/msm8998)
 endif
 endif
 ifeq ($(BOARD_WLAN_DEVICE),qcwcn)
