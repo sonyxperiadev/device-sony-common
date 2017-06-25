@@ -150,6 +150,7 @@ PRODUCT_PACKAGES += \
     Launcher3
 
 PRODUCT_PACKAGES += \
+    libjson \
     libion \
     libxml2
 
