@@ -15,6 +15,9 @@
 # Common path
 COMMON_PATH := device/sony/common
 
+# Do not build proprietary capability
+TARGET_USES_AOSP := true
+
 TARGET_BOARD_AUTO := true
 
 TARGET_NO_RADIOIMAGE := true
@@ -49,7 +52,6 @@ BOARD_USES_ALSA_AUDIO := true
 AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := true
 
 # Camera
-TARGET_USES_AOSP := true
 BOARD_QTI_CAMERA_32BIT_ONLY := true
 BOARD_QTI_CAMERA_V2 := true
 
