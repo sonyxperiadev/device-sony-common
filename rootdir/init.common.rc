@@ -110,6 +110,11 @@ on post-fs-data
 
     # FM Radio
     mkdir /data/misc/fm 0770 system system
+    
+    # RQBalance-PowerHAL PowerServer
+    mkdir /data/misc/powerhal
+    chmod 0773 /data/misc/powerhal
+    chown system system /data/misc/powerhal
 
     chown system /dev/block/bootdevice/by-name
 
