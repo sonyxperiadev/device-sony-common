@@ -27,6 +27,9 @@ on init
     mount tmpfs tmpfs /tmp nosuid mode=0755,uid=0,gid=0
     symlink /dev/socket /tmp
 
+    # Set permissions for dsp partition
+    mkdir /dsp 0771 media media
+
     # Set permissions for firmware partition
     mkdir /firmware 0771 system system
 
