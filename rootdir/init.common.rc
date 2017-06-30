@@ -332,6 +332,12 @@ service qseecomd /system/vendor/bin/qseecomd
     group root
     writepid /dev/cpuset/system-background/tasks
 
+# QCOM ADSP FastRPC
+service adsprpcd /system/vendor/bin/adsprpcd
+   class main
+   user media
+   group media
+
 # OSS thermal management
 service thermanager /system/bin/thermanager /system/etc/thermanager.xml
     class main
