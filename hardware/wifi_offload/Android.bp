@@ -45,6 +45,7 @@ cc_binary {
     cflags: ["-Wall", "-Wextra"],
     shared_libs: [
         "libbase",
+        "libcutils",
         "libhidlbase",
         "libhidltransport",
         "liblog",
