@@ -75,6 +75,7 @@ cc_test {
     ],
     shared_libs: [
         "libbase",
+        "libcutils",
         "libhidlbase",
         "libhidltransport",
         "libutils",
