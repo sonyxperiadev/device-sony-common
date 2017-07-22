@@ -265,7 +265,9 @@ int new_lock_init(unsigned int time, unsigned short type, int state)
 
 	/* If lock is already present */
 	ret = get_locktype_by_type(type);
-	if (ret) {
+	if (ret < 0) {
+		luid = rand();
+	} else {
 		locknum = ret;
 		luid = current_locks[locknum].luid;
 
@@ -273,8 +275,6 @@ int new_lock_init(unsigned int time, unsigned short type, int state)
 			start_timer(current_locks[locknum].tid, time);
 
 		goto do_action;
-	} else {
-		luid = rand();
 	}
 
 	number_of_locks++;
