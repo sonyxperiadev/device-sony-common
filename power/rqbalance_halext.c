@@ -441,7 +441,7 @@ int halext_perf_lock_acquire(struct rqbalance_halext_params *params)
 		lock_state = (params->argument[0] & 0xff);
 
 		return new_lock_init((unsigned int)params->time,
-					lock_type, lock_state);
+					(unsigned short)lock_type, lock_state);
 	}
 
 	for (i = 0; i <= arraysz; i++) {
