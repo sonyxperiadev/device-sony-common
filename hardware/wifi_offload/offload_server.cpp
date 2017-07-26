@@ -1,8 +1,13 @@
 #include "offload_server.h"
 
 #include <android-base/logging.h>
+#include <chre/apps/wifi_offload/flatbuffers_serialization.h>
+#include <chre/apps/wifi_offload/host_message_types.h>
 
 #include "offload_status_util.h"
+#include "offload_utils.h"
+
+using namespace android::hardware::wifi::offload::V1_0::implementation::chre_constants;
 
 namespace android {
 namespace hardware {
@@ -21,6 +26,25 @@ OffloadServer::OffloadServer(ChreInterfaceFactory* factory)
 
 OffloadStatus OffloadServer::configureScans(const ScanParam& param, const ScanFilter& filter) {
     LOG(INFO) << "configureScans";
+    if (!mChreInterface->isConnected()) {
+        return createOffloadStatus(OffloadStatusCode::ERROR,
+                                   "Not connected to hardware implementation");
+    }
+    wifi_offload::ScanConfig scanConfig;
+    if (!offload_utils::ToChreScanConfig(param, filter, &scanConfig)) {
+        return createOffloadStatus(OffloadStatusCode::ERROR,
+                                   "Unable to convert scan configuration");
+    }
+    uint8_t buffer[kMaxMessageLen];
+    size_t result_size = wifi_offload::fbs::Serialize(scanConfig, buffer, kMaxMessageLen);
+    if (result_size <= 0) {
+        return createOffloadStatus(OffloadStatusCode::ERROR, "Scan config serialization failed");
+    }
+    std::vector<uint8_t> message(buffer, buffer + result_size);
+    if (!mChreInterface->sendCommandToApp(wifi_offload::HostMessageType::HOST_CMD_CONFIG_SCANS,
+                                          message)) {
+        return createOffloadStatus(OffloadStatusCode::ERROR, "Unable to send config message");
+    }
     return createOffloadStatus(OffloadStatusCode::OK);
 }
 
@@ -32,11 +56,31 @@ std::pair<OffloadStatus, ScanStats> OffloadServer::getScanStats() {
 
 OffloadStatus OffloadServer::subscribeScanResults(uint32_t delayMs) {
     LOG(INFO) << "subscribeScanResults with delay:" << delayMs;
+    if (!mChreInterface->isConnected()) {
+        return createOffloadStatus(OffloadStatusCode::ERROR, "Not connected to hardware");
+    }
+    uint32_t* buffer = &delayMs;
+    std::vector<uint8_t> message(reinterpret_cast<uint8_t*>(buffer),
+                                 reinterpret_cast<uint8_t*>(buffer) + kSubscriptionDelayMsBufLen);
+    if (!mChreInterface->sendCommandToApp(
+            wifi_offload::HostMessageType::HOST_CMD_SUBSCRIBE_SCAN_RESULTS, message)) {
+        return createOffloadStatus(OffloadStatusCode::ERROR, "Unable to request scans");
+    }
     return createOffloadStatus(OffloadStatusCode::OK);
 }
 
 bool OffloadServer::unsubscribeScanResults() {
+    bool result = false;
     LOG(INFO) << "unsubscribeScanResults";
+    if (!mChreInterface->isConnected()) {
+        LOG(WARNING) << "Failed to send unsubscribe scan results message";
+        return false;
+    }
+    if (!mChreInterface->sendCommandToApp(
+            wifi_offload::HostMessageType::HOST_CMD_UNSUBSCRIBE_SCAN_RESULTS, {})) {
+        LOG(WARNING) << "Failed to send unsubscribe scan results message";
+        return false;
+    }
     return true;
 }
 
@@ -46,8 +90,6 @@ bool OffloadServer::setEventCallback(const sp<IOffloadCallback>& cb) {
     if (cb != nullptr) {
         mEventCallback = cb;
         result = true;
-    } else {
-        LOG(WARNING) << "Invalid callback object";
     }
     return result;
 }

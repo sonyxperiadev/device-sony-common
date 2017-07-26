@@ -51,6 +51,10 @@ class SocketCallbacks
     void handleUnloadNanoappResponse(const ::chre::fbs::UnloadNanoappResponseT& response) override;
 
   private:
+    /* Requests Hub Information, returns true if Hub Info request was sent */
+    bool getHubInfo();
+    /* Request list of Nano apps, returns true if Nano app List request was sent */
+    bool getNanoAppList();
     ChreInterface* mParent;
 };
 

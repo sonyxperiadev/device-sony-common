@@ -142,6 +142,9 @@ void ChreInterface::reportConnectionEvent(ChreInterfaceCallbacks::ConnectionEven
     switch (event) {
         case ChreInterfaceCallbacks::ConnectionEvent::CONNECTED:
             connectionStatus = true;
+            if (!getHubInfo() || !getNanoAppList()) {
+                LOG(WARNING) << "Unable to get platform and nano app info";
+            }
             break;
         case ChreInterfaceCallbacks::ConnectionEvent::DISCONNECTED:
         case ChreInterfaceCallbacks::ConnectionEvent::CONNECTION_ABORT:
@@ -181,6 +184,29 @@ void ChreInterface::handleMessage(uint32_t messageType, const void* messageData,
     mServerCallbacks->handleMessage(messageType, message);
 }
 
+bool ChreInterface::getHubInfo() {
+    LOG(VERBOSE) << "getHubInfo";
+
+    FlatBufferBuilder builder(chre_constants::kHubInfoRequestBufLen);
+    HostProtocolHost::encodeHubInfoRequest(builder);
+    if (!mClient.sendMessage(builder.GetBufferPointer(), builder.GetSize())) {
+        LOG(WARNING) << "Failed to send Hub Info request";
+        return false;
+    }
+    return true;
+}
+
+bool ChreInterface::getNanoAppList() {
+    LOG(VERBOSE) << "getNanoAppList";
+    FlatBufferBuilder builder(chre_constants::kNanoAppListRequestBufLen);
+    HostProtocolHost::encodeNanoappListRequest(builder);
+
+    if (!mClient.sendMessage(builder.GetBufferPointer(), builder.GetSize())) {
+        LOG(WARNING) << "Unable to send Nano app List request";
+        return false;
+    }
+    return true;
+}
 }  // namespace implementation
 }  // namespace V1_0
 }  // namespace offload
