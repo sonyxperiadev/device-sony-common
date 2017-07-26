@@ -22,6 +22,7 @@ cc_library_static {
         "offload_server.cpp",
         "chre_interface_factory.cpp",
         "offload_status_util.cpp",
+        "offload_utils.cpp",
     ],
     cflags: ["-Wall", "-Wextra"],
     shared_libs: [
@@ -33,7 +34,8 @@ cc_library_static {
         "android.hardware.wifi.offload@1.0",
     ],
     whole_static_libs: [
-        "chre_client"
+        "chre_client",
+        "wifi_offload_types",
     ]
 }
 
@@ -68,6 +70,9 @@ cc_test {
         "test/mock_chre_interface.cpp",
         "test/offload_server_test.cpp",
         "test/chre_interface_test.cpp",
+        "test/offload_utils_test.cpp",
+        "test/offload_hal_test_constants.cpp",
+        "test/offload_hal_test_utils.cpp",
     ],
     local_include_dirs: [
         "test",
@@ -86,5 +91,8 @@ cc_test {
         "libgmock",
         "libgtest",
         "android.hardware.wifi.offload@1.0-lib",
+    ],
+    whole_static_libs: [
+        "wifi_offload_types",
     ],
 }
