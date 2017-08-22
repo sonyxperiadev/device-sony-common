@@ -19,6 +19,7 @@ COMMON_PATH := device/sony/common
 TARGET_USES_AOSP := true
 
 TARGET_BOARD_AUTO := true
+BOARD_IS_AUTOMOTIVE := true
 
 TARGET_NO_RADIOIMAGE := true
 TARGET_NO_BOOTLOADER := true
