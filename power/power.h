@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-#define PROP_VALUE_MAX 70
+#include <cutils/properties.h>
 
 /* sysfs nodes */
 #define CPUQUIET_NODE "/sys/devices/system/cpu/cpuquiet/"
@@ -67,9 +67,9 @@ typedef enum {
 struct rqbalance_params {
 	char min_cpus[2];
 	char max_cpus[2];
-	char up_thresholds[PROP_VALUE_MAX];
-	char down_thresholds[PROP_VALUE_MAX];
-	char balance_level[PROP_VALUE_MAX];
+	char up_thresholds[PROPERTY_VALUE_MAX];
+	char down_thresholds[PROPERTY_VALUE_MAX];
+	char balance_level[PROPERTY_VALUE_MAX];
 };
 
 /* Exported functions */

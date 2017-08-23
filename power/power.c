@@ -26,7 +26,6 @@
 #include <assert.h>
 
 #include <private/android_filesystem_config.h>
-#include <cutils/properties.h>
 #include <utils/Log.h>
 
 #include <hardware/hardware.h>
@@ -416,7 +415,7 @@ static void power_init(struct power_module *module UNUSED)
     int ret, dbg_lvl;
     int i;
     char ext_lib_path[127];
-    char propval[2];
+    char propval[PROPERTY_VALUE_MAX];
     struct rqbalance_params *rqbparm;
 
     ALOGI("Initializing PowerHAL...");
