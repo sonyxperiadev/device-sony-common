@@ -35,5 +35,5 @@ adb wait-for-device
 adb remount
 adb sync
 
-adb shell /data/nativetest/wifi-offload-service-unit-tests/wifi-offload-service-unit-tests
-adb shell /data/nativetest64/wifi-offload-service-unit-tests/wifi-offload-service-unit-tests
+adb shell /data/nativetest/vendor/wifi-offload-service-unit-tests/wifi-offload-service-unit-tests
+adb shell /data/nativetest64/vendor/wifi-offload-service-unit-tests/wifi-offload-service-unit-tests
