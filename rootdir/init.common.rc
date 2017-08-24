@@ -147,14 +147,14 @@ on boot
     chmod 0644 /sys/module/bluetooth/parameters/enable_hs
 
     # Bluetooth rfkill
-    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/type
-    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/state
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
     chmod 0660 /sys/class/rfkill/rfkill0/state
 
     # Bluetooth LPM
-    chown bluetooth net_bt_stack /proc/bluetooth/sleep/proto
-    chown bluetooth net_bt_stack /proc/bluetooth/sleep/lpm
-    chown bluetooth net_bt_stack /proc/bluetooth/sleep/btwrite
+    chown bluetooth bluetooth /proc/bluetooth/sleep/proto
+    chown bluetooth bluetooth /proc/bluetooth/sleep/lpm
+    chown bluetooth bluetooth /proc/bluetooth/sleep/btwrite
     chmod 0660 /proc/bluetooth/sleep/proto
     chmod 0660 /proc/bluetooth/sleep/lpm
     chmod 0660 /proc/bluetooth/sleep/btwrite
