@@ -22,7 +22,7 @@
 #include <unistd.h>
 #include <cutils/klog.h>
 #include <batteryservice/BatteryService.h>
-#include <cutils/android_reboot.h>
+#include <sys/reboot.h>
 #include "healthd/healthd.h"
 #include "minui/minui.h"
 
@@ -192,7 +192,7 @@ void healthd_board_mode_charger_init()
         if (charging_enabled)
             return;
         LOGW("android charging is disabled, exit!\n");
-        android_reboot(ANDROID_RB_RESTART, 0, 0);
+        reboot(RB_AUTOBOOT);
     }
 }
 
