@@ -70,6 +70,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/seccomp_policy/mediacodec.policy:system/vendor/etc/seccomp_policy/mediacodec.policy
 
+# HIDL
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/system/vendor/manifest.xml:system/vendor/manifest.xml
+
 # AOSP HALs
 PRODUCT_PACKAGES += \
     android.hardware.nfc@1.0-impl \
