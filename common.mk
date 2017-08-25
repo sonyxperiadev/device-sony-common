@@ -66,6 +66,10 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/system/etc/data/netmgr_config.xml:system/etc/data/netmgr_config.xml \
     $(COMMON_PATH)/rootdir/system/etc/data/qmi_config.xml:system/etc/data/qmi_config.xml
 
+# Seccomp policy
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/seccomp_policy/mediacodec.policy:system/vendor/etc/seccomp_policy/mediacodec.policy
+
 # Audio
 PRODUCT_PACKAGES += \
     audio.a2dp.default \

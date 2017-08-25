@@ -70,9 +70,6 @@ BOARD_HAL_STATIC_LIBRARIES += libhealthd.$(TARGET_DEVICE)
 # Include an expanded selection of fonts
 EXTENDED_FONT_FOOTPRINT := true
 
-# Set seccomp policy for media server
-BOARD_SECCOMP_POLICY += $(COMMON_PATH)/seccomp
-
 # Init configuration for init_sony
 include $(COMMON_PATH)/init/config.mk
 
