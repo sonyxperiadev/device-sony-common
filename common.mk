@@ -120,6 +120,10 @@ PRODUCT_PACKAGES += \
     wpa_supplicant \
     wpa_supplicant.conf
 
+# Bluetooth
+PRODUCT_PACKAGES += \
+    libbt-vendor
+
 # CAMERA
 PRODUCT_PACKAGES += \
     libmmcamera_interface \
