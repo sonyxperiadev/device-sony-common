@@ -293,9 +293,10 @@ service rmt_storage /system/vendor/bin/rmt_storage
 # DSDS second ril
 service ril-daemon2 /system/bin/rild -c 2
     class main
-    user root
+    user radio
     disabled
     group radio cache inet misc audio log
+    capabilities BLOCK_SUSPEND NET_ADMIN NET_RAW
 
 # QCOM prop
 service qmuxd /system/vendor/bin/qmuxd
