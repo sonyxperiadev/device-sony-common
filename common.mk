@@ -70,6 +70,42 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/seccomp_policy/mediacodec.policy:system/vendor/etc/seccomp_policy/mediacodec.policy
 
+# HIDL
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/system/vendor/manifest.xml:system/vendor/manifest.xml
+
+# AOSP HALs
+PRODUCT_PACKAGES += \
+    android.hardware.nfc@1.0-impl \
+    android.hardware.vibrator@1.0-impl \
+    android.hardware.memtrack@1.0-impl \
+    android.hardware.power@1.0-impl \
+    android.hardware.light@2.0-impl \
+    android.hardware.sensors@1.0-impl \
+    android.hardware.audio@2.0-impl \
+    android.hardware.audio.effect@2.0-impl \
+    android.hardware.broadcastradio@1.0-impl \
+    android.hardware.gatekeeper@1.0-impl \
+    android.hardware.keymaster@3.0-impl \
+    android.hardware.gnss@1.0-impl \
+    android.hardware.wifi@1.0-service \
+    android.hardware.bluetooth@1.0-impl \
+    android.hardware.biometrics.fingerprint@2.1-service \
+    android.hardware.drm@1.0-impl \
+    android.hardware.usb@1.0-service \
+    android.hardware.graphics.allocator@2.0-impl \
+    android.hardware.graphics.allocator@2.0-service \
+    android.hardware.graphics.mapper@2.0-impl \
+    android.hardware.graphics.composer@2.1-impl \
+    android.hardware.renderscript@1.0-impl \
+    camera.device@3.2-impl \
+    android.hardware.camera.provider@2.4-impl
+
+ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
+PRODUCT_PACKAGES += \
+    android.hardware.tests.libhwbinder@1.0-impl
+endif
+
 # Audio
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
@@ -119,6 +155,8 @@ PRODUCT_PACKAGES += \
     p2p_supplicant.conf \
     hostapd \
     libwpa_client \
+    wificond \
+    wifilogd \
     wpa_supplicant \
     wpa_supplicant.conf
 
