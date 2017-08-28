@@ -319,3 +319,5 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # sdcardFS
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sys.sdcardfs=true
+
+$(call inherit-product, device/sony/common/treble.mk)
