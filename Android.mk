@@ -113,8 +113,5 @@ else
   include $(call all-makefiles-under,hardware/qcom/bt/msm8998)
 endif
 endif
-ifeq ($(BOARD_WLAN_DEVICE),qcwcn)
-  include $(call all-makefiles-under,hardware/qcom/wlan/qcwcn)
-endif
 
 endif
