@@ -301,14 +301,6 @@ service ril-daemon2 /system/vendor/bin/hw/rild -c 2
     group radio cache inet misc audio log
 
 # QCOM prop
-service qmuxd /system/vendor/bin/qmuxd
-    class main
-    user radio
-    group radio audio bluetooth wakelock gps nfc diag
-    disabled
-    writepid /dev/cpuset/system-background/tasks
-
-# QCOM prop
 service netmgrd /system/vendor/bin/netmgrd
     class main
     group system wakelock
