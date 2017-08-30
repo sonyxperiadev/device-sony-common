@@ -112,6 +112,7 @@ on post-fs-data
     # Local data and nfcee xml storage
     mkdir /data/nfc 0770 nfc nfc
     mkdir /data/nfc/param 0770 nfc nfc
+    mkdir /data/vendor/nfc 0770 nfc nfc
 
     # FM Radio
     mkdir /data/misc/fm 0770 system system
