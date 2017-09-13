@@ -17,7 +17,6 @@
  */
 -->
 <resources>
-    <bool name="def_bluetooth_on">false</bool>
     <bool name="def_screen_brightness_automatic_mode">true</bool>
     <string name="def_backup_transport">com.google.android.gms/.backup.BackupTransportService</string>
 </resources>
