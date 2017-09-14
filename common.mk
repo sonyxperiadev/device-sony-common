@@ -179,6 +179,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     librsjni
 
+# libRSDriver_adreno dependency
+PRODUCT_PACKAGES += \
+    libLLVM
+
 # ExtendedSettings
 PRODUCT_PACKAGES += \
     ExtendedSettings
