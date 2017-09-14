@@ -171,6 +171,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libprotobuf-cpp-full
 
+# RenderScript
+PRODUCT_PACKAGES += \
+    librsjni
+
 # ExtendedSettings
 PRODUCT_PACKAGES += \
     ExtendedSettings
