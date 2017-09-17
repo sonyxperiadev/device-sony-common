@@ -48,11 +48,13 @@ PRODUCT_PACKAGES += \
 
 # NFC packages
 PRODUCT_PACKAGES += \
-    android.hardware.nfc@1.0-impl
+    android.hardware.nfc@1.0-impl \
+    android.hardware.nfc@1.0-service
 
 # Light
 PRODUCT_PACKAGES += \
-    android.hardware.light@2.0-impl
+    android.hardware.light@2.0-impl \
+    android.hardware.light@2.0-service
 
 # Sensors
 PRODUCT_PACKAGES += \
@@ -61,7 +63,8 @@ PRODUCT_PACKAGES += \
 
 # Vibrator
 PRODUCT_PACKAGES += \
-    android.hardware.vibrator@1.0-impl
+    android.hardware.vibrator@1.0-impl \
+    android.hardware.vibrator@1.0-service
 
 # Fingerprint
 PRODUCT_PACKAGES += \
@@ -69,11 +72,13 @@ PRODUCT_PACKAGES += \
 
 # Keymaster
 PRODUCT_PACKAGES += \
-    android.hardware.keymaster@3.0-impl
+    android.hardware.keymaster@3.0-impl \
+    android.hardware.keymaster@3.0-service
 
 # Gatekeeper
 PRODUCT_PACKAGES += \
-    android.hardware.gatekeeper@1.0-impl
+    android.hardware.gatekeeper@1.0-impl \
+    android.hardware.gatekeeper@1.0-service
 
 # DRM
 PRODUCT_PACKAGES += \
@@ -86,7 +91,8 @@ PRODUCT_PACKAGES += \
 
 # Thermal HAL
 PRODUCT_PACKAGES += \
-    android.hardware.thermal@1.0-impl
+    android.hardware.thermal@1.0-impl \
+    android.hardware.thermal@1.0-service
 
 # Power
 PRODUCT_PACKAGES += \
