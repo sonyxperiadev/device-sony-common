@@ -27,6 +27,8 @@ LOCAL_SRC_FILES := power.c rqbalance_halext.c expatparser.c
 LOCAL_SHARED_LIBRARIES := liblog libcutils libexpat
 LOCAL_MODULE := power.$(TARGET_DEVICE)
 LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_OWNER := sony
+LOCAL_PROPRIETARY_MODULE := true
 LOCAL_MODULE_RELATIVE_PATH := hw
 
 include $(BUILD_SHARED_LIBRARY)
