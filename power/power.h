@@ -32,7 +32,7 @@
 #define PROP_DEBUGLVL			"powerhal.debug_level"
 
 /* PowerServer definitions */
-#define POWERSERVER_DIR			"/data/misc/powerhal/"
+#define POWERSERVER_DIR			"/dev/socket/powerhal/"
 #define POWERSERVER_SOCKET		POWERSERVER_DIR "rqbsvr"
 #define POWERSERVER_MAXCONN		10
 
