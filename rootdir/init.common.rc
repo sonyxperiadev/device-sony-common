@@ -115,11 +115,6 @@ on post-fs-data
 
     # FM Radio
     mkdir /data/misc/fm 0770 system system
-    
-    # RQBalance-PowerHAL PowerServer
-    mkdir /data/misc/powerhal
-    chmod 0773 /data/misc/powerhal
-    chown system system /data/misc/powerhal
 
     chown system /dev/block/bootdevice/by-name
 
@@ -173,6 +168,9 @@ on boot
 
     #Create NETMGR daemon socket area
     mkdir /dev/socket/netmgr 0750 radio radio
+
+    # RQBalance-PowerHAL PowerServer
+    mkdir /dev/socket/powerhal 0773 system system
 
     #create netmgr log dir
     mkdir /data/misc/netmgr 0770 radio radio
