@@ -31,7 +31,7 @@
 #include <hardware/power.h>
 #include <utils/Log.h>
 
-#define POWERSERVER_SOCKET		"/data/misc/powerhal/rqbsvr"
+#define POWERSERVER_SOCKET		"/dev/socket/powerhal/rqbsvr"
 
 #define MAX_ARGUMENTS	20
 struct rqbalance_halext_params {
