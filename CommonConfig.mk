@@ -38,7 +38,7 @@ BOARD_KERNEL_CMDLINE += sched_enable_power_aware=1 user_debug=31
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 
-BOARD_ROOT_EXTRA_FOLDERS := bt_firmware dsp firmware persist
+BOARD_ROOT_EXTRA_FOLDERS := bt_firmware dsp firmware persist odm
 
 # GFX
 USE_OPENGL_RENDERER := true
