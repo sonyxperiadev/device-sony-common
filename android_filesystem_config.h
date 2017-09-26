@@ -26,6 +26,7 @@ static const struct fs_path_config android_device_dirs[] = {
     { 00771, AID_SYSTEM,      AID_SYSTEM,      0, "bt_firmware" },
     { 00771, AID_MEDIA,       AID_MEDIA,       0, "dsp" },
     { 00771, AID_SYSTEM,      AID_SYSTEM,      0, "persist" },
+    { 00771, AID_SYSTEM,      AID_SYSTEM,      0, "odm" },
 };
 
 /* Rules for files.
