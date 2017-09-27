@@ -159,4 +159,6 @@ $(shell pushd $(PRODUCT_OUT)/system/vendor/lib64 > /dev/null && ln -s /odm/lib64
 $(shell pushd $(PRODUCT_OUT)/system/vendor/lib64 > /dev/null && ln -s /odm/lib64/librs_adreno_sha1.so librs_adreno_sha1.so && popd > /dev/null)
 $(shell pushd $(PRODUCT_OUT)/system/vendor/lib64/hw > /dev/null && ln -s /odm/lib64/hw/vulkan.$(TARGET_BOARD_PLATFORM).so vulkan.$(TARGET_BOARD_PLATFORM).so && popd > /dev/null)
 
+# device firmware
+$(shell pushd $(PRODUCT_OUT)/system/vendor > /dev/null && ln -s /odm/firmware firmware && popd > /dev/null)
 endif
