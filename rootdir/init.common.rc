@@ -310,14 +310,14 @@ service irsc_util /system/vendor/bin/irsc_util "/etc/sec_config"
 service per_mgr /system/vendor/bin/pm-service
     class core
     user system
-    group system net_raw
+    group system
     writepid /dev/cpuset/system-background/tasks
 
 # QCOM prop
 service per_proxy /system/vendor/bin/pm-proxy
     class core
     user system
-    group system net_raw
+    group system
     disabled
     writepid /dev/cpuset/system-background/tasks
 
