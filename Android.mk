@@ -114,7 +114,6 @@ else
 endif
 endif
 
-ifeq ($(BOARD_HAVE_OEM_PARTITION),true)
 # EGL libs
 $(shell mkdir -p $(PRODUCT_OUT)/system/vendor/lib)
 $(shell mkdir -p $(PRODUCT_OUT)/system/vendor/lib/hw)
@@ -160,5 +159,4 @@ $(shell pushd $(PRODUCT_OUT)/system/vendor/lib64/hw > /dev/null && ln -s /odm/li
 
 # device firmware
 $(shell pushd $(PRODUCT_OUT)/system/vendor > /dev/null && ln -s /odm/firmware firmware && popd > /dev/null)
-endif
 endif
