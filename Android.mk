@@ -4,8 +4,10 @@ LOCAL_PATH := $(call my-dir)
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
 
+ifneq ($(filter shinano kitakami,$(PRODUCT_PLATFORM)),)
 $(shell mkdir -p $(PRODUCT_OUT)/system/vendor/firmware)
 $(shell pushd $(PRODUCT_OUT)/system/vendor/firmware > /dev/null && ln -s /vendor/etc/firmware/libpn547_fw.so libpn547_fw.so && popd > /dev/null)
+endif
 
 ifneq ($(filter loire tone yoshino,$(PRODUCT_PLATFORM)),)
 # EGL libs
@@ -52,6 +54,10 @@ $(shell pushd $(PRODUCT_OUT)/system/vendor/lib64 > /dev/null && ln -s /odm/lib64
 $(shell pushd $(PRODUCT_OUT)/system/vendor/lib64/hw > /dev/null && ln -s /odm/lib64/hw/vulkan.$(TARGET_BOARD_PLATFORM).so vulkan.$(TARGET_BOARD_PLATFORM).so && popd > /dev/null)
 
 # device firmware
+$(shell mkdir -p $(PRODUCT_OUT)/odm/firmware)
 $(shell pushd $(PRODUCT_OUT)/system/vendor > /dev/null && ln -s /odm/firmware firmware && popd > /dev/null)
+
+$(shell pushd $(PRODUCT_OUT)/odm/firmware > /dev/null && ln -s /vendor/etc/firmware/libpn547_fw.so libpn547_fw.so && popd > /dev/null)
+
 endif
 endif
