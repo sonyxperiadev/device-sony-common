@@ -338,7 +338,7 @@ service adsprpcd /odm/bin/adsprpcd
    group media
 
 # OSS thermal management
-service thermanager /system/bin/thermanager /system/etc/thermanager.xml
+service thermanager /vendor/bin/thermanager /system/etc/thermanager.xml
     class main
     user root
     group root
@@ -352,7 +352,7 @@ service charger /charger
     writepid /dev/cpuset/system-background/tasks
 
 # OSS time
-service timekeep /system/bin/timekeep restore
+service timekeep /vendor/bin/timekeep restore
     class late_start
     user root
     group root
@@ -360,7 +360,7 @@ service timekeep /system/bin/timekeep restore
     writepid /dev/cpuset/system-background/tasks
 
 # DSDS second ril
-service ril-daemon2 /system/vendor/bin/hw/rild -c 2
+service ril-daemon2 /vendor/bin/hw/rild -c 2
     class main
     user radio
     disabled
