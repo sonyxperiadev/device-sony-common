@@ -11,7 +11,4 @@ LOCAL_C_INCLUDES := \
     bootable/recovery/minui/include \
     bootable/recovery
 
-LOCAL_MODULE_OWNER := sony
-LOCAL_PROPRIETARY_MODULE := true
-
 include $(BUILD_STATIC_LIBRARY)
