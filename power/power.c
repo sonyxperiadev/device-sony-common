@@ -261,8 +261,18 @@ void set_power_mode(rqb_pwr_mode_t mode, int state)
 
     ALOGI("Setting %s mode", mode_string);
 
-    __set_power_mode(&rqb[mode]);
+    if(cur_pwrmode == POWER_MODE_OMXDECODE || cur_pwrmode == POWER_MODE_OMXENCODE) {
+        if(state) {
+            ALOGI("OMX Power Mode, don't change");
+            if(mode == POWER_MODE_PERFORMANCE || mode == POWER_MODE_OMXENCODE) 
+                __set_power_mode(&rqb[mode]);
+            return;
+        }
+        mode = POWER_MODE_BALANCED;
+        ALOGI("Setting balanced mode");
+    }
 
+    __set_power_mode(&rqb[mode]);
     cur_pwrmode = mode;
 }
 
