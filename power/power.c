@@ -121,6 +121,7 @@ static char* rqb_param_string(rqb_pwr_mode_t pwrmode, bool compat)
         case POWER_MODE_OMXENCODE:
             type_string = "video_encoding";
             compat_string = "venc";
+            break;
         default:
             return "unknown";
     }
