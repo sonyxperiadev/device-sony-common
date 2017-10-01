@@ -305,3 +305,5 @@ ifeq ($(filter rhine kanuti,$(SOMC_PLATFORM)),)
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.rfkilldisabled=1
 endif
+
+PRODUCT_CUSTOM_IMAGE_MAKEFILES := $(COMMON_PATH)/odm.mk
