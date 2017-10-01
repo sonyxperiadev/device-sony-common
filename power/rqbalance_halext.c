@@ -220,35 +220,19 @@ int locktype_action(int entry, int state)
 	{
 		case OMX_DECODER:
 			ALOGI("OMX Decoder hint received.");
-			if (state) {
-				set_power_mode(POWER_MODE_OMXDECODE);
-			} else {
-				set_power_mode(POWER_MODE_BALANCED);
-			}
+			set_power_mode(POWER_MODE_OMXDECODE, state);
 			break;
 		case DISPLAY_LAYER:
 			ALOGI("Display layer hint received.");
-			if (state) {
 			/* do stuff */
-			} else {
-			/* revert stuff */
-			}
 			break;
 		case OMX_ENCODER:
 			ALOGI("OMX Encoder hint received.");
-			if (state) {
-				set_power_mode(POWER_MODE_OMXENCODE);
-			} else {
-				set_power_mode(POWER_MODE_BALANCED);
-			}
+			set_power_mode(POWER_MODE_OMXENCODE, state);
 			break;
 		case RQB_POWERHAL:
 			ALOGI("RQBalance PowerHAL hint received.");
-			if (state) {
 			/* do stuff */
-			} else {
-			/* revert stuff */
-			}
 			break;
 		default:
 			ALOGE("ERROR: Unknown hint type %d !!!!", type);

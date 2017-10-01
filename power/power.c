@@ -250,8 +250,9 @@ void __set_special_power_mode(char* max_cpus, char* min_cpus,
  * set_power_mode - Writes power configuration to the RQBalance driver
  *
  * \param mode - RQBalance Power Mode (from enum rqb_pwr_mode_t)
+ * \param state - Requested action
  */
-void set_power_mode(rqb_pwr_mode_t mode)
+void set_power_mode(rqb_pwr_mode_t mode, int state)
 {
     char* mode_string = rqb_param_string(mode, false);
 
@@ -444,7 +445,7 @@ static void power_init(struct power_module *module UNUSED)
     /* Init thermal_max_cpus and default profile */
     rqbparm = &rqb[POWER_MODE_BALANCED];
     sysfs_write(SYS_THERM_CPUS, rqbparm->max_cpus);
-    set_power_mode(POWER_MODE_BALANCED);
+    set_power_mode(POWER_MODE_BALANCED, 1);
 
     ALOGI("Initialized successfully.");
 
@@ -487,25 +488,25 @@ static void power_hint(struct power_module *module UNUSED, power_hint_t hint,
 
         case POWER_HINT_LOW_POWER:
             if (data) {
-                set_power_mode(POWER_MODE_BATTERYSAVE);
+                set_power_mode(POWER_MODE_BATTERYSAVE, 1);
             } else {
-                set_power_mode(POWER_MODE_BALANCED);
+                set_power_mode(POWER_MODE_BALANCED, 1);
             }
             break;
 
         case POWER_HINT_VR_MODE:
             if (data && param_perf_supported) {
-                set_power_mode(POWER_MODE_PERFORMANCE);
+                set_power_mode(POWER_MODE_PERFORMANCE, 1);
             } else {
-                set_power_mode(POWER_MODE_BALANCED);
+                set_power_mode(POWER_MODE_BALANCED, 1);
             }
             break;
 
         case POWER_HINT_LAUNCH:
             if (data && param_perf_supported) {
-                set_power_mode(POWER_MODE_PERFORMANCE);
+                set_power_mode(POWER_MODE_PERFORMANCE, 1);
             } else {
-                set_power_mode(POWER_MODE_BALANCED);
+                set_power_mode(POWER_MODE_BALANCED, 1);
             }
             break;
 
@@ -533,7 +534,7 @@ static void set_interactive(struct power_module *module UNUSED, int on)
 	/* Stop PowerServer: we don't need it while sleeping */
         manage_powerserver(false);
 
-        set_power_mode(POWER_MODE_BATTERYSAVE);
+        set_power_mode(POWER_MODE_BATTERYSAVE, 1);
     } else {
         ALOGI("Device is awake.");
 
@@ -541,7 +542,7 @@ static void set_interactive(struct power_module *module UNUSED, int on)
         if (!psthread_run)
             manage_powerserver(true);
 
-        set_power_mode(POWER_MODE_BALANCED);
+        set_power_mode(POWER_MODE_BALANCED, 1);
     }
 }
 
