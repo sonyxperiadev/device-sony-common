@@ -510,6 +510,22 @@ static void power_hint(struct power_module *module UNUSED, power_hint_t hint,
             }
             break;
 
+        case POWER_HINT_VIDEO_ENCODE:
+            if (data && param_perf_supported) {
+                set_power_mode(POWER_MODE_OMXENCODE, 1);
+            } else {
+                set_power_mode(POWER_MODE_OMXENCODE, 0);
+            }
+            break; 
+
+        case POWER_HINT_VIDEO_DECODE:
+            if (data && param_perf_supported) {
+                set_power_mode(POWER_MODE_OMXDECODE, 1);
+            } else {
+                set_power_mode(POWER_MODE_OMXDECODE, 0);
+            }
+            break;
+
         default:
             break;
     }
