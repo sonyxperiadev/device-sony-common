@@ -432,7 +432,7 @@ int halext_perf_lock_acquire(struct rqbalance_halext_params *params)
 		if (arraysz > 1) {
 			ALOGE("Unexpected argument. Bailing out.");
 			ALOGD("Arguments: %d", arraysz);
-			for (i = 0; i <=arraysz; i++)
+			for (i = 0; i <arraysz; i++)
 				ALOGD("Arg[%d]: 0x%x", i, params->argument[i]);
 			return -EINVAL;
 		}
