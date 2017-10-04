@@ -50,7 +50,12 @@ PRODUCT_COPY_FILES += \
 # Common init
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/init.common.rc:root/init.common.rc \
+    $(COMMON_PATH)/rootdir/init.common.srv.rc:root/init.common.srv.rc \
     $(COMMON_PATH)/rootdir/init.common.usb.rc:root/init.common.usb.rc
+
+# Common init
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/init.common.srv-legacy.rc:root/init.common.srv-legacy.rc
 
 # Common etc
 PRODUCT_COPY_FILES += \
