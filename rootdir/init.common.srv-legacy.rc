@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # SONY misc
-service tad_static /odm/bin/tad_static /dev/block/bootdevice/by-name/TA 0,16
+service tad_static /system/vendor/bin/tad_static /dev/block/bootdevice/by-name/TA 0,16
     class core
     user root
     group root
@@ -22,32 +22,32 @@ service tad_static /odm/bin/tad_static /dev/block/bootdevice/by-name/TA 0,16
     writepid /dev/cpuset/system-background/tasks
 
 # SONY misc
-service ta_qmi_service /odm/bin/ta_qmi_service
+service ta_qmi_service /system/vendor/bin/ta_qmi_service
     class core
     user root
     writepid /dev/cpuset/system-background/tasks
 
 # SONY prop
-service sct_service /odm/bin/sct_service
+service sct_service /system/vendor/bin/sct_service
     class core
     user root
     writepid /dev/cpuset/system-background/tasks
 
 # SONY prop
-service mlog_qmi_service /odm/bin/mlog_qmi_service
+service mlog_qmi_service /system/vendor/bin/mlog_qmi_service
     class core
     user root
     writepid /dev/cpuset/system-background/tasks
 
 # QCOM prop
-service rmt_storage /odm/bin/rmt_storage
+service rmt_storage /system/vendor/bin/rmt_storage
     class core
     user root
     group system wakelock
     writepid /dev/cpuset/system-background/tasks
 
 # QCOM prop
-service qmuxd /odm/bin/qmuxd
+service qmuxd /system/vendor/bin/qmuxd
     class main
     user radio
     group radio audio bluetooth wakelock gps nfc diag
@@ -55,34 +55,34 @@ service qmuxd /odm/bin/qmuxd
     writepid /dev/cpuset/system-background/tasks
 
 # QCOM prop
-service netmgrd /odm/bin/netmgrd
+service netmgrd /system/vendor/bin/netmgrd
     class main
     group system wakelock
     disabled
     writepid /dev/cpuset/system-background/tasks
 
 # QCOM prop
-service irsc_util /odm/bin/irsc_util "/etc/sec_config"
+service irsc_util /system/vendor/bin/irsc_util "/etc/sec_config"
     class main
     user root
     oneshot
 
 # QCOM prop
-service per_mgr /odm/bin/pm-service
+service per_mgr /system/vendor/bin/pm-service
     class core
     user system
     group system net_raw
     writepid /dev/cpuset/system-background/tasks
 
 # QCOM prop
-service per_proxy /odm/bin/pm-proxy
+service per_proxy /system/vendor/bin/pm-proxy
     class core
     user system
     group system net_raw
     disabled
     writepid /dev/cpuset/system-background/tasks
 
-service msm_irqbalance /odm/bin/msm_irqbalance -f /system/etc/msm_irqbalance.conf
+service msm_irqbalance /system/vendor/bin/msm_irqbalance -f /system/etc/msm_irqbalance.conf
     socket msm_irqbalance seqpacket 660 root system
     class core
     user root
@@ -90,21 +90,21 @@ service msm_irqbalance /odm/bin/msm_irqbalance -f /system/etc/msm_irqbalance.con
     writepid /dev/cpuset/system-background/tasks
 
 # QCOM sensors
-service sensors /odm/bin/sensors.qcom
+service sensors /system/vendor/bin/sensors.qcom
     class main
     user root
     group root
     writepid /dev/cpuset/system-background/tasks
 
 # QCOM Secure
-service qseecomd /odm/bin/qseecomd
+service qseecomd /system/vendor/bin/qseecomd
     class core
     user root
     group root
     writepid /dev/cpuset/system-background/tasks
 
 # QCOM ADSP FastRPC
-service adsprpcd /odm/bin/adsprpcd
+service adsprpcd /system/vendor/bin/adsprpcd
    class main
    user media
    group media
