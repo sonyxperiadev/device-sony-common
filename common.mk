@@ -141,6 +141,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libmmcamera_interface \
     libmmjpeg_interface \
+    libmmlib2d_interface \
     libmm-qcamera \
     libqomx_core
 
@@ -326,7 +327,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.feature.cac=0 \
     persist.camera.ois.disable=0 \
     persist.camera.eis.enable=0 \
-    persist.camera.zsl.mode=1
+    persist.camera.zsl.mode=1 \
+    persist.camera.exif.rotation=off \
+    persist.camera.lib2d.rotation=on
 
 # Sensors debug
 PRODUCT_PROPERTY_OVERRIDES += \
