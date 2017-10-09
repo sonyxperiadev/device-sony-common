@@ -73,6 +73,28 @@ service qcamerasvr /odm/bin/mm-qcamera-daemon
     group camera system inet input graphics
     writepid /dev/cpuset/camera-daemon/tasks
 
+# QCOM prop
+service per_mgr /odm/bin/pm-service
+    class core
+    user system
+    group system net_raw
+    writepid /dev/cpuset/system-background/tasks
+
+# QCOM prop
+service per_proxy /odm/bin/pm-proxy
+    class core
+    user system
+    group system net_raw
+    disabled
+    writepid /dev/cpuset/system-background/tasks
+
+service msm_irqbalance /odm/bin/msm_irqbalance -f /system/etc/msm_irqbalance.conf
+    socket msm_irqbalance seqpacket 660 root system
+    class core
+    user root
+    group root
+    writepid /dev/cpuset/system-background/tasks
+
 # QCOM sensors
 service sensors /odm/bin/sensors.qcom
     class main
@@ -169,6 +191,12 @@ on property:persist.radio.multisim.config=dsds
 
 on property:init.svc.wpa_supplicant=stopped
     stop dhcpcd
+
+on property:init.svc.per_mgr=running
+    start per_proxy
+
+on property:sys.shutdown.requested=*
+    stop per_proxy
 
 # adb over network
 on property:adb.network.port.es=*
