@@ -47,13 +47,6 @@ ifneq ($(filter kanuti,$(PRODUCT_PLATFORM)),)
 BOARD_SONY_INIT_FLAGS += -DDEV_BLOCK_FOTA_NUM="21"
 endif
 
-# Board: kitakami
-ifneq ($(filter kitakami,$(PRODUCT_PLATFORM)),)
-BOARD_SONY_INIT_FLAGS += -DDEV_BLOCK_FOTA_NUM="32"
-BOARD_SONY_INIT_FLAGS += -DDEV_BLOCK_FOTA_MAJOR="259"
-BOARD_SONY_INIT_FLAGS += -DDEV_BLOCK_FOTA_MINOR="0"
-endif
-
 # FOTA check is broken on all devices
 BOARD_SONY_INIT_FLAGS += -DFOTA_RAMDISK_CHECK="0"
 
