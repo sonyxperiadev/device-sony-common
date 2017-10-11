@@ -166,7 +166,8 @@ PRODUCT_PACKAGES += \
 
 # AOSP Packages
 PRODUCT_PACKAGES += \
-    Launcher3
+    Launcher3 \
+    WallpaperPicker
 
 PRODUCT_PACKAGES += \
     libjson \
