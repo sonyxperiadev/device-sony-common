@@ -110,7 +110,7 @@ service adsprpcd /odm/bin/adsprpcd
    group media
 
 # OSS thermal management
-service thermanager /vendor/bin/thermanager /system/etc/thermanager.xml
+service thermanager /system/vendor/bin/thermanager /system/etc/thermanager.xml
     class main
     user root
     group root
@@ -124,7 +124,7 @@ service charger /sbin/healthd -c
     writepid /dev/cpuset/system-background/tasks
 
 # OSS time
-service timekeep /vendor/bin/timekeep restore
+service timekeep /system/vendor/bin/timekeep restore
     class late_start
     user root
     group root
