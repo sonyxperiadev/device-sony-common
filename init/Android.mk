@@ -13,6 +13,7 @@
 # limitations under the License.
 
 # Abort if the device is not handled by init_sony
+ifeq ($(BOARD_USES_INIT_SONY),true)
 ifeq (,$(findstring DEV_BLOCK_FOTA_NUM,$(BOARD_SONY_INIT_FLAGS)))
 $(error device-sony-common-init: DEV_BLOCK_FOTA_NUM missing in "$(TARGET_DEVICE)", platform "$(PRODUCT_PLATFORM)", with '$(BOARD_SONY_INIT_FLAGS)')
 endif
@@ -40,3 +41,4 @@ $(root_init_real): $(root_init) $(TARGET_RECOVERY_ROOT_OUT)/sbin/toybox_static $
 	fi
 
 ALL_DEFAULT_INSTALLED_MODULES += $(root_init_real)
+endif
