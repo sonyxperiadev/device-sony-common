@@ -72,9 +72,6 @@ BOARD_HAL_STATIC_LIBRARIES += libhealthd.$(TARGET_DEVICE)
 # Include an expanded selection of fonts
 EXTENDED_FONT_FOOTPRINT := true
 
-# Init configuration for init_sony
-include $(COMMON_PATH)/init/config.mk
-
 # Enable dex-preoptimization to speed up first boot sequence
 ifeq ($(HOST_OS),linux)
   ifneq ($(TARGET_BUILD_VARIANT),eng)
