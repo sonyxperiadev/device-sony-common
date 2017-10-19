@@ -4,6 +4,8 @@ LOCAL_PATH := $(call my-dir)
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
 
+endif
+
 ifneq ($(filter shinano kitakami,$(PRODUCT_PLATFORM)),)
 $(shell mkdir -p $(PRODUCT_OUT)/system/vendor/firmware)
 $(shell pushd $(PRODUCT_OUT)/system/vendor/firmware > /dev/null && ln -s /vendor/etc/firmware/libpn547_fw.so libpn547_fw.so && popd > /dev/null)
@@ -59,5 +61,4 @@ $(shell pushd $(PRODUCT_OUT)/system/vendor > /dev/null && ln -s /odm/firmware fi
 
 $(shell pushd $(PRODUCT_OUT)/odm/firmware > /dev/null && ln -s /vendor/etc/firmware/libpn547_fw.so libpn547_fw.so && popd > /dev/null)
 
-endif
 endif
