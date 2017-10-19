@@ -37,6 +37,11 @@
 #define GREEN_LED_PATH         "/sys/class/leds/led:rgb_green/brightness"
 #define BLUE_LED_PATH          "/sys/class/leds/led:rgb_blue/brightness"
 
+#define BMS_READY_PATH          "/sys/class/power_supply/bms/soc_reporting_ready"
+
+#define WAIT_BMS_READY_TIMES_MAX	70
+#define WAIT_BMS_READY_INTERVAL_USEC	400000
+
 #define LOGV(x...) do { KLOG_DEBUG("charger", x); } while (0)
 #define LOGE(x...) do { KLOG_ERROR("charger", x); } while (0)
 #define LOGW(x...) do { KLOG_WARNING("charger", x); } while (0)
@@ -178,14 +183,15 @@ void healthd_board_mode_charger_init()
 {
     int ret;
     char buff[8] = "\0";
-    int charging_enabled = 0;
-    int fd;
+    int charging_enabled = 0, bms_ready = 0;
+    int wait_count = 0, fd;
 
     /* check the charging is enabled or not */
     fd = open(CHARGING_ENABLED_PATH, O_RDONLY);
     if (fd < 0)
         return;
     ret = read(fd, buff, sizeof(buff));
+    buff[ret] = '\0';
     close(fd);
     if (ret > 0 && sscanf(buff, "%d\n", &charging_enabled)) {
         /* if charging is disabled, reboot and exit power off charging */
@@ -194,6 +200,29 @@ void healthd_board_mode_charger_init()
         LOGW("android charging is disabled, exit!\n");
         reboot(RB_AUTOBOOT);
     }
+
+    fd = open(BMS_READY_PATH, O_RDONLY);
+    if (fd < 0)
+        return;
+
+    while (1) {
+        ret = read(fd, buff, (sizeof(buff) - 1));
+        if (ret > 0) {
+            buff[ret] = '\0';
+            sscanf(buff,  "%d\n", &bms_ready);
+        } else {
+            LOGE("BMS: read soc-ready failed, ret=%d\n", ret);
+            break;
+        }
+
+        if ((bms_ready > 0) || (wait_count++ > WAIT_BMS_READY_TIMES_MAX))
+            break;
+        usleep(WAIT_BMS_READY_INTERVAL_USEC);
+        lseek(fd, 0, SEEK_SET);
+    }
+
+    close(fd);
+    LOGV("BMS SoC is %s|\n", !!bms_ready ? "ready" : "not ready");
 }
 
 void healthd_board_init(struct healthd_config*)
