@@ -40,6 +40,9 @@ BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 
 BOARD_ROOT_EXTRA_FOLDERS := bt_firmware dsp firmware persist odm
 
+# Override filesystem config
+TARGET_ANDROID_FILESYSTEM_CONFIG_H := $(COMMON_PATH)/android_filesystem_config.h
+
 # GFX
 USE_OPENGL_RENDERER := true
 BOARD_USES_ADRENO := true
