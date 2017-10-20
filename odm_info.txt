@@ -1,0 +1,3 @@
+extfs_sparse_flag=-s
+squashfs_sparse_flag=-s
+skip_fsck=true
