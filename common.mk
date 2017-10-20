@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Vendor version
+TARGET_VENDOR_VERSION := 4
+
 # Common path
 COMMON_PATH := device/sony/common
 
@@ -346,6 +349,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     rild.libpath=/odm/lib64/libril-qc-qmi-1.so \
     ril.subscription.types=NV,RUIM
+
+# Vendor version
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vendor.version=$(TARGET_VENDOR_VERSION)
 
 PRODUCT_CUSTOM_IMAGE_MAKEFILES := $(COMMON_PATH)/odm.mk
 

@@ -170,4 +170,9 @@ ifeq ($(NXP_CHIP_FW_TYPE), PN553)
 $(shell pushd $(PRODUCT_OUT)/odm/firmware > /dev/null && ln -s /vendor/etc/firmware/libpn553_fw.so libpn553_fw.so && popd > /dev/null)
 endif
 
+$(shell pushd $(PRODUCT_OUT)/odm/ > /dev/null && echo "ro.kernel.version=$(TARGET_KERNEL_VERSION)" >>odm_version.prop && popd > /dev/null)
+$(shell pushd $(PRODUCT_OUT)/odm/ > /dev/null && echo "ro.build.version=$(PLATFORM_VERSION)" >>odm_version.prop && popd > /dev/null)
+$(shell pushd $(PRODUCT_OUT)/odm/ > /dev/null && echo "ro.platform.version=$(TARGET_BOARD_PLATFORM)" >>odm_version.prop && popd > /dev/null)
+$(shell pushd $(PRODUCT_OUT)/odm/ > /dev/null && echo "ro.vendor.version=$(TARGET_VENDOR_VERSION)" >>odm_version.prop && popd > /dev/null)
+
 endif
