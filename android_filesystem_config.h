@@ -26,7 +26,7 @@ static const struct fs_path_config android_device_dirs[] = {
     { 00771, AID_SYSTEM,      AID_SYSTEM,      0, "bt_firmware" },
     { 00771, AID_MEDIA,       AID_MEDIA,       0, "dsp" },
     { 00771, AID_SYSTEM,      AID_SYSTEM,      0, "persist" },
-    { 00771, AID_SYSTEM,      AID_SYSTEM,      0, "odm" },
+    { 00775, AID_ROOT,        AID_SHELL,       0, "odm" },
 };
 
 /* Rules for files.
@@ -41,6 +41,12 @@ static const struct fs_path_config android_device_files[] = {
     { 00755, AID_SYSTEM,    AID_SYSTEM,    (1ULL << CAP_NET_BIND_SERVICE), "system/vendor/bin/pm-service" },
     { 00755, AID_SYSTEM,    AID_SYSTEM,    (1ULL << CAP_NET_BIND_SERVICE), "system/vendor/bin/cnss-daemon"},
     { 00755, AID_SYSTEM,    AID_SYSTEM,    (1ULL << CAP_SYS_NICE), "system/vendor/bin/wcnss_filter"},
+    { 00700, AID_RADIO,     AID_SHELL,     (1ULL << CAP_BLOCK_SUSPEND), "odm/bin/qmuxd" },
+    { 00700, AID_CAMERA,    AID_SHELL,     (1ULL << CAP_SYS_NICE), "odm/bin/mm-qcamera-daemon" },
+    { 00755, AID_SYSTEM,    AID_SYSTEM,    (1ULL << CAP_NET_BIND_SERVICE), "odm/bin/pm-service" },
+    { 00755, AID_SYSTEM,    AID_SYSTEM,    (1ULL << CAP_NET_BIND_SERVICE), "odm/bin/cnss-daemon"},
+    { 00755, AID_SYSTEM,    AID_SYSTEM,    (1ULL << CAP_SYS_NICE), "odm/bin/wcnss_filter"},
+    { 00755, AID_ROOT,      AID_SHELL,     0, "odm/bin/*"},
 #ifdef NO_ANDROID_FILESYSTEM_CONFIG_DEVICE_DIRS
     { 00000, AID_ROOT,      AID_ROOT,      0, "system/etc/fs_config_dirs" },
 #endif
