@@ -85,6 +85,9 @@ ifeq ($(HOST_OS),linux)
 endif
 DONT_DEXPREOPT_PREBUILTS := true
 
+# Recovery Header
+TARGET_CUSTOM_KERNEL_HEADERS := $(COMMON_PATH)/recovery/include
+
 BUILD_KERNEL := true
 -include device/sony/common-headers/KernelHeaders.mk
 -include device/sony/common-kernel/KernelConfig.mk
