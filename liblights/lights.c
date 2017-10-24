@@ -70,8 +70,8 @@ char const*const GREEN_BLINK_FILE
 char const*const BLUE_BLINK_FILE
 		= "/sys/class/leds/led:rgb_blue/blink";
 
-char const*const DISPLAY_FB_DEV_PATH
-		= "/dev/graphics/fb0";
+char const*const PERSISTENCE_FILE
+                = "/sys/class/graphics/fb0/msm_fb_persist_mode";
 
 /**
  * device methods
@@ -160,29 +160,19 @@ set_light_backlight(struct light_device_t* dev,
 
 #ifdef LOW_PERSISTENCE_DISPLAY
 	// If we're not in lp mode and it has been enabled or if we are in lp mode
-	// and it has been disabled send an ioctl to the display with the update
-	if ((g_last_backlight_mode != state->brightnessMode && lpEnabled) ||
-			(!lpEnabled && g_last_backlight_mode == BRIGHTNESS_MODE_LOW_PERSISTENCE)) {
-		int fd = -1;
-		fd = open(DISPLAY_FB_DEV_PATH, O_RDWR);
-		if (fd >= 0) {
-			if ((err = ioctl(fd, MSMFB_SET_PERSISTENCE_MODE, &lpEnabled)) != 0) {
-				ALOGE("%s: Failed in ioctl call to %s: %s\n", __FUNCTION__, DISPLAY_FB_DEV_PATH,
-						strerror(errno));
-				err = -1;
-			}
-			close(fd);
-
-			brightness = DEFAULT_LOW_PERSISTENCE_MODE_BRIGHTNESS;
-		} else {
-			ALOGE("%s: Failed to open %s: %s\n", __FUNCTION__, DISPLAY_FB_DEV_PATH,
-					strerror(errno));
-			err = -1;
-		}
-	}
-
-
-	g_last_backlight_mode = state->brightnessMode;
+        // and it has been disabled send an ioctl to the display with the update
+        if ((g_last_backlight_mode != state->brightnessMode && lpEnabled) ||
+                (!lpEnabled && g_last_backlight_mode == BRIGHTNESS_MODE_LOW_PERSISTENCE)) {
+            if ((err = write_int(PERSISTENCE_FILE, lpEnabled)) != 0) {
+                ALOGE("%s: Failed to write to %s: %s\n", __FUNCTION__, PERSISTENCE_FILE,
+                        strerror(errno));
+            }
+            if (lpEnabled != 0) {
+                // This is defined in BoardConfig.mk.
+                brightness = DEFAULT_LOW_PERSISTENCE_MODE_BRIGHTNESS;
+            }
+        }
+        g_last_backlight_mode = state->brightnessMode;
 #endif
 
 	if (!err) {

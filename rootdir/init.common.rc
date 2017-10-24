@@ -127,6 +127,9 @@ on early-boot
     chmod 0664 /sys/devices/virtual/graphics/fb0/msm_cmd_autorefresh_en
     chown system graphics /sys/devices/virtual/graphics/fb0/msm_cmd_autorefresh_en
 
+    # Permission for LED driver
+    chown system system /sys/class/graphics/fb0/msm_fb_persist_mode
+
 on boot
     # Bluetooth modules
     chown system system /sys/module/bluetooth/parameters/disable_ertm
