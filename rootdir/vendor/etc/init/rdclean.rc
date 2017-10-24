@@ -1,0 +1,4 @@
+service rdclean /vendor/bin/rdclean.sh
+    user root
+    class core
+    oneshot

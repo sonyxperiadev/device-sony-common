@@ -205,6 +205,15 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     librqbalance
 
+# PRODUCT_PLATFORM isn't set yet, thus we check the available path
+ifneq (,$(filter %loire %tone %yoshino,$(PLATFORM_COMMON_PATH)))
+ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
+# ramdump cleaner
+PRODUCT_PACKAGES += \
+    rdclean.sh
+endif
+endif
+
 # librqbalance enablement
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.extension_library=/system/vendor/lib/librqbalance.so
