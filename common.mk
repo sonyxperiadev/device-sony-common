@@ -343,7 +343,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sys.sdcardfs=true
 
-ifneq ($(filter loire tone yoshino,$(PRODUCT_PLATFORM)),)
+ifneq ($(filter loire tone yoshino,$(SOMC_PLATFORM)),)
 # RILD
 PRODUCT_PROPERTY_OVERRIDES += \
     rild.libpath=/odm/lib64/libril-qc-qmi-1.so \
