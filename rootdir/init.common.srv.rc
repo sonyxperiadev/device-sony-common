@@ -20,12 +20,14 @@ service tad_static /odm/bin/tad_static /dev/block/bootdevice/by-name/TA 0,16
     socket tad stream 0660 system system
     seclabel u:r:tad:s0
     writepid /dev/cpuset/system-background/tasks
+    shutdown critical
 
 # SONY misc
 service ta_qmi_service /odm/bin/ta_qmi_service
     class core
     user root
     writepid /dev/cpuset/system-background/tasks
+    shutdown critical
 
 # SONY prop
 service sct_service /odm/bin/sct_service
@@ -38,6 +40,7 @@ service mlog_qmi_service /odm/bin/mlog_qmi_service
     class core
     user root
     writepid /dev/cpuset/system-background/tasks
+    shutdown critical
 
 # QCOM prop
 service rmt_storage /odm/bin/rmt_storage
@@ -45,6 +48,7 @@ service rmt_storage /odm/bin/rmt_storage
     user root
     group system wakelock
     writepid /dev/cpuset/system-background/tasks
+    shutdown critical
 
 # QCOM prop
 service qmuxd /odm/bin/qmuxd
@@ -73,6 +77,7 @@ service per_mgr /odm/bin/pm-service
     user system
     group system
     writepid /dev/cpuset/system-background/tasks
+    shutdown critical
 
 # QCOM prop
 service per_proxy /odm/bin/pm-proxy
@@ -102,6 +107,7 @@ service qseecomd /odm/bin/qseecomd
     user root
     group root
     writepid /dev/cpuset/system-background/tasks
+    shutdown critical
 
 # QCOM ADSP FastRPC
 service adsprpcd /odm/bin/adsprpcd
