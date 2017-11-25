@@ -82,7 +82,6 @@ ifeq ($(HOST_OS),linux)
     endif
   endif
 endif
-DONT_DEXPREOPT_PREBUILTS := true
 
 BUILD_KERNEL := true
 -include device/sony/common-headers/KernelHeaders.mk
