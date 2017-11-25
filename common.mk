@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # Vendor version
-TARGET_VENDOR_VERSION := 5
+TARGET_VENDOR_VERSION := 6
 
 # Common path
 COMMON_PATH := device/sony/common
