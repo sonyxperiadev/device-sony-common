@@ -151,7 +151,6 @@ on property:ro.boot.baseband=apq
     enable qmuxd
 
 on property:ro.boot.baseband=msm
-    enable qmuxd
     enable netmgrd
 
 on property:persist.radio.multisim.config=dsds
