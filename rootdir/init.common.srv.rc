@@ -119,7 +119,7 @@ service adsprpcd /odm/bin/adsprpcd
 service thermanager /system/vendor/bin/thermanager /system/etc/thermanager.xml
     class main
     user root
-    group root
+    group root system
     writepid /dev/cpuset/system-background/tasks
 
 # Offline charger
