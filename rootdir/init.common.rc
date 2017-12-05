@@ -16,6 +16,9 @@ on early-init
     mount debugfs /sys/kernel/debug /sys/kernel/debug mode=755
 
 on init
+    wait /dev/block/platform/soc/${ro.boot.bootdevice}
+    symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
+
     # Enable subsystem restart
     write /sys/module/subsystem_restart/parameters/enable_ramdumps 0
     write /sys/bus/msm_subsys/devices/subsys0/restart_level "RELATED"
