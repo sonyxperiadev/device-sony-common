@@ -214,6 +214,10 @@ PRODUCT_PACKAGES += \
 endif
 endif
 
+# odmcheck
+PRODUCT_PACKAGES += \
+    odmcheck
+
 # librqbalance enablement
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.extension_library=/system/vendor/lib/librqbalance.so
