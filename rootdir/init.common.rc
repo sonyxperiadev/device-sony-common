@@ -212,7 +212,7 @@ on boot
     chmod 0660 /data/misc/radio/copy_complete
 
     # Create folder for timekeep
-    mkdir /data/time/ 0700 system system
+    mkdir /data/time/ 0770 system system
 
     # Camera Recording
     mkdir /dev/video

@@ -133,7 +133,7 @@ service charger /charger
 service timekeep /system/vendor/bin/timekeep restore
     class late_start
     user root
-    group root
+    group root system
     oneshot
     writepid /dev/cpuset/system-background/tasks
 
