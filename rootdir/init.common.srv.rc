@@ -16,7 +16,7 @@
 service tad_static /odm/bin/tad_static /dev/block/bootdevice/by-name/TA 0,16
     class core
     user root
-    group root
+    group root system wakelock
     socket tad stream 0660 system system
     seclabel u:r:tad:s0
     writepid /dev/cpuset/system-background/tasks
@@ -26,6 +26,7 @@ service tad_static /odm/bin/tad_static /dev/block/bootdevice/by-name/TA 0,16
 service ta_qmi_service /odm/bin/ta_qmi_service
     class core
     user root
+    group root system wakelock
     writepid /dev/cpuset/system-background/tasks
     shutdown critical
 
@@ -100,6 +101,9 @@ service sensors /odm/bin/sensors.qcom
     user root
     group root
     writepid /dev/cpuset/system-background/tasks
+    # Grants the ability for this daemon to bind IPC router ports so it can
+    # register QMI services
+    capabilities NET_BIND_SERVICE
 
 # QCOM Secure
 service qseecomd /odm/bin/qseecomd
