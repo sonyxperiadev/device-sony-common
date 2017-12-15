@@ -98,8 +98,8 @@ service msm_irqbalance /odm/bin/msm_irqbalance -f /system/etc/msm_irqbalance.con
 # QCOM sensors
 service sensors /odm/bin/sensors.qcom
     class main
-    user root
-    group root
+    user root system
+    group root system
     writepid /dev/cpuset/system-background/tasks
     # Grants the ability for this daemon to bind IPC router ports so it can
     # register QMI services
