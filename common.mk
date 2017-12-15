@@ -220,7 +220,7 @@ PRODUCT_PACKAGES += \
 
 # librqbalance enablement
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.extension_library=/system/vendor/lib/librqbalance.so
+    ro.vendor.extension_library=/vendor/lib/librqbalance.so
 
 # APN list
 PRODUCT_COPY_FILES += \
