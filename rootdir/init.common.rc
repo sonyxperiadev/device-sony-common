@@ -77,7 +77,7 @@ on post-fs
     wait_for_prop sys.listeners.registered true
 
 on post-fs
-    exec - system graphics -- /system/vendor/bin/odmcheck
+    exec - system graphics -- /vendor/bin/odmcheck
 
 on post-fs-data
     # We can start netd here before in is launched in common init.rc on zygote-start
