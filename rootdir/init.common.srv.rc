@@ -100,6 +100,7 @@ service sensors /odm/bin/sensors.qcom
     class main
     user root system
     group root system
+    oneshot
     writepid /dev/cpuset/system-background/tasks
     # Grants the ability for this daemon to bind IPC router ports so it can
     # register QMI services
