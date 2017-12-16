@@ -54,6 +54,8 @@ on charger
     start irsc_util
 
 on fs
+    mount_all ./fstab.${ro.boot.hardware}
+
     # Start HW service manager early
     start hwservicemanager
 
@@ -284,3 +286,7 @@ on boot
 
     setrlimit 4 -1 -1
     write /proc/sys/kernel/dmesg_restrict 0
+
+on property:sys.boot_completed=1
+    # Enable ZRAM on boot_complete
+    swapon_all ./fstab.${ro.boot.hardware}
