@@ -56,35 +56,10 @@ on charger
 on fs
     mount_all ./fstab.${ro.boot.hardware}
 
-    # Start HW service manager early
-    start hwservicemanager
-
-    # qseecomd needs /dev/block/bootdevice
-    # vold needs keymaster that needs qseecomd
-    start qseecomd
-
-on late-fs
-    # Start services for bootanim
-    start surfaceflinger
-    start bootanim
-    start hwcomposer-2-1
-    start configstore-hal-1-0
-    start gralloc-2-0
-
-on post-fs
-    # set RLIMIT_MEMLOCK to 64MB
-    setrlimit 8 67108864 67108864
-
-    # Wait qseecomd started
-    wait_for_prop sys.listeners.registered true
-
 on post-fs
     exec - system graphics -- /vendor/bin/odmcheck
 
 on post-fs-data
-    # We can start netd here before in is launched in common init.rc on zygote-start
-    start netd
-
     # Create directory used by bluetooth subsystem
     mkdir /data/misc/bluetooth 2770 bluetooth bluetooth
 
