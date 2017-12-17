@@ -214,6 +214,7 @@ on boot
 
     # Create folder for timekeep
     mkdir /data/time/ 0770 system system
+    chmod 0770 /data/time/ats_2
 
     # Camera Recording
     mkdir /dev/video
