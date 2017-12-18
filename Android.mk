@@ -83,23 +83,10 @@ include $(call all-makefiles-under,$(LOCAL_PATH))
 
 audio-hal := hardware/qcom/audio
 gps-hal := hardware/qcom/gps/msm8994
-
-ifeq ($(TARGET_KERNEL_VERSION),3.10)
-display-hal := hardware/qcom/display/msm8994
-media-hal := hardware/qcom/media/msm8974
-endif
-
-ifeq ($(TARGET_KERNEL_VERSION),3.18)
-display-hal := hardware/qcom/display/msm8996
-media-hal := hardware/qcom/media/msm8996
-endif
-
-ifeq ($(TARGET_KERNEL_VERSION),4.4)
 display-hal := hardware/qcom/display/msm8998
 QCOM_MEDIA_ROOT := hardware/qcom/media/msm8998
 OMX_VIDEO_PATH := mm-video-v4l2
 media-hal := hardware/qcom/media/msm8998
-endif
 
 include $(display-hal)/Android.mk
 include $(call all-makefiles-under,$(audio-hal))
