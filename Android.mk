@@ -94,11 +94,7 @@ include $(call all-makefiles-under,$(gps-hal))
 include $(call all-makefiles-under,$(media-hal))
 
 ifeq ($(BOARD_HAVE_BLUETOOTH_QCOM),true)
-ifneq ($(filter rhine,$(PRODUCT_PLATFORM)),)
-  include $(call all-makefiles-under,hardware/qcom/bt/msm8960)
-else
   include $(call all-makefiles-under,hardware/qcom/bt/msm8998)
-endif
 endif
 
 # EGL libs
