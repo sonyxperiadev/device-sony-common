@@ -71,9 +71,6 @@ on late-fs
     start gralloc-2-0
 
 on post-fs
-    # set RLIMIT_MEMLOCK to 64MB
-    setrlimit 8 67108864 67108864
-
     # Wait qseecomd started
     wait_for_prop sys.listeners.registered true
 
