@@ -120,13 +120,6 @@ service adsprpcd /odm/bin/adsprpcd
    user media
    group media
 
-# OSS thermal management
-service thermanager /vendor/bin/thermanager /vendor/etc/thermanager.xml
-    class main
-    user root
-    group root system
-    writepid /dev/cpuset/system-background/tasks
-
 # Offline charger
 service charger /charger
     class charger
