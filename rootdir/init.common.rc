@@ -72,7 +72,7 @@ on post-fs-data
     mkdir /data/fpc 0700 system system
 
     mkdir /data/misc/dts 0770 media audio
-    mkdir /data/persist 0770 persist_rw persist_rw
+    mkdir /data/persist 0770 system system
 
     # Create directory used by audio subsystem
     mkdir /data/misc/audio 0770 audio audio
