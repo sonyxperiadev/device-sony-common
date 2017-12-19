@@ -54,7 +54,18 @@ on charger
     start irsc_util
 
 on fs
-    mount_all ./fstab.${ro.boot.hardware}
+    mount_all ./fstab.${ro.hardware}
+
+    # /dsp is initially unlabelled so we need to mount
+    # it as rw, restore AOSP labels, then remount
+    restorecon_recursive /dsp
+    mount rootfs rootfs /dsp ro remount
+
+    restorecon_recursive /persist
+
+    write /sys/kernel/boot_adsp/boot 1
+    write /sys/kernel/boot_slpi/boot 1
+    write /dev/ipa 1
 
     # Start HW service manager early
     start hwservicemanager
@@ -62,13 +73,6 @@ on fs
     # qseecomd needs /dev/block/bootdevice
     # vold needs keymaster that needs qseecomd
     start qseecomd
-
-on late-fs
-    # Start services for bootanim
-    start surfaceflinger
-    start hwcomposer-2-1
-    start configstore-hal-1-0
-    start gralloc-2-0
 
 on post-fs
     # Wait qseecomd started
@@ -98,7 +102,7 @@ on post-fs-data
     mkdir /data/fpc 0700 system system
 
     mkdir /data/misc/dts 0770 media audio
-    mkdir /data/persist 0770 persist_rw persist_rw
+    mkdir /data/persist 0770 system system
 
     # Create directory used by audio subsystem
     mkdir /data/misc/audio 0770 audio audio
@@ -158,7 +162,50 @@ on early-boot
     # Permission for LED driver
     chown system system /sys/class/graphics/fb0/msm_fb_persist_mode
 
+    # Start services for bootanim
+    start surfaceflinger
+    start hwcomposer-2-1
+    start configstore-hal-1-0
+    start gralloc-2-0
+    start bootanim
+
 on boot
+    # Cover mode
+    chown system system /sys/devices/virtual/input/clearpad/cover_mode_enabled
+    chown system system /sys/devices/virtual/input/clearpad/cover_win_bottom
+    chown system system /sys/devices/virtual/input/clearpad/cover_win_left
+    chown system system /sys/devices/virtual/input/clearpad/cover_win_right
+    chown system system /sys/devices/virtual/input/clearpad/cover_win_top
+
+    # Tap to wake
+    chown system system /sys/devices/virtual/input/clearpad/wakeup_gesture
+    chmod 0660 /sys/devices/virtual/input/clearpad/wakeup_gesture
+
+    # Glove mode
+    chown system system /sys/devices/virtual/input/clearpad/glove
+    chmod 0660 /sys/devices/virtual/input/clearpad/glove
+
+    # Allow access for CCID command/response timeout configuration
+    chown system system /sys/module/ccid_bridge/parameters/bulk_msg_timeout
+
+    # Mark the copy complete flag to not completed
+    write /data/misc/radio/copy_complete 0
+    chown radio radio /data/misc/radio/copy_complete
+    chmod 0660 /data/misc/radio/copy_complete
+
+    # Socket location for RIDL
+    mkdir /dev/socket/RIDL 2770 system system
+
+    # Required for fingerprint
+    chown system system /sys/bus/spi/devices/spi0.1/clk_enable
+    chmod 0660 /sys/bus/spi/devices/spi0.1/clk_enable
+    chown system system /sys/devices/soc/fpc1145_device/spi_prepare
+    chmod 0660 /sys/devices/soc/fpc1145_device/spi_prepare
+    chown system system /sys/devices/soc/fpc1145_device/wakeup_enable
+    chmod 0660 /sys/devices/soc/fpc1145_device/wakeup_enable
+    chown system system /sys/devices/soc/fpc1145_device/irq
+    chmod 0660 /sys/devices/soc/fpc1145_device/irq
+
     # Bluetooth modules
     chown system system /sys/module/bluetooth/parameters/disable_ertm
     chown system system /sys/module/bluetooth/parameters/disable_esco
@@ -171,6 +218,8 @@ on boot
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
     chmod 0660 /sys/class/rfkill/rfkill0/state
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/device/extldo
+    chmod 0660 /sys/class/rfkill/rfkill0/device/extldo
 
     # Bluetooth LPM
     chown bluetooth bluetooth /proc/bluetooth/sleep/proto
@@ -281,6 +330,10 @@ on boot
     setrlimit 4 -1 -1
     write /proc/sys/kernel/dmesg_restrict 0
 
+on property:vold.post_fs_data_done=1
+    # Generate Bluetooth MAC address file only when /data is ready
+    start macaddrsetup
+
 on property:sys.boot_completed=1
     # Enable ZRAM on boot_complete
-    swapon_all ./fstab.${ro.boot.hardware}
+    swapon_all ./fstab.${ro.hardware}
