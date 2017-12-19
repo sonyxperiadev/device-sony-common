@@ -128,8 +128,6 @@ on post-fs-data
     mkdir /data/audio 0770 media audio
     chmod 2770 /data/audio
 
-    mkdir /data/data/media 0770 media media
-
     # QCOM camera stack
     mkdir /data/misc/camera 0770 camera camera
 
