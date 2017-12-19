@@ -121,7 +121,7 @@ service adsprpcd /odm/bin/adsprpcd
    group media
 
 # OSS thermal management
-service thermanager /vendor/bin/thermanager /system/etc/thermanager.xml
+service thermanager /vendor/bin/thermanager /vendor/etc/thermanager.xml
     class main
     user root
     group root system
