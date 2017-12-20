@@ -89,7 +89,7 @@ service per_proxy /odm/bin/pm-proxy
     disabled
     writepid /dev/cpuset/system-background/tasks
 
-service msm_irqbalance /odm/bin/msm_irqbalance -f /system/etc/msm_irqbalance.conf
+service msm_irqbalance /odm/bin/msm_irqbalance -f /vendor/etc/msm_irqbalance.conf
     socket msm_irqbalance seqpacket 660 root system
     class core
     user root
