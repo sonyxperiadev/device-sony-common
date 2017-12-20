@@ -54,7 +54,7 @@ on charger
     start irsc_util
 
 on fs
-    mount_all ./fstab.${ro.hardware}
+    mount_all ./fstab.${ro.hardware} --early
 
     # /dsp is initially unlabelled so we need to mount
     # it as rw, restore AOSP labels, then remount
@@ -77,6 +77,8 @@ on fs
 on post-fs
     # Wait qseecomd started
     wait_for_prop sys.listeners.registered true
+
+    mount_all ./fstab.${ro.hardware} --late
 
     exec - system graphics -- /vendor/bin/odmcheck
 
