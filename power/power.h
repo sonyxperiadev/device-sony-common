@@ -37,7 +37,7 @@
 #define POWERSERVER_MAXCONN		10
 
 /* Others */
-#define RQBHAL_CONF_FILE		"/system/etc/rqbalance_config.xml"
+#define RQBHAL_CONF_FILE		"/vendor/etc/rqbalance_config.xml"
 
 /*
  * enum rqb_pwr_mode_t
