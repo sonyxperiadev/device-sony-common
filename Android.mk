@@ -82,7 +82,7 @@ MASTER_SIDE_CP_TARGET_LIST := msm8996 msm8998
 include $(call all-makefiles-under,$(LOCAL_PATH))
 
 audio-hal := hardware/qcom/audio
-gps-hal := hardware/qcom/gps/msm8994
+gps-hal := hardware/qcom/gps/sdm845
 display-hal := hardware/qcom/display/msm8998
 QCOM_MEDIA_ROOT := hardware/qcom/media/msm8998
 OMX_VIDEO_PATH := mm-video-v4l2
