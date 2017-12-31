@@ -129,10 +129,11 @@ PRODUCT_PACKAGES += \
 
 # GPS
 PRODUCT_PACKAGES += \
-    libloc_api_v02 \
     libloc_core \
-    libloc_eng \
-    libgps.utils
+    libgps.utils \
+    liblocation_api \
+    libloc_pla \
+    libgnss
 
 # WLAN
 PRODUCT_PACKAGES += \
@@ -175,7 +176,8 @@ PRODUCT_PACKAGES += \
 # QCOM GPS
 PRODUCT_PACKAGES += \
     libloc_api_v02 \
-    libloc_ds_api
+    libloc_ds_api \
+    libgnsspps
 
 # Charger
 PRODUCT_PACKAGES += \
