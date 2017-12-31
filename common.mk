@@ -77,9 +77,9 @@ PRODUCT_COPY_FILES += \
 
 # QMI
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/system/etc/data/dsi_config.xml:system/etc/data/dsi_config.xml \
-    $(COMMON_PATH)/rootdir/system/etc/data/netmgr_config.xml:system/etc/data/netmgr_config.xml \
-    $(COMMON_PATH)/rootdir/system/etc/data/qmi_config.xml:system/etc/data/qmi_config.xml
+    $(COMMON_PATH)/rootdir/vendor/etc/data/dsi_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/data/dsi_config.xml \
+    $(COMMON_PATH)/rootdir/vendor/etc/data/netmgr_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/data/netmgr_config.xml \
+    $(COMMON_PATH)/rootdir/vendor/etc/data/qmi_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/data/qmi_config.xml
 
 # Sec Configuration
 PRODUCT_COPY_FILES += \
