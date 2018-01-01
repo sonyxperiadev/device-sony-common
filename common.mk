@@ -73,7 +73,8 @@ PRODUCT_COPY_FILES += \
 
 # GPS Configuration
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/vendor/etc/gps.conf:$(TARGET_COPY_OUT_VENDOR)/etc/gps.conf
+    $(COMMON_PATH)/rootdir/vendor/etc/gps.conf:$(TARGET_COPY_OUT_VENDOR)/etc/gps.conf \
+    $(COMMON_PATH)/rootdir/system/etc/gps_debug.conf:system/etc/gps_debug.conf
 
 # QMI
 PRODUCT_COPY_FILES += \
