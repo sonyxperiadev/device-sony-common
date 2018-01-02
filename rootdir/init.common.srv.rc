@@ -147,7 +147,7 @@ service ril-daemon2 /vendor/bin/hw/rild -c 2
 service xtra-daemon /odm/bin/xtra-daemon
     class late_start
     user gps
-    group gps
+    group gps system
 
 on property:ro.boot.baseband=apq
     setprop ro.radio.noril yes
