@@ -68,9 +68,13 @@ PRODUCT_COPY_FILES += \
 
 # Common etc
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/system/etc/gps.conf:system/etc/gps.conf \
     $(COMMON_PATH)/rootdir/system/etc/nfcee_access.xml:system/etc/nfcee_access.xml \
     $(COMMON_PATH)/rootdir/system/etc/sensors/sensors_settings:system/etc/sensors/sensors_settings
+
+# GPS Configuration
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/vendor/etc/gps.conf:$(TARGET_COPY_OUT_VENDOR)/etc/gps.conf \
+    $(COMMON_PATH)/rootdir/system/etc/gps_debug.conf:system/etc/gps_debug.conf
 
 # QMI
 PRODUCT_COPY_FILES += \
@@ -129,10 +133,11 @@ PRODUCT_PACKAGES += \
 
 # GPS
 PRODUCT_PACKAGES += \
-    libloc_api_v02 \
     libloc_core \
-    libloc_eng \
-    libgps.utils
+    libgps.utils \
+    liblocation_api \
+    libloc_pla \
+    libgnss
 
 # WLAN
 PRODUCT_PACKAGES += \
@@ -175,7 +180,8 @@ PRODUCT_PACKAGES += \
 # QCOM GPS
 PRODUCT_PACKAGES += \
     libloc_api_v02 \
-    libloc_ds_api
+    libloc_ds_api \
+    libgnsspps
 
 # Charger
 PRODUCT_PACKAGES += \
