@@ -290,10 +290,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     telephony.lteOnCdmaDevice=0
 
-# Hardware composer
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.hwc.mdpcomp.enable=true
-
 # Hardware User Interface parameters
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.hwui.texture_cache_size=48 \
