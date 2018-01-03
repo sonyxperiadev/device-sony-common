@@ -162,13 +162,6 @@ on early-boot
     # Permission for LED driver
     chown system system /sys/class/graphics/fb0/msm_fb_persist_mode
 
-    # Start services for bootanim
-    start surfaceflinger
-    start hwcomposer-2-1
-    start configstore-hal-1-0
-    start gralloc-2-0
-    start bootanim
-
 on boot
     # Cover mode
     chown system system /sys/devices/virtual/input/clearpad/cover_mode_enabled
