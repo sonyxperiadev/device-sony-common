@@ -127,14 +127,6 @@ service charger /charger
     seclabel u:r:charger:s0
     writepid /dev/cpuset/system-background/tasks
 
-# OSS time
-service timekeep /vendor/bin/timekeep restore
-    class late_start
-    user root
-    group root system
-    oneshot
-    writepid /dev/cpuset/system-background/tasks
-
 # DSDS second ril
 service ril-daemon2 /vendor/bin/hw/rild -c 2
     class main
