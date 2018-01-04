@@ -237,6 +237,10 @@ on boot
     #Create NETMGR daemon socket area
     mkdir /dev/socket/netmgr 0750 radio radio
 
+    #create netmgr log dir
+    mkdir /data/vendor/netmgr 0770 radio radio
+    chmod 0770 /data/vendor/netmgr
+
     # RQBalance-PowerHAL PowerServer
     mkdir /dev/socket/powerhal 0773 system system
 
