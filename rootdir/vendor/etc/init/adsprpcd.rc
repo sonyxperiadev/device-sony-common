@@ -1,0 +1,5 @@
+# ADSP FastRPC
+service adsprpcd /odm/bin/adsprpcd
+   class main
+   user media
+   group media

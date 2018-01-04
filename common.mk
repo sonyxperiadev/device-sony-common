@@ -60,12 +60,6 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_telephony.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml
 
-# Common init
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/init.common.rc:root/init.common.rc \
-    $(COMMON_PATH)/rootdir/init.common.srv.rc:root/init.common.srv.rc \
-    $(COMMON_PATH)/rootdir/init.common.usb.rc:root/init.common.usb.rc
-
 # Common etc
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/system/etc/nfcee_access.xml:system/etc/nfcee_access.xml
@@ -386,3 +380,4 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_CUSTOM_IMAGE_MAKEFILES := $(COMMON_PATH)/odm.mk
 
 $(call inherit-product, device/sony/common/treble.mk)
+$(call inherit-product, device/sony/common/common-init.mk)

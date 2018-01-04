@@ -1,0 +1,8 @@
+# Remote Storage
+service rmt_storage /odm/bin/rmt_storage
+    class core
+    user root
+    group system wakelock
+    ioprio rt 0
+    writepid /dev/cpuset/system-background/tasks
+    shutdown critical

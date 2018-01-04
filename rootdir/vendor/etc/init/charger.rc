@@ -1,0 +1,6 @@
+# Offline charger
+service charger /charger
+    class charger
+    critical
+    seclabel u:r:charger:s0
+    writepid /dev/cpuset/system-background/tasks

@@ -1,0 +1,5 @@
+# XTRA daemon
+service xtra-daemon /odm/bin/xtra-daemon
+    class late_start
+    user gps
+    group gps system

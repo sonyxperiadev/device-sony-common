@@ -1,0 +1,6 @@
+# MLog
+service mlog_qmi_service /odm/bin/mlog_qmi_service
+    class core
+    user root
+    writepid /dev/cpuset/system-background/tasks
+    shutdown critical

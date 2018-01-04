@@ -1,0 +1,5 @@
+# QCOM prop
+service irsc_util /odm/bin/irsc_util "/vendor/etc/sec_config"
+    class main
+    user root
+    oneshot
