@@ -1,0 +1,13 @@
+on post-fs-data
+    # Sensors
+    mkdir /data/misc/sensors 0775 system system
+
+# Sensor service
+service sensors /odm/bin/sensors.qcom
+    class main
+    user root
+    group root system
+    writepid /dev/cpuset/system-background/tasks
+    # Grants the ability for this daemon to bind IPC router ports so it can
+    # register QMI services
+    capabilities NET_BIND_SERVICE

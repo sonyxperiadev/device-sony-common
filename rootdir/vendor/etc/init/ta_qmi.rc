@@ -1,0 +1,7 @@
+# Trim Area QMI service
+service ta_qmi_service /odm/bin/ta_qmi_service
+    class core
+    user root
+    group root system wakelock
+    writepid /dev/cpuset/system-background/tasks
+    shutdown critical
