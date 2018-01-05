@@ -77,4 +77,4 @@ struct rqbalance_params {
 void __set_special_power_mode(char* max_cpus, char* min_cpus,
                               char* up_thresholds, char* down_thresholds,
                               char* balance_level);
-void set_power_mode(rqb_pwr_mode_t mode);
+void set_power_mode(rqb_pwr_mode_t mode, int state);
