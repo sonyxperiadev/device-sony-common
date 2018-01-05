@@ -159,11 +159,5 @@ $(shell pushd $(PRODUCT_OUT)/system/vendor/lib64 > /dev/null && ln -s /odm/lib64
 $(shell pushd $(PRODUCT_OUT)/system/vendor/lib64 > /dev/null && ln -s /odm/lib64/libllvm-qcom.so libllvm-qcom.so && popd > /dev/null)
 $(shell pushd $(PRODUCT_OUT)/system/vendor/lib64 > /dev/null && ln -s /odm/lib64/librs_adreno_sha1.so librs_adreno_sha1.so && popd > /dev/null)
 $(shell pushd $(PRODUCT_OUT)/system/vendor/lib64/hw > /dev/null && ln -s /odm/lib64/hw/vulkan.$(TARGET_BOARD_PLATFORM).so vulkan.$(TARGET_BOARD_PLATFORM).so && popd > /dev/null)
-
-$(shell pushd $(PRODUCT_OUT)/odm/ > /dev/null && echo "ro.kernel.version=$(TARGET_KERNEL_VERSION)" >odm_version.prop && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/odm/ > /dev/null && echo "ro.build.version=$(PLATFORM_VERSION)" >>odm_version.prop && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/odm/ > /dev/null && echo "ro.platform.version=$(TARGET_BOARD_PLATFORM)" >>odm_version.prop && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/odm/ > /dev/null && echo "ro.vendor.version=$(TARGET_VENDOR_VERSION)" >>odm_version.prop && popd > /dev/null)
-
 endif
 endif
