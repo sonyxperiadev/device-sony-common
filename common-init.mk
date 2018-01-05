@@ -22,10 +22,12 @@ PRODUCT_PACKAGES += \
     adb_tcp.rc \
     adsprpcd.rc \
     charger.rc \
+    cnss-daemon.rc \
     irsc_util.rc \
     mlog_qmi.rc \
     msm_irq.rc \
     netmgrd.rc \
+    pd_mapper.rc \
     per-proxy.rc \
     per-service.rc \
     qmuxd.rc \
@@ -36,5 +38,6 @@ PRODUCT_PACKAGES += \
     sensors.rc \
     tad.rc \
     ta_qmi.rc \
+    tftp_server.rc \
     wpa_supplicant.rc \
     xtra.rc
