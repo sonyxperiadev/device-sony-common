@@ -36,4 +36,5 @@ PRODUCT_PACKAGES += \
     sensors.rc \
     tad.rc \
     ta_qmi.rc \
+    wpa_supplicant.rc \
     xtra.rc

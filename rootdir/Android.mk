@@ -158,6 +158,14 @@ LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/init
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
+LOCAL_MODULE := wpa_supplicant.rc
+LOCAL_MODULE_CLASS := ETC
+LOCAL_SRC_FILES := vendor/etc/init/wpa_supplicant.rc
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/init
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
 LOCAL_MODULE := xtra.rc
 LOCAL_MODULE_CLASS := ETC
 LOCAL_SRC_FILES := vendor/etc/init/xtra.rc
