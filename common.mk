@@ -373,6 +373,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     rild.libpath=/odm/lib64/libril-qc-qmi-1.so \
     ril.subscription.types=NV,RUIM
 
+# VNDK-SP:
+PRODUCT_PACKAGES += \
+    vndk-sp \
+
 # Vendor version
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.version=$(TARGET_VENDOR_VERSION)
