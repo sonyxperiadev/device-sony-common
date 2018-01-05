@@ -207,7 +207,7 @@ void healthd_board_mode_charger_init()
     while (1) {
         ret = read(fd, buff, sizeof(buff));
         if (ret >= 0)
-	    sscanf(buff, "%d\n", &bms_ready);
+            sscanf(buff, "%d\n", &bms_ready);
         else
             LOGE("read soc-ready failed, ret=%d\n", ret);
         if ((bms_ready > 0) || (wait_count++ > WAIT_BMS_READY_TIMES_MAX))

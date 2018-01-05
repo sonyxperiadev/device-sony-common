@@ -300,15 +300,15 @@ reloop:
              halext_reply = halext_perf_lock_release(extparams.id);
 
 retry_send:
-	retry++;
+        retry++;
         ret = send(clientsock, &halext_reply, sizeof(halext_reply), 0);
-	if (ret == -1) {
-		halext_reply = -EINVAL;
-		if (retry < 50)
-			goto retry_send;
-		ALOGE("ERROR: Cannot send reply!!!");
-		goto reloop;
-	} else retry = 0;
+        if (ret == -1) {
+                halext_reply = -EINVAL;
+                if (retry < 50)
+                         goto retry_send;
+                ALOGE("ERROR: Cannot send reply!!!");
+                goto reloop;
+        } else retry = 0;
 
         if (clientsock)
             close(clientsock);
@@ -435,8 +435,8 @@ static void power_init(struct power_module *module UNUSED)
     if (dbg_lvl > 0) {
         ALOGW("WARNING: Starting in debug mode");
         for (i = 0; i < POWER_MODE_MAX; i++) {
-	        print_parameters(i);
-	}
+                print_parameters(i);
+        }
     } else {
         ALOGI("Loading with debug off. To turn on, set %s", PROP_DEBUGLVL);
     }
@@ -530,14 +530,14 @@ static void set_interactive(struct power_module *module UNUSED, int on)
     if (!on) {
         ALOGI("Device is asleep.");
 
-	/* Stop PowerServer: we don't need it while sleeping */
+        /* Stop PowerServer: we don't need it while sleeping */
         manage_powerserver(false);
 
         set_power_mode(POWER_MODE_BATTERYSAVE);
     } else {
         ALOGI("Device is awake.");
 
-	/* Restart PowerServer */
+        /* Restart PowerServer */
         if (!psthread_run)
             manage_powerserver(true);
 
