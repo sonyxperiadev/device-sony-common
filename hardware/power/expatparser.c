@@ -113,7 +113,7 @@ int parse_xml_data(char* filepath,
     /* Security check: do NOT parse too big files */
     if (sz > 51200) {
         ALOGE("File is huge. Preventing parse as a security measure.");
-	ret = -E2BIG;
+        ret = -E2BIG;
         goto secfail;
     }
 
