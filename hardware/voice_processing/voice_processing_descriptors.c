@@ -58,4 +58,3 @@ const effect_descriptor_t qcom_product_ns_descriptor = {
 //        "Automatic Gain Control",
 //        "Qualcomm Fluence for Sony Devices"
 //};
-
