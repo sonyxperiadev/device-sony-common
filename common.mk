@@ -57,132 +57,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/vendor/etc/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml
 
-# Audio
-PRODUCT_PACKAGES += \
-    audio.a2dp.default \
-    audio.r_submix.default \
-    audio.usb.default \
-    libaudio-resampler
-
-# For audio.primary
-PRODUCT_PACKAGES += \
-    libtinyalsa \
-    libtinycompress \
-    libaudioroute \
-    tinymix
-
-# Audio effects
-PRODUCT_PACKAGES += \
-    libqcomvisualizer \
-    libqcomvoiceprocessing \
-    libqcomvoiceprocessingdescriptors \
-    libqcompostprocbundle
-
-# GFX
-PRODUCT_PACKAGES += \
-    libhdmi \
-    libqdutils \
-    libqdMetaData
-
-# OMX
-PRODUCT_PACKAGES += \
-    libc2dcolorconvert \
-    libstagefrighthw \
-    libOmxCore \
-    libmm-omxcore \
-    libOmxVdec \
-    libOmxVdecHevc \
-    libOmxVenc
-
-# GPS
-PRODUCT_PACKAGES += \
-    libloc_core \
-    libgps.utils \
-    liblocation_api \
-    libloc_pla \
-    libgnss
-
-# WLAN
-PRODUCT_PACKAGES += \
-    p2p_supplicant.conf \
-    hostapd \
-    libwpa_client \
-    wificond \
-    wpa_supplicant \
-    wpa_supplicant.conf
-
-# Bluetooth
-PRODUCT_PACKAGES += \
-    libbt-vendor
-
-# NFC packages
-PRODUCT_PACKAGES += \
-    com.android.nfc_extras \
-    NfcNci \
-    Tag
-
-# CAMERA
-PRODUCT_PACKAGES += \
-    libmmcamera_interface \
-    libmmjpeg_interface \
-    libmmlib2d_interface \
-    libmm-qcamera \
-    libqomx_core
-
-# OSS
-PRODUCT_PACKAGES += \
-    timekeep \
-    TimeKeep \
-    thermanager \
-    macaddrsetup
-
-# QCOM OSS
-PRODUCT_PACKAGES += \
-    librmnetctl
-
-# QCOM GPS
-PRODUCT_PACKAGES += \
-    libloc_api_v02 \
-    libloc_ds_api \
-    libgnsspps
-
-# Charger
-PRODUCT_PACKAGES += \
-    charger_res_images
-
-# AOSP Packages
-PRODUCT_PACKAGES += \
-    Launcher3
-
-PRODUCT_PACKAGES += \
-    libjson \
-    libion \
-    libxml2
-
-PRODUCT_PACKAGES += \
-    libemoji
-
-# RIL
-PRODUCT_PACKAGES += \
-    libprotobuf-cpp-full
-
-# RenderScript
-PRODUCT_PACKAGES += \
-    librsjni
-
-# libRSDriver_adreno dependency
-PRODUCT_PACKAGES += \
-    libLLVM
-
-# ExtendedSettings
-PRODUCT_PACKAGES += \
-    ExtendedSettings
-
-# For android_filesystem_config.h
-PRODUCT_PACKAGES += \
-    fs_config_files \
-    fs_config_dirs
-
 # librqbalance
 PRODUCT_PACKAGES += \
     librqbalance
@@ -193,10 +67,6 @@ ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
 PRODUCT_PACKAGES += \
     rdclean.sh
 endif
-
-# odmcheck
-PRODUCT_PACKAGES += \
-    odmcheck
 
 # librqbalance enablement
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -346,5 +216,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_CUSTOM_IMAGE_MAKEFILES := $(COMMON_PATH)/odm.mk
 
 $(call inherit-product, device/sony/common/common-init.mk)
+$(call inherit-product, device/sony/common/common-packages.mk)
 $(call inherit-product, device/sony/common/common-perm.mk)
 $(call inherit-product, device/sony/common/common-treble.mk)
