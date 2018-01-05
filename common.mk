@@ -345,6 +345,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 PRODUCT_CUSTOM_IMAGE_MAKEFILES := $(COMMON_PATH)/odm.mk
 
-$(call inherit-product, device/sony/common/treble.mk)
 $(call inherit-product, device/sony/common/common-init.mk)
 $(call inherit-product, device/sony/common/common-perm.mk)
+$(call inherit-product, device/sony/common/common-treble.mk)
