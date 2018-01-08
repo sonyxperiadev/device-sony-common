@@ -13,6 +13,7 @@ include $(BUILD_PREBUILT)
 endif
 endif
 
+ifneq (,$(filter 4.4,$(TARGET_KERNEL_VERSION)))
 include $(CLEAR_VARS)
 LOCAL_MODULE := init.recovery.$(TARGET_DEVICE)
 LOCAL_SRC_FILES := init.recovery.common.rc
@@ -22,3 +23,4 @@ LOCAL_MODULE_SUFFIX := .rc
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 include $(BUILD_PREBUILT)
+endif
