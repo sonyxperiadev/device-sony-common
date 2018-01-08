@@ -53,6 +53,9 @@ on charger
     start mlog_qmi_service
     start irsc_util
 
+on fs
+    mount_all ./fstab.${ro.hardware}
+
 on post-fs-data
     # Create directory used by bluetooth subsystem
     mkdir /data/misc/bluetooth 2770 bluetooth bluetooth
@@ -245,3 +248,7 @@ on boot
 
     setrlimit 4 -1 -1
     write /proc/sys/kernel/dmesg_restrict 0
+
+on property:sys.boot_completed=1
+    # Enable ZRAM on boot_complete
+    swapon_all ./fstab.${ro.hardware}
