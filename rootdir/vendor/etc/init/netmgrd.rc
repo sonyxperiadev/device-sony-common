@@ -19,3 +19,6 @@ service netmgrd /odm/bin/netmgrd
 
 on property:ro.boot.baseband=msm
     enable netmgrd
+
+on property:ro.boot.baseband=sdm
+    enable netmgrd
