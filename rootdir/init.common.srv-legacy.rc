@@ -130,14 +130,6 @@ service charger /sbin/healthd -c
     seclabel u:r:healthd:s0
     writepid /dev/cpuset/system-background/tasks
 
-# OSS time
-service timekeep /system/vendor/bin/timekeep restore
-    class late_start
-    user root
-    group root
-    oneshot
-    writepid /dev/cpuset/system-background/tasks
-
 # DSDS second ril
 service ril-daemon2 /system/bin/rild -c 2
     class main
