@@ -37,7 +37,6 @@ static const struct fs_path_config android_device_dirs[] = {
 */
 static const struct fs_path_config android_device_files[] = {
     { 00700, AID_RADIO,     AID_SHELL,     (1ULL << CAP_BLOCK_SUSPEND), "odm/bin/qmuxd" },
-    { 00700, AID_CAMERA,    AID_SHELL,     (1ULL << CAP_SYS_NICE), "odm/bin/mm-qcamera-daemon" },
     { 00755, AID_SYSTEM,    AID_SYSTEM,    (1ULL << CAP_NET_BIND_SERVICE), "odm/bin/pm-service" },
     { 00755, AID_SYSTEM,    AID_SYSTEM,    (1ULL << CAP_NET_BIND_SERVICE), "odm/bin/cnss-daemon"},
     { 00755, AID_SYSTEM,    AID_SYSTEM,    (1ULL << CAP_SYS_NICE) | (1ULL << CAP_BLOCK_SUSPEND), "odm/bin/wcnss_filter"},
