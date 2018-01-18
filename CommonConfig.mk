@@ -96,6 +96,7 @@ ifeq ($(HOST_OS),linux)
     endif
   endif
 endif
+WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY ?= true
 
 BUILD_KERNEL := true
 -include device/sony/common-headers/KernelHeaders.mk
