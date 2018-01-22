@@ -1,4 +1,4 @@
-ifneq ($(filter kanuti loire tone yoshino,$(PRODUCT_PLATFORM)),)
+ifeq ($(PRODUCT_PLATFORM_SOD),true)
 
 LOCAL_PATH := $(call my-dir)
 
