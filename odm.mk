@@ -23,4 +23,5 @@ CUSTOM_IMAGE_COPY_FILES := \
 			$(foreach p,$(TARGET_OUT_ODM)/bin,$(p):) \
 			$(foreach p,$(TARGET_OUT_ODM)/firmware,$(p):) \
 			$(foreach p,$(TARGET_OUT_ODM)/lib,$(p):) \
-			$(foreach p,$(TARGET_OUT_ODM)/lib64,$(p):)
+			$(foreach p,$(TARGET_OUT_ODM)/lib64,$(p):) \
+			$(foreach p,$(TARGET_OUT_ODM)/radio,$(p):)
