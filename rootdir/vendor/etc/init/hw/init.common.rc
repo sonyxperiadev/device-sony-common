@@ -108,11 +108,14 @@ on post-fs-data
     # Create directory used by bluetooth subsystem
     mkdir /data/misc/bluetooth 2770 bluetooth bluetooth
 
-    # Create directory used by Wireless subsystem
-    mkdir /data/misc/wifi 2770 wifi wifi
-
-    # To observe dnsmasq.leases file for dhcp information of soft ap.
-    chown dhcp system /data/misc/dhcp
+    # Create the directories used by the Wireless subsystem
+    mkdir /data/misc/wifi 0770 wifi wifi
+    mkdir /data/misc/wifi/wpa_supplicant 0770 wifi wifi
+    mkdir /data/vendor/wifi 0770 wifi wifi
+    mkdir /data/vendor/wifi/wpa 0770 wifi wifi
+    mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
+    mkdir /data/misc/dhcp 0770 dhcp dhcp
+    chown dhcp dhcp /data/misc/dhcp
 
     # Create directory for hostapd
     mkdir /data/hostapd 0770 system wifi
