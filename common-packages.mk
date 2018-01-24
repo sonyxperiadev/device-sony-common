@@ -57,6 +57,12 @@ PRODUCT_PACKAGES += \
     libloc_pla \
     libgnss
 
+# Location
+PRODUCT_PACKAGES += \
+    libloc_api_v02 \
+    libloc_ds_api \
+    libgnsspps
+
 # WLAN
 PRODUCT_PACKAGES += \
     p2p_supplicant.conf \
@@ -84,38 +90,22 @@ PRODUCT_PACKAGES += \
     libmm-qcamera \
     libqomx_core
 
-# OSS
+# OSS Time service
 PRODUCT_PACKAGES += \
     timekeep \
     TimeKeep \
-    thermanager \
+
+# OSS Thermal Management
+PRODUCT_PACKAGES += \
+    thermanager
+
+# OSS WIFI and BT MAC tool
+PRODUCT_PACKAGES += \
     macaddrsetup
 
-# QCOM OSS
+# QCOM Data
 PRODUCT_PACKAGES += \
     librmnetctl
-
-# QCOM GPS
-PRODUCT_PACKAGES += \
-    libloc_api_v02 \
-    libloc_ds_api \
-    libgnsspps
-
-# Charger
-PRODUCT_PACKAGES += \
-    charger_res_images
-
-# AOSP Packages
-PRODUCT_PACKAGES += \
-    Launcher3
-
-PRODUCT_PACKAGES += \
-    libjson \
-    libion \
-    libxml2
-
-PRODUCT_PACKAGES += \
-    libemoji
 
 # RIL
 PRODUCT_PACKAGES += \
@@ -133,11 +123,24 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     ExtendedSettings
 
+# ODM version monitor
+PRODUCT_PACKAGES += \
+    odmcheck
+
+# Charger
+PRODUCT_PACKAGES += \
+    charger_res_images
+
+# AOSP Packages
+PRODUCT_PACKAGES += \
+    Launcher3 \
+    libemoji \
+    libion \
+    libjson \
+    libxml2 \
+
 # For android_filesystem_config.h
 PRODUCT_PACKAGES += \
     fs_config_files \
     fs_config_dirs
 
-# odmcheck
-PRODUCT_PACKAGES += \
-    odmcheck
