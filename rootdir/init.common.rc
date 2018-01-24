@@ -286,10 +286,6 @@ on boot
     setrlimit 4 -1 -1
     write /proc/sys/kernel/dmesg_restrict 0
 
-on property:vold.post_fs_data_done=1
-    # Generate Bluetooth MAC address file only when /data is ready
-    start macaddrsetup
-
 on property:sys.boot_completed=1
     # Enable ZRAM on boot_complete
     swapon_all ./fstab.${ro.hardware}
