@@ -21,7 +21,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     adb_tcp.rc \
     adsprpcd.rc \
-    charger.rc \
     cnss-daemon.rc \
     irsc_util.rc \
     mlog_qmi.rc \

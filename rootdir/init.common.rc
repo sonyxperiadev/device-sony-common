@@ -12,6 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+on charger
+    # Booting modem
+    wait /dev/block/bootdevice/by-name/system
+    mount ext4 /dev/block/bootdevice/by-name/system /system ro barrier=1
+    wait /dev/block/bootdevice/by-name/oem
+    mount ext4 /dev/block/bootdevice/by-name/oem /odm ro barrier=1
+    start rmt_storage
+    start mlog_qmi_service
+    start irsc_util
+
+# Offline charger
+service charger /charger
+    class charger
+    seclabel u:r:charger:s0
+
 on early-init
     mount debugfs debugfs /sys/kernel/debug
     chmod 0755 /sys/kernel/debug
@@ -42,16 +57,6 @@ on init
     # Setup zram options
     write /sys/block/zram0/comp_algorithm lz4
     write /proc/sys/vm/page-cluster 0
-
-on charger
-    # Booting modem
-    wait /dev/block/bootdevice/by-name/system
-    mount ext4 /dev/block/bootdevice/by-name/system /system ro barrier=1
-    wait /dev/block/bootdevice/by-name/oem
-    mount ext4 /dev/block/bootdevice/by-name/oem /odm ro barrier=1
-    start rmt_storage
-    start mlog_qmi_service
-    start irsc_util
 
 on fs
     mount_all ./fstab.${ro.hardware}
