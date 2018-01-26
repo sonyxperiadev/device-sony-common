@@ -25,6 +25,8 @@ on charger
 # Offline charger
 service charger /charger
     class charger
+    group root system
+    critical
     seclabel u:r:charger:s0
 
 on early-init
