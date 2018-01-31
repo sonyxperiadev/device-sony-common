@@ -94,6 +94,9 @@ on post-fs-data
     # Create directory used by bluetooth subsystem
     mkdir /data/misc/bluetooth 2770 bluetooth bluetooth
 
+    # Create directory used by Wireless subsystem
+    mkdir /data/misc/wifi 2770 wifi wifi
+
     # To observe dnsmasq.leases file for dhcp information of soft ap.
     chown dhcp system /data/misc/dhcp
 
