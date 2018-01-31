@@ -88,7 +88,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.fluence.voicerec=false \
     persist.audio.fluence.speaker=true \
     media.aac_51_output_enabled=true \
-    audio.deep_buffer.media=1
+    audio.deep_buffer.media=1 \
+    fmas.hdph_sgain=0
 
 # Property to enable user to access Google WFD settings.
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -147,6 +148,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     rild.libpath=/odm/lib64/libril-qc-qmi-1.so \
     ril.subscription.types=NV,RUIM
+
+# Vulkan
+# b/68017541
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.qcom.adreno.qgl.ShaderStorageImageExtendedFormats=0
 
 # Vendor version
 PRODUCT_PROPERTY_OVERRIDES += \
