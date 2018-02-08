@@ -22,7 +22,6 @@ PRODUCT_PACKAGES += \
 # For audio.primary
 PRODUCT_PACKAGES += \
     libtinyalsa \
-    libtinycompress \
     libaudioroute \
     tinymix
 
