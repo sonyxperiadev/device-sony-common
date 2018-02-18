@@ -1,0 +1,4 @@
+libadsprpc.so
+libcdsprpc.so
+libsdsprpc.so
+libOpenCL.so
