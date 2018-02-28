@@ -32,6 +32,9 @@ on init
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
 
+    # Mount RO partitions early and load all init files from /system/vendor
+    mount_all ./fstab.${ro.hardware} --early
+
     # Enable subsystem restart
     write /sys/module/subsystem_restart/parameters/enable_ramdumps 0
     write /sys/bus/msm_subsys/devices/subsys0/restart_level "RELATED"
@@ -56,8 +59,6 @@ on init
     write /proc/sys/vm/page-cluster 0
 
 on fs
-    mount_all ./fstab.${ro.hardware}
-
     # /dsp is initially unlabelled so we need to mount
     # it as rw, restore AOSP labels, then remount
     restorecon_recursive /dsp
@@ -75,6 +76,10 @@ on fs
     # qseecomd needs /dev/block/bootdevice
     # vold needs keymaster that needs qseecomd
     start qseecomd
+
+on late-fs
+    # Mount RW partitions which need run fsck
+    mount_all ./fstab.${ro.hardware} --late
 
 on post-fs
     # Wait qseecomd started
