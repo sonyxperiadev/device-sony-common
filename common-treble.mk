@@ -28,9 +28,9 @@ PRODUCT_PACKAGES += \
 
 # Audio
 PRODUCT_PACKAGES += \
-    android.hardware.audio@2.0-impl:32 \
+    android.hardware.audio@4.0-impl:32 \
     android.hardware.audio@2.0-service \
-    android.hardware.audio.effect@2.0-impl:32 \
+    android.hardware.audio.effect@4.0-impl:32 \
     android.hardware.soundtrigger@2.0-impl:32
 
 # Camera
