@@ -96,7 +96,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libqcomvisualizer \
     libqcomvoiceprocessing \
-    libqcomvoiceprocessingdescriptors \
     libqcompostprocbundle
 
 # GFX
