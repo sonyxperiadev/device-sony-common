@@ -20,7 +20,7 @@ on charger
 # Offline charger
 service charger /charger
     class charger
-    group root system
+    group root system log
     critical
     seclabel u:r:charger:s0
 
