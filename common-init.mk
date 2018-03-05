@@ -12,10 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Common init scripts
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/init.common.rc:root/init.common.rc
-
 # Common init services
 PRODUCT_PACKAGES += \
     init.usb.rc \
