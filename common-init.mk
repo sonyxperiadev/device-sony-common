@@ -14,11 +14,11 @@
 
 # Common init scripts
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/init.common.rc:root/init.common.rc \
-    $(COMMON_PATH)/rootdir/init.common.usb.rc:root/init.common.usb.rc
+    $(COMMON_PATH)/rootdir/init.common.rc:root/init.common.rc
 
 # Common init services
 PRODUCT_PACKAGES += \
+    init.usb.rc \
     adb_tcp.rc \
     adsprpcd.rc \
     cnss-daemon.rc \
