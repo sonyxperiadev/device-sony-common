@@ -33,7 +33,7 @@ on init
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
 
     # Mount RO partitions early and load all init files from /system/vendor
-    mount_all ./fstab.${ro.hardware} --early
+    mount_all /vendor/etc/fstab.${ro.hardware} --early
 
     # Enable subsystem restart
     write /sys/module/subsystem_restart/parameters/enable_ramdumps 0
@@ -79,7 +79,7 @@ on fs
 
 on late-fs
     # Mount RW partitions which need run fsck
-    mount_all ./fstab.${ro.hardware} --late
+    mount_all /vendor/etc/fstab.${ro.hardware} --late
 
 on post-fs
     # Wait qseecomd started
@@ -298,4 +298,4 @@ on boot
 
 on property:sys.boot_completed=1
     # Enable ZRAM on boot_complete
-    swapon_all ./fstab.${ro.hardware}
+    swapon_all /vendor/etc/fstab.${ro.hardware}
