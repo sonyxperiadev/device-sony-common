@@ -58,7 +58,7 @@ on init
     write /proc/sys/vm/page-cluster 0
 
 on fs
-    mount_all ./fstab.${ro.hardware}
+    mount_all /vendor/etc/fstab.${ro.hardware}
 
     # /dsp is initially unlabelled so we need to mount
     # it as rw, restore AOSP labels, then remount
@@ -291,4 +291,4 @@ on boot
 
 on property:sys.boot_completed=1
     # Enable ZRAM on boot_complete
-    swapon_all ./fstab.${ro.hardware}
+    swapon_all /vendor/etc/fstab.${ro.hardware}
