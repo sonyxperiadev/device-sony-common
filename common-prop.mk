@@ -148,6 +148,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     rild.libpath=/odm/lib64/libril-qc-qmi-1.so \
     ril.subscription.types=NV,RUIM
 
+# OpenGLES version
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.opengles.version=196610
+
 # Vendor version
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.version=$(TARGET_VENDOR_VERSION)
