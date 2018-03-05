@@ -149,6 +149,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     rild.libpath=/odm/lib64/libril-qc-qmi-1.so \
     ril.subscription.types=NV,RUIM
 
+# OpenGLES version
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.opengles.version=196610
+
 # Vulkan
 # b/68017541
 PRODUCT_PROPERTY_OVERRIDES += \
