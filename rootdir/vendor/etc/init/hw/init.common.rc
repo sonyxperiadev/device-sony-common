@@ -32,6 +32,10 @@ on init
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
 
+    # qseecomd needs /dev/block/bootdevice
+    # vold needs keymaster that needs qseecomd
+    start qseecomd
+
     # Mount RO partitions early and load all init files from /system/vendor
     mount_all /vendor/etc/fstab.${ro.hardware} --early
 
@@ -72,10 +76,6 @@ on fs
 
     # Start HW service manager early
     start hwservicemanager
-
-    # qseecomd needs /dev/block/bootdevice
-    # vold needs keymaster that needs qseecomd
-    start qseecomd
 
 on late-fs
     # Mount RW partitions which need run fsck
