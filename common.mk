@@ -65,13 +65,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     librqbalance
 
-# PRODUCT_PLATFORM isn't set yet, thus we check the available path
-ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
-# ramdump cleaner
-PRODUCT_PACKAGES += \
-    rdclean.sh
-endif
-
 # APN list
 PRODUCT_COPY_FILES += \
     device/sample/etc/old-apns-conf.xml:system/etc/old-apns-conf.xml \
