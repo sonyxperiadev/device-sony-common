@@ -1,0 +1,4 @@
+service light-hal-2-0 /vendor/bin/hw/android.hardware.light@2.0-service.sony
+    class hal
+    user system
+    group system
