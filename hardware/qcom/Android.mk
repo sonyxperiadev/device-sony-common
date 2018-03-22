@@ -17,7 +17,9 @@ media-hal := hardware/qcom/media/msm8998
 
 include device/sony/common/hardware/qcom/utils.mk
 
+ifneq ($(TARGET_BOARD_PLATFORM),msm8998)
 include hardware/qcom/msm8998/json-c/Android.mk
+endif
 
 include $(display-hal)/Android.mk
 include $(call all-makefiles-under,$(audio-hal))
