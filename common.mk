@@ -80,6 +80,11 @@ PRODUCT_PACKAGES += \
     rdclean.sh
 endif
 
+# Qcom scripts
+PRODUCT_PACKAGES += \
+    init.qcom.devstart.sh \
+    init.qcom.ipastart.sh
+
 # APN list
 PRODUCT_COPY_FILES += \
     device/sample/etc/old-apns-conf.xml:system/etc/old-apns-conf.xml \
