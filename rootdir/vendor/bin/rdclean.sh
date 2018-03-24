@@ -1,4 +1,4 @@
-#!/system/bin/sh
+#!/vendor/bin/sh
 
 dev=/dev/block/bootdevice/by-name/rdimage
 
