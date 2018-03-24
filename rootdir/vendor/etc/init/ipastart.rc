@@ -1,0 +1,6 @@
+service ipastart_sh /vendor/bin/init.qcom.ipastart.sh
+    class main
+    user system
+    group net_admin
+    disabled
+    oneshot
