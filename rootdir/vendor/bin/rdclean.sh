@@ -1,4 +1,4 @@
-#!/system/bin/sh
+#!/vendor/bin/sh
 
 slot_suffix="$(getprop ro.boot.slot_suffix)"
 dev="/dev/block/bootdevice/by-name/rdimage$slot_suffix"
