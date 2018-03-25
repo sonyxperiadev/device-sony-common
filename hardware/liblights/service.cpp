@@ -29,7 +29,6 @@ using android::hardware::joinRpcThreadpool;
 using android::sp;
 
 int main() {
-
     ALOGI("%s : Start HAL", __func__);
     android::sp<ILight> light = Light::getInstance();
 

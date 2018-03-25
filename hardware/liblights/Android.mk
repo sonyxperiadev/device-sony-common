@@ -18,6 +18,6 @@ LOCAL_SHARED_LIBRARIES := \
     libhardware \
     libhidlbase \
     libhidltransport \
-    android.hardware.light@2.0 \
+    android.hardware.light@2.0
 
 include $(BUILD_EXECUTABLE)
