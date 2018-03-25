@@ -52,7 +52,7 @@ namespace android {
 
                     void Light::openHal(){
                         ALOGI("%s : Setup HAL",__func__);
-                        mDevice = (lights_t *) malloc(sizeof(lights_t));
+                        mDevice = static_cast<lights_t *>(malloc(sizeof(lights_t)));
                         memset(mDevice, 0, sizeof(lights_t));
 
                         mDevice->g_last_backlight_mode = BRIGHTNESS_MODE_USER;
@@ -155,21 +155,21 @@ namespace android {
 #ifdef LOW_PERSISTENCE_DISPLAY
                         int currState = static_cast<int>(state.brightnessMode);
                         // If we're not in lp mode and it has been enabled or if we are in lp mode
-                            // and it has been disabled send an ioctl to the display with the update
-                            if ((mDevice->g_last_backlight_mode != currState && lpEnabled) ||
-                                    (!lpEnabled && mDevice->g_last_backlight_mode == BRIGHTNESS_MODE_LOW_PERSISTENCE)) {
-                                if ((err = writeInt(PERSISTENCE_FILE, lpEnabled)) != 0) {
-                                    ALOGE("%s: Failed to write to %s: %s\n", __FUNCTION__, PERSISTENCE_FILE,
-                                            strerror(errno));
-                                }
-                                if (lpEnabled != 0) {
-                                    // Try to get the brigntess though property, otherwise it will
-                                    // set the default brightness, which is defined in BoardConfig.mk.
-                                    brightness = property_get_int32(LP_MODE_BRIGHTNESS_PROPERTY,
-                                            DEFAULT_LOW_PERSISTENCE_MODE_BRIGHTNESS);
-                                }
+                        // and it has been disabled send an ioctl to the display with the update
+                        if ((mDevice->g_last_backlight_mode != currState && lpEnabled) ||
+                        (!lpEnabled && mDevice->g_last_backlight_mode == BRIGHTNESS_MODE_LOW_PERSISTENCE)) {
+                            if ((err = writeInt(PERSISTENCE_FILE, lpEnabled)) != 0) {
+                                ALOGE("%s: Failed to write to %s: %s\n", __FUNCTION__, PERSISTENCE_FILE,
+                                strerror(errno));
                             }
-                            mDevice->g_last_backlight_mode = static_cast<int>(state.brightnessMode);
+                            if (lpEnabled != 0) {
+                                // Try to get the brigntess though property, otherwise it will
+                                // set the default brightness, which is defined in BoardConfig.mk.
+                                brightness = property_get_int32(LP_MODE_BRIGHTNESS_PROPERTY,
+                                        DEFAULT_LOW_PERSISTENCE_MODE_BRIGHTNESS);
+                            }
+                        }
+                        mDevice->g_last_backlight_mode = static_cast<int>(state.brightnessMode);
 #endif
 
                         if (!err) {
@@ -190,7 +190,7 @@ namespace android {
                         int onMS, offMS;
                         unsigned int colorRGB;
 
-                        if(!mDevice) {
+                        if (!mDevice) {
                             return -1;
                         }
 
@@ -210,7 +210,7 @@ namespace android {
 
 #if 0
                         ALOGD("set_speaker_light_locked mode %d, colorRGB=%08X, onMS=%d, offMS=%d\n",
-			state->flashMode, colorRGB, onMS, offMS);
+                        state->flashMode, colorRGB, onMS, offMS);
 #endif
 
                         red = (colorRGB >> 16) & 0xFF;
