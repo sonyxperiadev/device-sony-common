@@ -10,7 +10,6 @@ LOCAL_SRC_FILES := \
     Light.cpp
 
 LOCAL_SHARED_LIBRARIES := \
-    liblog \
     libcutils \
     libdl \
     libbase \

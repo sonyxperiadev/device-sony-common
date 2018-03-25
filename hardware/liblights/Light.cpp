@@ -17,7 +17,7 @@
 
 #define LOG_TAG "lights.sony"
 
-#include <log/log.h>
+#include <android-base/logging.h>
 
 #include "Light.h"
 
@@ -44,13 +44,13 @@ namespace android {
                     Light *Light::sInstance = nullptr;
 
                     Light::Light() {
-                        ALOGI("%s", __func__);
+                        LOG(INFO) << "%s";
                         openHal();
                         sInstance = this;
                     }
 
                     void Light::openHal(){
-                        ALOGI("%s : Setup HAL", __func__);
+                        LOG(INFO) << __func__ << ": Setup HAL";
                         mDevice = static_cast<lights_t *>(malloc(sizeof(lights_t)));
                         memset(mDevice, 0, sizeof(lights_t));
 
@@ -65,19 +65,19 @@ namespace android {
                     Return<Status> Light::setLight(Type type, const LightState &state) {
                         switch (type) {
                             case Type::BACKLIGHT:
-                                ALOGD("%s : Type::BACKLIGHT", __func__);
+                                LOG(DEBUG) << __func__ << " : Type::BACKLIGHT";
                                 setLightBacklight(state);
                                 break;
                             case Type::BATTERY:
-                                ALOGD("%s : Type::BATTERY", __func__);
+                                LOG(DEBUG) << __func__ << " : Type::BATTERY";
                                 setLightBattery(state);
                                 break;
                             case Type::NOTIFICATIONS:
-                                ALOGD("%s : Type::NOTIFICATIONS", __func__);
+                                LOG(DEBUG) << __func__ << " : Type::NOTIFICATIONS";
                                 setLightNotifications(state);
                                 break;
                             default:
-                                ALOGE("%s : Unknown light type", __func__);
+                                LOG(DEBUG) << __func__ << " : Unknown light type";
                                 return Status::LIGHT_NOT_SUPPORTED;
                         }
                         return Status::SUCCESS;
@@ -103,7 +103,7 @@ namespace android {
                             return amt == -1 ? -errno : 0;
                         } else {
                             if (already_warned == 0) {
-                                ALOGE("write_int failed to open %s\n", path);
+                                LOG(ERROR) << "write_int failed to open " << path;
                                 already_warned = 1;
                             }
                             return -errno;
@@ -122,7 +122,7 @@ namespace android {
                             return err < 2 ? -errno : atoi(read_str);
                         } else {
                             if (already_warned == 0) {
-                                ALOGE("read_int failed to open %s\n", path);
+                                LOG(ERROR) << "read_int failed to open " << path;
                                 already_warned = 1;
                             }
                             return -errno;
@@ -157,8 +157,7 @@ namespace android {
                         if ((mDevice->g_last_backlight_mode != currState && lpEnabled) ||
                                 (!lpEnabled && mDevice->g_last_backlight_mode == BRIGHTNESS_MODE_LOW_PERSISTENCE)) {
                             if ((err = writeInt(PERSISTENCE_FILE, lpEnabled)) != 0) {
-                                ALOGE("%s: Failed to write to %s: %s\n", __FUNCTION__, PERSISTENCE_FILE,
-                                strerror(errno));
+                                LOG(ERROR) << __func__ << " : Failed to write to " << PERSISTENCE_FILE << ": " << strerror(errno);
                             }
                             if (lpEnabled != 0) {
                                 // Try to get the brigntess though property, otherwise it will
@@ -208,8 +207,8 @@ namespace android {
                         colorRGB = state.color;
 
 #if 0
-                        ALOGD("set_speaker_light_locked mode %d, colorRGB=%08X, onMS=%d, offMS=%d\n",
-                                state->flashMode, colorRGB, onMS, offMS);
+                        LOG(DEBUG) << "set_speaker_light_locked mode " << state->flashMode <<
+                                " colorRGB=" << colorRGB << " onMS=" << onMS << " offMS=" << offMS;
 #endif
 
                         red = (colorRGB >> 16) & 0xFF;
