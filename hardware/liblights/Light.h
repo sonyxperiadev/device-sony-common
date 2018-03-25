@@ -24,7 +24,6 @@
 #include <hidl/MQDescriptor.h>
 #include <map>
 
-#include <cutils/log.h>
 #include <cutils/properties.h>
 
 #include <stdint.h>
