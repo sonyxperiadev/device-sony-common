@@ -69,10 +69,6 @@ on fs
 
     restorecon_recursive /persist
 
-    write /sys/kernel/boot_adsp/boot 1
-    write /sys/kernel/boot_slpi/boot 1
-    write /dev/ipa 1
-
     # Start HW service manager early
     start hwservicemanager
 
@@ -81,6 +77,10 @@ on post-fs
     wait_for_prop sys.listeners.registered true
 
     exec - system graphics -- /vendor/bin/odmcheck
+
+on late-fs
+    # Start devices by sysfs trigger
+    start devstart_sh
 
 on post-fs-data
     # We can start netd here before in is launched in common init.rc on zygote-start
@@ -294,3 +294,7 @@ on boot
 on property:sys.boot_completed=1
     # Enable ZRAM on boot_complete
     swapon_all /vendor/etc/fstab.${ro.hardware}
+
+on property:sys.listeners.registered=true
+    # load IPA FWs
+    start ipastart_sh
