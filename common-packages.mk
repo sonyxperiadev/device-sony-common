@@ -136,7 +136,7 @@ PRODUCT_PACKAGES += \
     libjson \
     libxml2 \
 
-# For android_filesystem_config.h
+# For config.fs
 PRODUCT_PACKAGES += \
     fs_config_files \
     fs_config_dirs
