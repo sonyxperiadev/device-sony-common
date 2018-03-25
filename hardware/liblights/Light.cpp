@@ -18,6 +18,7 @@
 #define LOG_TAG "lights.sony"
 
 #include <android-base/logging.h>
+#include <fstream>
 
 #include "Light.h"
 
@@ -90,43 +91,33 @@ namespace android {
                         return sInstance;
                     }
 
-                    int Light::writeInt(char const *path, int value) {
-                        int fd;
-                        static int already_warned = 0;
+                    int Light::writeInt(const std::string &path, int value) {
+                        std::ofstream stream(path);
 
-                        fd = open(path, O_WRONLY);
-                        if (fd >= 0) {
-                            char buffer[20] = {0};
-                            int bytes = snprintf(buffer, sizeof(buffer), "%d\n", value);
-                            ssize_t amt = write(fd, buffer, (size_t) bytes);
-                            close(fd);
-                            return amt == -1 ? -errno : 0;
-                        } else {
-                            if (already_warned == 0) {
-                                LOG(ERROR) << "write_int failed to open " << path;
-                                already_warned = 1;
-                            }
+                        if (!stream) {
+                            LOG(ERROR) << "Failed to open " << path << ", error=" << errno
+                                       << "(" << strerror(errno) << ")";
                             return -errno;
                         }
+
+                        stream << value << std::endl;
+
+                        return 0;
                     }
 
-                    int Light::readInt(char const *path) {
-                        static int already_warned = 0;
-                        int fd;
+                    int Light::readInt(const std::string &path) {
+                        std::ifstream stream(path);
+                        int value = 0;
 
-                        fd = open(path, O_RDONLY);
-                        if (fd >= 0) {
-                            char read_str[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-                            ssize_t err = read(fd, &read_str, sizeof(read_str));
-                            close(fd);
-                            return err < 2 ? -errno : atoi(read_str);
-                        } else {
-                            if (already_warned == 0) {
-                                LOG(ERROR) << "read_int failed to open " << path;
-                                already_warned = 1;
-                            }
+                        if (!stream) {
+                            LOG(ERROR) << "Failed to open " << path << ", error=" << errno
+                                       << "(" << strerror(errno) << ")";
                             return -errno;
-                        };
+                        }
+
+                        stream >> value;
+
+                        return value;
                     }
 
                     int Light::isLit(const LightState &state) {
