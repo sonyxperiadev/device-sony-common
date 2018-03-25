@@ -17,7 +17,8 @@
 
 #define LOG_TAG "lights.sony"
 
-#include <log/log.h>
+#include <android-base/logging.h>
+#include <fstream>
 
 #include "Light.h"
 
@@ -26,7 +27,6 @@ namespace android {
         namespace light {
             namespace V2_0 {
                 namespace implementation {
-
                     static_assert(LIGHT_FLASH_NONE == static_cast<int>(Flash::NONE),
                                   "Flash::NONE must match legacy value.");
                     static_assert(LIGHT_FLASH_TIMED == static_cast<int>(Flash::TIMED),
@@ -45,41 +45,40 @@ namespace android {
                     Light *Light::sInstance = nullptr;
 
                     Light::Light() {
-                        ALOGI("%s",__func__);
+                        LOG(INFO) << "%s";
                         openHal();
                         sInstance = this;
                     }
 
                     void Light::openHal(){
-                        ALOGI("%s : Setup HAL",__func__);
+                        LOG(INFO) << __func__ << ": Setup HAL";
                         mDevice = static_cast<lights_t *>(malloc(sizeof(lights_t)));
                         memset(mDevice, 0, sizeof(lights_t));
 
                         mDevice->g_last_backlight_mode = BRIGHTNESS_MODE_USER;
-                        mDevice->g_lock = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
-                        mDevice->g_lcd_lock = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
+                        mDevice->g_lock = (pthread_mutex_t) PTHREAD_MUTEX_INITIALIZER;
+                        mDevice->g_lcd_lock = (pthread_mutex_t) PTHREAD_MUTEX_INITIALIZER;
 
                         mDevice->backlight_bits = (readInt(LCD_MAX_FILE) == 4095 ? 12 : 8);
                     }
 
                     // Methods from ::android::hardware::light::V2_0::ILight follow.
                     Return<Status> Light::setLight(Type type, const LightState &state) {
-
                         switch (type) {
                             case Type::BACKLIGHT:
-                                ALOGD("%s : Type::BACKLIGHT",__func__);
+                                LOG(DEBUG) << __func__ << " : Type::BACKLIGHT";
                                 setLightBacklight(state);
                                 break;
                             case Type::BATTERY:
-                                ALOGD("%s : Type::BATTERY",__func__);
+                                LOG(DEBUG) << __func__ << " : Type::BATTERY";
                                 setLightBattery(state);
                                 break;
                             case Type::NOTIFICATIONS:
-                                ALOGD("%s : Type::NOTIFICATIONS",__func__);
+                                LOG(DEBUG) << __func__ << " : Type::NOTIFICATIONS";
                                 setLightNotifications(state);
                                 break;
                             default:
-                                ALOGE("%s : Unknown light type",__func__);
+                                LOG(DEBUG) << __func__ << " : Unknown light type";
                                 return Status::LIGHT_NOT_SUPPORTED;
                         }
                         return Status::SUCCESS;
@@ -92,43 +91,33 @@ namespace android {
                         return sInstance;
                     }
 
-                    int Light::writeInt(char const *path, int value) {
-                        int fd;
-                        static int already_warned = 0;
+                    int Light::writeInt(const std::string &path, int value) {
+                        std::ofstream stream(path);
 
-                        fd = open(path, O_WRONLY);
-                        if (fd >= 0) {
-                            char buffer[20] = {0,};
-                            int bytes = snprintf(buffer, sizeof(buffer), "%d\n", value);
-                            ssize_t amt = write(fd, buffer, (size_t) bytes);
-                            close(fd);
-                            return amt == -1 ? -errno : 0;
-                        } else {
-                            if (already_warned == 0) {
-                                ALOGE("write_int failed to open %s\n", path);
-                                already_warned = 1;
-                            }
+                        if (!stream) {
+                            LOG(ERROR) << "Failed to open " << path << ", error=" << errno
+                                       << "(" << strerror(errno) << ")";
                             return -errno;
                         }
+
+                        stream << value << std::endl;
+
+                        return 0;
                     }
 
-                    int Light::readInt(char const *path) {
-                        static int already_warned = 0;
-                        int fd;
+                    int Light::readInt(const std::string &path) {
+                        std::ifstream stream(path);
+                        int value = 0;
 
-                        fd = open(path, O_RDONLY);
-                        if (fd >= 0) {
-                            char read_str[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-                            ssize_t err = read(fd, &read_str, sizeof(read_str));
-                            close(fd);
-                            return err < 2 ? -errno : atoi(read_str);
-                        } else {
-                            if (already_warned == 0) {
-                                ALOGE("read_int failed to open %s\n", path);
-                                already_warned = 1;
-                            }
+                        if (!stream) {
+                            LOG(ERROR) << "Failed to open " << path << ", error=" << errno
+                                       << "(" << strerror(errno) << ")";
                             return -errno;
-                        };
+                        }
+
+                        stream >> value;
+
+                        return value;
                     }
 
                     int Light::isLit(const LightState &state) {
@@ -157,10 +146,9 @@ namespace android {
                         // If we're not in lp mode and it has been enabled or if we are in lp mode
                         // and it has been disabled send an ioctl to the display with the update
                         if ((mDevice->g_last_backlight_mode != currState && lpEnabled) ||
-                        (!lpEnabled && mDevice->g_last_backlight_mode == BRIGHTNESS_MODE_LOW_PERSISTENCE)) {
+                                (!lpEnabled && mDevice->g_last_backlight_mode == BRIGHTNESS_MODE_LOW_PERSISTENCE)) {
                             if ((err = writeInt(PERSISTENCE_FILE, lpEnabled)) != 0) {
-                                ALOGE("%s: Failed to write to %s: %s\n", __FUNCTION__, PERSISTENCE_FILE,
-                                strerror(errno));
+                                LOG(ERROR) << __func__ << " : Failed to write to " << PERSISTENCE_FILE << ": " << strerror(errno);
                             }
                             if (lpEnabled != 0) {
                                 // Try to get the brigntess though property, otherwise it will
@@ -173,8 +161,9 @@ namespace android {
 #endif
 
                         if (!err) {
-                            if (mDevice->backlight_bits > 8)
+                            if (mDevice->backlight_bits > 8) {
                                 brightness = brightness << (mDevice->backlight_bits - 8);
+                            }
 
                             err = writeInt(LCD_FILE, brightness);
                         }
@@ -209,8 +198,8 @@ namespace android {
                         colorRGB = state.color;
 
 #if 0
-                        ALOGD("set_speaker_light_locked mode %d, colorRGB=%08X, onMS=%d, offMS=%d\n",
-                        state->flashMode, colorRGB, onMS, offMS);
+                        LOG(DEBUG) << "set_speaker_light_locked mode " << state->flashMode <<
+                                " colorRGB=" << colorRGB << " onMS=" << onMS << " offMS=" << offMS;
 #endif
 
                         red = (colorRGB >> 16) & 0xFF;
@@ -224,26 +213,30 @@ namespace android {
                              * else
                              *   use blink mode 1
                              */
-                            if (onMS == offMS)
+                            if (onMS == offMS) {
                                 blink = 2;
-                            else
+                            } else {
                                 blink = 1;
+                            }
                         } else {
                             blink = 0;
                         }
 
                         if (blink) {
                             if (red) {
-                                if (writeInt(RED_BLINK_FILE, blink))
+                                if (writeInt(RED_BLINK_FILE, blink)) {
                                     writeInt(RED_LED_FILE, 0);
+                                }
                             }
                             if (green) {
-                                if (writeInt(GREEN_BLINK_FILE, blink))
+                                if (writeInt(GREEN_BLINK_FILE, blink)) {
                                     writeInt(GREEN_LED_FILE, 0);
+                                }
                             }
                             if (blue) {
-                                if (writeInt(BLUE_BLINK_FILE, blink))
+                                if (writeInt(BLUE_BLINK_FILE, blink)) {
                                     writeInt(BLUE_LED_FILE, 0);
+                                }
                             }
                         } else {
                             writeInt(RED_LED_FILE, red);

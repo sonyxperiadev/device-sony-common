@@ -19,6 +19,7 @@
 
 #include <hidl/HidlSupport.h>
 #include <hidl/HidlTransportSupport.h>
+#include <android-base/logging.h>
 #include <android/hardware/light/2.0/ILight.h>
 #include "Light.h"
 
@@ -29,7 +30,7 @@ using android::hardware::joinRpcThreadpool;
 using android::sp;
 
 int main() {
-    ALOGI("%s : Start HAL", __func__);
+    LOG(INFO) << __func__ << " : Start HAL";
     android::sp<ILight> light = Light::getInstance();
 
     configureRpcThreadpool(1, true /*callerWillJoin*/);
@@ -37,7 +38,7 @@ int main() {
     if (light != nullptr) {
         light->registerAsService();
     } else {
-        ALOGE("Can't create instance of Light, nullptr");
+        LOG(ERROR) << "Can't create instance of Light, nullptr";
     }
 
     joinRpcThreadpool();
