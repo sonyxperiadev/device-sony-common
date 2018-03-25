@@ -52,31 +52,31 @@ struct lights_t {
     int backlight_bits;
 };
 
-char const *const RED_LED_FILE
+const static std::string RED_LED_FILE
         = "/sys/class/leds/led:rgb_red/brightness";
 
-char const *const GREEN_LED_FILE
+const static std::string GREEN_LED_FILE
         = "/sys/class/leds/led:rgb_green/brightness";
 
-char const *const BLUE_LED_FILE
+const static std::string BLUE_LED_FILE
         = "/sys/class/leds/led:rgb_blue/brightness";
 
-char const *const LCD_FILE
+const static std::string LCD_FILE
         = "/sys/class/leds/lcd-backlight/brightness";
 
-char const *const LCD_MAX_FILE
+const static std::string LCD_MAX_FILE
         = "/sys/class/leds/lcd-backlight/max_brightness";
 
-char const *const RED_BLINK_FILE
+const static std::string RED_BLINK_FILE
         = "/sys/class/leds/led:rgb_red/blink";
 
-char const *const GREEN_BLINK_FILE
+const static std::string GREEN_BLINK_FILE
         = "/sys/class/leds/led:rgb_green/blink";
 
-char const *const BLUE_BLINK_FILE
+const static std::string BLUE_BLINK_FILE
         = "/sys/class/leds/led:rgb_blue/blink";
 
-char const *const PERSISTENCE_FILE
+const static std::string PERSISTENCE_FILE
         = "/sys/class/graphics/fb0/msm_fb_persist_mode";
 
 namespace android {
@@ -116,8 +116,8 @@ namespace android {
                         int setSpeakerLightLocked(const LightState &state);
                         int isLit(const LightState &state);
                         int rgbToBrightness(const LightState &state);
-                        static int writeInt(char const *path, int value);
-                        static int readInt(char const *path);
+                        static int writeInt(const std::string &path, int value);
+                        static int readInt(const std::string &path);
                         void openHal();
                     };
                 }  // namespace implementation
