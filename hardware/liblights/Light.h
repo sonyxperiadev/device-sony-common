@@ -85,7 +85,6 @@ namespace android {
         namespace light {
             namespace V2_0 {
                 namespace implementation {
-
                     using::android::hardware::light::V2_0::ILight;
                     using::android::hardware::light::V2_0::LightState;
                     using::android::hardware::light::V2_0::Status;
@@ -122,7 +121,6 @@ namespace android {
                         static int readInt(char const *path);
                         void openHal();
                     };
-
                 }  // namespace implementation
             }  // namespace V2_0
         }  // namespace light
