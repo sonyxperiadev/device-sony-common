@@ -55,6 +55,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     telephony.lteOnCdmaDevice=0
 
+# debug.sf.latch_unsignaled
+# - This causes SurfaceFlinger to latch
+#   buffers even if their fences haven't signaled
+PRODUCT_PROPERTY_OVERRIDES += \
+    debug.sf.latch_unsignaled=1
+
 # Hardware User Interface parameters
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.hwui.texture_cache_size=48 \
