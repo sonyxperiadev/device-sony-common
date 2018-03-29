@@ -120,8 +120,39 @@ namespace android {
                         return value;
                     }
 
+                    int Light::writeStr(const std::string &path, const std::string &value) {
+                        std::ofstream stream(path);
+
+                        if (!stream) {
+                            LOG(ERROR) << "Failed to open " << path << ", error=" << errno
+                                       << "(" << strerror(errno) << ")";
+                            return -errno;
+                        }
+
+                        stream << value << std::endl;
+
+                        return 0;
+                    }
+
+                    std::string Light::getScaledDutyPcts(int brightness) {
+                        std::string buf, pad;
+
+                        for (auto i : BRIGHTNESS_RAMP) {
+                            buf += pad;
+                            buf += std::to_string(i * brightness / 255);
+                            pad = ",";
+                        }
+
+                        return buf;
+                    }
+
                     int Light::isLit(const LightState &state) {
                         return state.color & 0x00ffffff;
+                    }
+
+                    bool Light::isRgbSyncAvailable() {
+                        std::ifstream stream(RGB_BLINK_FILE);
+                        return stream.good();
                     }
 
                     int Light::rgbToBrightness(const LightState &state) {
@@ -175,7 +206,7 @@ namespace android {
 
                     int Light::setSpeakerLightLocked(const LightState& state) {
                         int red, green, blue;
-                        int blink;
+                        bool blink;
                         int onMS, offMS;
                         unsigned int colorRGB;
 
@@ -205,38 +236,34 @@ namespace android {
                         red = (colorRGB >> 16) & 0xFF;
                         green = (colorRGB >> 8) & 0xFF;
                         blue = colorRGB & 0xFF;
+                        blink = onMS > 0 && offMS > 0;
 
-                        if (onMS > 0 && offMS > 0) {
-                            /*
-                             * if ON time == OFF time
-                             *   use blink mode 2
-                             * else
-                             *   use blink mode 1
-                             */
-                            if (onMS == offMS) {
-                                blink = 2;
-                            } else {
-                                blink = 1;
-                            }
-                        } else {
-                            blink = 0;
+                        if (isRgbSyncAvailable()) {
+                            writeInt(RGB_BLINK_FILE, 0);
                         }
 
                         if (blink) {
-                            if (red) {
-                                if (writeInt(RED_BLINK_FILE, blink)) {
-                                    writeInt(RED_LED_FILE, 0);
-                                }
-                            }
-                            if (green) {
-                                if (writeInt(GREEN_BLINK_FILE, blink)) {
-                                    writeInt(GREEN_LED_FILE, 0);
-                                }
-                            }
-                            if (blue) {
-                                if (writeInt(BLUE_BLINK_FILE, blink)) {
-                                    writeInt(BLUE_LED_FILE, 0);
-                                }
+                            if (isRgbSyncAvailable()) {
+                                writeStr(RED_LED_DUTY_PCTS_FILE, getScaledDutyPcts(red));
+                                writeStr(GREEN_LED_DUTY_PCTS_FILE, getScaledDutyPcts(green));
+                                writeStr(BLUE_LED_DUTY_PCTS_FILE, getScaledDutyPcts(blue));
+                                writeInt(RGB_BLINK_FILE, 1);
+                            } else {
+                                if (red) {
+                                    if (writeInt(RED_BLINK_FILE, onMS == offMS ? 2 : 1)) {
+                                        writeInt(RED_LED_FILE, 0);
+                                    }
+                               }
+                               if (green) {
+                                    if (writeInt(GREEN_BLINK_FILE, onMS == offMS ? 2 : 1)) {
+                                        writeInt(GREEN_LED_FILE, 0);
+                                    }
+                               }
+                               if (blue) {
+                                    if (writeInt(BLUE_BLINK_FILE, onMS == offMS ? 2 : 1)) {
+                                        writeInt(BLUE_LED_FILE, 0);
+                                    }
+                               }
                             }
                         } else {
                             writeInt(RED_LED_FILE, red);

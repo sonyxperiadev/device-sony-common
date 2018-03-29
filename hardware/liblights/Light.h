@@ -52,6 +52,9 @@ struct lights_t {
     int backlight_bits;
 };
 
+static constexpr int RAMP_SIZE = 8;
+static constexpr int BRIGHTNESS_RAMP[RAMP_SIZE] = {0, 14, 28, 42, 56, 70, 84, 100};
+
 const static std::string RED_LED_FILE
         = "/sys/class/leds/led:rgb_red/brightness";
 
@@ -61,11 +64,14 @@ const static std::string GREEN_LED_FILE
 const static std::string BLUE_LED_FILE
         = "/sys/class/leds/led:rgb_blue/brightness";
 
-const static std::string LCD_FILE
-        = "/sys/class/leds/lcd-backlight/brightness";
+const static std::string RED_LED_DUTY_PCTS_FILE
+        = "/sys/class/leds/led:rgb_red/duty_pcts";
 
-const static std::string LCD_MAX_FILE
-        = "/sys/class/leds/lcd-backlight/max_brightness";
+const static std::string GREEN_LED_DUTY_PCTS_FILE
+        = "/sys/class/leds/led:rgb_green/duty_pcts";
+
+const static std::string BLUE_LED_DUTY_PCTS_FILE
+        = "/sys/class/leds/led:rgb_blue/duty_pcts";
 
 const static std::string RED_BLINK_FILE
         = "/sys/class/leds/led:rgb_red/blink";
@@ -75,6 +81,15 @@ const static std::string GREEN_BLINK_FILE
 
 const static std::string BLUE_BLINK_FILE
         = "/sys/class/leds/led:rgb_blue/blink";
+
+const static std::string RGB_BLINK_FILE
+        = "/sys/class/leds/rgb/rgb_blink";
+
+const static std::string LCD_FILE
+        = "/sys/class/leds/lcd-backlight/brightness";
+
+const static std::string LCD_MAX_FILE
+        = "/sys/class/leds/lcd-backlight/max_brightness";
 
 const static std::string PERSISTENCE_FILE
         = "/sys/class/graphics/fb0/msm_fb_persist_mode";
@@ -114,10 +129,13 @@ namespace android {
                         int setLightNotifications(const LightState &state);
                         void handleSpeakerBatteryLocked();
                         int setSpeakerLightLocked(const LightState &state);
+                        std::string getScaledDutyPcts(int brightness);
                         int isLit(const LightState &state);
+                        bool isRgbSyncAvailable();
                         int rgbToBrightness(const LightState &state);
                         static int writeInt(const std::string &path, int value);
                         static int readInt(const std::string &path);
+                        static int writeStr(const std::string &path, const std::string &value);
                         void openHal();
                     };
                 }  // namespace implementation
