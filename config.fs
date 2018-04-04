@@ -1,3 +1,12 @@
+[AID_VENDOR_QDSS]
+value:2902
+
+[AID_VENDOR_RFS]
+value:2903
+
+[AID_VENDOR_RFS_SHARED]
+value:2904
+
 [odm/bin/*]
 mode: 0755
 user: AID_ROOT
