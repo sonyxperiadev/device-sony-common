@@ -224,11 +224,6 @@ on boot
     chown radio radio /data/misc/radio/copy_complete
     chmod 0660 /data/misc/radio/copy_complete
 
-    # Camera Recording
-    mkdir /dev/video
-    symlink /dev/video32 /dev/video/venus_dec
-    symlink /dev/video33 /dev/video/venus_enc
-
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
 
     # Graphics Permissions
