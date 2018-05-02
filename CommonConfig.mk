@@ -98,8 +98,8 @@ endif
 WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY ?= true
 
 BUILD_KERNEL := true
--include device/sony/common-headers/KernelHeaders.mk
--include device/sony/common-kernel/KernelConfig.mk
+-include kernel/sony/msm-4.4/common-headers/KernelHeaders.mk
+-include kernel/sony/msm-4.4/common-kernel/KernelConfig.mk
 
 # Include build helpers for QCOM proprietary
 -include vendor/qcom/proprietary/common/build/proprietary-build.mk
