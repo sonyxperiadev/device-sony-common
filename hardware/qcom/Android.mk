@@ -1,3 +1,4 @@
+ifeq ($(TARGET_KERNEL_VERSION),4.4)
 # Board platforms lists to be used for
 # TARGET_BOARD_PLATFORM specific featurization
 QCOM_BOARD_PLATFORMS += msm8952 msm8996 msm8998 sdm660
@@ -30,4 +31,5 @@ include $(call all-makefiles-under,$(media-hal))
 
 ifeq ($(BOARD_HAVE_BLUETOOTH_QCOM),true)
 include $(call all-makefiles-under,hardware/qcom/bt/msm8998)
+endif
 endif
