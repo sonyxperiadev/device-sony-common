@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # Vendor version
-TARGET_VENDOR_VERSION := 11
+TARGET_VENDOR_VERSION := 12
 
 # Release key
 PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/oss/release-keys/releasekey
