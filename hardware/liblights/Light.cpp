@@ -143,6 +143,10 @@ namespace android {
                     std::string Light::getScaledDutyPcts(int brightness) {
                         std::string buf, pad;
 
+                        if (brightness <= 0) {
+                            return "0";
+                        }
+
                         for (auto i : BRIGHTNESS_RAMP) {
                             buf += pad;
                             buf += std::to_string(i * brightness / 255);
