@@ -91,7 +91,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.fluence.speaker=true \
     media.aac_51_output_enabled=true \
     audio.deep_buffer.media=1 \
-    fmas.hdph_sgain=0
+    fmas.hdph_sgain=0 \
+    ro.config.vc_call_vol_steps=7 \
+    ro.config.media_vol_steps=25
 
 # Property to enable user to access Google WFD settings.
 PRODUCT_PROPERTY_OVERRIDES += \
