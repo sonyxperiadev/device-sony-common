@@ -19,7 +19,7 @@ CUSTOM_IMAGE_DICT_FILE := device/sony/common/odm_info.txt
 CUSTOM_IMAGE_SELINUX := true
 
 CUSTOM_IMAGE_COPY_FILES := \
-			$(foreach p,$(TARGET_OUT_ODM)/odm_version.prop,$(p):) \
+			$(foreach p,$(TARGET_OUT_ODM)/build.prop,$(p):) \
 			$(foreach p,$(TARGET_OUT_ODM)/bin,$(p):) \
 			$(foreach p,$(TARGET_OUT_ODM)/firmware,$(p):) \
 			$(foreach p,$(TARGET_OUT_ODM)/lib,$(p):) \
