@@ -47,3 +47,7 @@ PRODUCT_COPY_FILES += \
 # Common System Permissions
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/system/etc/permissions/privapp-permissions-extension.xml:system/etc/permissions/privapp-permissions-extension.xml
+
+# Transmit power
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/system/etc/permissions/privapp-permissions-transmitpower.xml:system/etc/permissions/privapp-permissions-transmitpower.xml
