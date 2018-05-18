@@ -1,5 +1,6 @@
 ifneq ($(filter sdm660 msm8998 sdm845,$(TARGET_BOARD_PLATFORM)),)
 
+$(shell rm -r $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/rfs/)
 $(shell mkdir -p $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/rfs/msm/mpss/readonly/vendor)
 $(shell mkdir -p $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/rfs/msm/adsp/readonly/vendor)
 $(shell mkdir -p $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/rfs/msm/slpi/readonly/vendor)
