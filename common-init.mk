@@ -34,5 +34,4 @@ PRODUCT_PACKAGES += \
     tad.rc \
     ta_qmi.rc \
     tftp_server.rc \
-    wpa_supplicant.rc \
-    xtra.rc
+    wpa_supplicant.rc
