@@ -7,10 +7,6 @@ on post-fs-data
     mkdir /data/vendor/netmgr 0770 radio radio
     chmod 0770 /data/vendor/netmgr
 
-    #create netmgr log dir legacy
-    mkdir /data/misc/netmgr 0770 radio radio
-    chmod 0770 /data/misc/netmgr
-
 # NET Manager Daemon
 service netmgrd /odm/bin/netmgrd
     class main
