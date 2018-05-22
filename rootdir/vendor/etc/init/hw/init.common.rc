@@ -76,8 +76,6 @@ on post-fs
     # Wait qseecomd started
     wait_for_prop sys.listeners.registered true
 
-    exec - system graphics -- /vendor/bin/odmcheck
-
 on late-fs
     # Start devices by sysfs trigger
     start devstart_sh
