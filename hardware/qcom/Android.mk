@@ -11,9 +11,16 @@ MASTER_SIDE_CP_TARGET_LIST := msm8996 msm8998
 audio-hal := hardware/qcom/audio
 gps-hal := hardware/qcom/gps/msm8994
 
+ifeq ($(TARGET_KERNEL_VERSION),3.18)
+display-hal := hardware/qcom/display/msm8996
+media-hal := hardware/qcom/media/msm8996
+endif
+
+ifeq ($(TARGET_KERNEL_VERSION),4.4)
 QCOM_MEDIA_ROOT := hardware/qcom/media/msm8998
 display-hal := hardware/qcom/display/msm8998
 media-hal := hardware/qcom/media/msm8998
+endif
 
 include device/sony/common/hardware/qcom/utils.mk
 
