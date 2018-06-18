@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
+ifeq ($(AB_OTA_UPDATER),true)
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
@@ -41,3 +41,4 @@ LOCAL_MODULE_OWNER := qti
 LOCAL_COPY_HEADERS_TO := gpt-utils/inc
 LOCAL_COPY_HEADERS := gpt-utils.h
 include $(BUILD_SHARED_LIBRARY)
+endif
