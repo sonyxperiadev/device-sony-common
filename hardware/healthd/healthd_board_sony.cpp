@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2011-2013 The Android Open Source Project
+ * Copyright (c) 2015-2016 The Linux Foundation. All rights reserved.
  * Copyright (C) 2016 The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,24 +27,28 @@
 #include "healthd/healthd.h"
 #include "minui/minui.h"
 
-#define ARRAY_SIZE(x)          (sizeof(x)/sizeof(x[0]))
+#define ARRAY_SIZE(x)                 (sizeof(x)/sizeof(x[0]))
 
-#define BACKLIGHT_PATH         "/sys/class/leds/lcd-backlight/brightness"
-#define BACKLIGHT_ON_LEVEL     100
-#define CHARGING_ENABLED_PATH  "/sys/class/power_supply/battery/charging_enabled"
-#define STR_LEN                8
+#define BACKLIGHT_PATH                "/sys/class/leds/lcd-backlight/brightness"
+#define CHARGING_ENABLED_PATH         "/sys/class/power_supply/battery/charging_enabled"
 
-#define RED_LED_PATH           "/sys/class/leds/led:rgb_red/brightness"
-#define GREEN_LED_PATH         "/sys/class/leds/led:rgb_green/brightness"
-#define BLUE_LED_PATH          "/sys/class/leds/led:rgb_blue/brightness"
+#define RED_LED_PATH                  "/sys/class/leds/led:rgb_red/brightness"
+#define GREEN_LED_PATH                "/sys/class/leds/led:rgb_green/brightness"
+#define BLUE_LED_PATH                 "/sys/class/leds/led:rgb_blue/brightness"
 
 #define BMS_READY_PATH                "/sys/class/power_supply/bms/soc_reporting_ready"
+
+#define CHGR_TAG                      "charger_sony"
+
+#define BACKLIGHT_ON_LEVEL            100
+#define BACKLIGHT_OFF_LEVEL           0
+#define STR_LEN                       8
 #define WAIT_BMS_READY_TIMES_MAX      200
 #define WAIT_BMS_READY_INTERVAL_USEC  200000
 
-#define LOGV(x...) do { KLOG_DEBUG("charger", x); } while (0)
-#define LOGE(x...) do { KLOG_ERROR("charger", x); } while (0)
-#define LOGW(x...) do { KLOG_WARNING("charger", x); } while (0)
+#define LOGV(tag, x...) do { KLOG_DEBUG(tag, x); } while (0)
+#define LOGE(tag, x...) do { KLOG_ERROR(tag, x); } while (0)
+#define LOGW(tag, x...) do { KLOG_WARNING(tag, x); } while (0)
 
 enum {
     RED_LED = 0x01 << 0,
@@ -74,25 +79,14 @@ struct soc_led_color_mapping soc_leds[3] = {
 
 static int set_tricolor_led(int on, int color)
 {
-    int fd, i;
+    int rc, i;
     char buffer[10];
 
     for (i = 0; i < (int)ARRAY_SIZE(leds); i++) {
         if ((color & leds[i].color) && (access(leds[i].path, R_OK | W_OK) == 0)) {
-            fd = open(leds[i].path, O_RDWR);
-            if (fd < 0) {
-                LOGE("Could not open led node %d\n", i);
-                continue;
-            }
-            if (on)
-                snprintf(buffer, sizeof(int), "%d\n", 255);
-            else
-                snprintf(buffer, sizeof(int), "%d\n", 0);
-
-            if (write(fd, buffer, strlen(buffer)) < 0)
-                LOGE("Could not write to led node\n");
-            if (fd >= 0)
-                close(fd);
+            rc = write_file_int(leds[i].path, on ? 255 : 0);
+            if (rc < 0)
+                return rc;
         }
     }
     return 0;
@@ -100,7 +94,7 @@ static int set_tricolor_led(int on, int color)
 
 static int set_battery_soc_leds(int soc)
 {
-    int i, color;
+    int i, color, rc;
     static int old_color = 0;
 
     for (i = 0; i < (int)ARRAY_SIZE(soc_leds); i++) {
@@ -109,10 +103,16 @@ static int set_battery_soc_leds(int soc)
     }
     color = soc_leds[i].color;
     if (old_color != color) {
-        set_tricolor_led(0, old_color);
-        set_tricolor_led(1, color);
-        old_color = color;
-        LOGV("soc = %d, set led color 0x%x\n", soc, soc_leds[i].color);
+        rc = set_tricolor_led(0, old_color);
+        if (rc < 0)
+           LOGE(CHGR_TAG, "Error in setting old_color on tricolor_led\n");
+        rc = set_tricolor_led(1, color);
+        if (rc < 0)
+           LOGE(CHGR_TAG, "Error in setting color on tricolor_led\n");
+        if (!rc) {
+           old_color = color;
+           LOGV(CHGR_TAG, "soc = %d, set led color 0x%x\n", soc, soc_leds[i].color);
+        }
     }
     return 0;
 }
@@ -151,31 +151,21 @@ void healthd_board_mode_charger_battery_update(
     }
 }
 
-void healthd_board_mode_charger_set_backlight(bool enable)
+void healthd_board_mode_charger_set_backlight(bool en)
 {
-    int fd;
-    char buffer[10];
+    int rc;
 
     if (access(BACKLIGHT_PATH, R_OK | W_OK) != 0) {
-        LOGW("Backlight control not support\n");
+        LOGW(CHGR_TAG, "Backlight control not support\n");
         return;
     }
 
-    memset(buffer, '\0', sizeof(buffer));
-    fd = open(BACKLIGHT_PATH, O_RDWR);
-    if (fd < 0) {
-        LOGE("Could not open backlight node : %s\n", strerror(errno));
-        goto cleanup;
+    rc = write_file_int(BACKLIGHT_PATH, en ? BACKLIGHT_ON_LEVEL : BACKLIGHT_OFF_LEVEL);
+    if (rc < 0) {
+        LOGE(CHGR_TAG, "Could not write to backlight node : %s\n", strerror(errno));
+        return;
     }
-    LOGV("Enabling backlight\n");
-    snprintf(buffer, sizeof(buffer), "%d\n", enable ? BACKLIGHT_ON_LEVEL : 0);
-    if (write(fd, buffer,strlen(buffer)) < 0) {
-        LOGE("Could not write to backlight node : %s\n", strerror(errno));
-        goto cleanup;
-    }
-cleanup:
-    if (fd >= 0)
-        close(fd);
+    LOGV(CHGR_TAG, "set backlight status to %d\n", en);
 }
 
 void healthd_board_mode_charger_init()
@@ -195,7 +185,7 @@ void healthd_board_mode_charger_init()
     close(fd);
     if (ret > 0) {
         sscanf(buff, "%d\n", &charging_enabled);
-        LOGW("android charging is %s\n",
+        LOGW(CHGR_TAG, "android charging is %s\n",
                 !!charging_enabled ? "enabled" : "disabled");
         /* if charging is disabled, reboot and exit power off charging */
         if (!charging_enabled)
@@ -206,17 +196,19 @@ void healthd_board_mode_charger_init()
             return;
     while (1) {
         ret = read(fd, buff, sizeof(buff));
-        if (ret >= 0)
+        if (ret >= 0) {
             sscanf(buff, "%d\n", &bms_ready);
-        else
-            LOGE("read soc-ready failed, ret=%d\n", ret);
+        } else {
+            LOGE(CHGR_TAG, "read soc-ready failed, ret=%d\n", ret);
+            break;
+        }
         if ((bms_ready > 0) || (wait_count++ > WAIT_BMS_READY_TIMES_MAX))
             break;
         usleep(WAIT_BMS_READY_INTERVAL_USEC);
         lseek(fd, 0, SEEK_SET);
     }
     close(fd);
-    LOGE("Checking BMS SoC ready done!\n");
+    LOGV(CHGR_TAG, "Checking BMS SoC ready done %d!\n", bms_ready);
 }
 
 void healthd_board_init(struct healthd_config*)
