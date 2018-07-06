@@ -122,6 +122,9 @@ static char* rqb_param_string(rqb_pwr_mode_t pwrmode, bool compat)
             type_string = "video_encoding";
             compat_string = "venc";
             break;
+        case POWER_MODE_SUSTAINED:
+            type_string = "sustained_perf";
+            compat_string = "sustain";
         default:
             return "unknown";
     }
@@ -505,6 +508,14 @@ static void power_hint(struct power_module *module UNUSED, power_hint_t hint,
         case POWER_HINT_LAUNCH:
             if (data && param_perf_supported) {
                 set_power_mode(POWER_MODE_PERFORMANCE);
+            } else {
+                set_power_mode(POWER_MODE_BALANCED);
+            }
+            break;
+
+        case POWER_HINT_SUSTAINED_PERFORMANCE:
+            if (data) {
+                set_power_mode(POWER_MODE_SUSTAINED);
             } else {
                 set_power_mode(POWER_MODE_BALANCED);
             }

@@ -52,6 +52,7 @@ typedef enum {
 	POWER_MODE_PERFORMANCE,
 	POWER_MODE_OMXDECODE,
 	POWER_MODE_OMXENCODE,
+	POWER_MODE_SUSTAINED,
 	/* Do not use this entry */
 	POWER_MODE_MAX,
 } rqb_pwr_mode_t;
