@@ -40,9 +40,6 @@ static struct rqbalance_params *rqb;
 static int hal_init_ok = false;
 static rqb_pwr_mode_t cur_pwrmode;
 
-/* Remove this when all platforms will be migrated? */
-static bool param_perf_supported = true;
-
 /* PowerServer */
 static int sock;
 static int clientsock;
@@ -259,9 +256,6 @@ void set_power_mode(rqb_pwr_mode_t mode)
 {
     char* mode_string = rqb_param_string(mode, false);
 
-    if (mode == POWER_MODE_PERFORMANCE && !param_perf_supported)
-        return;
-
     ALOGI("Setting %s mode", mode_string);
 
     __set_power_mode(&rqb[mode]);
@@ -428,9 +422,6 @@ static void power_init(struct power_module *module UNUSED)
     if (ret < 0)
         goto general_error;
 
-    if (!param_perf_supported)
-        ALOGW("No performance parameters. Going on.");
-
     hal_init_ok = true;
 
     property_get(PROP_DEBUGLVL, propval, "0");
@@ -498,7 +489,7 @@ static void power_hint(struct power_module *module UNUSED, power_hint_t hint,
             break;
 
         case POWER_HINT_VR_MODE:
-            if (data && param_perf_supported) {
+            if (data) {
                 set_power_mode(POWER_MODE_PERFORMANCE);
             } else {
                 set_power_mode(POWER_MODE_BALANCED);
@@ -506,7 +497,7 @@ static void power_hint(struct power_module *module UNUSED, power_hint_t hint,
             break;
 
         case POWER_HINT_LAUNCH:
-            if (data && param_perf_supported) {
+            if (data) {
                 set_power_mode(POWER_MODE_PERFORMANCE);
             } else {
                 set_power_mode(POWER_MODE_BALANCED);
