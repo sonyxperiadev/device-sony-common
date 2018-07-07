@@ -27,9 +27,11 @@
 #define SYS_BALANCE_LVL		RQBALANCE_NODE "balance_level"
 #define SYS_UPCORE_THRESH	RQBALANCE_NODE "nr_run_thresholds"
 #define SYS_DNCORE_THRESH	RQBALANCE_NODE "nr_down_run_thresholds"
+#define SYS_CPU_LOW_LIMIT	RQBALANCE_NODE "cluster_freq_vote_min"
+#define SYS_CPU_HI_LIMIT	RQBALANCE_NODE "cluster_freq_vote_max"
 
 /* Android properties */
-#define PROP_DEBUGLVL			"powerhal.debug_level"
+#define PROP_DEBUGLVL			"persist.powerhal.debug_level"
 
 /* PowerServer definitions */
 #define POWERSERVER_DIR			"/dev/socket/powerhal/"
@@ -58,6 +60,33 @@ typedef enum {
 } rqb_pwr_mode_t;
 
 /*
+ * enum rqb_cfl_clusters_t
+ * Provides System Clusters definitions
+ *
+ * The CLUSTER_MAX entry is used as commodity for code
+ * and shall NEVER be used to reference a CPU Cluster.
+ */
+typedef enum {
+	CLUSTER_LITTLE = 0,
+	CLUSTER_BIG,
+	/* Do not use this entry */
+	CLUSTER_MAX,
+} rqb_cfl_clusters_t;
+
+/*
+ * struct rqbalance_cluster_freq_params
+ * Cluster Frequency Limits structure
+ *
+ * Contains the set of values for the Frequency Limits functionality.
+ * This struct HAS to contain ALL the parameters supported by the
+ * RQBalance Frequency Limits kernel driver functionality.
+ */
+struct rqbalance_cfl_params {
+	char max_freq[10];
+	char min_freq[10];
+};
+
+/*
  * struct rqbalance_params
  * Main RQBalance-PowerHAL structure
  *
@@ -71,6 +100,7 @@ struct rqbalance_params {
 	char up_thresholds[PROPERTY_VALUE_MAX];
 	char down_thresholds[PROPERTY_VALUE_MAX];
 	char balance_level[PROPERTY_VALUE_MAX];
+        struct rqbalance_cfl_params freq_limit[CLUSTER_MAX];
 };
 
 /* Exported functions */
