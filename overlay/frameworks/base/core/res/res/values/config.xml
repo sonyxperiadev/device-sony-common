@@ -259,4 +259,7 @@
         <item>A_GLONASS_POS_PROTOCOL_SELECT=2</item>
     </string-array>
 
+    <!-- If this is true, device supports Sustained Performance Mode. -->
+    <bool name="config_sustainedPerformanceModeSupported">true</bool>
+
 </resources>
