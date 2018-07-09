@@ -62,6 +62,24 @@ on init
     # Load persistent dm-verity state
     verity_load_state
 
+    # cpuquiet rqbalance permissions
+    chown system system /sys/devices/system/cpu/cpuquiet/nr_min_cpus
+    chown system system /sys/devices/system/cpu/cpuquiet/nr_power_max_cpus
+    chown system system /sys/devices/system/cpu/cpuquiet/nr_thermal_max_cpus
+    chown system system /sys/devices/system/cpu/cpuquiet/rqbalance/balance_level
+    chown system system /sys/devices/system/cpu/cpuquiet/rqbalance/nr_run_thresholds
+    chown system system /sys/devices/system/cpu/cpuquiet/rqbalance/nr_down_run_thresholds
+    chown system system /sys/devices/system/cpu/cpuquiet/rqbalance/cluster_freq_vote_max
+    chown system system /sys/devices/system/cpu/cpuquiet/rqbalance/cluster_freq_vote_min
+    chmod 0660 /sys/devices/system/cpu/cpuquiet/nr_min_cpus
+    chmod 0660 /sys/devices/system/cpu/cpuquiet/nr_power_max_cpus
+    chmod 0660 /sys/devices/system/cpu/cpuquiet/nr_thermal_max_cpus
+    chmod 0660 /sys/devices/system/cpu/cpuquiet/rqbalance/balance_level
+    chmod 0660 /sys/devices/system/cpu/cpuquiet/rqbalance/nr_run_thresholds
+    chmod 0660 /sys/devices/system/cpu/cpuquiet/rqbalance/nr_down_run_thresholds
+    chmod 0660 /sys/devices/system/cpu/cpuquiet/rqbalance/cluster_freq_vote_max
+    chmod 0660 /sys/devices/system/cpu/cpuquiet/rqbalance/cluster_freq_vote_min
+
 on fs
     mount_all /vendor/etc/fstab.${ro.hardware}
 
