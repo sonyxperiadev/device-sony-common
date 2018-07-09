@@ -40,9 +40,6 @@ static struct rqbalance_params *rqb;
 static int hal_init_ok = false;
 static rqb_pwr_mode_t cur_pwrmode;
 
-/* Remove this when all platforms will be migrated? */
-static bool param_perf_supported = true;
-
 /* PowerServer */
 static int sock;
 static int clientsock;
@@ -122,6 +119,10 @@ static char* rqb_param_string(rqb_pwr_mode_t pwrmode, bool compat)
             type_string = "video_encoding";
             compat_string = "venc";
             break;
+        case POWER_MODE_SUSTAINED:
+            type_string = "sustained_perf";
+            compat_string = "sustain";
+            break;
         default:
             return "unknown";
     }
@@ -137,10 +138,11 @@ static char* rqb_param_string(rqb_pwr_mode_t pwrmode, bool compat)
  *
  * \param pwrmode - RQBalance Power Mode (from enum rqb_pwr_mode_t)
  */
-static void print_parameters(rqb_pwr_mode_t pwrmode)
+static void print_parameters(rqb_pwr_mode_t pwrmode, int dbg_lvl)
 {
     char* mode_string = rqb_param_string(pwrmode, false);
     struct rqbalance_params *cur_params = &rqb[pwrmode];
+    int i;
 
     ALOGI("Parameters for %s mode:", mode_string);
     ALOGI("Minimum cores:       %s", cur_params->min_cpus);
@@ -148,6 +150,14 @@ static void print_parameters(rqb_pwr_mode_t pwrmode)
     ALOGI("Upcore thresholds:   %s", cur_params->up_thresholds);
     ALOGI("Downcore thresholds: %s", cur_params->down_thresholds);
     ALOGI("Balance level:       %s", cur_params->balance_level);
+
+    if (dbg_lvl < 2)
+        return;
+
+    for (i = 0; i < CLUSTER_MAX; i++)
+        ALOGI("Cluster %d MIN-MAX:   %s - %s", i,
+               cur_params->freq_limit[i].min_freq,
+               cur_params->freq_limit[i].max_freq);
 }
 
 /*
@@ -247,6 +257,18 @@ void __set_special_power_mode(char* max_cpus, char* min_cpus,
     return;
 }
 
+void __set_cpufreq_mode(struct rqbalance_params *rqparm)
+{
+    int i, ret;
+
+    for (i = 0; i < CLUSTER_MAX; i++) {
+        sysfs_write(SYS_CPU_HI_LIMIT, rqparm->freq_limit[i].max_freq);
+        sysfs_write(SYS_CPU_LOW_LIMIT, rqparm->freq_limit[i].min_freq);
+    }
+
+    return;
+}
+
 /*
  * set_power_mode - Writes power configuration to the RQBalance driver
  *
@@ -256,12 +278,10 @@ void set_power_mode(rqb_pwr_mode_t mode)
 {
     char* mode_string = rqb_param_string(mode, false);
 
-    if (mode == POWER_MODE_PERFORMANCE && !param_perf_supported)
-        return;
-
     ALOGI("Setting %s mode", mode_string);
 
     __set_power_mode(&rqb[mode]);
+    __set_cpufreq_mode(&rqb[mode]);
 
     cur_pwrmode = mode;
 }
@@ -392,7 +412,8 @@ static bool init_all_rqb_params(void)
 {
     int i, ret;
 
-    rqb = malloc(sizeof(struct rqbalance_params) * POWER_MODE_MAX);
+    rqb = (struct rqbalance_params*) calloc(POWER_MODE_MAX,
+                                            sizeof(struct rqbalance_params));
     assert(rqb != NULL);
 
     for (i = 0; i < POWER_MODE_MAX; i++)
@@ -425,9 +446,6 @@ static void power_init(struct power_module *module UNUSED)
     if (ret < 0)
         goto general_error;
 
-    if (!param_perf_supported)
-        ALOGW("No performance parameters. Going on.");
-
     hal_init_ok = true;
 
     property_get(PROP_DEBUGLVL, propval, "0");
@@ -436,7 +454,7 @@ static void power_init(struct power_module *module UNUSED)
     if (dbg_lvl > 0) {
         ALOGW("WARNING: Starting in debug mode");
         for (i = 0; i < POWER_MODE_MAX; i++) {
-                print_parameters(i);
+                print_parameters(i, dbg_lvl);
         }
     } else {
         ALOGI("Loading with debug off. To turn on, set %s", PROP_DEBUGLVL);
@@ -495,7 +513,7 @@ static void power_hint(struct power_module *module UNUSED, power_hint_t hint,
             break;
 
         case POWER_HINT_VR_MODE:
-            if (data && param_perf_supported) {
+            if (data) {
                 set_power_mode(POWER_MODE_PERFORMANCE);
             } else {
                 set_power_mode(POWER_MODE_BALANCED);
@@ -503,8 +521,16 @@ static void power_hint(struct power_module *module UNUSED, power_hint_t hint,
             break;
 
         case POWER_HINT_LAUNCH:
-            if (data && param_perf_supported) {
+            if (data) {
                 set_power_mode(POWER_MODE_PERFORMANCE);
+            } else {
+                set_power_mode(POWER_MODE_BALANCED);
+            }
+            break;
+
+        case POWER_HINT_SUSTAINED_PERFORMANCE:
+            if (data) {
+                set_power_mode(POWER_MODE_SUSTAINED);
             } else {
                 set_power_mode(POWER_MODE_BALANCED);
             }

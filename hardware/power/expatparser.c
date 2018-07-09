@@ -17,6 +17,7 @@
 #include <errno.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -34,27 +35,48 @@ static short xml_depth = 0;
 static short parse = -1;
 static char* main_node;
 
-struct rqbalance_params trqb;
+//struct rqbalance_params trqb;
 
-void parseElm(const char *elm, const char **attr)
+void parseElm(void *data, const char *elm, const char **attr)
 {
-    int i;
+    struct rqbalance_params *trqb = data;
+    char param[30];
+    int i, j = 0;
 
     if (strcmp("cpuquiet", elm) == 0) {
         for (i = 0; attr[i]; i += 2) {
             if (strcmp("min_cpus", attr[i]) == 0)
-                strcpy(trqb.min_cpus, attr[i+1]);
+                strcpy(trqb->min_cpus, attr[i+1]);
             else if (strcmp("max_cpus", attr[i]) == 0)
-                strcpy(trqb.max_cpus, attr[i+1]);
+                strcpy(trqb->max_cpus, attr[i+1]);
         }
     } else if (strcmp("rqbalance", elm) == 0) {
         for (i = 0; attr[i]; i +=2) {
             if (strcmp("balance_level", attr[i]) == 0)
-                strcpy(trqb.balance_level, attr[i+1]);
+                strcpy(trqb->balance_level, attr[i+1]);
             else if (strcmp("up_thresholds", attr[i]) == 0)
-                strcpy(trqb.up_thresholds, attr[i+1]);
+                strcpy(trqb->up_thresholds, attr[i+1]);
             else if (strcmp("down_thresholds", attr[i]) == 0)
-                strcpy(trqb.down_thresholds, attr[i+1]);
+                strcpy(trqb->down_thresholds, attr[i+1]);
+            else {
+                do {
+                    snprintf(param, 18, "cluster%d_freq_min", j);
+                    if (strcmp(param, attr[i]) == 0) {
+                        snprintf(trqb->freq_limit[j].min_freq, 10,
+                                 "%d %s", j, attr[i+1]);
+                        goto end;
+                    }
+
+                    snprintf(param, 18, "cluster%d_freq_max", j);
+                    if (strcmp(param,attr[i]) == 0) {
+                        snprintf(trqb->freq_limit[j].max_freq, 10,
+                                 "%d %s", j, attr[i+1]);
+                        goto end;
+                    }
+
+                    j++;
+                } while (j < CLUSTER_MAX);
+            }
         }
     }
 
@@ -62,15 +84,16 @@ end:
     return;
 }
 
-void startElm(void *data UNUSED, const char *elm, const char **attr)
+void startElm(void *data, const char *elm, const char **attr)
 {
+    struct rqbalance_params *trqb = data;
     xml_depth++;
 
     if (strncmp(main_node, elm, strlen(main_node)) == 0)
         parse = xml_depth;
 
     if (parse > 0)
-        parseElm(elm, attr);
+        parseElm(trqb, elm, attr);
 }
 
 void endElm(void *data UNUSED, const char *elm UNUSED)
@@ -94,7 +117,8 @@ void str_handler(void *data, const char *str, int len)
 int parse_xml_data(char* filepath,
             char* node, struct rqbalance_params *therqb)
 {
-    int ret, fd, count, sz;
+    int ret, fd, count, sz, i;
+    struct rqbalance_params trqb;
     char *buf;
     struct stat st;
     XML_Parser pa;
@@ -127,6 +151,21 @@ int parse_xml_data(char* filepath,
         goto end;
     }
 
+    /* Paranoidly zero it. Not a big performance impact. */
+    memset(&trqb, 0, sizeof(trqb));
+
+    /* Set default rqb-cfl unvote parameters */
+    for (i = 0; i < CLUSTER_MAX; i++) {             /*   "N 0"   */
+        trqb.freq_limit[i].min_freq[0] = i + 0x30;  /* Cluster N */
+        trqb.freq_limit[i].min_freq[1] = 0x20;      /* Space ' ' */
+        trqb.freq_limit[i].min_freq[2] = 0x30;      /* Zero  '0' */
+
+        trqb.freq_limit[i].max_freq[0] = i + 0x30;  /* Cluster N */
+        trqb.freq_limit[i].max_freq[1] = 0x20;      /* Space ' ' */
+        trqb.freq_limit[i].max_freq[2] = 0x30;      /* Zero  '0' */
+    }
+
+    XML_SetUserData(pa, &trqb);
     XML_SetElementHandler(pa, startElm, endElm);
     XML_SetCharacterDataHandler(pa, str_handler);
 
