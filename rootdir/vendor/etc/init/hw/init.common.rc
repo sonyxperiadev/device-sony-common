@@ -260,6 +260,7 @@ on boot
     chown system graphics /sys/devices/mdss_dsi_panel/pcc_profile
     chmod 0664 /sys/devices/mdss_dsi_panel/pcc_profile
 
+    # FB1 permissions
     chown system graphics /sys/class/graphics/fb1/avi_itc
     chown system graphics /sys/class/graphics/fb1/avi_cn0_1
     chown system graphics /sys/class/graphics/fb1/hpd
@@ -277,7 +278,9 @@ on boot
 
     # FB2 permissions
     chown system graphics /sys/class/graphics/fb2/ad
+    chown system graphics /sys/class/graphics/fb2/hpd
     chmod 0664 /sys/class/graphics/fb2/ad
+    chmod 0664 /sys/class/graphics/fb2/hpd
 
     # For bridgemgr daemon to inform the USB driver of the correct transport
     chown radio radio /sys/class/android_usb/f_rmnet_smd_sdio/transport
