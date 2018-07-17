@@ -165,3 +165,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Priv-app permisisons
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.control_privapp_permissions=enforce
+
+# Perform color transform on the client
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.hwc2.skip_client_color_transform=false
