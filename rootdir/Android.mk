@@ -51,6 +51,7 @@ LOCAL_MODULE_TARGET_ARCH := arm64
 LOCAL_VENDOR_MODULE := true
 include $(BUILD_PREBUILT)
 
+ifneq ($(WITH_TWRP),true)
 include $(CLEAR_VARS)
 LOCAL_MODULE := init.recovery.$(TARGET_DEVICE)
 LOCAL_SRC_FILES := init.recovery.common.rc
@@ -60,6 +61,7 @@ LOCAL_MODULE_SUFFIX := .rc
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 include $(BUILD_PREBUILT)
+endif
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := init.$(TARGET_DEVICE)
