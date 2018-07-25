@@ -15,6 +15,7 @@
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
+LOCAL_VENDOR_MODULE := true
 LOCAL_COPY_HEADERS_TO := libpolyreg
 LOCAL_COPY_HEADERS := ./polyreg.h
 include $(BUILD_COPY_HEADERS)
