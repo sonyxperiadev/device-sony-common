@@ -27,6 +27,9 @@ OMX_VIDEO_PATH := mm-video-v4l2
 media-hal := hardware/qcom/media/sdm845
 endif
 
+SRC_DISPLAY_HAL_DIR := $(display-hal)
+SRC_MEDIA_HAL_DIR := $(QCOM_MEDIA_ROOT)
+
 include device/sony/common/hardware/qcom/utils.mk
 
 ifneq ($(TARGET_BOARD_PLATFORM),msm8998)
