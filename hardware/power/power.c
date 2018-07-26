@@ -26,7 +26,7 @@
 #include <assert.h>
 
 #include <cutils/android_filesystem_config.h>
-#include <utils/Log.h>
+#include <log/log.h>
 
 #include <hardware/hardware.h>
 #include <hardware/power.h>

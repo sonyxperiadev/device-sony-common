@@ -31,4 +31,6 @@ LOCAL_MODULE_RELATIVE_PATH := hw
 LOCAL_MODULE_OWNER := sony
 LOCAL_PROPRIETARY_MODULE := true
 
+LOCAL_HEADER_LIBRARIES := libcutils_headers libutils_headers
+
 include $(BUILD_SHARED_LIBRARY)

@@ -30,7 +30,7 @@
 #include <sys/sysinfo.h>
 
 #include <cutils/properties.h>
-#include <utils/Log.h>
+#include <log/log.h>
 
 #include "power.h"
 #include "rqbalance_halext.h"
