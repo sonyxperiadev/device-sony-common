@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+-include device/sony/customization/Customization.mk
+
 # Common path
 COMMON_PATH := device/sony/common
 
@@ -109,5 +111,3 @@ include device/sony/sepolicy/sepolicy.mk
 
 DEVICE_MANIFEST_FILE := $(COMMON_PATH)/manifest.xml
 DEVICE_MATRIX_FILE   := $(COMMON_PATH)/compatibility_matrix.xml
-
--include device/sony/customization/Customization.mk

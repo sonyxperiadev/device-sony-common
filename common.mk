@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+$(call inherit-product-if-exists, device/sony/customization/customization.mk)
+
 # Vendor version
 TARGET_VENDOR_VERSION := v14
 
@@ -101,5 +103,3 @@ $(call inherit-product, device/sony/common/common-packages.mk)
 $(call inherit-product, device/sony/common/common-perm.mk)
 $(call inherit-product, device/sony/common/common-prop.mk)
 $(call inherit-product, device/sony/common/common-treble.mk)
-
-$(call inherit-product-if-exists, device/sony/customization/customization.mk)
