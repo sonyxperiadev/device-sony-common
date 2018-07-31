@@ -165,6 +165,9 @@ on post-fs-data
     mkdir /data/nfc/param 0770 nfc nfc
     mkdir /data/vendor/nfc 0770 nfc nfc
 
+    # Create directory used by display clients
+    mkdir /data/vendor/display 0770 system graphics
+
     chown system /dev/block/bootdevice/by-name
 
     setprop vold.post_fs_data_done 1
