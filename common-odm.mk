@@ -54,6 +54,7 @@ PRODUCT_PACKAGES += \
     sensors.msm8996 \
     sensors.msm8998 \
     sensors.sdm660 \
+    sensors.sdm845 \
     sensors.qcom
 
 # Data
