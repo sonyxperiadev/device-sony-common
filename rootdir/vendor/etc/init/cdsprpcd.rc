@@ -1,0 +1,9 @@
+service cdsprpcd /odm/bin/cdsprpcd
+   class main
+   user system
+   group system
+   disabled
+
+on property:ro.board.platform=sdm845
+    enable cdsprpcd
+
