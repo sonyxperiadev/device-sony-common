@@ -218,6 +218,14 @@ on boot
     chown system system /sys/devices/soc/fpc1145_device/irq
     chmod 0660 /sys/devices/soc/fpc1145_device/irq
 
+    # Fingerprint - k4.9
+    chown system system /sys/devices/platform/soc/fpc1145_device/spi_prepare
+    chown system system /sys/devices/platform/soc/fpc1145_device/wakeup_enable
+    chown system system /sys/devices/platform/soc/fpc1145_device/irq
+    chmod 0660 /sys/devices/platform/soc/fpc1145_device/wakeup_enable
+    chmod 0660 /sys/devices/platform/soc/fpc1145_device/spi_prepare
+    chmod 0660 /sys/devices/platform/soc/fpc1145_device/irq
+
     # Bluetooth modules
     chown system system /sys/module/bluetooth/parameters/disable_ertm
     chown system system /sys/module/bluetooth/parameters/disable_esco
