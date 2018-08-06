@@ -156,8 +156,11 @@ on post-fs-data
     mkdir /data/audio 0770 media audio
     chmod 2770 /data/audio
 
-    # QCOM camera stack
+    # QCOM Legacy camera stack
     mkdir /data/misc/camera 0770 camera camera
+
+    # QCOM camera stack
+    mkdir /data/vendor/camera 0770 camera camera
 
     # NFC
     # Local data and nfcee xml storage
