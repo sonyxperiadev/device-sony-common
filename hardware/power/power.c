@@ -23,6 +23,8 @@
 #include <dlfcn.h>
 #include <fcntl.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <pthread.h>
 #include <assert.h>
 
 #include <cutils/android_filesystem_config.h>

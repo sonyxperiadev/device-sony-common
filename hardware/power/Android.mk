@@ -20,6 +20,7 @@ include $(CLEAR_VARS)
 ifneq ($(TARGET_TAP_TO_WAKE_NODE),)
     LOCAL_CFLAGS += -DTAP_TO_WAKE_NODE=\"$(TARGET_TAP_TO_WAKE_NODE)\"
 endif
+LOCAL_HEADER_LIBRARIES := libhardware_headers
 
 LOCAL_C_INCLUDES := external/expat/lib
 
@@ -30,7 +31,5 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_RELATIVE_PATH := hw
 LOCAL_MODULE_OWNER := sony
 LOCAL_PROPRIETARY_MODULE := true
-
-LOCAL_HEADER_LIBRARIES := libcutils_headers libutils_headers
 
 include $(BUILD_SHARED_LIBRARY)
