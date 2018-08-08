@@ -21,6 +21,13 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.configstore@1.0-service
 
+# RIL
+PRODUCT_PACKAGES += \
+    android.hardware.radio@1.0 \
+    android.hardware.radio@1.1 \
+    android.hardware.radio.deprecated@1.0 \
+    android.hardware.radio@1.0-service
+
 # Audio
 PRODUCT_PACKAGES += \
     android.hardware.audio@2.0-impl \
@@ -39,6 +46,8 @@ PRODUCT_PACKAGES += \
 
 # Wi-Fi
 PRODUCT_PACKAGES += \
+    android.hardware.wifi@1.0 \
+    android.hardware.wifi@1.1 \
     android.hardware.wifi@1.0-service
 
 # Bluetooth
@@ -73,6 +82,7 @@ PRODUCT_PACKAGES += \
 
 # Fingerprint
 PRODUCT_PACKAGES += \
+    android.hardware.biometrics.fingerprint@2.1 \
     android.hardware.biometrics.fingerprint@2.1-service.sony
 
 ifneq ($(TARGET_LEGACY_KEYMASTER),true)
@@ -104,6 +114,7 @@ PRODUCT_PACKAGES += \
 
 # Usb HAL
 PRODUCT_PACKAGES += \
+    android.hardware.usb@1.0 \
     android.hardware.usb@1.0-service
 
 # Thermal HAL
