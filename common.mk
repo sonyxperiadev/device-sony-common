@@ -15,7 +15,7 @@
 $(call inherit-product-if-exists, device/sony/customization/customization.mk)
 
 # Vendor version
-TARGET_VENDOR_VERSION := v14
+TARGET_VENDOR_VERSION := v15
 
 # Release key
 PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/oss/release-keys/releasekey
