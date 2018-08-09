@@ -43,5 +43,11 @@ include $(call all-makefiles-under,$(gps-hal))
 include $(call all-makefiles-under,$(media-hal))
 
 ifeq ($(BOARD_HAVE_BLUETOOTH_QCOM),true)
+ifeq ($(SOMC_KERNEL_VERSION),4.4)
 include $(call all-makefiles-under,hardware/qcom/bt/msm8998)
+endif
+
+ifeq ($(SOMC_KERNEL_VERSION),4.9)
+include $(call all-makefiles-under,hardware/qcom/bt/sdm845)
+endif
 endif
