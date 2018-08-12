@@ -90,10 +90,10 @@ on fs
 
     restorecon_recursive /persist
 
+on post-fs
     # Start HW service manager early
     start hwservicemanager
 
-on post-fs
     # Wait qseecomd started
     wait_for_prop sys.listeners.registered true
 
