@@ -45,7 +45,7 @@ struct rqbalance_halext_params {
 
 static int send_powerserver_data(struct rqbalance_halext_params params)
 {
-	register int sock, recvsock;
+	register int sock;
 	int ret, len = sizeof(struct sockaddr_un);
 	int32_t halext_reply;
 	fd_set receivefd;
