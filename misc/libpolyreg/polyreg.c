@@ -29,7 +29,6 @@
 
 
 #include <cutils/android_filesystem_config.h>
-#include <log/log.h>
 
 #define LOG_TAG		"PolyReg"
 
@@ -136,7 +135,7 @@ int compute_coefficients(struct pair_data *data,
 	int p = pin + 1;
 	int r, c;
 	int rs = (2 * p) - 1;
-	int i = 0, j = 0, count = 0;
+	int i = 0, count = 0;
 	double **m;
 	double *mpc;
 
