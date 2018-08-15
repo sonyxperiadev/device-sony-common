@@ -174,7 +174,9 @@ namespace android {
                     int Light::setLightBacklight(const LightState &state) {
                         int err = 0;
                         int brightness = rgbToBrightness(state);
+#ifdef LOW_PERSISTENCE_DISPLAY
                         unsigned int lpEnabled = state.brightnessMode == Brightness::LOW_PERSISTENCE;
+#endif
 
                         if (!mDevice) {
                             return -1;
