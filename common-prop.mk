@@ -75,6 +75,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.hwui.text_large_cache_width=2048 \
     ro.hwui.text_large_cache_height=1024
 
+# Delay reduction
+PRODUCT_PROPERTY_OVERRIDES += \
+    sdm.debug.rotator_downscale=1
+
 # DRM service
 PRODUCT_PROPERTY_OVERRIDES += \
     drm.service.enabled=true
