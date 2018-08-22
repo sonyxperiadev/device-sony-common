@@ -81,6 +81,9 @@ on init
     chmod 0660 /sys/devices/system/cpu/cpuquiet/rqbalance/cluster_freq_vote_min
 
 on fs
+    # Start HW service manager early
+    start hwservicemanager
+
     mount_all /vendor/etc/fstab.${ro.hardware}
 
     # /dsp is initially unlabelled so we need to mount
@@ -90,14 +93,16 @@ on fs
 
     restorecon_recursive /persist
 
-    # Start HW service manager early
-    start hwservicemanager
-
 on post-fs
     # Wait qseecomd started
     wait_for_prop sys.listeners.registered true
 
 on late-fs
+    # Wait for hwservicemanager ready since fsck might be triggered in mount_all --late
+    # In such case, init won't responce the property_set from hwservicemanager and then
+    # cause services for bootanim not running.
+    wait_for_prop hwservicemanager.ready true
+
     # Start devices by sysfs trigger
     start devstart_sh
 
