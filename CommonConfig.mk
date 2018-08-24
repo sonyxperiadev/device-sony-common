@@ -42,6 +42,7 @@ TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
+TARGET_EXFAT_DRIVER := sdfat
 
 # Use mke2fs to create ext4 images
 TARGET_USES_MKE2FS := true
