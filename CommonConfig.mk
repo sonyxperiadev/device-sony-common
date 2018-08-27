@@ -50,6 +50,7 @@ TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_ROOT_EXTRA_FOLDERS := bt_firmware firmware persist odm
 
 # Filesystem
+TARGET_EXFAT_DRIVER := sdfat
 TARGET_FS_CONFIG_GEN := $(COMMON_PATH)/config.fs
 
 # GFX
