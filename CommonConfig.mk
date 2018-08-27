@@ -47,7 +47,7 @@ BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 TARGET_USES_MKE2FS := true
 TARGET_USERIMAGES_USE_EXT4 := true
 
-BOARD_ROOT_EXTRA_FOLDERS := bt_firmware dsp firmware persist odm
+BOARD_ROOT_EXTRA_FOLDERS := bt_firmware firmware persist odm
 
 # Filesystem
 TARGET_FS_CONFIG_GEN := $(COMMON_PATH)/config.fs
