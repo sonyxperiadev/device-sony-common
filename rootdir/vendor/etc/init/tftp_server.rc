@@ -1,7 +1,8 @@
 on boot
-    #Create directory for tftp
-    mkdir /data/vendor/tombstones 0771 system system
+   # Create directory for tftp
+   mkdir /data/vendor/tombstones 0771 system system
 
 service tftp_server /odm/bin/tftp_server
    class core
-   user root
+   user root system
+   group root system
