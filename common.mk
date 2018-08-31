@@ -17,8 +17,14 @@ $(call inherit-product-if-exists, device/sony/customization/customization.mk)
 # Vendor version
 TARGET_VENDOR_VERSION := v15
 
-# Release key
-PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/oss/release-keys/releasekey
+# Specify a "dev-keys" configuration.  Keys from
+# vendor/oss/release-keys will be used instead of the keys under
+# build/make/target/product/security, with the exception of the verity
+# key.  For verity, the build system will still use
+# build/make/target/product/security/verity.pk8, but this can be
+# changed using a post-build re-signing operation (or by making a
+# change inside the build project).
+PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/oss/release-keys/testkey
 
 # Common path
 COMMON_PATH := device/sony/common
