@@ -77,7 +77,8 @@ PRODUCT_PACKAGES += \
 # NFC packages
 PRODUCT_PACKAGES += \
     NfcNci \
-    Tag
+    Tag \
+    SecureElement
 
 # CAMERA
 PRODUCT_PACKAGES += \
