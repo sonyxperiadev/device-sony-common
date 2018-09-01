@@ -28,7 +28,7 @@ OMX_VIDEO_PATH := mm-video-v4l2
 media-hal := hardware/qcom/media/sdm845
 endif
 
-SRC_CAMERA_HAL_DIR := vendor/qcom/opensource/camera
+SRC_CAMERA_HAL_DIR ?= vendor/qcom/opensource/camera
 SRC_DISPLAY_HAL_DIR := $(display-hal)
 SRC_MEDIA_HAL_DIR := $(QCOM_MEDIA_ROOT)
 
