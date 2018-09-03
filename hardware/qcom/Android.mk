@@ -15,7 +15,7 @@ gps-hal := hardware/qcom/gps/sdm845
 display-hal := hardware/qcom/display/msm8998
 QCOM_MEDIA_ROOT := hardware/qcom/media/msm8998
 OMX_VIDEO_PATH := mm-video-v4l2
-media-hal := hardware/qcom/media/msm8998
+media-hal := $(QCOM_MEDIA_ROOT)
 endif
 
 ifeq ($(SOMC_KERNEL_VERSION),4.9)
@@ -25,7 +25,7 @@ gps-hal := hardware/qcom/gps/sdm845
 display-hal := hardware/qcom/display/sde
 QCOM_MEDIA_ROOT := hardware/qcom/media/sdm845
 OMX_VIDEO_PATH := mm-video-v4l2
-media-hal := hardware/qcom/media/sdm845
+media-hal := $(QCOM_MEDIA_ROOT)
 endif
 
 SRC_CAMERA_HAL_DIR ?= vendor/qcom/opensource/camera
