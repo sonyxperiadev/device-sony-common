@@ -10,9 +10,9 @@ on post-fs-data
 # NET Manager Daemon
 service netmgrd /odm/bin/netmgrd
     class main
-    group system wakelock
+    user root
+    group root wifi wakelock radio inet
     disabled
-    writepid /dev/cpuset/system-background/tasks
 
 on property:ro.boot.baseband=msm
     enable netmgrd
