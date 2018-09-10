@@ -75,7 +75,7 @@ on post-fs-data
     chown media_rw media_rw /data/media
 
     # Create directory used by bluetooth subsystem
-    mkdir /data/misc/bluetooth 0770 bluetooth bluetooth
+    mkdir /data/vendor/bluetooth 0770 bluetooth bluetooth
 
     # To observe dnsmasq.leases file for dhcp information of soft ap.
     chown dhcp system /data/misc/dhcp
