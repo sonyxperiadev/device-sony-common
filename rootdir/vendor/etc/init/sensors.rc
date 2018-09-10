@@ -1,6 +1,6 @@
 on post-fs-data
     # Sensors
-    mkdir /data/misc/sensors 0775 system system
+    mkdir /data/vendor/sensors 0775 system system
 
     # /dev/sensors only supports an ioctl to get the current SLPI timestamp;
     # allow the sensors daemon to perform this as non-root
@@ -12,4 +12,3 @@ service sensors /odm/bin/sensors.qcom
     class main
     user system
     group system
-    writepid /dev/cpuset/system-background/tasks
