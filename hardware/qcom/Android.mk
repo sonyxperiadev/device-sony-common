@@ -10,7 +10,6 @@ MASTER_SIDE_CP_TARGET_LIST := msm8996 msm8998 sdm660 sdm845
 
 ifeq ($(SOMC_KERNEL_VERSION),4.4)
 audio-hal := hardware/qcom/audio
-bt-hal := hardware/qcom/bt/msm8998
 gps-hal := hardware/qcom/gps/sdm845
 display-hal := hardware/qcom/display/msm8998
 QCOM_MEDIA_ROOT := hardware/qcom/media/msm8998
@@ -20,7 +19,6 @@ endif
 
 ifeq ($(SOMC_KERNEL_VERSION),4.9)
 audio-hal := hardware/qcom/audio
-bt-hal := hardware/qcom/bt/sdm845
 gps-hal := hardware/qcom/gps/sdm845
 display-hal := hardware/qcom/display/sde
 QCOM_MEDIA_ROOT := hardware/qcom/media/sdm845
@@ -44,7 +42,3 @@ include $(display-hal)/Android.mk
 include $(call all-makefiles-under,$(audio-hal))
 include $(call all-makefiles-under,$(gps-hal))
 include $(call all-makefiles-under,$(media-hal))
-
-ifeq ($(BOARD_HAVE_BLUETOOTH_QCOM),true)
-include $(call all-makefiles-under,$(bt-hal))
-endif
