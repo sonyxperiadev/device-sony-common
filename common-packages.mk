@@ -69,9 +69,11 @@ PRODUCT_PACKAGES += \
     wpa_supplicant \
     wpa_supplicant.conf
 
+ifeq ($(BOARD_HAVE_BLUETOOTH_BCM),true)
 # Bluetooth
 PRODUCT_PACKAGES += \
     libbt-vendor
+endif
 
 # NFC packages
 PRODUCT_PACKAGES += \
