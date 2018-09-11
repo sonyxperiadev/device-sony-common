@@ -264,9 +264,9 @@ on boot
     mkdir /dev/socket/powerhal 0773 system system
 
     # Mark the copy complete flag to not completed
-    write /data/misc/radio/copy_complete 0
-    chown radio radio /data/misc/radio/copy_complete
-    chmod 0660 /data/misc/radio/copy_complete
+    write /data/vendor/radio/copy_complete 0
+    chown radio radio /data/vendor/radio/copy_complete
+    chmod 0660 /data/vendor/radio/copy_complete
 
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
 
