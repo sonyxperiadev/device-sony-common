@@ -14,7 +14,7 @@ gps-hal := hardware/qcom/gps/sdm845
 display-hal := hardware/qcom/display/msm8998
 QCOM_MEDIA_ROOT := hardware/qcom/media/msm8998
 OMX_VIDEO_PATH := mm-video-v4l2
-media-hal := hardware/qcom/media/msm8998
+media-hal := $(QCOM_MEDIA_ROOT)
 endif
 
 ifeq ($(SOMC_KERNEL_VERSION),4.9)
@@ -23,12 +23,13 @@ gps-hal := hardware/qcom/gps/sdm845
 display-hal := hardware/qcom/display/sde
 QCOM_MEDIA_ROOT := hardware/qcom/media/sdm845
 OMX_VIDEO_PATH := mm-video-v4l2
-media-hal := hardware/qcom/media/sdm845
+media-hal := $(QCOM_MEDIA_ROOT)
 endif
 
-SRC_CAMERA_HAL_DIR := vendor/qcom/opensource/camera
+SRC_CAMERA_HAL_DIR ?= vendor/qcom/opensource/camera
 SRC_DISPLAY_HAL_DIR := $(display-hal)
 SRC_MEDIA_HAL_DIR := $(QCOM_MEDIA_ROOT)
+TARGET_KERNEL_VERSION := $(SOMC_KERNEL_VERSION)
 
 include device/sony/common/hardware/qcom/utils.mk
 
@@ -41,7 +42,3 @@ include $(display-hal)/Android.mk
 include $(call all-makefiles-under,$(audio-hal))
 include $(call all-makefiles-under,$(gps-hal))
 include $(call all-makefiles-under,$(media-hal))
-
-ifeq ($(BOARD_HAVE_BLUETOOTH_QCOM),true)
-include $(call all-makefiles-under,hardware/qcom/bt/msm8998)
-endif
