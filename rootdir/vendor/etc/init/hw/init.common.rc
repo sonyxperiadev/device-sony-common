@@ -282,6 +282,9 @@ on boot
     # RIL directoy for services
     mkdir /data/vendor/radio 0771 system radio
 
+    # LEGACY: Create directory for radio
+    mkdir /data/misc/radio 0771 system radio
+
     # RIL Mark the copy complete flag to not completed
     write /data/vendor/radio/copy_complete 0
     chown radio radio /data/vendor/radio/copy_complete
@@ -299,6 +302,14 @@ on boot
     write /data/vendor/radio/db_check_done 0
     chown radio radio /data/vendor/radio/db_check_done
     chmod 0660 /data/vendor/radio/db_check_done
+
+    # LEGACY: File flags for prebuilt ril db file
+    write /data/misc/radio/prebuilt_db_support 1
+    chown radio radio /data/misc/radio/prebuilt_db_support
+    chmod 0400 /data/misc/radio/prebuilt_db_support
+    write /data/misc/radio/db_check_done 0
+    chown radio radio /data/misc/radio/db_check_done
+    chmod 0660 /data/misc/radio/db_check_done
 
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
 
