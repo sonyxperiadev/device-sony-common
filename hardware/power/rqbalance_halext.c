@@ -137,7 +137,6 @@ static int start_timer(timer_t timerid, int duration_ms)
  */
 static int new_timer(timer_t timerid, int luid)
 {
-	int ret = 0;
 	struct sigevent sev;
 
 	sev.sigev_notify = SIGEV_SIGNAL;
@@ -310,8 +309,6 @@ do_action:
 int lock_set_arg(int lparm)
 {
 	int ret = -EINVAL;
-	bool is_varparm;
-	char tmp[2];
 
 	switch (lparm)
 	{
