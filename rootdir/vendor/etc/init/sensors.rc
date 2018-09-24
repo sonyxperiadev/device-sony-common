@@ -13,3 +13,6 @@ service sensors /odm/bin/sensors.qcom
     user system
     group system
     disabled
+
+on property:sys.qcom.devup=1
+    start sensors
