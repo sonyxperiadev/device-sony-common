@@ -12,6 +12,10 @@ ifeq ($(TARGET_USES_UCOMM_BACKLIGHT),true)
     LOCAL_CFLAGS += -DUCOMMSVR_BACKLIGHT
 endif
 
+ifeq ($(TARGET_USES_SDE),true)
+    LOCAL_CFLAGS += -DDRMSDE_BACKLIGHT
+endif
+
 LOCAL_MODULE := android.hardware.light@2.0-service.sony
 LOCAL_INIT_RC := android.hardware.light@2.0-service.sony.rc
 LOCAL_SRC_FILES := \
