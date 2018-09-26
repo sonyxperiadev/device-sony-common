@@ -85,11 +85,19 @@ const static std::string BLUE_BLINK_FILE
 const static std::string RGB_BLINK_FILE
         = "/sys/class/leds/rgb/rgb_blink";
 
+#ifdef DRMSDE_BACKLIGHT
+const static std::string LCD_FILE
+        = "/sys/class/backlight/panel0-backlight/brightness";
+
+const static std::string LCD_MAX_FILE
+        = "/sys/class/backlight/panel0-backlight/max_brightness";
+#else
 const static std::string LCD_FILE
         = "/sys/class/leds/lcd-backlight/brightness";
 
 const static std::string LCD_MAX_FILE
         = "/sys/class/leds/lcd-backlight/max_brightness";
+#endif
 
 const static std::string PERSISTENCE_FILE
         = "/sys/class/graphics/fb0/msm_fb_persist_mode";
