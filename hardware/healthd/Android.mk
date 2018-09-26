@@ -11,4 +11,8 @@ LOCAL_C_INCLUDES := \
     bootable/recovery/minui/include \
     bootable/recovery
 
+ifeq ($(TARGET_USES_SDE),true)
+    LOCAL_CFLAGS += -DDRMSDE_BACKLIGHT
+endif
+
 include $(BUILD_STATIC_LIBRARY)
