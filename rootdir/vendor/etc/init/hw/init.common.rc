@@ -217,7 +217,19 @@ on boot
     # RQBalance-PowerHAL PowerServer
     mkdir /dev/socket/powerhal 0773 system system
 
-    # Mark the copy complete flag to not completed
+    # RIL QMUX socket area
+    mkdir /dev/socket/qmux_radio 0770 radio radio
+    chmod 2770 /dev/socket/qmux_radio
+    mkdir /dev/socket/qmux_audio 0770 media audio
+    chmod 2770 /dev/socket/qmux_audio
+    mkdir /dev/socket/qmux_bluetooth 0770 bluetooth bluetooth
+    chmod 2770 /dev/socket/qmux_bluetooth
+    mkdir /dev/socket/qmux_gps 0770 gps gps
+    chmod 2770 /dev/socket/qmux_gps
+    mkdir /dev/socket/qmux_nfc 0770 nfc nfc
+    chmod 2770 /dev/socket/qmux_nfc
+
+    # RIL Mark the copy complete flag to not completed
     write /data/misc/radio/copy_complete 0
     chown radio radio /data/misc/radio/copy_complete
     chmod 0660 /data/misc/radio/copy_complete
@@ -228,6 +240,9 @@ on boot
     symlink /dev/video33 /dev/video/venus_enc
 
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
+
+    # For bridgemgr daemon to inform the USB driver of the correct transport
+    chown radio radio /sys/class/android_usb/f_rmnet_smd_sdio/transport
 
     # Graphics Permissions
     chown system graphics /sys/class/graphics/fb0/idle_time
@@ -259,9 +274,6 @@ on boot
     # FB2 permissions
     chown system graphics /sys/class/graphics/fb2/ad
     chmod 0664 /sys/class/graphics/fb2/ad
-
-    # For bridgemgr daemon to inform the USB driver of the correct transport
-    chown radio radio /sys/class/android_usb/f_rmnet_smd_sdio/transport
 
     chown root system /proc/net/ip_conntrack
 
