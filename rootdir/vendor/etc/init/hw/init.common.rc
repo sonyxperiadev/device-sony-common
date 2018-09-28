@@ -275,6 +275,9 @@ on boot
     mkdir /dev/socket/qmux_nfc 0770 nfc nfc
     chmod 2770 /dev/socket/qmux_nfc
 
+    # RIL directoy for services
+    mkdir /data/vendor/radio 0771 system radio
+
     # RIL Mark the copy complete flag to not completed
     write /data/vendor/radio/copy_complete 0
     chown radio radio /data/vendor/radio/copy_complete
