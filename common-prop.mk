@@ -105,7 +105,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Property to enable user to access Google WFD settings.
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.debug.wfd.enable=1
+    persist.debug.wfd.enable=0
 
 # Property to choose between virtual/external wfd display
 PRODUCT_PROPERTY_OVERRIDES += \
