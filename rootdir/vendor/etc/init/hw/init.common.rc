@@ -280,6 +280,11 @@ on boot
     chmod 2770 /dev/socket/qmux_nfc
 
     # RIL Mark the copy complete flag to not completed
+    write /data/vendor/radio/copy_complete 0
+    chown radio radio /data/vendor/radio/copy_complete
+    chmod 0660 /data/vendor/radio/copy_complete
+
+    # LEGACY:RIL Mark the copy complete flag to not completed
     write /data/misc/radio/copy_complete 0
     chown radio radio /data/misc/radio/copy_complete
     chmod 0660 /data/misc/radio/copy_complete
