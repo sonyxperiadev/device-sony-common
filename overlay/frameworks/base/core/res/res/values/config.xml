@@ -263,6 +263,11 @@
     <bool name="config_sustainedPerformanceModeSupported">true</bool>
 
     <!-- Colon separated list of package names that should be granted DND access -->
-    <string name="config_defaultDndAccessPackages" translatable="false">com.google.android.GoogleCamera:com.android.camera2</string>
+    <string name="config_defaultDndAccessPackages" translatable="false">com.google.android.gms:com.google.android.GoogleCamera:com.android.camera2</string>
 
+    <!-- Whether or not swipe up gesture's opt-in setting is available on this device --> 
+    <bool name="config_swipe_up_gesture_setting_available">true</bool>
+
+    <!-- Flag indicating whether we should enable smart battery. -->
+    <bool name="config_smart_battery_available">true</bool>
 </resources>
