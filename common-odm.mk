@@ -113,6 +113,10 @@ PRODUCT_PACKAGES += \
     libqomx_jpegenc_pipe \
     libqomx_jpegenc \
 
+# Camera Override
+PRODUCT_PACKAGES += \
+    com.qti.chi.override
+
 # Camera Framework
 PRODUCT_PACKAGES += \
     libflash_pmic \
