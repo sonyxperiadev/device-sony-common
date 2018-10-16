@@ -15,7 +15,7 @@
 $(call inherit-product-if-exists, device/sony/customization/customization.mk)
 
 # Vendor version
-TARGET_VENDOR_VERSION := v1
+TARGET_VENDOR_VERSION := v2
 
 # Specify a "dev-keys" configuration.  Keys from
 # vendor/oss/release-keys will be used instead of the keys under
