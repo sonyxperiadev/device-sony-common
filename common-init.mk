@@ -32,6 +32,7 @@ PRODUCT_PACKAGES += \
     rmt_storage.rc \
     sct_service.rc \
     sensors.rc \
+    sscrpcd.rc \
     tad.rc \
     ta_qmi.rc \
     tftp_server.rc \
