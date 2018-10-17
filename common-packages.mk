@@ -31,6 +31,10 @@ PRODUCT_PACKAGES += \
     libqcomvoiceprocessing \
     libqcompostprocbundle
 
+# Audio deps
+PRODUCT_PACKAGES += \
+    libfmq
+
 # GFX
 PRODUCT_PACKAGES += \
     libhdmi \
