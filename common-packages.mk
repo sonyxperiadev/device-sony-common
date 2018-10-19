@@ -112,6 +112,7 @@ PRODUCT_PACKAGES += \
 
 # RIL
 PRODUCT_PACKAGES += \
+    libandroid_net \
     libprotobuf-cpp-full
 
 # RenderScript
