@@ -118,6 +118,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # BT address
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.bt.bdaddr_path=/data/vendor/bluetooth/bluetooth_bdaddr
+# BT address for devices with BCM BT
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.bt.bdaddr_path=/data/vendor/bluetooth/bluetooth_bdaddr
 
 # System prop for NFC DT
 PRODUCT_PROPERTY_OVERRIDES += \
