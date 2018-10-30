@@ -138,7 +138,7 @@
     <!-- Vibrator pattern for feedback about a long screen/key press -->
     <integer-array name="config_longPressVibePattern">
         <item>0</item>
-        <item>60</item>
+        <item>40</item>
         <item>0</item>
         <item>0</item>
     </integer-array>
@@ -146,7 +146,7 @@
     <!-- Vibrator pattern for feedback about touching a virtual key -->
     <integer-array name="config_virtualKeyVibePattern">
         <item>0</item>
-        <item>60</item>
+        <item>40</item>
         <item>0</item>
         <item>0</item>
     </integer-array>
@@ -163,7 +163,7 @@
          * The remote submix module "audio.r_submix.default" must be installed on the device.
          * The device must be provisioned with HDCP keys (for protected content).
     -->
-    <bool name="config_enableWifiDisplay">true</bool>
+    <bool name="config_enableWifiDisplay">false</bool>
 
     <!-- Vibrator pattern for a very short but reliable vibration for soft keyboard tap -->
     <integer-array name="config_keyboardTapVibePattern">
@@ -231,14 +231,14 @@
     <!-- Default files to pin via Pinner Service -->
     <string-array translatable="false" name="config_defaultPinnerServiceFiles">
         <item>"/system/framework/arm64/boot-framework.oat"</item>
-        <item>"/system/framework/arm64/boot-framework.vdex"</item>
+        <item>"/system/framework/boot-framework.vdex"</item>
         <item>"/system/framework/oat/arm64/services.odex"</item>
         <item>"/system/framework/oat/arm64/services.vdex"</item>
         <item>"/system/framework/arm64/boot.oat"</item>
-        <item>"/system/framework/arm64/boot.vdex"</item>
+        <item>"/system/framework/boot.vdex"</item>
         <item>"/system/framework/arm64/boot-core-libart.oat"</item>
-        <item>"/system/framework/arm64/boot-core-libart.vdex"</item>
-   </string-array>
+        <item>"/system/framework/boot-core-libart.vdex"</item>
+    </string-array>
 
     <!-- True if camera app should be pinned via Pinner Service -->
     <bool name="config_pinnerCameraApp">true</bool>
@@ -262,4 +262,12 @@
     <!-- If this is true, device supports Sustained Performance Mode. -->
     <bool name="config_sustainedPerformanceModeSupported">true</bool>
 
+    <!-- Colon separated list of package names that should be granted DND access -->
+    <string name="config_defaultDndAccessPackages" translatable="false">com.google.android.gms:com.google.android.GoogleCamera:com.android.camera2</string>
+
+    <!-- Whether or not swipe up gesture's opt-in setting is available on this device --> 
+    <bool name="config_swipe_up_gesture_setting_available">true</bool>
+
+    <!-- Flag indicating whether we should enable smart battery. -->
+    <bool name="config_smart_battery_available">true</bool>
 </resources>

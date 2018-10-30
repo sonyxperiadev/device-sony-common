@@ -1,3 +1,9 @@
+[odm/bin/*]
+mode: 0755
+user: AID_ROOT
+group: AID_SHELL
+caps: 0
+
 [odm/bin/cnss-daemon]
 mode: 0755
 user: AID_SYSTEM
@@ -16,11 +22,11 @@ user: AID_SYSTEM
 group: AID_SYSTEM
 caps: BLOCK_SUSPEND
 
-[odm/bin/*]
+[odm/bin/sensors.qcom]
 mode: 0755
-user: AID_ROOT
-group: AID_SHELL
-caps: 0
+user: AID_SYSTEM
+group: AID_SYSTEM
+caps: NET_BIND_SERVICE
 
 [firmware/]
 mode: 0771

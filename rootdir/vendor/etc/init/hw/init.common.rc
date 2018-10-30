@@ -81,6 +81,9 @@ on init
     chmod 0660 /sys/devices/system/cpu/cpuquiet/rqbalance/cluster_freq_vote_min
 
 on fs
+    # Start HW service manager early
+    start hwservicemanager
+
     mount_all /vendor/etc/fstab.${ro.hardware}
 
     # /dsp is initially unlabelled so we need to mount
@@ -90,14 +93,16 @@ on fs
 
     restorecon_recursive /persist
 
-    # Start HW service manager early
-    start hwservicemanager
-
 on post-fs
     # Wait qseecomd started
     wait_for_prop sys.listeners.registered true
 
 on late-fs
+    # Wait for hwservicemanager ready since fsck might be triggered in mount_all --late
+    # In such case, init won't responce the property_set from hwservicemanager and then
+    # cause services for bootanim not running.
+    wait_for_prop hwservicemanager.ready true
+
     # Start devices by sysfs trigger
     start devstart_sh
 
@@ -106,13 +111,16 @@ on post-fs-data
     start netd
 
     # Create directory used by bluetooth subsystem
-    mkdir /data/misc/bluetooth 2770 bluetooth bluetooth
+    mkdir /data/vendor/bluetooth 2770 bluetooth bluetooth
 
-    # Create directory used by Wireless subsystem
-    mkdir /data/misc/wifi 2770 wifi wifi
-
-    # To observe dnsmasq.leases file for dhcp information of soft ap.
-    chown dhcp system /data/misc/dhcp
+    # Create the directories used by the Wireless subsystem
+    mkdir /data/misc/wifi 0770 wifi wifi
+    mkdir /data/misc/wifi/wpa_supplicant 0770 wifi wifi
+    mkdir /data/vendor/wifi 0771 wifi wifi
+    mkdir /data/vendor/wifi/wpa 0770 wifi wifi
+    mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
+    mkdir /data/misc/dhcp 0770 dhcp dhcp
+    chown dhcp dhcp /data/misc/dhcp
 
     # Create directory for hostapd
     mkdir /data/hostapd 0770 system wifi
@@ -129,11 +137,11 @@ on post-fs-data
     mkdir /data/persist 0770 system system
 
     # Create directory used by audio subsystem
-    mkdir /data/misc/audio 0770 audio audio
+    mkdir /data/vendor/audio 0770 audio audio
 
     # Create directory for audio delta files
-    mkdir /data/misc/audio/acdbdata 0770 media audio
-    mkdir /data/misc/audio/acdbdata/delta 0770 media audio
+    mkdir /data/vendor/audio/acdbdata 0770 media audio
+    mkdir /data/vendor/audio/acdbdata/delta 0770 media audio
 
     # Mounting of persist is moved to 'on emmc-fs' and 'on fs' sections
     # We chown/chmod /persist again so because mount is run as root + defaults
@@ -170,6 +178,9 @@ on post-fs-data
 
     # Create directory used by display clients
     mkdir /data/vendor/display 0770 system graphics
+
+    # RIL directoy for services
+    mkdir /data/vendor/radio 0771 system radio
 
     chown system /dev/block/bootdevice/by-name
 
@@ -247,12 +258,36 @@ on boot
     # RQBalance-PowerHAL PowerServer
     mkdir /dev/socket/powerhal 0773 system system
 
-    # Mark the copy complete flag to not completed
-    write /data/misc/radio/copy_complete 0
-    chown radio radio /data/misc/radio/copy_complete
-    chmod 0660 /data/misc/radio/copy_complete
+    # RIL QMUX socket area
+    mkdir /dev/socket/qmux_radio 0770 radio radio
+    chmod 2770 /dev/socket/qmux_radio
+    mkdir /dev/socket/qmux_audio 0770 media audio
+    chmod 2770 /dev/socket/qmux_audio
+    mkdir /dev/socket/qmux_bluetooth 0770 bluetooth bluetooth
+    chmod 2770 /dev/socket/qmux_bluetooth
+    mkdir /dev/socket/qmux_gps 0770 gps gps
+    chmod 2770 /dev/socket/qmux_gps
+    mkdir /dev/socket/qmux_nfc 0770 nfc nfc
+    chmod 2770 /dev/socket/qmux_nfc
+
+
+    # RIL Mark the copy complete flag to not completed
+    write /data/vendor/radio/copy_complete 0
+    chown radio radio /data/vendor/radio/copy_complete
+    chmod 0660 /data/vendor/radio/copy_complete
+
+    # File flags for prebuilt ril db file
+    write /data/vendor/radio/prebuilt_db_support 1
+    chown radio radio /data/vendor/radio/prebuilt_db_support
+    chmod 0400 /data/vendor/radio/prebuilt_db_support
+    write /data/vendor/radio/db_check_done 0
+    chown radio radio /data/vendor/radio/db_check_done
+    chmod 0660 /data/vendor/radio/db_check_done
 
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
+
+    # For bridgemgr daemon to inform the USB driver of the correct transport
+    chown radio radio /sys/class/android_usb/f_rmnet_smd_sdio/transport
 
     # Graphics Permissions
     chown system graphics /sys/class/graphics/fb0/idle_time
@@ -288,8 +323,6 @@ on boot
     chmod 0664 /sys/class/graphics/fb2/ad
     chmod 0664 /sys/class/graphics/fb2/hpd
 
-    # For bridgemgr daemon to inform the USB driver of the correct transport
-    chown radio radio /sys/class/android_usb/f_rmnet_smd_sdio/transport
 
     chown root system /proc/net/ip_conntrack
 

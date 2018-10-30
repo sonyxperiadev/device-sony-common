@@ -1,0 +1,8 @@
+service sscrpcd /odm/bin/sscrpcd
+    class late_start
+    user system
+    group system
+    disabled
+
+on property:sys.qcom.devup=1
+    start sscrpcd

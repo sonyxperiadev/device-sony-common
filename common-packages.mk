@@ -31,6 +31,10 @@ PRODUCT_PACKAGES += \
     libqcomvoiceprocessing \
     libqcompostprocbundle
 
+# Audio deps
+PRODUCT_PACKAGES += \
+    libfmq
+
 # GFX
 PRODUCT_PACKAGES += \
     libhdmi \
@@ -67,7 +71,8 @@ PRODUCT_PACKAGES += \
     hostapd \
     libwpa_client \
     wpa_supplicant \
-    wpa_supplicant.conf
+    wpa_supplicant.conf \
+    libwpa_client
 
 # Bluetooth
 PRODUCT_PACKAGES += \
@@ -75,7 +80,6 @@ PRODUCT_PACKAGES += \
 
 # NFC packages
 PRODUCT_PACKAGES += \
-    com.android.nfc_extras \
     NfcNci \
     Tag
 
@@ -102,6 +106,7 @@ PRODUCT_PACKAGES += \
 
 # RIL
 PRODUCT_PACKAGES += \
+    libandroid_net \
     libprotobuf-cpp-full
 
 # RenderScript
@@ -122,7 +127,7 @@ PRODUCT_PACKAGES += \
 
 # AOSP Packages
 PRODUCT_PACKAGES += \
-    Launcher3 \
+    Launcher3QuickStep \
     libemoji \
     libion \
     libjson \

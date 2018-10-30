@@ -29,7 +29,11 @@
 
 #define ARRAY_SIZE(x)                 (sizeof(x)/sizeof(x[0]))
 
+#ifdef DRMSDE_BACKLIGHT
+#define BACKLIGHT_PATH                "/sys/class/backlight/panel0-backlight/brightness"
+#else
 #define BACKLIGHT_PATH                "/sys/class/leds/lcd-backlight/brightness"
+#endif
 #define CHARGING_ENABLED_PATH         "/sys/class/power_supply/battery/charging_enabled"
 
 #define RED_LED_PATH                  "/sys/class/leds/led:rgb_red/brightness"

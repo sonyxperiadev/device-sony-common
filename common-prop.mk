@@ -61,6 +61,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.latch_unsignaled=1
 
+# Disable buffer age (b/74534157)
+PRODUCT_PROPERTY_OVERRIDES += \
+    debug.hwui.use_buffer_age=false
+
 # Hardware User Interface parameters
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.hwui.texture_cache_size=48 \
@@ -74,6 +78,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.hwui.text_small_cache_height=1024 \
     ro.hwui.text_large_cache_width=2048 \
     ro.hwui.text_large_cache_height=1024
+
+# Delay reduction
+PRODUCT_PROPERTY_OVERRIDES += \
+    sdm.debug.rotator_downscale=1
 
 # DRM service
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -97,7 +105,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Property to enable user to access Google WFD settings.
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.debug.wfd.enable=1
+    persist.debug.wfd.enable=0
 
 # Property to choose between virtual/external wfd display
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -109,7 +117,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # BT address
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.bt.bdaddr_path=/data/misc/bluetooth/bluetooth_bdaddr
+    ro.vendor.bt.bdaddr_path=/data/vendor/bluetooth/bluetooth_bdaddr
+# BT address for devices with BCM BT
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.bt.bdaddr_path=/data/vendor/bluetooth/bluetooth_bdaddr
 
 # System prop for NFC DT
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -152,11 +163,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # OpenGLES version
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=196610
-
-# Vulkan
-# b/68017541
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.qcom.adreno.qgl.ShaderStorageImageExtendedFormats=0
 
 # Vendor version
 PRODUCT_PROPERTY_OVERRIDES += \
