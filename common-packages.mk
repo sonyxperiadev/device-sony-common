@@ -96,12 +96,6 @@ PRODUCT_PACKAGES += \
     timekeep \
     TimeKeep \
 
-ifneq ($(SOMC_KERNEL_VERSION),4.9)
-# OSS Thermal Management
-PRODUCT_PACKAGES += \
-    thermanager
-endif
-
 # OSS WIFI and BT MAC tool
 PRODUCT_PACKAGES += \
     macaddrsetup
