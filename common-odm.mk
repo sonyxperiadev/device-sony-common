@@ -1,3 +1,7 @@
+# SDE DRM
+PRODUCT_PACKAGES += \
+    libsdedrm
+
 # Secure MSM
 PRODUCT_PACKAGES += \
     qseecomd
