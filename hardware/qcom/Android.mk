@@ -20,7 +20,7 @@ endif
 ifeq ($(SOMC_KERNEL_VERSION),4.9)
 audio-hal := hardware/qcom/audio
 gps-hal := hardware/qcom/gps/sdm845
-display-hal := hardware/qcom/display/sde
+display-hal := hardware/qcom/display/msmfb
 QCOM_MEDIA_ROOT := hardware/qcom/media/sdm845
 OMX_VIDEO_PATH := mm-video-v4l2
 media-hal := $(QCOM_MEDIA_ROOT)
