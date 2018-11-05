@@ -1,3 +1,6 @@
+ifneq ($(wildcard device/sony/common/hardware/qcom/custom.mk),)
+    include device/sony/common/hardware/qcom/custom.mk
+else
 # Board platforms lists to be used for
 # TARGET_BOARD_PLATFORM specific featurization
 QCOM_BOARD_PLATFORMS += msm8952 msm8996 msm8998 sdm660 sdm845
@@ -31,3 +34,4 @@ include $(display-hal)/Android.mk
 include $(call all-makefiles-under,$(audio-hal))
 include $(call all-makefiles-under,$(gps-hal))
 include $(call all-makefiles-under,$(media-hal))
+endif
