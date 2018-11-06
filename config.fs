@@ -6,8 +6,8 @@ caps: 0
 
 [odm/bin/cnss-daemon]
 mode: 0755
-user: AID_BLUETOOTH
-group: AID_BLUETOOTH
+user: AID_SYSTEM
+group: AID_SYSTEM
 caps: NET_BIND_SERVICE
 
 [odm/bin/pm-service]
