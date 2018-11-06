@@ -37,15 +37,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # System props for the data modules
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.use_data_netmgrd=true \
+    ro.vendor.use_data_netmgrd=true \
     persist.data.netmgrd.qos.enable=true \
     ro.data.large_tcp_window_size=true
 
 # Enable Power save functionality for modem
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.radio.add_power_save=1 \
-    persist.radio.apm_sim_not_pwdn=1 \
-    persist.radio.oem_socket=false
+    persist.vendor.radio.add_power_save=1 \
+    persist.vendor.radio.apm_sim_not_pwdn=1 \
+    persist.vendor.radio.oem_socket=false
 
 # Ringer
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -118,6 +118,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # BT address
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.bt.bdaddr_path=/data/vendor/bluetooth/bluetooth_bdaddr
+
 # BT address for devices with BCM BT
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.bt.bdaddr_path=/data/vendor/bluetooth/bluetooth_bdaddr
