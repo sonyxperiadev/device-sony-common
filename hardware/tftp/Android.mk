@@ -4,6 +4,7 @@ $(shell rm -r $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/rfs/)
 $(shell mkdir -p $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/rfs/msm/mpss/readonly/vendor)
 $(shell mkdir -p $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/rfs/msm/adsp/readonly/vendor)
 $(shell mkdir -p $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/rfs/msm/slpi/readonly/vendor)
+$(shell mkdir -p $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/rfs/msm/cdsp/readonly/vendor)
 
 $(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /data/vendor/tombstones/modem rfs/msm/mpss/ramdumps && popd > /dev/null)
 $(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /persist/rfs/msm/mpss rfs/msm/mpss/readwrite && popd > /dev/null)
@@ -19,11 +20,17 @@ $(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /pe
 $(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /firmware rfs/msm/adsp/readonly/firmware && popd > /dev/null)
 $(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /odm/firmware rfs/msm/adsp/readonly/vendor/firmware && popd > /dev/null)
 
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /data/vendor/tombstones/lpass rfs/msm/slpi/ramdumps && popd > /dev/null)
+$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /data/vendor/tombstones/rfs/slpi rfs/msm/slpi/ramdumps && popd > /dev/null)
 $(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /persist/rfs/msm/slpi rfs/msm/slpi/readwrite && popd > /dev/null)
 $(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /persist/rfs/shared rfs/msm/slpi/shared && popd > /dev/null)
 $(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /persist/hlos_rfs/shared rfs/msm/slpi/hlos && popd > /dev/null)
 $(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /firmware rfs/msm/slpi/readonly/firmware && popd > /dev/null)
 $(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /odm/firmware rfs/msm/slpi/readonly/vendor/firmware && popd > /dev/null)
 
+$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /data/vendor/tombstones/rfs/cdsp rfs/msm/cdsp/ramdumps && popd > /dev/null)
+$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /persist/rfs/msm/cdsp rfs/msm/cdsp/readwrite && popd > /dev/null)
+$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /persist/rfs/shared rfs/msm/cdsp/shared && popd > /dev/null)
+$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /persist/hlos_rfs/shared rfs/msm/cdsp/hlos && popd > /dev/null)
+$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /firmware rfs/msm/cdsp/readonly/firmware && popd > /dev/null)
+$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /odm/firmware rfs/msm/cdsp/readonly/vendor/firmware && popd > /dev/null)
 endif
