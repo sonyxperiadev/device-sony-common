@@ -11,9 +11,9 @@ $(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf
 $(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/camera camera && popd > /dev/null)
 
 $(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/libcom.qti.chinodeutils.so libcom.qti.chinodeutils.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/hw/libcamxfdalgov7.so libcamxfdalgov7.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/hw/libcamxfdengine.so libcamxfdengine.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/hw/libcamxstatscore.so libcamxstatscore.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/hw/libcamxtintlessalgo.so libcamxtintlessalgo.so && popd > /dev/null)
+$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/libcamxfdalgov7.so libcamxfdalgov7.so && popd > /dev/null)
+$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/libcamxfdengine.so libcamxfdengine.so && popd > /dev/null)
+$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/libcamxstatscore.so libcamxstatscore.so && popd > /dev/null)
+$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/libcamxtintlessalgo.so libcamxtintlessalgo.so && popd > /dev/null)
 
 endif
