@@ -213,7 +213,8 @@ namespace android {
 
                         if (!err) {
                             if (mDevice->backlight_bits > 8) {
-                                brightness = brightness << (mDevice->backlight_bits - 8);
+                                int sbits = mDevice->backlight_bits - 8;
+                                brightness = (brightness << sbits) | (brightness >> sbits);
                             }
 #ifdef UCOMMSVR_BACKLIGHT
                             err = ucommsvr_set_backlight(brightness);
