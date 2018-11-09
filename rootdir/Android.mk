@@ -120,6 +120,14 @@ LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/init
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
+LOCAL_MODULE := imsservices.rc
+LOCAL_MODULE_CLASS := ETC
+LOCAL_SRC_FILES := vendor/etc/init/imsservices.rc
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/init
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
 LOCAL_MODULE := mlog_qmi.rc
 LOCAL_MODULE_CLASS := ETC
 LOCAL_SRC_FILES := vendor/etc/init/mlog_qmi.rc

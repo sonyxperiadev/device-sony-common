@@ -1,0 +1,25 @@
+## imsdatadaemon starts with root and UID will be downgraded to SYSTEM.
+service vendor.imsqmidaemon /odm/bin/imsqmidaemon
+    class main
+    user system
+    socket ims_qmid stream 0660 system radio
+    group radio log diag
+
+# imsdatadaemon starts with root and UID will be downgraded to SYSTEM.
+service vendor.imsdatadaemon /odm/bin/imsdatadaemon
+    class main
+    user system
+    socket ims_datad stream 0660 system radio
+    group system wifi radio inet log diag
+    disabled
+
+on property:vendor.ims.QMI_DAEMON_STATUS=1
+    start vendor.imsdatadaemon
+
+service vendor.ims_rtp_daemon /odm/bin/ims_rtp_daemon
+   class main
+   user system
+   group radio diag inet log
+
+on property:vendor.ims.DATA_DAEMON_STATUS=1
+    restart vendor.ims_rtp_daemon
