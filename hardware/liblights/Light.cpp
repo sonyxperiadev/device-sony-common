@@ -57,6 +57,7 @@ namespace android {
                     }
 
                     void Light::openHal(){
+                        int lcd_max = 0;
                         LOG(INFO) << __func__ << ": Setup HAL";
                         mDevice = static_cast<lights_t *>(malloc(sizeof(lights_t)));
                         memset(mDevice, 0, sizeof(lights_t));
@@ -65,7 +66,14 @@ namespace android {
                         mDevice->g_lock = (pthread_mutex_t) PTHREAD_MUTEX_INITIALIZER;
                         mDevice->g_lcd_lock = (pthread_mutex_t) PTHREAD_MUTEX_INITIALIZER;
 
-                        mDevice->backlight_bits = (readInt(LCD_MAX_FILE) == 4095 ? 12 : 8);
+                        lcd_max = readInt(LCD_MAX_FILE);
+
+                        if (lcd_max == 4095)
+                            mDevice->backlight_bits = 12;
+                        else if (lcd_max == 1023)
+                            mDevice->backlight_bits = 10;
+                        else
+                            mDevice->backlight_bits = 8;
                     }
 
                     // Methods from ::android::hardware::light::V2_0::ILight follow.
