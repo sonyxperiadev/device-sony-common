@@ -20,6 +20,9 @@
  *   Free Software Foundation, Inc.,
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
+#define LOG_TAG		"PolyReg"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -29,8 +32,6 @@
 
 
 #include <cutils/android_filesystem_config.h>
-
-#define LOG_TAG		"PolyReg"
 
 void gj_divide(double **A, int i, int j, int m) {
 	for (int q = j + 1; q < m; q++) {

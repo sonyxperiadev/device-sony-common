@@ -26,11 +26,12 @@
 #include "power.h"
 
 #include <cutils/properties.h>
+
+#define LOG_TAG "RQBalance-PowerHAL-XML"
+
 #include <log/log.h>
 
 #define UNUSED __attribute__((unused))
-
-#define LOG_TAG "RQBalance-PowerHAL-XML"
 
 static short xml_depth = 0;
 static short parse = -1;

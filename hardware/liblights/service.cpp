@@ -28,6 +28,7 @@ using android::hardware::light::V2_0::implementation::Light;
 using android::hardware::configureRpcThreadpool;
 using android::hardware::joinRpcThreadpool;
 using android::sp;
+using android::NO_ERROR;
 
 int main() {
     LOG(INFO) << __func__ << " : Start HAL";
@@ -36,7 +37,11 @@ int main() {
     configureRpcThreadpool(1, true /*callerWillJoin*/);
 
     if (light != nullptr) {
-        light->registerAsService();
+        auto rc = light->registerAsService();
+        if (rc != NO_ERROR) {
+            LOG(ERROR) << "Cannot start Light service: " << rc;
+            return rc;
+        }
     } else {
         LOG(ERROR) << "Can't create instance of Light, nullptr";
     }
