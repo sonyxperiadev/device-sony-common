@@ -6,7 +6,9 @@ $(shell mkdir -p $(PRODUCT_OUT)/$(TARGET_COPY_OUT_ODM)/lib64)
 $(shell mkdir -p $(PRODUCT_OUT)/$(TARGET_COPY_OUT_ODM)/lib64/camera)
 
 $(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/hw/camera.qcom.so hw/camera.sdm845.so && popd > /dev/null)
+
 $(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/hw/camera.qcom.so hw/camera.qcom.so && popd > /dev/null)
+$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/hw/com.qti.chi.override.so hw/com.qti.chi.override.so && popd > /dev/null)
 
 $(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/camera camera && popd > /dev/null)
 
