@@ -65,6 +65,11 @@ PRODUCT_PACKAGES += \
     libloc_ds_api \
     libgnsspps
 
+# IPA
+PRODUCT_PACKAGES += \
+    IPACM_cfg.xml \
+    ipacm
+
 # WLAN
 PRODUCT_PACKAGES += \
     p2p_supplicant.conf \
