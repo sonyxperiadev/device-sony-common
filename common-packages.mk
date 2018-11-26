@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+PRODUCT_SOONG_NAMESPACES += \
+    hardware/google/av \
+    hardware/google/interfaces
+
 # Audio
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
@@ -50,6 +54,10 @@ PRODUCT_PACKAGES += \
     libOmxVdec \
     libOmxVdecHevc \
     libOmxVenc
+
+# Enable Codec 2.0
+PRODUCT_PACKAGES += \
+    libstagefright_ccodec
 
 # GPS
 PRODUCT_PACKAGES += \
