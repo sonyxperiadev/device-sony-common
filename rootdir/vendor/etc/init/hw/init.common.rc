@@ -77,6 +77,9 @@ on init
     chmod 0660 /sys/devices/system/cpu/cpuquiet/rqbalance/cluster_freq_vote_min
 
 on fs
+    # Set RLIMIT_MEMLOCK to 64MB
+    setrlimit 8 67108864 67108864
+
     # Start HW service manager early
     start hwservicemanager
 
@@ -183,9 +186,6 @@ on post-fs-data
     setprop vold.post_fs_data_done 1
 
 on early-boot
-    # Set RLIMIT_MEMLOCK to 64MB
-    setrlimit 8 67108864 67108864
-
     # Graphics Permissions bootanimation
     chmod 0664 /sys/devices/virtual/graphics/fb0/msm_cmd_autorefresh_en
     chown system graphics /sys/devices/virtual/graphics/fb0/msm_cmd_autorefresh_en
