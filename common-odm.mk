@@ -100,6 +100,7 @@ PRODUCT_PACKAGES += \
 
 # Ril
 PRODUCT_PACKAGES += \
+    qcril.db \
     libril-qc-qmi-1 \
     libril-qc-ltedirectdisc \
     libril-qc-radioconfig \
