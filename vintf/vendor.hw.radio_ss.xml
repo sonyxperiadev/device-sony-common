@@ -1,0 +1,83 @@
+<manifest version="1.0" type="device" target-level="2">
+    <hal format="hidl">
+        <name>vendor.qti.hardware.radio.am</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IQcRilAudio</name>
+            <instance>slot1</instance>
+        </interface>
+        <fqname>@1.0::IQcRilAudio/slot1</fqname>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.qti.hardware.radio.ims</name>
+        <transport>hwbinder</transport>
+        <version>1.3</version>
+        <interface>
+            <name>IImsRadio</name>
+            <instance>imsradio0</instance>
+        </interface>
+        <fqname>@1.3::IImsRadio/imsradio0</fqname>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.qti.hardware.radio.lpa</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IUimLpa</name>
+            <instance>UimLpa0</instance>
+        </interface>
+        <fqname>@1.0::IUimLpa/UimLpa0</fqname>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.qti.hardware.radio.qcrilhook</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IQtiOemHook</name>
+            <instance>oemhook0</instance>
+        </interface>
+        <fqname>@1.0::IQtiOemHook/oemhook0</fqname>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.qti.hardware.radio.qtiradio</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IQtiRadio</name>
+            <instance>slot1</instance>
+        </interface>
+        <fqname>@1.0::IQtiRadio/slot1</fqname>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.qti.hardware.radio.uim</name>
+        <transport>hwbinder</transport>
+        <version>1.1</version>
+        <interface>
+            <name>IUim</name>
+            <instance>Uim0</instance>
+        </interface>
+        <fqname>@1.1::IUim/Uim0</fqname>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.qti.hardware.radio.uim_remote_client</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IUimRemoteServiceClient</name>
+            <instance>uimRemoteClient0</instance>
+        </interface>
+        <fqname>@1.0::IUimRemoteServiceClient/uimRemoteClient0</fqname>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.qti.hardware.radio.uim_remote_server</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IUimRemoteServiceServer</name>
+            <instance>uimRemoteServer0</instance>
+        </interface>
+        <fqname>@1.0::IUimRemoteServiceServer/uimRemoteServer0</fqname>
+    </hal>
+
+</manifest>

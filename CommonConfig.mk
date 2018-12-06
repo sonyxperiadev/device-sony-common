@@ -112,3 +112,11 @@ include device/sony/sepolicy/sepolicy.mk
 
 DEVICE_MANIFEST_FILE := $(COMMON_PATH)/vintf/manifest.xml
 DEVICE_MATRIX_FILE   := $(COMMON_PATH)/vintf/compatibility_matrix.xml
+
+ifeq ($(PRODUCT_DEVICE_DS),true)
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hw.radio_ds.xml
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.radio_ds.xml
+else
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hw.radio_ss.xml
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.radio_ss.xml
+endif
