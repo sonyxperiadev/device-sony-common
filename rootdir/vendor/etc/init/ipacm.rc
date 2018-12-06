@@ -1,4 +1,4 @@
-on boot
+on post-fs-data
     #create ipacm log dir
     mkdir /data/vendor/ipa 0770 radio radio
 
