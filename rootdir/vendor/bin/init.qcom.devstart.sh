@@ -3,4 +3,4 @@
 echo 1 > /sys/kernel/boot_adsp/boot
 echo 1 > /sys/kernel/boot_cdsp/boot
 echo 1 > /sys/kernel/boot_slpi/boot
-setprop sys.qcom.devup 1
+setprop vendor.qcom.devup 1
