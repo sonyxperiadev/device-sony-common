@@ -14,5 +14,5 @@ service audiopd /odm/bin/adsprpcd audiopd
 on property:ro.board.platform=sdm660
     enable audiopd
 
-on property:sys.qcom.devup=1
+on property:vendor.qcom.devup=1
     start adsprpcd
