@@ -127,13 +127,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.nfc.port=I2C
 
-# Sensors debug
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.debug.sensors.hal=0 \
-    debug.qualcomm.sns.daemon=0 \
-    debug.qualcomm.sns.hal=0 \
-    debug.qualcomm.sns.libsensor1=0
-
 # RILD
 PRODUCT_PROPERTY_OVERRIDES += \
     rild.libpath=/odm/lib64/libril-qc-qmi-1.so \
