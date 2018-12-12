@@ -133,16 +133,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.kpi.debug=0 \
     persist.camera.global.debug=0
 
-# Camera
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.camera.gyro.disable=1 \
-    persist.camera.feature.cac=0 \
-    persist.camera.ois.disable=0 \
-    persist.camera.eis.enable=0 \
-    persist.camera.zsl.mode=1 \
-    persist.camera.exif.rotation=off \
-    persist.camera.lib2d.rotation=on
-
 # Sensors debug
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.debug.sensors.hal=0 \
