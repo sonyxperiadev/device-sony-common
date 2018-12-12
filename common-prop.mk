@@ -129,25 +129,26 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Camera Debug
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.camera.hal.debug=0 \
-    persist.camera.kpi.debug=0 \
-    persist.camera.global.debug=0
+    persist.vendor.camera.hal.debug=0 \
+    persist.vendor.camera.kpi.debug=0 \
+    persist.vendor.camera.global.debug=0 \
+    persist.vendor.camera.mci.debug=0 \
+    persist.vendor.camera.mmstill.logs=0
 
 # Disable Dual Camera
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.camera.dual.camera.mpo=0 \
-    persist.camera.dc.frame.sync=0 \
-    persist.camera.dcrf.enable=0
+    persist.vendor.camera.dual.camera.mpo=0 \
+    persist.vendor.camera.dc.frame.sync=0 \
+    persist.vendor.camera.dcrf.enable=0
 
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.camera.gyro.disable=1 \
-    persist.camera.feature.cac=0 \
-    persist.camera.ois.disable=0 \
-    persist.camera.eis.enable=0 \
-    persist.camera.zsl.mode=1 \
-    persist.camera.exif.rotation=off \
-    persist.camera.lib2d.rotation=on
+    persist.vendor.camera.feature.cac=0 \
+    persist.vendor.camera.ois.disable=0 \
+    persist.vendor.camera.eis.enable=0 \
+    persist.vendor.camera.zsl.mode=1 \
+    persist.vendor.camera.exif.rotation=off \
+    persist.vendor.camera.lib2d.rotation=on
 
 # Sensors debug
 PRODUCT_PROPERTY_OVERRIDES += \
