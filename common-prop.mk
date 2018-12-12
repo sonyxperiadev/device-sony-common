@@ -127,12 +127,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.nfc.port=I2C
 
-# Camera Debug
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.camera.hal.debug=0 \
-    persist.camera.kpi.debug=0 \
-    persist.camera.global.debug=0
-
 # Sensors debug
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.debug.sensors.hal=0 \
