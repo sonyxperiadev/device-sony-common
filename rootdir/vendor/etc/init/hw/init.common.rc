@@ -85,10 +85,12 @@ on fs
 
     mount_all /vendor/etc/fstab.${ro.hardware}
 
-    # /dsp is initially unlabelled so we need to mount
-    # it as rw, restore AOSP labels, then remount
-    restorecon_recursive /dsp
-    mount rootfs rootfs /dsp ro remount
+    # /vendor/dsp is initially unlabelled so we need to mount
+    # it as rw, restore AOSP labels, then remount read-only.
+    # Do not forget the trailing slash for restorecon, or SELinux will try to
+    # label the device itself.
+    restorecon_recursive /vendor/dsp/
+    mount rootfs rootfs /vendor/dsp ro remount
 
     restorecon_recursive /persist
 
