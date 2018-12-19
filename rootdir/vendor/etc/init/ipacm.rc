@@ -1,3 +1,7 @@
+on boot
+    #create ipacm log dir
+    mkdir /data/vendor/ipa 0770 radio radio
+
 service ipacm /vendor/bin/ipacm
     class main
     user radio
