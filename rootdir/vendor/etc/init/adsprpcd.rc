@@ -1,9 +1,8 @@
 # ADSP FastRPC
 service adsprpcd /odm/bin/adsprpcd
-   class late_start
+   class main
    user media
    group media
-   disabled
 
 service audiopd /odm/bin/adsprpcd audiopd
    class main
@@ -13,6 +12,3 @@ service audiopd /odm/bin/adsprpcd audiopd
 
 on property:ro.board.platform=sdm660
     enable audiopd
-
-on property:sys.qcom.devup=1
-    start adsprpcd
