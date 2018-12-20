@@ -43,10 +43,6 @@ PRODUCT_PACKAGES += \
     android.hardware.wifi@1.1 \
     android.hardware.wifi@1.0-service
 
-# Bluetooth
-PRODUCT_PACKAGES += \
-    android.hardware.bluetooth@1.0-service
-
 # NFC packages
 PRODUCT_PACKAGES += \
     android.hardware.nfc@1.1-impl \
