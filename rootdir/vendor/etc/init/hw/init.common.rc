@@ -93,7 +93,7 @@ on fs
 
 on post-fs
     # Wait qseecomd started
-    wait_for_prop sys.listeners.registered true
+    wait_for_prop vendor.sys.listeners.registered true
 
 on late-fs
     # Wait for hwservicemanager ready since fsck might be triggered in mount_all --late
@@ -349,6 +349,6 @@ on property:sys.boot_completed=1
     # Enable ZRAM on boot_complete
     swapon_all /vendor/etc/fstab.${ro.hardware}
 
-on property:sys.listeners.registered=true
+on property:vendor.sys.listeners.registered=true
     # load IPA FWs
     start ipastart_sh
