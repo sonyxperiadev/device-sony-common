@@ -80,17 +80,7 @@ PRODUCT_PACKAGES += \
     android.hardware.biometrics.fingerprint@2.1 \
     android.hardware.biometrics.fingerprint@2.1-service.sony
 
-ifneq ($(TARGET_LEGACY_KEYMASTER),true)
-# Keymaster
-PRODUCT_PACKAGES += \
-    android.hardware.keymaster@3.0-impl-qti \
-    android.hardware.keymaster@3.0-service-qti
-
-# Gatekeeper
-PRODUCT_PACKAGES += \
-    android.hardware.gatekeeper@1.0-impl-qti \
-    android.hardware.gatekeeper@1.0-service-qti
-else
+ifeq ($(TARGET_LEGACY_KEYMASTER),true)
 # Keymaster
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@3.0-impl \
@@ -100,6 +90,20 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-impl \
     android.hardware.gatekeeper@1.0-service
+else ifeq ($(TARGET_KEYMASTER_V4),true)
+# Keymaster 4
+PRODUCT_PACKAGES += \
+    android.hardware.keymaster@4.0-service-qti
+else
+# Keymaster
+PRODUCT_PACKAGES += \
+    android.hardware.keymaster@3.0-impl-qti \
+    android.hardware.keymaster@3.0-service-qti
+
+# Gatekeeper
+PRODUCT_PACKAGES += \
+    android.hardware.gatekeeper@1.0-impl-qti \
+    android.hardware.gatekeeper@1.0-service-qti
 endif
 
 # DRM
