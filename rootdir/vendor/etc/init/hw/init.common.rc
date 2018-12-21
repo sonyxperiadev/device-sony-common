@@ -94,7 +94,7 @@ on fs
 
 on post-fs
     # Wait qseecomd started
-    wait_for_prop sys.listeners.registered true
+    wait_for_prop vendor.sys.listeners.registered true
 
 on late-fs
     # Wait for hwservicemanager ready since fsck might be triggered in mount_all --late
