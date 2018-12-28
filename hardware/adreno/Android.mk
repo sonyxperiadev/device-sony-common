@@ -1,42 +1,41 @@
 # EGL libs
-$(shell mkdir -p $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib)
-$(shell mkdir -p $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib/hw)
-$(shell mkdir -p $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib64)
-$(shell mkdir -p $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib64/hw)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/egl egl && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/libllvm-glnext.so libllvm-glnext.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/libllvm-qgl.so libllvm-qgl.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/libc2d30_bltlib.so libc2d30_bltlib.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/libc2d30-a3xx.so libc2d30-a3xx.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/libc2d30-a4xx.so libc2d30-a4xx.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/libc2d30-a5xx.so libc2d30-a5xx.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/libmm-qdcm.so libmm-qdcm.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/librs_adreno.so librs_adreno.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/libadreno_utils.so libadreno_utils.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/libCB.so libCB.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/libgsl.so libgsl.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/libC2D2.so libC2D2.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/libRSDriver_adreno.so libRSDriver_adreno.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/libOpenCL.so libOpenCL.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/libllvm-qcom.so libllvm-qcom.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/librs_adreno_sha1.so librs_adreno_sha1.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib/hw > /dev/null && ln -sf /odm/lib/hw/vulkan.$(TARGET_BOARD_PLATFORM).so vulkan.$(TARGET_BOARD_PLATFORM).so && popd > /dev/null)
 
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib64 > /dev/null && ln -sf /odm/lib64/egl egl && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib64 > /dev/null && ln -sf /odm/lib64/libllvm-glnext.so libllvm-glnext.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib64 > /dev/null && ln -sf /odm/lib64/libllvm-qgl.so libllvm-qgl.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib64 > /dev/null && ln -sf /odm/lib64/libc2d30_bltlib.so libc2d30_bltlib.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib64 > /dev/null && ln -sf /odm/lib64/libc2d30-a3xx.so libc2d30-a3xx.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib64 > /dev/null && ln -sf /odm/lib64/libc2d30-a4xx.so libc2d30-a4xx.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib64 > /dev/null && ln -sf /odm/lib64/libc2d30-a5xx.so libc2d30-a5xx.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib64 > /dev/null && ln -sf /odm/lib64/libmm-qdcm.so libmm-qdcm.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib64 > /dev/null && ln -sf /odm/lib64/librs_adreno.so librs_adreno.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib64 > /dev/null && ln -sf /odm/lib64/libadreno_utils.so libadreno_utils.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib64 > /dev/null && ln -sf /odm/lib64/libCB.so libCB.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib64 > /dev/null && ln -sf /odm/lib64/libgsl.so libgsl.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib64 > /dev/null && ln -sf /odm/lib64/libC2D2.so libC2D2.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib64 > /dev/null && ln -sf /odm/lib64/libRSDriver_adreno.so libRSDriver_adreno.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib64 > /dev/null && ln -sf /odm/lib64/libOpenCL.so libOpenCL.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib64 > /dev/null && ln -sf /odm/lib64/libllvm-qcom.so libllvm-qcom.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib64 > /dev/null && ln -sf /odm/lib64/librs_adreno_sha1.so librs_adreno_sha1.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib64/hw > /dev/null && ln -sf /odm/lib64/hw/vulkan.$(TARGET_BOARD_PLATFORM).so vulkan.$(TARGET_BOARD_PLATFORM).so && popd > /dev/null)
+LOCAL_PATH := $(call my-dir)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := adreno_symlinks
+
+TARGET_DIRECTORY := $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)
+
+library_names := \
+    egl \
+    libC2D2.so \
+    libCB.so \
+    libOpenCL.so \
+    libRSDriver_adreno.so \
+    libadreno_utils.so \
+    libc2d30-a3xx.so \
+    libc2d30-a4xx.so \
+    libc2d30-a5xx.so \
+    libc2d30_bltlib.so \
+    libgsl.so \
+    libllvm-glnext.so \
+    libllvm-qcom.so \
+    libllvm-qgl.so \
+    libmm-qdcm.so \
+    librs_adreno.so \
+    librs_adreno_sha1.so \
+    hw/vulkan.$(TARGET_BOARD_PLATFORM).so
+
+# Create target directories
+CREATE_FOLDERS := lib/hw lib64/hw
+LOCAL_POST_INSTALL_CMD += mkdir -p $(foreach p,$(CREATE_FOLDERS),$(TARGET_DIRECTORY)/$p);
+
+# Create symlinks to 32- and 64-bit directories:
+LOCAL_POST_INSTALL_CMD += $(foreach lib_dir,lib lib64, \
+    $(foreach p,$(library_names), \
+        ln -sf /odm/$(lib_dir)/$p $(TARGET_DIRECTORY)/$(lib_dir)/$(dir $p); \
+    ) \
+)
+
+include $(BUILD_PHONY_PACKAGE)
