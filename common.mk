@@ -97,6 +97,10 @@ PRODUCT_PACKAGES += \
     init.qcom.devstart.sh \
     init.qcom.ipastart.sh
 
+# Depend on generation of adreno symlinks (from /vendor to /odm)
+PRODUCT_PACKAGES += \
+    adreno_symlinks
+
 # APN list
 PRODUCT_COPY_FILES += \
     device/sample/etc/old-apns-conf.xml:system/etc/old-apns-conf.xml \
