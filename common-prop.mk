@@ -181,3 +181,8 @@ else
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.keymaster.version=v3
 endif
+
+# Enable regular booting when long-pressing power button in charger mode
+# See system/core/healthd/healthd_mode_charger.cpp
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.enable_boot_charger_mode=true
