@@ -2,10 +2,9 @@
 
 LOCAL_PATH := $(call my-dir)
 
-include $(CLEAR_VARS)
+include $(SONY_CLEAR_VARS)
 LOCAL_MODULE := adreno_symlinks
-
-TARGET_DIRECTORY := $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)
+LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)
 
 library_names := \
     egl \
@@ -27,15 +26,11 @@ library_names := \
     librs_adreno_sha1.so \
     hw/vulkan.$(TARGET_BOARD_PLATFORM).so
 
-# Create target directories
-CREATE_FOLDERS := lib/hw lib64/hw
-LOCAL_POST_INSTALL_CMD += mkdir -p $(foreach p,$(CREATE_FOLDERS),$(TARGET_DIRECTORY)/$p);
-
 # Create symlinks to 32- and 64-bit directories:
-LOCAL_POST_INSTALL_CMD += $(foreach lib_dir,lib lib64, \
+SONY_SYMLINKS := $(foreach lib_dir,lib lib64, \
     $(foreach p,$(library_names), \
-        ln -sf /odm/$(lib_dir)/$p $(TARGET_DIRECTORY)/$(lib_dir)/$(dir $p); \
+        /odm/$(lib_dir)/$p:$(TARGET_COPY_OUT_VENDOR)/$(lib_dir)/$p \
     ) \
 )
 
-include $(BUILD_PHONY_PACKAGE)
+include $(SONY_BUILD_SYMLINKS)
