@@ -29,6 +29,10 @@ PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/oss/release-keys/testkey
 # Common path
 COMMON_PATH := device/sony/common
 
+# Build scripts
+SONY_CLEAR_VARS := $(COMMON_PATH)/sony_clear_vars.mk
+SONY_BUILD_SYMLINKS := $(COMMON_PATH)/sony_build_symlinks.mk
+
 DEVICE_PACKAGE_OVERLAYS += $(COMMON_PATH)/overlay
 
 PRODUCT_ENFORCE_RRO_TARGETS := \
