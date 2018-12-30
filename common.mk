@@ -104,7 +104,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     adreno_symlinks \
     camera_symlinks \
-    qca_cld3_symlinks
+    qca_cld3_symlinks \
+    tftp_symlinks
 
 # APN list
 PRODUCT_COPY_FILES += \
