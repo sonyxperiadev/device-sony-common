@@ -103,7 +103,8 @@ PRODUCT_PACKAGES += \
 # Depend on symlink creation in /vendor:
 PRODUCT_PACKAGES += \
     adreno_symlinks \
-    camera_symlinks
+    camera_symlinks \
+    qca_cld3_symlinks
 
 # APN list
 PRODUCT_COPY_FILES += \
