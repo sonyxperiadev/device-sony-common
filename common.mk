@@ -101,9 +101,10 @@ PRODUCT_PACKAGES += \
     init.qcom.devstart.sh \
     init.qcom.ipastart.sh
 
-# Depend on generation of adreno symlinks (from /vendor to /odm)
+# Depend on symlink creation in /vendor:
 PRODUCT_PACKAGES += \
-    adreno_symlinks
+    adreno_symlinks \
+    camera_symlinks
 
 # APN list
 PRODUCT_COPY_FILES += \
