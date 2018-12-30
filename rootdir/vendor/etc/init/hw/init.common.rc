@@ -85,11 +85,6 @@ on fs
 
     mount_all /vendor/etc/fstab.${ro.hardware}
 
-    # /dsp is initially unlabelled so we need to mount
-    # it as rw, restore AOSP labels, then remount
-    restorecon_recursive /dsp
-    mount rootfs rootfs /dsp ro remount
-
     restorecon_recursive /persist
 
 on post-fs
