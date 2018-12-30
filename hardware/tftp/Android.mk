@@ -1,36 +1,43 @@
+LOCAL_PATH := $(call my-dir)
+
 ifneq ($(filter sdm660 msm8998 sdm845,$(TARGET_BOARD_PLATFORM)),)
 
-$(shell rm -r $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/rfs/)
-$(shell mkdir -p $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/rfs/msm/mpss/readonly/vendor)
-$(shell mkdir -p $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/rfs/msm/adsp/readonly/vendor)
-$(shell mkdir -p $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/rfs/msm/slpi/readonly/vendor)
-$(shell mkdir -p $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/rfs/msm/cdsp/readonly/vendor)
+include $(SONY_CLEAR_VARS)
+LOCAL_MODULE := tftp_symlinks
+LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)
 
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /data/vendor/tombstones/modem rfs/msm/mpss/ramdumps && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /persist/rfs/msm/mpss rfs/msm/mpss/readwrite && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /persist/rfs/shared rfs/msm/mpss/shared && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /persist/hlos_rfs/shared rfs/msm/mpss/hlos && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /firmware rfs/msm/mpss/readonly/firmware && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /odm/firmware rfs/msm/mpss/readonly/vendor/firmware && popd > /dev/null)
+target_combinations := \
+    /persist/rfs/shared:shared \
+    /persist/hlos_rfs/shared:hlos \
+    /firmware:readonly/firmware \
+    /odm/firmware:readonly/vendor/firmware
 
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /data/vendor/tombstones/lpass rfs/msm/adsp/ramdumps && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /persist/rfs/msm/adsp rfs/msm/adsp/readwrite && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /persist/rfs/shared rfs/msm/adsp/shared && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /persist/hlos_rfs/shared rfs/msm/adsp/hlos && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /firmware rfs/msm/adsp/readonly/firmware && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /odm/firmware rfs/msm/adsp/readonly/vendor/firmware && popd > /dev/null)
+target_prefixes := \
+    mpss \
+    adsp \
+    slpi \
+    cdsp
 
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /data/vendor/tombstones/rfs/slpi rfs/msm/slpi/ramdumps && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /persist/rfs/msm/slpi rfs/msm/slpi/readwrite && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /persist/rfs/shared rfs/msm/slpi/shared && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /persist/hlos_rfs/shared rfs/msm/slpi/hlos && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /firmware rfs/msm/slpi/readonly/firmware && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /odm/firmware rfs/msm/slpi/readonly/vendor/firmware && popd > /dev/null)
+# Prepend vendor and prefix directory to all link names:
+SONY_SYMLINKS := $(foreach prefix,$(target_prefixes), \
+    $(foreach s,$(target_combinations), \
+        $(eval p := $(subst :,$(space),$(s))) \
+        $(word 1,$(p)):$(TARGET_COPY_OUT_VENDOR)/rfs/msm/$(prefix)/$(word 2,$(p)) \
+    ) \
+)
 
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /data/vendor/tombstones/rfs/cdsp rfs/msm/cdsp/ramdumps && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /persist/rfs/msm/cdsp rfs/msm/cdsp/readwrite && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /persist/rfs/shared rfs/msm/cdsp/shared && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /persist/hlos_rfs/shared rfs/msm/cdsp/hlos && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /firmware rfs/msm/cdsp/readonly/firmware && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR) > /dev/null && ln -sf /odm/firmware rfs/msm/cdsp/readonly/vendor/firmware && popd > /dev/null)
+# Edgecase for readwrite folders that all point to their own persist folder:
+SONY_SYMLINKS += $(foreach prefix,$(target_prefixes), \
+    /persist/rfs/msm/$(prefix):$(TARGET_COPY_OUT_VENDOR)/rfs/msm/$(prefix)/readwrite \
+)
+
+# Edgecase for tombstone folders that do not follow the above pattern:
+SONY_SYMLINKS += \
+    /data/vendor/tombstones/modem:$(TARGET_COPY_OUT_VENDOR)/rfs/msm/mpss/ramdumps \
+    /data/vendor/tombstones/lpass:$(TARGET_COPY_OUT_VENDOR)/rfs/msm/adsp/ramdumps \
+    /data/vendor/tombstones/rfs/cdsp:$(TARGET_COPY_OUT_VENDOR)/rfs/msm/cdsp/ramdumps \
+    /data/vendor/tombstones/rfs/slpi:$(TARGET_COPY_OUT_VENDOR)/rfs/msm/slpi/ramdumps
+
+include $(SONY_BUILD_SYMLINKS)
+
 endif
