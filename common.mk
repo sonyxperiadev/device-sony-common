@@ -107,6 +107,9 @@ PRODUCT_PACKAGES += \
     qca_cld3_symlinks \
     tftp_symlinks
 
+PRODUCT_PACKAGES += \
+    odm_build_prop_version
+
 # APN list
 PRODUCT_COPY_FILES += \
     device/sample/etc/old-apns-conf.xml:system/etc/old-apns-conf.xml \
