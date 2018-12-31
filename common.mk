@@ -108,6 +108,10 @@ PRODUCT_PACKAGES += \
     qca_cld3_symlinks \
     tftp_symlinks
 
+# Create firmware mount point folders in /vendor:
+PRODUCT_PACKAGES += \
+    firmware_folders
+
 # APN list
 PRODUCT_COPY_FILES += \
     device/sample/etc/old-apns-conf.xml:system/etc/old-apns-conf.xml \
