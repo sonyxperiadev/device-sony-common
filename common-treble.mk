@@ -60,6 +60,10 @@ PRODUCT_PACKAGES += \
 # Health
 PRODUCT_PACKAGES += \
     android.hardware.health@2.0-service.sony
+# Remove deprecated backup healthd; this can be omitted
+# once healthd is no longer included by default.
+DEVICE_FRAMEWORK_MANIFEST_FILE += \
+    system/libhidl/vintfdata/manifest_healthd_exclude.xml
 
 # Sensors
 PRODUCT_PACKAGES += \
