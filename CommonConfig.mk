@@ -92,7 +92,6 @@ TARGET_NO_RPC := true
 # Charger
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
 BOARD_CHARGER_ENABLE_SUSPEND := true
-BOARD_HAL_STATIC_LIBRARIES += libhealthd.$(TARGET_DEVICE)
 
 # Enable dex-preoptimization to speed up first boot sequence
 ifeq ($(HOST_OS),linux)
