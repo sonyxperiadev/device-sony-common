@@ -29,6 +29,10 @@ PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/oss/release-keys/testkey
 # Common path
 COMMON_PATH := device/sony/common
 
+# Build scripts
+SONY_CLEAR_VARS := $(COMMON_PATH)/sony_clear_vars.mk
+SONY_BUILD_SYMLINKS := $(COMMON_PATH)/sony_build_symlinks.mk
+
 DEVICE_PACKAGE_OVERLAYS += $(COMMON_PATH)/overlay
 
 PRODUCT_ENFORCE_RRO_TARGETS := \
@@ -96,6 +100,20 @@ endif
 PRODUCT_PACKAGES += \
     init.qcom.devstart.sh \
     init.qcom.ipastart.sh
+
+# Depend on symlink creation in /vendor:
+PRODUCT_PACKAGES += \
+    adreno_symlinks \
+    camera_symlinks \
+    qca_cld3_symlinks \
+    tftp_symlinks
+
+# Create firmware mount point folders in /vendor:
+PRODUCT_PACKAGES += \
+    firmware_folders
+
+PRODUCT_PACKAGES += \
+    odm_build_prop_version
 
 # APN list
 PRODUCT_COPY_FILES += \

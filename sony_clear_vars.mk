@@ -1,0 +1,3 @@
+SONY_SYMLINKS :=
+
+include $(CLEAR_VARS)

@@ -1,21 +1,32 @@
+# Create symlinks for camera libraries. Currently only applicable
+# to sdm845 boards.
+
+LOCAL_PATH := $(call my-dir)
+
 ifneq ($(filter sdm845,$(TARGET_BOARD_PLATFORM)),)
 
-$(shell mkdir -p $(PRODUCT_OUT)/$(TARGET_COPY_OUT_ODM)/lib)
-$(shell mkdir -p $(PRODUCT_OUT)/$(TARGET_COPY_OUT_ODM)/lib/camera)
-$(shell mkdir -p $(PRODUCT_OUT)/$(TARGET_COPY_OUT_ODM)/lib64)
-$(shell mkdir -p $(PRODUCT_OUT)/$(TARGET_COPY_OUT_ODM)/lib64/camera)
+include $(SONY_CLEAR_VARS)
+LOCAL_MODULE := camera_symlinks
+LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)
 
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/hw/camera.qcom.so hw/camera.sdm845.so && popd > /dev/null)
+library_names := \
+    camera \
+    hw/camera.qcom.so \
+    hw/com.qti.chi.override.so \
+    libcamxfdalgov7.so \
+    libcamxfdengine.so \
+    libcamxstatscore.so \
+    libcamxtintlessalgo.so \
+    libcom.qti.chinodeutils.so
 
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/hw/camera.qcom.so hw/camera.qcom.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/hw/com.qti.chi.override.so hw/com.qti.chi.override.so && popd > /dev/null)
+# Create symlinks to 32-bit camera libraries:
+SONY_SYMLINKS := $(foreach p,$(library_names), \
+    /odm/lib/$p:$(TARGET_COPY_OUT_VENDOR)/lib/$p \
+)
 
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/camera camera && popd > /dev/null)
+# Special exception for camera.qcom.so that is also linked to as camera.sdm845.so:
+SONY_SYMLINKS += /odm/lib/hw/camera.qcom.so:$(TARGET_COPY_OUT_VENDOR)/lib/hw/camera.sdm845.so
 
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/libcom.qti.chinodeutils.so libcom.qti.chinodeutils.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/libcamxfdalgov7.so libcamxfdalgov7.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/libcamxfdengine.so libcamxfdengine.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/libcamxstatscore.so libcamxstatscore.so && popd > /dev/null)
-$(shell pushd $(PRODUCT_OUT)/$(TARGET_COPY_OUT_VENDOR)/lib > /dev/null && ln -sf /odm/lib/libcamxtintlessalgo.so libcamxtintlessalgo.so && popd > /dev/null)
+include $(SONY_BUILD_SYMLINKS)
 
 endif
