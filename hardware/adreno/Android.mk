@@ -13,15 +13,10 @@ library_names := \
     libOpenCL.so \
     libRSDriver_adreno.so \
     libadreno_utils.so \
-    libc2d30-a3xx.so \
-    libc2d30-a4xx.so \
-    libc2d30-a5xx.so \
     libc2d30_bltlib.so \
     libgsl.so \
     libllvm-glnext.so \
     libllvm-qcom.so \
-    libllvm-qgl.so \
-    libmm-qdcm.so \
     librs_adreno.so \
     librs_adreno_sha1.so \
     hw/vulkan.$(TARGET_BOARD_PLATFORM).so
