@@ -79,5 +79,4 @@
         </interface>
         <fqname>@1.0::IUimRemoteServiceServer/uimRemoteServer0</fqname>
     </hal>
-
 </manifest>
