@@ -1,0 +1,11 @@
+on fs
+    # Create battery stats dir
+    mkdir /mnt/vendor/persist/battery 0700 system system
+
+service vendor.health-hal-2-0 /vendor/bin/hw/android.hardware.health@2.0-service.sony
+    interface android.hardware.health@2.0::IHealth default
+    class hal
+    capabilities WAKE_ALARM
+    user system
+    group system
+    file /dev/kmsg w
