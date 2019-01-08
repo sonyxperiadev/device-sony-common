@@ -1,0 +1,6 @@
+BasedOnStyle: Google
+IndentWidth: 4
+UseTab: Never
+PointerAlignment: Right
+NamespaceIndentation: None
+ColumnLimit: 0

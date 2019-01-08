@@ -1,0 +1,118 @@
+cc_binary {
+    name: "android.hardware.health@2.0-service.sony",
+    init_rc: ["android.hardware.health@2.0-service.sony.rc"],
+    vendor: true,
+    relative_install_path: "hw",
+    cflags: [
+        "-Wall",
+        "-Werror",
+    ],
+    srcs: [
+        "HealthService.cpp",
+    ],
+    static_libs: [
+        "android.hardware.health@2.0-impl",
+        "android.hardware.health@1.0-convert",
+        "libbatterymonitor",
+        // libhealthservice is needed for health_service_main()
+        "libhealthservice",
+        // Storage is needed by the HAL definition, use default
+        "libhealthstoragedefault",
+        "libhealthboardcommon.sony",
+        "libhealthd.sony",
+    ],
+    shared_libs: [
+        "libbase",
+        "libcutils",
+        "libhidlbase",
+        "libhidltransport",
+        "libhwbinder",
+        "libutils",
+        "android.hardware.health@2.0",
+    ],
+    // HealthService.cpp never uses healthd_board_* functions, so the compiler
+    // drops them. But BatteryMonitor.cpp and Health.cpp depend on those
+    // functions to be defined(not only declared).
+    whole_static_libs: [
+        "libhealthd.sony",
+    ],
+
+    // Only availbale in current Android Q master.
+    // Nead to remove health section from common/vintf/manifext.xml as well
+    // once we decide to use this instead.
+    //vintf_fragments: [
+    //    "manifest_android.hardware.health@2.0.xml",
+    //],
+
+    overrides: [
+        "healthd",
+    ],
+}
+
+cc_library_static {
+    // Vendor-specific functions
+    name: "libhealthboardcommon.sony",
+    // recovery_available is not yet available in Pie, need to use master or wait for Q
+    //recovery_available: true,
+    vendor_available: true,
+    cflags: [
+        "-Wall",
+        "-Werror",
+        "-fexceptions",
+    ],
+    srcs: [
+        "HealthBoardCommon.cpp",
+        "CycleCountBackupRestore.cpp",
+        "LearnedCapacityBackupRestore.cpp",
+    ],
+    shared_libs: [
+        "android.hardware.health@2.0",
+        "libbase",
+        "libhidlbase",
+        "libhidltransport",
+        "libhwbinder",
+        "liblog",
+        "libcutils",
+        "libutils",
+    ],
+    header_libs: [
+        // We only need BatteryService.h for the common lib
+        "libbatteryservice_headers",
+    ],
+    // Needed to find own headers
+    local_include_dirs: ["include"],
+}
+
+cc_library_static {
+    // Shim lib that maps legacy healthd_board_* hooks to vendor lib functions
+    // Needed until the upstream health rework is complete
+    name: "libhealthd.sony",
+    // recovery_available is not yet available in Pie, need to use master or wait for Q
+    //recovery_available: true,
+    vendor_available: true,
+    cflags: [
+        "-Wall",
+        "-Werror",
+    ],
+    shared_libs: [
+        "android.hardware.health@2.0",
+        "libbase",
+        "libhidlbase",
+        "libhidltransport",
+        "libhwbinder",
+        "liblog",
+        "libutils",
+        "libcutils",
+    ],
+    srcs: [
+        "libhealthd_board.cpp",
+    ],
+    header_libs: [
+        // To access healthd/healthd.h and BatteryService.h in libhealthd_board.h
+        "libhealthd_headers",
+    ],
+    // Needed to find own headers
+    local_include_dirs: ["include"],
+    // Let HealthService find headers
+    export_include_dirs: ["include"],
+}
