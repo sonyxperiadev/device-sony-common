@@ -192,6 +192,12 @@ on early-boot
     # Permission for LED driver
     chown system system /sys/class/graphics/fb0/msm_fb_persist_mode
 
+    # wait for devices
+    wait_for_prop vendor.qcom.devup 1
+
+    write /sys/kernel/boot_adsp/boot 1
+    write /sys/kernel/boot_cdsp/boot 1
+
     # Update dm-verity state and set partition.*.verified properties
     verity_update_state
 

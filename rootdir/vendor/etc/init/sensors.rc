@@ -9,10 +9,6 @@ on post-fs-data
 
 # Sensor service
 service sensors /odm/bin/sensors.qcom
-    class late_start
+    class main
     user system
     group system
-    disabled
-
-on property:vendor.qcom.devup=1
-    start sensors
