@@ -5,6 +5,8 @@ else
 # TARGET_BOARD_PLATFORM specific featurization
 QCOM_BOARD_PLATFORMS += msm8952 msm8996 msm8998 sdm660 sdm845
 
+QCOM_NEW_MEDIA_PLATFORM := sdm845
+
 #List of targets that use video hw
 MSM_VIDC_TARGET_LIST := msm8952 msm8996 msm8998 sdm660 sdm845
 
@@ -14,13 +16,19 @@ MASTER_SIDE_CP_TARGET_LIST := msm8996 msm8998 sdm660 sdm845
 audio-hal := hardware/qcom/audio
 gps-hal := hardware/qcom/gps/sdm845
 ipa-hal := hardware/qcom/data/ipacfg-mgr/sdm845
+
 ifeq ($(TARGET_USES_SDE),true)
 display-hal := hardware/qcom/display/sde
-QCOM_MEDIA_ROOT := hardware/qcom/media/sdm845
 else
 display-hal := hardware/qcom/display/msmfb
+endif
+
+ifneq ($(filter $(QCOM_NEW_MEDIA_PLATFORM), $(TARGET_BOARD_PLATFORM)),)
+QCOM_MEDIA_ROOT := hardware/qcom/media/sdm845
+else
 QCOM_MEDIA_ROOT := hardware/qcom/media/msm8998
 endif
+
 OMX_VIDEO_PATH := mm-video-v4l2
 media-hal := $(QCOM_MEDIA_ROOT)
 
