@@ -271,6 +271,15 @@ namespace android {
                                 writeStr(RED_LED_DUTY_PCTS_FILE, getScaledDutyPcts(red));
                                 writeStr(GREEN_LED_DUTY_PCTS_FILE, getScaledDutyPcts(green));
                                 writeStr(BLUE_LED_DUTY_PCTS_FILE, getScaledDutyPcts(blue));
+
+                                writeInt(RED_LED_BASE   + "pause_lo", offMS);
+                                writeInt(GREEN_LED_BASE + "pause_lo", offMS);
+                                writeInt(BLUE_LED_BASE  + "pause_lo", offMS);
+
+                                writeInt(RED_LED_BASE   + "pause_hi", onMS);
+                                writeInt(GREEN_LED_BASE + "pause_hi", onMS);
+                                writeInt(BLUE_LED_BASE  + "pause_hi", onMS);
+
                                 writeInt(RGB_BLINK_FILE, 1);
                             } else {
                                 if (red) {

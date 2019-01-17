@@ -55,32 +55,41 @@ struct lights_t {
 static constexpr int RAMP_SIZE = 8;
 static constexpr int BRIGHTNESS_RAMP[RAMP_SIZE] = {0, 14, 28, 42, 56, 70, 84, 100};
 
+const static std::string RED_LED_BASE
+        = "/sys/class/leds/led:rgb_red/";
+
+const static std::string GREEN_LED_BASE
+        = "/sys/class/leds/led:rgb_green/";
+
+const static std::string BLUE_LED_BASE
+        = "/sys/class/leds/led:rgb_blue/";
+
 const static std::string RED_LED_FILE
-        = "/sys/class/leds/led:rgb_red/brightness";
+        = RED_LED_BASE + "brightness";
 
 const static std::string GREEN_LED_FILE
-        = "/sys/class/leds/led:rgb_green/brightness";
+        = GREEN_LED_BASE + "brightness";
 
 const static std::string BLUE_LED_FILE
-        = "/sys/class/leds/led:rgb_blue/brightness";
+        = BLUE_LED_BASE + "brightness";
 
 const static std::string RED_LED_DUTY_PCTS_FILE
-        = "/sys/class/leds/led:rgb_red/duty_pcts";
+        = RED_LED_BASE + "duty_pcts";
 
 const static std::string GREEN_LED_DUTY_PCTS_FILE
-        = "/sys/class/leds/led:rgb_green/duty_pcts";
+        = GREEN_LED_BASE + "duty_pcts";
 
 const static std::string BLUE_LED_DUTY_PCTS_FILE
-        = "/sys/class/leds/led:rgb_blue/duty_pcts";
+        = BLUE_LED_BASE + "duty_pcts";
 
 const static std::string RED_BLINK_FILE
-        = "/sys/class/leds/led:rgb_red/blink";
+        = RED_LED_BASE + "blink";
 
 const static std::string GREEN_BLINK_FILE
-        = "/sys/class/leds/led:rgb_green/blink";
+        = GREEN_LED_BASE + "blink";
 
 const static std::string BLUE_BLINK_FILE
-        = "/sys/class/leds/led:rgb_blue/blink";
+        = BLUE_LED_BASE + "blink";
 
 const static std::string RGB_BLINK_FILE
         = "/sys/class/leds/rgb/rgb_blink";
