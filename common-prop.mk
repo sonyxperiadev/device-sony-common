@@ -32,8 +32,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 endif
 
 # Default to LTE/GSM/WCDMA.
+ifneq ($(PRODUCT_DEVICE_DS),true)
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.default_network=9
+endif
 
 # System props for the data modules
 PRODUCT_PROPERTY_OVERRIDES += \
