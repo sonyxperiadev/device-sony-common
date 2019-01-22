@@ -149,3 +149,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Perform color transform on the client
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.hwc2.skip_client_color_transform=false
+
+# Keymaster version to differentiate between legacy, v3 and v4
+ifeq ($(TARGET_LEGACY_KEYMASTER),true)
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vendor.keymaster.version=legacy
+else ifeq ($(TARGET_KEYMASTER_V4),true)
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vendor.keymaster.version=v4
+else
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vendor.keymaster.version=v3
+endif
