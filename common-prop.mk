@@ -138,6 +138,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=196610
 
+# Vulkan lib name(will be loaded by the hal as vulkan.qcom.so)
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.hardware.vulkan=qcom
+
 # Vendor version
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.odm.expect.version=$(PLATFORM_VERSION)_$(SOMC_KERNEL_VERSION)_$(SOMC_PLATFORM)_$(TARGET_VENDOR_VERSION)
