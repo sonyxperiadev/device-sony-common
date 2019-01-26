@@ -19,13 +19,18 @@ library_names := \
     libllvm-qcom.so \
     librs_adreno.so \
     librs_adreno_sha1.so \
-    hw/vulkan.$(TARGET_BOARD_PLATFORM).so
+    hw/vulkan.qcom.so
 
 # Create symlinks to 32- and 64-bit directories:
 SONY_SYMLINKS := $(foreach lib_dir,lib lib64, \
     $(foreach p,$(library_names), \
         /odm/$(lib_dir)/$p:$(TARGET_COPY_OUT_VENDOR)/$(lib_dir)/$p \
     ) \
+)
+
+# Special exception for vulkan.qcom.so that is also linked as vulkan.$(TARGET_BOARD_PLATFORM).so
+SONY_SYMLINKS := $(foreach lib_dir,lib lib64, \
+    /odm/$(lib_dir)/hw/vulkan.qcom.so:$(TARGET_COPY_OUT_VENDOR)/$(lib_dir)/hw/vulkan.$(TARGET_BOARD_PLATFORM).so
 )
 
 include $(SONY_BUILD_SYMLINKS)
