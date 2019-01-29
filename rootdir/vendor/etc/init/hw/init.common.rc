@@ -179,6 +179,9 @@ on post-fs-data
 
     # RIL directoy for services
     mkdir /data/vendor/radio 0771 system radio
+    
+    # Create directory for IPACM
+    mkdir /data/vendor/ipa 0771 radio radio
 
     chown system /dev/block/bootdevice/by-name
 
