@@ -1,6 +1,8 @@
 on fs
     # Create battery stats dir
     mkdir /mnt/vendor/persist/battery 0700 system system
+    # Set permissions to for battery capacity
+    chown system system /sys/class/power_supply/bms/charge_full
 
 service vendor.health-hal-2-0 /vendor/bin/hw/android.hardware.health@2.0-service.sony
     interface android.hardware.health@2.0::IHealth default
