@@ -52,7 +52,7 @@ endif
 
 # Common System Permissions
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/system/etc/permissions/privapp-permissions-extension.xml:system/etc/permissions/privapp-permissions-extension.xml
+    $(COMMON_PATH)/rootdir/system/etc/permissions/privapp-permissions-extension.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-extension.xml
 
 # Transmit power
 PRODUCT_COPY_FILES += \
