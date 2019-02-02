@@ -125,6 +125,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.bt.bdaddr_path=/data/vendor/bluetooth/bluetooth_bdaddr
 
+# Bluetooth WiPower
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vendor.bluetooth.emb_wp_mode=false \
+    ro.vendor.bluetooth.wipower=false
+
 # System prop for NFC DT
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.nfc.port=I2C
