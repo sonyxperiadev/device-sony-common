@@ -20,10 +20,9 @@ PRODUCT_PACKAGES += \
     android.hardware.configstore@1.1-service
 
 # RIL
+# Interface library needed by odm blobs:
 PRODUCT_PACKAGES += \
-    android.hardware.radio@1.2-radio-service \
-    android.hardware.radio.config@1.0 \
-    android.hardware.radio.deprecated@1.0
+    android.hardware.radio.config@1.0
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -39,8 +38,6 @@ PRODUCT_PACKAGES += \
 
 # Wi-Fi
 PRODUCT_PACKAGES += \
-    android.hardware.wifi@1.0 \
-    android.hardware.wifi@1.1 \
     android.hardware.wifi@1.0-service
 
 # NFC packages
@@ -77,7 +74,6 @@ PRODUCT_PACKAGES += \
 
 # Fingerprint
 PRODUCT_PACKAGES += \
-    android.hardware.biometrics.fingerprint@2.1 \
     android.hardware.biometrics.fingerprint@2.1-service.sony
 
 ifeq ($(TARGET_LEGACY_KEYMASTER),true)
@@ -119,7 +115,6 @@ PRODUCT_PACKAGES += \
 
 # Usb HAL
 PRODUCT_PACKAGES += \
-    android.hardware.usb@1.0 \
     android.hardware.usb@1.0-service
 
 # Thermal HAL
