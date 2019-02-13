@@ -1,5 +1,8 @@
 /*
- * Copyright (C) 2017 AngeloGioacchino Del Regno <kholk11@gmail.com>
+ * RQBalance-based PowerHAL
+ * External interactor
+ *
+ * Copyright (C) 2017-2019 AngeloGioacchino Del Regno <kholk11@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,27 +17,31 @@
  * limitations under the License.
  */
 
-#define LOG_TAG "rqbalance_halext"
+#define LOG_TAG "RQBalance-PowerHAL-HALEXT"
 
-#include <errno.h>
-#include <string.h>
-#include <dlfcn.h>
-#include <fcntl.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdbool.h>
-#include <pthread.h>
-#include <assert.h>
+#include <android-base/file.h>
+#include <android-base/logging.h>
+#include <android-base/properties.h>
+#include <android-base/strings.h>
+#include <android-base/stringprintf.h>
 
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/sysinfo.h>
 
 #include <cutils/properties.h>
-#include <log/log.h>
+#include <utils/Log.h>
+#include <utils/Trace.h>
 
-#include "power.h"
-#include "rqbalance_halext.h"
+#include "common.h"
+#include "Hints.h"
+#include "Power.h"
+#include "RQBalanceHALExt.h"
+
+RQBalanceHALExt::RQBalanceHALExt(RQBalanceHintsHandler* rqb_handler):
+    mRQBHandler(rqb_handler) { }
+
+RQBalanceHALExt::~RQBalanceHALExt() { }
 
 /*******************************************************************/
 
@@ -76,7 +83,6 @@ static int possible_cores = -1;
 
 int get_locktype_by_tid(timer_t timerid);
 int get_locktype_by_id(unsigned int id);
-int locktype_action(int entry, int state);
 
 /* Timer Handling */
 
@@ -85,8 +91,9 @@ int locktype_action(int entry, int state);
  *
  * \param sig - Structure passed by *(sigev_notify_function)
  */
-static void timer_expired(union sigval sig)
+void RQBalanceHALExt::timer_expired(union sigval sig)
 {
+        RQBalanceHALExt *obj = (RQBalanceHALExt *)sig.sival_ptr;
 	int ltid;
 
 	if (sig.sival_int == 0)
@@ -94,7 +101,7 @@ static void timer_expired(union sigval sig)
 
 	ltid = get_locktype_by_id((unsigned int)sig.sival_int);
 
-	locktype_action(ltid, 0);
+	obj->locktype_action(ltid, 0);
 
 	return;
 }
@@ -106,7 +113,7 @@ static void timer_expired(union sigval sig)
  * \param duration_ms - Timer duration in milliseconds
  * \return Returns success (0) or failure (negative errno)
  */
-static int start_timer(timer_t timerid, int duration_ms)
+int RQBalanceHALExt::start_timer(timer_t timerid, int duration_ms)
 {
 	struct itimerspec tspec;
 	int entryno;
@@ -135,13 +142,14 @@ static int start_timer(timer_t timerid, int duration_ms)
  * \param luid - Lock unique identifier
  * \return Returns success (0) or failure (negative errno)
  */
-static int new_timer(timer_t timerid, int luid)
+int RQBalanceHALExt::new_timer(timer_t timerid, int luid)
 {
 	struct sigevent sev;
 
 	sev.sigev_notify = SIGEV_SIGNAL;
-	sev.sigev_notify_function = &timer_expired;
+	sev.sigev_notify_function = &RQBalanceHALExt::timer_expired;
 	sev.sigev_notify_attributes = NULL;
+	sev.sigev_value.sival_ptr = (void *)this;
 	sev.sigev_value.sival_int = luid;
 
 	if (!timer_create(CLOCK_MONOTONIC, &sev, &timerid))
@@ -150,7 +158,7 @@ static int new_timer(timer_t timerid, int luid)
 	return 0;
 }
 
-char* lock_type_str(int t)
+const char* RQBalanceHALExt::lock_type_str(int t)
 {
 	switch (t) {
 		case OMX_DECODER:
@@ -212,7 +220,7 @@ int get_locktype_by_type(unsigned short type)
  * \param state - Requested action
  * \return Returns success (0) or failure (negative errno)
  */
-int locktype_action(int entry, int state)
+int RQBalanceHALExt::locktype_action(int entry, int state)
 {
 	int type = current_locks[entry].drid;
 
@@ -221,9 +229,11 @@ int locktype_action(int entry, int state)
 		case OMX_DECODER:
 			ALOGI("OMX Decoder hint received.");
 			if (state) {
-				set_power_mode(POWER_MODE_OMXDECODE);
+				mRQBHandler->SetPowerMode(
+                                                POWER_MODE_OMXDECODE);
 			} else {
-				set_power_mode(POWER_MODE_BALANCED);
+				mRQBHandler->SetPowerMode(
+                                                POWER_MODE_BALANCED);
 			}
 			break;
 		case DISPLAY_LAYER:
@@ -237,9 +247,11 @@ int locktype_action(int entry, int state)
 		case OMX_ENCODER:
 			ALOGI("OMX Encoder hint received.");
 			if (state) {
-				set_power_mode(POWER_MODE_OMXENCODE);
+				mRQBHandler->SetPowerMode(
+                                                POWER_MODE_OMXENCODE);
 			} else {
-				set_power_mode(POWER_MODE_BALANCED);
+				mRQBHandler->SetPowerMode(
+                                                POWER_MODE_BALANCED);
 			}
 			break;
 		case RQB_POWERHAL:
@@ -258,7 +270,8 @@ int locktype_action(int entry, int state)
 	return 0;
 }
 
-int new_lock_init(unsigned int time, unsigned short type, int state)
+int RQBalanceHALExt::new_lock_init(unsigned int time,
+                                   unsigned short type, int state)
 {
 	unsigned int luid;
 	int locknum, ret;
@@ -336,7 +349,7 @@ int lock_set_arg(int lparm)
 	return ret;
 }
 
-void remove_and_reorder(int entryno)
+void RQBalanceHALExt::remove_and_reorder(int entryno)
 {
 	/* This is paranoid, but avoids possible future coding mistakes */
 	/* Note: Will probably get optimized out by the compiler */
@@ -361,7 +374,7 @@ end:
 	return;
 }
 
-static ssize_t sysfs_read(char *path, char *s, int num_bytes)
+static ssize_t sysfs_read(const char *path, char *s, int num_bytes)
 {
     char buf[80];
     ssize_t count;
@@ -410,13 +423,13 @@ static int get_possible_cores(void)
 }
 
 /*
- * perf_lock_acquire - Acquires a performance lock in rqbalance driver.
+ * PerfLockAcquire -   Acquires a performance lock in rqbalance driver.
  *                     The rqbalance driver will then set performance mode
  *                     depending on predefined or special parameters.
  *
  * \return Returns success (0) or negative errno.
  */
-int halext_perf_lock_acquire(struct rqbalance_halext_params *params)
+int RQBalanceHALExt::PerfLockAcquire(struct rqbalance_halext_params *params)
 {
 	int arraysz, id, lock_type, lock_state, i, ret = -EINVAL;
 
@@ -451,7 +464,7 @@ int halext_perf_lock_acquire(struct rqbalance_halext_params *params)
 	return ret;
 }
 
-int halext_perf_lock_release(int id)
+int RQBalanceHALExt::PerfLockRelease(int id)
 {
 	int i;
 
@@ -474,3 +487,4 @@ int halext_perf_lock_release(int id)
 
 	return 0;
 }
+

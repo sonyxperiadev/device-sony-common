@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 AngeloGioacchino Del Regno <kholk11@gmail.com>
+ * Copyright (C) 2016-2019 AngeloGioacchino Del Regno <kholk11@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+#ifndef __RQB_COMMON_H__
+#define __RQB_COMMON_H__
 
 #include <cutils/properties.h>
 
@@ -40,6 +43,10 @@
 
 /* Others */
 #define RQBHAL_CONF_FILE		"/vendor/etc/rqbalance_config.xml"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /*
  * enum rqb_pwr_mode_t
@@ -103,9 +110,8 @@ struct rqbalance_params {
         struct rqbalance_cfl_params freq_limit[CLUSTER_MAX];
 };
 
-/* Exported functions */
-/* Note: These functions are meant to be used only INSIDE this source. */
-void __set_special_power_mode(char* max_cpus, char* min_cpus,
-                              char* up_thresholds, char* down_thresholds,
-                              char* balance_level);
-void set_power_mode(rqb_pwr_mode_t mode);
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* __RQB_COMMON_H__ */

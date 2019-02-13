@@ -23,7 +23,8 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <expat.h>
-#include "power.h"
+
+#include "common.h"
 
 #include <cutils/properties.h>
 

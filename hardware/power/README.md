@@ -1,4 +1,4 @@
-# RQBalance based PowerHAL #
+# RQBalance based PowerHAL (binder) #
 
 This is an Open Source Android HAL, made specifically to manage power states
 on devices that are using the RQBalance hotplugging governor kernel driver.
@@ -27,7 +27,7 @@ porting across various SoC vendors' specific way of sending special hints.
 
 ## License ##
 
-Copyright (C) 2017 AngeloGioacchino Del Regno <kholk11@gmail.com>
+Copyright (C) 2017-2019 AngeloGioacchino Del Regno <kholk11@gmail.com>
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

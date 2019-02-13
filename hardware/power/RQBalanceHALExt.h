@@ -1,5 +1,8 @@
 /*
- * Copyright (C) 2017 AngeloGioacchino Del Regno <kholk11@gmail.com>
+ * RQBalance-based PowerHAL
+ * External interactor
+ *
+ * Copyright (C) 2017-2019 AngeloGioacchino Del Regno <kholk11@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +17,18 @@
  * limitations under the License.
  */
 
+#ifndef __RQBALANCE_POWERHAL_EXTINT_H__
+#define __RQBALANCE_POWERHAL_EXTINT_H__
+
+#include <atomic>
+#include <thread>
+#include <android/hardware/power/1.3/IPower.h>
+#include <hidl/MQDescriptor.h>
+#include <hidl/Status.h>
+
+#include "common.h"
+#include "Hints.h"
+
 #define SYS_CPUPOSS_PATH	"/sys/devices/system/cpu/possible"
 
 /* HalExt definitions */
@@ -22,6 +37,10 @@
 
 #define MSEC_TO_SEC(x)		x/1000
 #define MSEC_TO_NSEC(x)		x*1000000
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 struct rqbalance_ctl_locks {
 	unsigned int luid;	/* Lock unique identifier */
@@ -59,6 +78,29 @@ typedef enum {
 	STATE_ENABLE,
 } LOCKSTATE;
 
-/* Exported functions */
-int halext_perf_lock_acquire(struct rqbalance_halext_params *params);
-int halext_perf_lock_release(int id);
+#ifdef __cplusplus
+}
+#endif
+
+struct RQBalanceHALExt {
+    RQBalanceHALExt(RQBalanceHintsHandler* rqb_handler);
+    ~RQBalanceHALExt();
+
+    const char* lock_type_str(int t);
+    int PerfLockAcquire(struct rqbalance_halext_params *params);
+    int PerfLockRelease(int id);
+
+ private:
+    RQBalanceHintsHandler* mRQBHandler;
+
+    static void timer_expired(union sigval sig);
+    int start_timer(timer_t timerid, int duration_ms);
+    int new_timer(timer_t timerid, int luid);
+
+    int locktype_action(int entry, int state);
+    int new_lock_init(unsigned int time, unsigned short type, int state);
+    void remove_and_reorder(int entryno);
+
+};
+
+#endif /* __RQBALANCE_POWERHAL_EXTINT_H__ */
