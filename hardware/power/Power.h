@@ -67,7 +67,11 @@ struct Power : public IPower
  private:
     std::unique_ptr<RQBalanceHintsHandler> mRQBHandler;
 
+    void getRPMLowPowerStats(getPlatformLowPowerStats_cb _hidl_cb);
+    void getRPMhLowPowerStats(getPlatformLowPowerStats_cb _hidl_cb);
+
     std::atomic<bool> HalInitialized;
+    bool legacy_platform;
 
     std::thread mInitThread;
 };

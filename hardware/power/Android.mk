@@ -28,7 +28,15 @@ LOCAL_MODULE := android.hardware.power@1.3-service.sony
 LOCAL_MODULE_RELATIVE_PATH := hw
 LOCAL_PROPRIETARY_MODULE := true
 LOCAL_INIT_RC := android.hardware.power@1.3-service.sony.rc
-LOCAL_SRC_FILES := main.cpp Power.cpp Hints.cpp RQBalanceHALExt.cpp expatparser.c
+
+# PowerHAL and HALExtension
+LOCAL_SRC_FILES := \
+    main.cpp \
+    Power.cpp \
+    Hints.cpp \
+    RQBalanceHALExt.cpp \
+    expatparser.c \
+    power-helper.c
 
 LOCAL_SHARED_LIBRARIES := \
     liblog \
