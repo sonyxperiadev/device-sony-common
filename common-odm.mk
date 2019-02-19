@@ -50,6 +50,7 @@ PRODUCT_PACKAGES += \
 # Sensors
 PRODUCT_PACKAGES += \
     sscrpcd \
+    libsnsapi \
     libsensor_reg  \
     libsensor1 \
     sensors.msm8226 \
