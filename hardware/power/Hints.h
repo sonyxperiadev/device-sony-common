@@ -27,6 +27,8 @@
 
 struct RQBalanceHALExt;
 
+bool sysfs_write(const char *path, const char *s);
+
 struct RQBalanceHintsHandler {
     RQBalanceHintsHandler();
     ~RQBalanceHintsHandler();
