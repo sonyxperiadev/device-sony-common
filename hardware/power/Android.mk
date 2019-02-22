@@ -24,12 +24,31 @@ LOCAL_HEADER_LIBRARIES := libhardware_headers
 
 LOCAL_C_INCLUDES := external/expat/lib
 
-LOCAL_SRC_FILES := power.c rqbalance_halext.c expatparser.c
-LOCAL_SHARED_LIBRARIES := liblog libcutils libexpat
-LOCAL_MODULE := power.$(TARGET_DEVICE)
-LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE := android.hardware.power@1.3-service.sony
 LOCAL_MODULE_RELATIVE_PATH := hw
-LOCAL_MODULE_OWNER := sony
 LOCAL_PROPRIETARY_MODULE := true
+LOCAL_INIT_RC := android.hardware.power@1.3-service.sony.rc
 
-include $(BUILD_SHARED_LIBRARY)
+# PowerHAL and HALExtension
+LOCAL_SRC_FILES := \
+    main.cpp \
+    Power.cpp \
+    Hints.cpp \
+    RQBalanceHALExt.cpp \
+    expatparser.c \
+    power-helper.c
+
+LOCAL_SHARED_LIBRARIES := \
+    liblog \
+    libcutils \
+    libexpat \
+    libdl \
+    libbase \
+    libutils \
+    libhardware \
+    libhidlbase \
+    libhidltransport \
+    android.hardware.power@1.3
+
+include $(BUILD_EXECUTABLE)
+
