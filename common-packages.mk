@@ -143,6 +143,11 @@ PRODUCT_PACKAGES += \
     libjson \
     libxml2 \
 
+# External exFat tools
+PRODUCT_PACKAGES += \
+    mkfs.exfat \
+    fsck.exfat
+
 # For config.fs
 PRODUCT_PACKAGES += \
     fs_config_files \
