@@ -40,5 +40,5 @@ void healthd_board_init(struct healthd_config *) {
 int healthd_board_battery_update(struct android::BatteryProperties *props) {
     ::device::sony::health::health_board_battery_update(props);
     // return 0 to log periodic polled battery status to kernel log
-    return 0;
+    return 1;
 }
