@@ -73,7 +73,7 @@ RQBalanceHintsHandler::~RQBalanceHintsHandler() {
  * \param s    - String to write
  * \return Returns success (true) or failure (false)
  */
-static bool sysfs_write(const char *path, char *s)
+bool sysfs_write(const char *path, const char *s)
 {
     char buf[80];
     int len;
@@ -376,7 +376,7 @@ retry_send:
 int RQBalanceHintsHandler::manage_powerserver(bool start)
 {
     int ret;
-    struct stat st = {0};
+    struct stat st = {};
     struct passwd *pwd;
     struct passwd *grp;
     uid_t uid;
