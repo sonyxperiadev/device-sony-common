@@ -97,6 +97,11 @@ PRODUCT_PACKAGES += \
     timekeep \
     TimeKeep \
 
+# OSS Power HAL
+PRODUCT_PACKAGES += \
+    librqbalance \
+    android.hardware.power@1.3-service.sony
+
 # OSS WIFI and BT MAC tool
 PRODUCT_PACKAGES += \
     macaddrsetup

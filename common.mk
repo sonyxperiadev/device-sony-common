@@ -76,10 +76,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/vendor/etc/public.libraries.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
 
-# librqbalance
-PRODUCT_PACKAGES += \
-    librqbalance
-
 # PRODUCT_PLATFORM isn't set yet, thus we check the available path
 ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
 # ramdump cleaner
