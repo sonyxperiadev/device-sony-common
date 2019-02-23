@@ -99,8 +99,7 @@ PRODUCT_PACKAGES += \
 
 # OSS Power HAL
 PRODUCT_PACKAGES += \
-    librqbalance \
-    android.hardware.power@1.3-service.sony
+    librqbalance
 
 # OSS WIFI and BT MAC tool
 PRODUCT_PACKAGES += \
