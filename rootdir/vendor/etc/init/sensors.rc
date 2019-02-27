@@ -14,6 +14,10 @@ service sensors /odm/bin/sensors.qcom
     group system
     disabled
 
+# Enable the service for FBE devices
+on property:ro.crypto.type=file
+    enable sensors
+
 # Start the service for FDE devices
 on property:vold.decrypt=trigger_post_fs_data
     start sensors
