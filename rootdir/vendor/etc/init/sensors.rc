@@ -5,6 +5,12 @@ on post-fs-data
     # LEGACY: Sensors
     mkdir /data/misc/sensors 0775 system system
 
+    # Fix sensors permissions
+    chown system system /persist/sensors
+
+    # remove deprecated .reg
+    rm /persist/sensors/sns.reg
+
     # /dev/sensors only supports an ioctl to get the current SLPI timestamp;
     # allow the sensors daemon to perform this as non-root
     chown root system /dev/sensors
