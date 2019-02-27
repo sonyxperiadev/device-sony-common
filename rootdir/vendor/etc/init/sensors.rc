@@ -15,3 +15,8 @@ service sensors /odm/bin/sensors.qcom
     class late_start
     user system
     group system
+    disabled
+
+# Start the service for FDE devices
+on property:vold.decrypt=trigger_post_fs_data
+    start sensors
