@@ -56,6 +56,15 @@ LOCAL_VENDOR_MODULE := true
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
+LOCAL_MODULE := init.qcom.adspstart.sh
+LOCAL_MODULE_CLASS := EXECUTABLES
+LOCAL_SRC_FILES_arm64 := vendor/bin/init.qcom.adspstart.sh
+LOCAL_INIT_RC_64  := vendor/etc/init/adspstart.rc
+LOCAL_MODULE_TARGET_ARCH := arm64
+LOCAL_VENDOR_MODULE := true
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
 LOCAL_MODULE := init.qcom.ipastart.sh
 LOCAL_MODULE_CLASS := EXECUTABLES
 LOCAL_SRC_FILES_arm64 := vendor/bin/init.qcom.ipastart.sh

@@ -1,0 +1,9 @@
+service adspstart_sh /vendor/bin/init.qcom.adspstart.sh
+    class core
+    user root
+    group root system
+    disabled
+    oneshot
+
+on property:vendor.qcom.devup=1
+    start adspstart_sh
