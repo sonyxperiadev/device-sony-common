@@ -1,5 +1,5 @@
 service sscrpcd /odm/bin/sscrpcd
-    class late_start
+    class core
     user system
     group system
     disabled
