@@ -12,7 +12,3 @@ service sensors /odm/bin/sensors.qcom
     class late_start
     user system
     group system
-    disabled
-
-on property:vendor.qcom.devup=1
-    start sensors
