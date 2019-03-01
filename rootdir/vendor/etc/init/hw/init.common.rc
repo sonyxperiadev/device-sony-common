@@ -53,8 +53,6 @@ on init
     chown system system /sys/devices/mdss_dsi_panel/panel_id
     chmod 0440 /sys/devices/mdss_dsi_panel/panel_id
 
-    symlink /sdcard /storage/sdcard0
-
     # Setup zram options
     write /sys/block/zram0/comp_algorithm lz4
     write /proc/sys/vm/page-cluster 0
