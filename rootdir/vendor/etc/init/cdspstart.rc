@@ -1,0 +1,9 @@
+service cdspstart_sh /vendor/bin/init.qcom.cdspstart.sh
+    class core
+    user root
+    group root system
+    disabled
+    oneshot
+
+on property:vendor.qcom.devup=1
+    start cdspstart_sh

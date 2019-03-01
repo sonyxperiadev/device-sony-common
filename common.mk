@@ -87,6 +87,7 @@ endif
 PRODUCT_PACKAGES += \
     init.qcom.devstart.sh \
     init.qcom.adspstart.sh \
+    init.qcom.cdspstart.sh \
     init.qcom.ipastart.sh
 
 # Depend on symlink creation in /vendor:

@@ -4,6 +4,6 @@ service cdsprpcd /odm/bin/cdsprpcd
    group system
    disabled
 
-on property:ro.board.platform=sdm845
+on property:vendor.qcom.cdspup=1
     enable cdsprpcd
 
