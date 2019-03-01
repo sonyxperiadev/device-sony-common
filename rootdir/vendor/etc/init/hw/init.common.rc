@@ -65,6 +65,7 @@ on init
     chown system system /sys/devices/system/cpu/cpuquiet/nr_power_max_cpus
     chown system system /sys/devices/system/cpu/cpuquiet/nr_thermal_max_cpus
     chown system system /sys/devices/system/cpu/cpuquiet/rqbalance/balance_level
+    chown system system /sys/devices/system/cpu/cpuquiet/rqbalance/balance_penalty
     chown system system /sys/devices/system/cpu/cpuquiet/rqbalance/nr_run_thresholds
     chown system system /sys/devices/system/cpu/cpuquiet/rqbalance/nr_down_run_thresholds
     chown system system /sys/devices/system/cpu/cpuquiet/rqbalance/cluster_freq_vote_max
