@@ -89,6 +89,9 @@ on fs
 
     mount_all /vendor/etc/fstab.${ro.hardware}
 
+    # Start devices as soon as partitions are moounted
+    start devstart_sh
+
     restorecon_recursive /mnt/vendor/persist
 
 on post-fs
@@ -101,8 +104,6 @@ on late-fs
     # cause services for bootanim not running.
     wait_for_prop hwservicemanager.ready true
 
-    # Start devices by sysfs trigger
-    start devstart_sh
 
 on post-fs-data
     # We can start netd here before in is launched in common init.rc on zygote-start
