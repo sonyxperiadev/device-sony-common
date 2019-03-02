@@ -93,6 +93,10 @@ TARGET_NO_RPC := true
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
 BOARD_CHARGER_ENABLE_SUSPEND := true
 
+# Check manifest and compatibility_matrix files at build time
+PRODUCT_ENFORCE_VINTF_MANIFEST_OVERRIDE := true
+VINTF_ENFORCE_NO_UNUSED_HALS := true
+
 # Enable dex-preoptimization to speed up first boot sequence
 ifeq ($(HOST_OS),linux)
   ifneq ($(TARGET_BUILD_VARIANT),eng)
