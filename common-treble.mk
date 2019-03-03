@@ -1,3 +1,7 @@
+# TODO: Sort alphabetically
+# TODO: Sort out which libs only need to be present as 32/64bit
+# TODO: Sort out which HIDL definitions can go
+
 # RenderScript HAL
 PRODUCT_PACKAGES += \
     android.hardware.renderscript@1.0-impl
@@ -34,13 +38,28 @@ PRODUCT_PACKAGES += \
 # Camera
 PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl:32 \
-    android.hardware.camera.provider@2.4-service
+    android.hardware.camera.provider@2.4-service \
+    camera.device@3.4-impl \
+    camera.device@3.4-external-impl
 
 # Wi-Fi
 PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service
 
+# HIDL definitions only for now
+PRODUCT_PACKAGES += \
+    android.hardware.wifi.hostapd@1.0 \
+    android.hardware.wifi.supplicant@1.1 \
+    android.hardware.wifi.offload@1.0
+
+# C2 Codecs
+PRODUCT_PACKAGES += \
+    hardware.google.media.c2@1.0 \
+    hardware.google.media.c2@1.0-service \
+    libmedia_codecserviceregistrant
+
 # NFC packages
+# The 1.1 -impl and -service are in hardware/nxp
 PRODUCT_PACKAGES += \
     android.hardware.nfc@1.1-impl \
     android.hardware.nfc@1.1-service
@@ -61,6 +80,8 @@ PRODUCT_PACKAGES += \
 # once healthd is no longer included by default.
 DEVICE_FRAMEWORK_MANIFEST_FILE += \
     system/libhidl/vintfdata/manifest_healthd_exclude.xml
+# health.filesystem will come in Q
+#    android.hardware.health.filesystem
 
 # Sensors
 PRODUCT_PACKAGES += \
@@ -107,11 +128,34 @@ PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-service-qti
 endif
 
+# Crypto
+PRODUCT_PACKAGES += \
+    android.hardware.authsecret@1.0-service
+
+# User warnings
+PRODUCT_PACKAGES += \
+    android.hardware.confirmationui@1.0-service
+
+# Low-power processing domain
+PRODUCT_PACKAGES += \
+   android.hardware.contexthub@1.0-impl \
+   android.hardware.contexthub@1.0-service
+
+# Bluetooth A2DP offloading
+# HIDL definitions only here, -impl is handled in platforms
+PRODUCT_PACKAGES += \
+    android.hardware.bluetooth.a2dp@1.0
+
+# Dump device-specific state
+PRODUCT_PACKAGES += \
+    android.hardware.dumpstate@1.0-service
+
 # DRM
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-impl:32 \
     android.hardware.drm@1.0-service \
-    android.hardware.drm@1.1-service.clearkey
+    android.hardware.drm@1.1-service.clearkey \
+    android.hardware.cas@1.0-service
 
 ifneq ($(BOARD_USE_LEGACY_USB),true)
 # Usb HAL
@@ -123,6 +167,11 @@ PRODUCT_PACKAGES += \
     android.hardware.usb@1.0-service.basic
 endif
 
+# HIDL definitions, HALs are implemented in ipacm blob
+PRODUCT_PACKAGES += \
+    android.hardware.tetheroffload.config@1.0 \
+    android.hardware.tetheroffload.control@1.0
+
 # Thermal HAL
 PRODUCT_PACKAGES += \
     android.hardware.thermal@1.0-impl \
@@ -131,6 +180,9 @@ PRODUCT_PACKAGES += \
 # Power
 PRODUCT_PACKAGES += \
     android.hardware.power@1.3-service.sony
+
+# Power stats will come in Q
+#android.hardware.power.stats
 
 ifeq ($(AB_OTA_UPDATER),true)
 # Boot control
