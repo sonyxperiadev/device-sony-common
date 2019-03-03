@@ -114,10 +114,10 @@ BUILD_KERNEL := true
 include device/sony/sepolicy/sepolicy.mk
 
 # Framework Compatibility Matrix(FCM)
-DEVICE_MATRIX_FILE   := $(COMMON_PATH)/vintf/compatibility_matrix.xml
+DEVICE_MATRIX_FILE   := $(COMMON_PATH)/vintf/device_compatibility_matrix.xml
 
 # Device Manifest fragments
-DEVICE_MANIFEST_FILE := $(COMMON_PATH)/vintf/manifest.xml
+DEVICE_MANIFEST_FILE := $(COMMON_PATH)/vintf/device_manifest.xml
 DEVICE_MANIFEST_FILE := $(COMMON_PATH)/vintf/hw.google.interfaces.xml
 DEVICE_MANIFEST_FILE := $(COMMON_PATH)/vintf/vendor.qti.hw.interfaces.xml
 
@@ -134,3 +134,6 @@ DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hw.keymaster_v4.xml
 else
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hw.keymaster_v3.xml
 endif
+
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := $(COMMON_PATH)/vintf/device_framework_compatibility_matrix.xml
+DEVICE_FRAMEWORK_MANIFEST_FILE := $(COMMON_PATH)/vintf/device_framework_manifest.xml
