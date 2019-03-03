@@ -113,8 +113,13 @@ BUILD_KERNEL := true
 # SELinux
 include device/sony/sepolicy/sepolicy.mk
 
-DEVICE_MANIFEST_FILE := $(COMMON_PATH)/vintf/manifest.xml
+# Framework Compatibility Matrix(FCM)
 DEVICE_MATRIX_FILE   := $(COMMON_PATH)/vintf/compatibility_matrix.xml
+
+# Device Manifest fragments
+DEVICE_MANIFEST_FILE := $(COMMON_PATH)/vintf/manifest.xml
+DEVICE_MANIFEST_FILE := $(COMMON_PATH)/vintf/hw.google.interfaces.xml
+DEVICE_MANIFEST_FILE := $(COMMON_PATH)/vintf/vendor.qti.hw.interfaces.xml
 
 ifeq ($(PRODUCT_DEVICE_DS),true)
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hw.radio_ds.xml
