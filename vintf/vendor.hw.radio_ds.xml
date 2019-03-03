@@ -1,4 +1,5 @@
-<manifest version="1.0" type="device" target-level="2">
+<!-- TODO: Current master target level is 4, update when Q hits -->
+<manifest version="1.0" type="device" target-level="3">
     <hal format="hidl">
         <name>vendor.qti.hardware.radio.am</name>
         <transport>hwbinder</transport>
