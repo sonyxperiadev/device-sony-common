@@ -120,6 +120,7 @@ DEVICE_MATRIX_FILE   := $(COMMON_PATH)/vintf/device_compatibility_matrix.xml
 DEVICE_MANIFEST_FILE := $(COMMON_PATH)/vintf/device_manifest.xml
 DEVICE_MANIFEST_FILE := $(COMMON_PATH)/vintf/hw.google.interfaces.xml
 DEVICE_MANIFEST_FILE := $(COMMON_PATH)/vintf/vendor.qti.hw.interfaces.xml
+DEVICE_MANIFEST_FILE := $(COMMON_PATH)/vintf/vendor.nxp.nfc.interfaces.xml
 
 ifeq ($(PRODUCT_DEVICE_DS),true)
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hw.radio_ds.xml
