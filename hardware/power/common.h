@@ -34,7 +34,7 @@
 #define SYS_CPU_HI_LIMIT	RQBALANCE_NODE "cluster_freq_vote_max"
 
 /* Android properties */
-#define PROP_DEBUGLVL			"persist.powerhal.debug_level"
+#define PROP_DEBUGLVL			"persist.vendor.powerhal.debug_level"
 
 /* PowerServer definitions */
 #define POWERSERVER_DIR			"/dev/socket/powerhal/"
