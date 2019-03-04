@@ -414,11 +414,6 @@ int RQBalanceHintsHandler::manage_powerserver(bool start)
 
     psthread_run = true;
 
-    /* Create folder, if doesn't exist */
-    if (stat(POWERSERVER_DIR, &st) == -1) {
-        mkdir(POWERSERVER_DIR, 0773);
-    }
-
     /* Get socket in the UNIX domain */
     sock = socket(PF_UNIX, SOCK_SEQPACKET, 0);
     if (sock < 0) {
