@@ -15,6 +15,10 @@ PRODUCT_PACKAGES += \
     pm-service \
     pm-proxy
 
+# BT
+PRODUCT_PACKAGES += \
+    libbthost_if
+
 # WiFi
 PRODUCT_PACKAGES += \
     cnss-daemon
