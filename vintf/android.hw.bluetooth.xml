@@ -1,10 +1,10 @@
 <manifest version="1.0" type="device" target-level="3">
     <hal format="hidl">
-        <name>android.hardware.keymaster</name>
+        <name>android.hardware.bluetooth.a2dp</name>
         <transport>hwbinder</transport>
-        <version>3.0</version>
+        <version>1.0</version>
         <interface>
-            <name>IKeymasterDevice</name>
+            <name>IBluetoothAudioOffload</name>
             <instance>default</instance>
         </interface>
     </hal>
