@@ -13,4 +13,5 @@ service qmuxd /odm/bin/qmuxd
 on property:ro.boot.baseband=apq
     setprop ro.radio.noril yes
     stop vendor.ril-daemon
+    stop vendor.ril-daemon2
     enable qmuxd
