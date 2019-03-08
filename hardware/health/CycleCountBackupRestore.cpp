@@ -26,7 +26,7 @@ namespace device {
 namespace sony {
 namespace health {
 
-static constexpr int kBackupTrigger = 20;
+static constexpr int kCCBackupTrigger = 20;
 
 CycleCountBackupRestore::CycleCountBackupRestore() {
     sw_cycles_ = 0;
@@ -55,14 +55,15 @@ void CycleCountBackupRestore::Backup(int battery_level) {
     }
     saved_soc_ = battery_level;
     // To avoid writting file too often just rate limit it
-    if (soc_inc_ >= kBackupTrigger) {
+    if (soc_inc_ >= kCCBackupTrigger) {
+        LOG(VERBOSE) << "CC: Triggered Read(kSysCycleFile) and UpdateAndSave() !";
         Read(kSysCycleFile, hw_cycles_);
         UpdateAndSave();
         soc_inc_ = 0;
     }
 }
 
-void CycleCountBackupRestore::Read(const std::string &path, int cycles) {
+void CycleCountBackupRestore::Read(const std::string &path, int &cycles) {
     std::string buffer;
 
     if (!android::base::ReadFileToString(path, &buffer)) {
