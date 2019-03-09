@@ -45,6 +45,10 @@ PRODUCT_PACKAGES += \
     android.hardware.nfc@1.1-impl \
     android.hardware.nfc@1.1-service
 
+# NXP Secure Element
+PRODUCT_PACKAGES += \
+	android.hardware.secure_element@1.0-service
+
 # GNSS
 PRODUCT_PACKAGES += \
     android.hardware.gnss@1.1-impl-qti \
