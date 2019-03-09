@@ -116,6 +116,9 @@ include device/sony/sepolicy/sepolicy.mk
 DEVICE_MANIFEST_FILE := $(COMMON_PATH)/vintf/manifest.xml
 DEVICE_MATRIX_FILE   := $(COMMON_PATH)/vintf/compatibility_matrix.xml
 
+# Custom NXP vendor interfaces
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.nxp.nfc.interfaces.xml
+
 ifeq ($(PRODUCT_DEVICE_DS),true)
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hw.radio_ds.xml
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.radio_ds.xml
