@@ -29,6 +29,10 @@ DEVICE_PACKAGE_OVERLAYS += $(COMMON_PATH)/overlay
 PRODUCT_ENFORCE_RRO_TARGETS := \
     framework-res
 
+# Disable split sepolicy to preserve not_full_treble() macros
+# TODO: Revert this once newer platforms have their pm-service updated
+PRODUCT_SEPOLICY_SPLIT_OVERRIDE := false
+
 # Codecs Configuration
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
