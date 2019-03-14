@@ -107,7 +107,8 @@ PRODUCT_PACKAGES += \
 
 # Telephony
 PRODUCT_PACKAGES += \
-    QcRilAm
+    QcRilAm \
+    SimDetect
 
 # QCOM Data
 PRODUCT_PACKAGES += \
