@@ -361,3 +361,50 @@ PRODUCT_PACKAGES += \
     libchromatix_imx400_default_preview_bu64747 \
     libchromatix_imx400_default_video_bu64747 \
     libmmcamera_imx400
+
+PRODUCT_PACKAGES += \
+    libactuator_lc898219xi \
+    libchromatix_imx486_common \
+    libchromatix_imx486_cpp_liveshot \
+    libchromatix_imx486_cpp_preview \
+    libchromatix_imx486_cpp_snapshot \
+    libchromatix_imx486_cpp_video \
+    libchromatix_imx486_postproc \
+    libchromatix_imx486_liveshot \
+    libchromatix_imx486_preview \
+    libchromatix_imx486_snapshot \
+    libchromatix_imx486_video \
+    libchromatix_imx486_zsl_preview \
+    libchromatix_imx486_zsl_video \
+    libmmcamera_imx486
+
+PRODUCT_PACKAGES += \
+    libactuator_lc898214xd \
+    libchromatix_s5k3l6_common \
+    libchromatix_s5k3l6_cpp_liveshot \
+    libchromatix_s5k3l6_cpp_preview \
+    libchromatix_s5k3l6_cpp_snapshot \
+    libchromatix_s5k3l6_cpp_video \
+    libchromatix_s5k3l6_postproc \
+    libchromatix_s5k3l6_liveshot \
+    libchromatix_s5k3l6_preview \
+    libchromatix_s5k3l6_snapshot \
+    libchromatix_s5k3l6_video \
+    libchromatix_s5k3l6_zsl_preview \
+    libchromatix_s5k3l6_zsl_video \
+    libmmcamera_s5k3l6
+
+PRODUCT_PACKAGES += \
+    libchromatix_s5k4h7yx_common \
+    libchromatix_s5k4h7yx_cpp_liveshot \
+    libchromatix_s5k4h7yx_cpp_preview \
+    libchromatix_s5k4h7yx_cpp_snapshot \
+    libchromatix_s5k4h7yx_cpp_video \
+    libchromatix_s5k4h7yx_postproc \
+    libchromatix_s5k4h7yx_liveshot \
+    libchromatix_s5k4h7yx_preview \
+    libchromatix_s5k4h7yx_snapshot \
+    libchromatix_s5k4h7yx_video \
+    libchromatix_s5k4h7yx_zsl_preview \
+    libchromatix_s5k4h7yx_zsl_video \
+    libmmcamera_s5k4h7yx
