@@ -1,4 +1,5 @@
-service gatekeeper-1-0 /odm/bin/hw/android.hardware.gatekeeper@1.0-service-qti
+service vendor.gatekeeper-1-0 /odm/bin/hw/android.hardware.gatekeeper@1.0-service-qti
+    interface android.hardware.gatekeeper@1.0::IGatekeeper default
     class early_hal
     user system
     group system

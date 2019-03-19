@@ -1,4 +1,5 @@
-service keymaster-4-0 /odm/bin/hw/android.hardware.keymaster@4.0-service-qti
+service vendor.keymaster-4-0 /odm/bin/hw/android.hardware.keymaster@4.0-service-qti
+    interface android.hardware.keymaster@4.0::IKeymasterDevice default
     class early_hal
     user system
     group system drmrpc

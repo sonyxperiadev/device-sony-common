@@ -18,7 +18,7 @@ on charger
     start irsc_util
 
 # Offline charger
-service charger /charger
+service vendor.charger /charger
     class charger
     group root system log
     critical
@@ -34,7 +34,7 @@ on init
 
     # qseecomd needs /dev/block/bootdevice
     # vold needs keymaster that needs qseecomd
-    start qseecomd
+    start vendor.qseecomd
 
     # Enable subsystem restart
     write /sys/module/subsystem_restart/parameters/enable_ramdumps 0
@@ -94,7 +94,7 @@ on fs
     restorecon_recursive /mnt/vendor/persist
 
 on post-fs
-    # Wait qseecomd started
+    # Wait for qseecomd to be started
     wait_for_prop vendor.sys.listeners.registered true
 
 on late-fs

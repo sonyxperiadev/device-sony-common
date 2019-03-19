@@ -1,5 +1,5 @@
 # QCOM Secure
-service qseecomd /odm/bin/qseecomd
+service vendor.qseecomd /odm/bin/qseecomd
     class core
     user root
     group root
