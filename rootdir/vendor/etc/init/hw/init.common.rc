@@ -345,7 +345,7 @@ on boot
 on property:sys.boot_completed=1
     # Enable ZRAM on boot_complete
     swapon_all /vendor/etc/fstab.${ro.hardware}
-    write /proc/sys/vm/swappiness 100
+    write /proc/sys/vm/swappiness 25
 
 on property:vendor.sys.listeners.registered=true
     # load IPA FWs
