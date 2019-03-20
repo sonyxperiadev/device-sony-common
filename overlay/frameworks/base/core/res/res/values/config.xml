@@ -184,7 +184,7 @@
 
     <!-- Indicate whether the SD card is accessible without removing the battery. -->
     <bool name="config_batterySdCardAccessibility">true</bool>
-    
+
     <!-- Set this to true to enable the platform's auto-power-save modes like doze and
          app standby.  These are not enabled by default because they require a standard
          cloud-to-device messaging service for apps to interact correctly with the modes
@@ -193,12 +193,6 @@
          correctly use them when installed on your device.  Otherwise, keep this disabled
          so that applications can still use their own mechanisms. -->
     <bool name="config_enableAutoPowerModes">true</bool>
-
-    <!-- The RadioAccessFamilies supported by the device.
-         Empty is viewed as "all".  Only used on devices which
-         don't support RIL_REQUEST_GET_RADIO_CAPABILITY
-         format is UMTS|LTE|... -->
-    <string translatable="false" name="config_radio_access_family">GSM | GPRS | EDGE | WCDMA | LTE</string>
 
     <!-- Configure mobile tcp buffer sizes in the form:
          rat-name:rmem_min,rmem_def,rmem_max,wmem_min,wmem_def,wmem_max
