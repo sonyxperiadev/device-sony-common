@@ -31,8 +31,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     service.adb.tcp.port=5555
 endif
 
-# Default to LTE/GSM/WCDMA.
-ifneq ($(PRODUCT_DEVICE_DS),true)
+# Common property setup DS or SS devices.
+ifeq ($(PRODUCT_DEVICE_DS),true)
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.radio.multisim.config=dsds
+else
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.default_network=9
 endif
