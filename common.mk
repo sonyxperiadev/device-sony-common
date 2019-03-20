@@ -14,9 +14,6 @@
 
 $(call inherit-product-if-exists, device/sony/customization/customization.mk)
 
-# Vendor version
-TARGET_VENDOR_VERSION := v6
-
 # Common path
 COMMON_PATH := device/sony/common
 
@@ -101,15 +98,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     firmware_folders
 
-PRODUCT_PACKAGES += \
-    odm_build_prop_version
-
 # APN list
 PRODUCT_COPY_FILES += \
     device/sample/etc/old-apns-conf.xml:system/etc/old-apns-conf.xml \
     device/sample/etc/apns-full-conf.xml:system/etc/apns-conf.xml
-
-PRODUCT_CUSTOM_IMAGE_MAKEFILES := $(COMMON_PATH)/odm.mk
 
 $(call inherit-product, device/sony/common/common-init.mk)
 $(call inherit-product, device/sony/common/common-odm.mk)

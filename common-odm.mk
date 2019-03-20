@@ -1,3 +1,11 @@
+# Vendor version
+TARGET_VENDOR_VERSION := v6
+
+PRODUCT_CUSTOM_IMAGE_MAKEFILES := $(COMMON_PATH)/odm.mk
+
+PRODUCT_PACKAGES += \
+    odm_build_prop_version
+
 # SDE DRM
 PRODUCT_PACKAGES += \
     libsdedrm
