@@ -3,7 +3,7 @@ on post-fs-data
     mkdir /data/vendor/tombstones/lpass 0771 system system
     mkdir /data/vendor/tombstones/rfs 0771 system system
 
-service tftp_server /odm/bin/tftp_server
+service vendor.tftp_server /odm/bin/tftp_server
    class core
    user root
    group root system
