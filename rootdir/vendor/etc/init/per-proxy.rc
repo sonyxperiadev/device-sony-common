@@ -1,12 +1,12 @@
 # PM Proxy
-service per_proxy /odm/bin/pm-proxy
+service vendor.per_proxy /odm/bin/pm-proxy
     class core
     user system
     group system
     disabled
 
 on property:sys.boot_completed=1
-    start per_proxy
+    start vendor.per_proxy
 
 on property:sys.shutdown.requested=*
-    stop per_proxy
+    stop vendor.per_proxy
