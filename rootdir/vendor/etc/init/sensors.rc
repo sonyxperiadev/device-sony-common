@@ -14,7 +14,7 @@ on post-fs-data
     chmod 660 /dev/sensors
 
 # Sensor service
-service sensors /odm/bin/sensors.qcom
+service vendor.sensors /odm/bin/sensors.qcom
     class late_start
     user system
     group system
@@ -22,12 +22,12 @@ service sensors /odm/bin/sensors.qcom
 
 # Start the service for unecrypted devices
 on property:ro.crypto.state=unencrypted
-    enable sensors
+    enable vendor.sensors
 
 # Enable the service for FBE devices
 on property:ro.crypto.type=file
-    enable sensors
+    enable vendor.sensors
 
 # Start the service for FDE devices
 on property:vold.decrypt=trigger_post_fs_data
-    start sensors
+    start vendor.sensors
