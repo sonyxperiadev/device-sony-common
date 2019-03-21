@@ -1,4 +1,4 @@
 # Secure Config Transfer service
-service sct_service /odm/bin/sct_service
+service vendor.sct_service /odm/bin/sct_service
     class core
     user root
