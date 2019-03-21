@@ -8,14 +8,14 @@ on post-fs-data
     chmod 0770 /data/vendor/netmgr
 
 # NET Manager Daemon
-service netmgrd /odm/bin/netmgrd
+service vendor.netmgrd /odm/bin/netmgrd
     class main
     user root
     group root wifi wakelock radio inet
     disabled
 
 on property:ro.boot.baseband=msm
-    enable netmgrd
+    enable vendor.netmgrd
 
 on property:ro.boot.baseband=sdm
-    enable netmgrd
+    enable vendor.netmgrd
