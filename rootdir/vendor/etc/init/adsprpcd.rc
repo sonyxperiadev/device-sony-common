@@ -1,18 +1,18 @@
 # ADSP FastRPC
-service adsprpcd /odm/bin/adsprpcd
+service vendor.adsprpcd /odm/bin/adsprpcd
    class late_start
    user media
    group media
    disabled
 
-service audiopd /odm/bin/adsprpcd audiopd
+service vendor.audiopd /odm/bin/adsprpcd audiopd
    class main
    user media
    group media
    disabled
 
 on property:ro.board.platform=sdm660
-    enable audiopd
+    enable vendor.audiopd
 
 on property:vendor.qcom.adspup=1
-    start adsprpcd
+    start vendor.adsprpcd
