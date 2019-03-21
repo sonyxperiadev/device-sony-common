@@ -15,7 +15,7 @@
 on charger
     start rmt_storage
     start vendor.mlog_qmi_service
-    start irsc_util
+    start vendor.irsc_util
 
 # Offline charger
 service vendor.charger /charger
