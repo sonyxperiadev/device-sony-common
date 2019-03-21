@@ -1,8 +1,8 @@
-service sscrpcd /odm/bin/sscrpcd
+service vendor.sscrpcd /odm/bin/sscrpcd
     class core
     user system
     group system
     disabled
 
 on property:vendor.qcom.adspup=1
-    start sscrpcd
+    start vendor.sscrpcd
