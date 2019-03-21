@@ -1,9 +1,9 @@
-service cdsprpcd /odm/bin/cdsprpcd
+service vendor.cdsprpcd /odm/bin/cdsprpcd
    class main
    user system
    group system
    disabled
 
 on property:vendor.qcom.cdspup=1
-    enable cdsprpcd
+    enable vendor.cdsprpcd
 
