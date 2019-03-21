@@ -2,7 +2,7 @@ on post-fs-data
     #create ipacm log dir
     mkdir /data/vendor/ipa 0770 radio radio
 
-service ipacm /vendor/bin/ipacm
+service vendor.ipacm /vendor/bin/ipacm
     class main
     user radio
     group radio inet
