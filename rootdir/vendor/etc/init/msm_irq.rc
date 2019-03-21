@@ -1,4 +1,4 @@
-service msm_irqbalance /odm/bin/msm_irqbalance -f /vendor/etc/msm_irqbalance.conf
+service vendor.msm_irqbalance /odm/bin/msm_irqbalance -f /vendor/etc/msm_irqbalance.conf
     socket msm_irqbalance seqpacket 660 root system
     class core
     user root
@@ -7,4 +7,4 @@ service msm_irqbalance /odm/bin/msm_irqbalance -f /vendor/etc/msm_irqbalance.con
 
 # Start after the device booted
 on property:sys.boot_completed=1
-    enable msm_irqbalance
+    enable vendor.msm_irqbalance
