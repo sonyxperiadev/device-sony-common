@@ -1,5 +1,5 @@
 # Trim Area QMI service
-service ta_qmi_service /odm/bin/ta_qmi_service
+service vendor.ta_qmi_service /odm/bin/ta_qmi_service
     class core
     user root
     group root system wakelock
