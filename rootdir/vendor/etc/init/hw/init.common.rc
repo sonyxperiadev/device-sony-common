@@ -13,7 +13,7 @@
 # limitations under the License.
 
 on charger
-    start rmt_storage
+    start vendor.rmt_storage
     start vendor.mlog_qmi_service
     start vendor.irsc_util
 

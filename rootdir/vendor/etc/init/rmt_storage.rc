@@ -1,5 +1,5 @@
 # Remote Storage
-service rmt_storage /odm/bin/rmt_storage
+service vendor.rmt_storage /odm/bin/rmt_storage
     class core
     user root
     ioprio rt 0
