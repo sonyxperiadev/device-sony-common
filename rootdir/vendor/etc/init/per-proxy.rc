@@ -4,7 +4,6 @@ service per_proxy /odm/bin/pm-proxy
     user system
     group system
     disabled
-    writepid /dev/cpuset/system-background/tasks
 
 on property:sys.boot_completed=1
     start per_proxy

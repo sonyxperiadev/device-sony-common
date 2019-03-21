@@ -8,7 +8,6 @@ service vendor.qmuxd /odm/bin/qmuxd
     user radio
     group radio audio bluetooth wakelock gps nfc diag
     disabled
-    writepid /dev/cpuset/system-background/tasks
 
 on property:ro.boot.baseband=apq
     setprop ro.radio.noril yes

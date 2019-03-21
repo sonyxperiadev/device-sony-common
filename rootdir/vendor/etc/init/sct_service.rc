@@ -2,4 +2,3 @@
 service sct_service /odm/bin/sct_service
     class core
     user root
-    writepid /dev/cpuset/system-background/tasks

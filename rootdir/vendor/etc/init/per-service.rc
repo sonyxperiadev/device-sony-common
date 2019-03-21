@@ -3,5 +3,4 @@ service vendor.per_mgr /odm/bin/pm-service
     class core
     user system
     group system
-    writepid /dev/cpuset/system-background/tasks
     shutdown critical
