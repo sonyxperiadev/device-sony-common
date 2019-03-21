@@ -134,6 +134,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # RILD
 PRODUCT_PROPERTY_OVERRIDES += \
+    rild.libpath=/odm/lib64/libril-qc-qmi-1.so \
     vendor.rild.libpath=/odm/lib64/libril-qc-qmi-1.so \
     ril.subscription.types=NV,RUIM
 
