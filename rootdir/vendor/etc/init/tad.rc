@@ -1,5 +1,5 @@
 # TA Daemon
-service tad_static /odm/bin/tad_static /dev/block/bootdevice/by-name/TA 0,16
+service vendor.tad_static /odm/bin/tad_static /dev/block/bootdevice/by-name/TA 0,16
     class core
     user root
     group root system wakelock
