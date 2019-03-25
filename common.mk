@@ -26,6 +26,10 @@ DEVICE_PACKAGE_OVERLAYS += $(COMMON_PATH)/overlay
 PRODUCT_ENFORCE_RRO_TARGETS := \
     framework-res
 
+# Force split of sepolicy into /system/etc/selinux and (/system)/vendor/etc/selinux
+# for all devices, regardless of shipping API level
+PRODUCT_SEPOLICY_SPLIT_OVERRIDE := true
+
 # Codecs Configuration
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
