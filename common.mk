@@ -21,7 +21,9 @@ $(call inherit-product-if-exists, device/sony/customization/customization.mk)
 # build/make/target/product/security/verity.pk8, but this can be
 # changed using a post-build re-signing operation (or by making a
 # change inside the build project).
+ifneq ($(TARGET_PROVIDES_DEV_CERTIFICATE),true)
 PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/oss/release-keys/testkey
+endif
 
 # Common path
 COMMON_PATH := device/sony/common
