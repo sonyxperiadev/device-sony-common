@@ -15,19 +15,11 @@ on post-fs-data
 
 # Sensor service
 service vendor.sensors /odm/bin/sensors.qcom
-    class late_start
+    class core
     user system
     group system
     disabled
 
-# Start the service for unecrypted devices
-on property:ro.crypto.state=unencrypted
+# Enable the service after adsp is up
+on property:vendor.qcom.adspup=1
     enable vendor.sensors
-
-# Enable the service for FBE devices
-on property:ro.crypto.type=file
-    enable vendor.sensors
-
-# Start the service for FDE devices
-on property:vold.decrypt=trigger_post_fs_data
-    start vendor.sensors
