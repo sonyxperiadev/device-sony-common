@@ -17,11 +17,7 @@ audio-hal := hardware/qcom/audio
 gps-hal := hardware/qcom/gps/sdm845
 ipa-hal := hardware/qcom/data/ipacfg-mgr/sdm845
 
-ifeq ($(TARGET_USES_SDE),true)
 display-hal := hardware/qcom/display/sde
-else
-display-hal := hardware/qcom/display/msmfb
-endif
 
 ifneq ($(filter $(QCOM_NEW_MEDIA_PLATFORM), $(TARGET_BOARD_PLATFORM)),)
 QCOM_MEDIA_ROOT := hardware/qcom/media/sdm845
