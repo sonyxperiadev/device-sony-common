@@ -153,6 +153,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.hwc2.skip_client_color_transform=false
 
+# Avoid Adoptable double encryption
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.crypto.allow_encrypt_override=true
+
 # Keymaster version to differentiate between legacy, v3 and v4
 ifeq ($(TARGET_LEGACY_KEYMASTER),true)
 PRODUCT_PROPERTY_OVERRIDES += \
