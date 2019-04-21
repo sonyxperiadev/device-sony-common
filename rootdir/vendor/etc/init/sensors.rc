@@ -23,6 +23,6 @@ service vendor.sensors /odm/bin/sensors.qcom
     group system
     disabled
 
-# Enable the service after adsp is up
-on property:vendor.qcom.adspup=1
+# Enable the service after ADSP and SLPI are up
+on property:vendor.qcom.slpiup=1
     enable vendor.sensors

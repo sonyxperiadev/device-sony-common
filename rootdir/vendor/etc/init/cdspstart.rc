@@ -4,6 +4,3 @@ service cdspstart_sh /vendor/bin/init.qcom.cdspstart.sh
     group root system
     disabled
     oneshot
-
-on property:vendor.qcom.slpiup=1
-    start cdspstart_sh
