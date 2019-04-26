@@ -5,6 +5,12 @@ on post-fs-data
     # Fix sensors permissions
     chown system system /mnt/vendor/persist/sensors
 
+    # Fix labels when coming from stock
+    # Note: The restorecon in hw/init.common.rc may skip the persist folder
+    # since it only checks whether the sepolicy file_contexts file has changed
+    # and not the actual folder contents.
+    restorecon_recursive /mnt/vendor/persist/sensors/
+
     # /dev/sensors only supports an ioctl to get the current SLPI timestamp;
     # allow the sensors daemon to perform this as non-root
     chown root system /dev/sensors
