@@ -91,7 +91,10 @@ on fs
     # Start devices as soon as partitions are moounted
     start devstart_sh
 
-    restorecon_recursive /mnt/vendor/persist
+    # Remove "security.restorecon_last" xattr from /mnt/vendor/persist/
+    exec u:r:vendor_init:s0 root root -- /vendor/bin/toybox_vendor setfattr -x security.restorecon_last /mnt/vendor/persist/
+    # And force restoring of SELinux labels
+    restorecon_recursive /mnt/vendor/persist/
 
 on post-fs
     # Wait for qseecomd to be started
