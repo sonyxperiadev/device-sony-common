@@ -84,6 +84,10 @@ PRODUCT_PACKAGES += \
     rdclean.sh
 endif
 
+# Partition fixes
+PRODUCT_PACKAGES += \
+    restorecon_persist.sh
+
 # Qcom scripts
 PRODUCT_PACKAGES += \
     init.qcom.devstart.sh \

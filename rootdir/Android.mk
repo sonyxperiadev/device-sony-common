@@ -11,6 +11,15 @@ LOCAL_VENDOR_MODULE      := true
 include $(BUILD_PREBUILT)
 endif
 
+include $(CLEAR_VARS)
+LOCAL_MODULE             := restorecon_persist.sh
+LOCAL_MODULE_CLASS       := EXECUTABLES
+LOCAL_SRC_FILES_arm64    := vendor/bin/restorecon_persist.sh
+LOCAL_INIT_RC_64         := vendor/etc/init/restorecon_persist.rc
+LOCAL_MODULE_TARGET_ARCH := arm64
+LOCAL_VENDOR_MODULE      := true
+include $(BUILD_PREBUILT)
+
 ifneq ($(TARGET_LEGACY_KEYMASTER), true)
 include $(CLEAR_VARS)
 LOCAL_MODULE := android.hardware.gatekeeper@1.0-service-qti

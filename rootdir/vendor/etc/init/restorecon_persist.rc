@@ -1,0 +1,7 @@
+service vendor.restorecon_persist /vendor/bin/restorecon_persist.sh
+    # /persist is not encrypted and sensor files need to be available early
+    class early_hal
+    user root
+    group root system
+    oneshot
+    disabled
