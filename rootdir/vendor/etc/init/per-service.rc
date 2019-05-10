@@ -3,4 +3,5 @@ service vendor.per_mgr /odm/bin/pm-service
     class core
     user system
     group system
+    ioprio rt 4
     shutdown critical
