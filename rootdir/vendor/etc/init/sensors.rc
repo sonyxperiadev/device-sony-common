@@ -3,7 +3,13 @@ on post-fs-data
     mkdir /data/vendor/sensors 0775 system system
 
     # Fix sensors permissions
-    chown system system /mnt/vendor/persist/sensors
+    chown system system /mnt/vendor/persist/sensors/
+    chown system system /mnt/vendor/persist/sensors/error_log
+    chown system system /mnt/vendor/persist/sensors/registry/
+    chown system system /mnt/vendor/persist/sensors/registry/registry/
+    chown system system /mnt/vendor/persist/sensors/sensors_settings
+    chown system system /mnt/vendor/persist/sensors/sns.reg
+    chown system system /mnt/vendor/persist/sensors/version.txt
 
     # /dev/sensors only supports an ioctl to get the current SLPI timestamp;
     # allow the sensors daemon to perform this as non-root
