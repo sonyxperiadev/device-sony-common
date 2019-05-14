@@ -21,6 +21,7 @@ CUSTOM_IMAGE_SELINUX := true
 CUSTOM_IMAGE_COPY_FILES := \
 			$(foreach p,$(TARGET_OUT_ODM)/build.prop,$(p):) \
 			$(foreach p,$(TARGET_OUT_ODM)/bin,$(p):) \
+			$(foreach p,$(TARGET_OUT_ODM)/dsp,$(p):) \
 			$(foreach p,$(TARGET_OUT_ODM)/firmware,$(p):) \
 			$(foreach p,$(TARGET_OUT_ODM)/lib,$(p):) \
 			$(foreach p,$(TARGET_OUT_ODM)/lib64,$(p):) \
