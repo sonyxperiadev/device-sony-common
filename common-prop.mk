@@ -109,7 +109,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.config.media_vol_steps=25
 
 # Set lmkd options
-PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+PRODUCT_PROPERTY_OVERRIDES += \
     ro.lmk.low=1001 \
     ro.lmk.medium=800 \
     ro.lmk.critical=0 \
