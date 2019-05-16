@@ -44,7 +44,7 @@ class CycleCountBackupRestore {
     int saved_soc_;
     int soc_inc_;
 
-    void Read(const std::string &path, int cycles);
+    void Read(const std::string &path, int &cycles);
     void Write(int cycles, const std::string &path);
     void UpdateAndSave();
 };

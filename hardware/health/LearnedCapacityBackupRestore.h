@@ -40,6 +40,7 @@ class LearnedCapacityBackupRestore {
    private:
     int sw_cap_;
     int hw_cap_;
+    int cap_inc_;
 
     void ReadFromPersistStorage();
     void SaveToPersistStorage();
