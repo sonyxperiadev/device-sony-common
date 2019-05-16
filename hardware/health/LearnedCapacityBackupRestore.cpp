@@ -26,12 +26,16 @@ namespace device {
 namespace sony {
 namespace health {
 
+static constexpr int kLCBackupTrigger = 8;
+
 static constexpr int kBuffSize = 256;
 /* Battery capacity is given in microampere hours */
 /* Divide by 1000 to get milliampere hours("mAh") */
 static constexpr int kCapConversionFactor = 1000;
 
-LearnedCapacityBackupRestore::LearnedCapacityBackupRestore() {}
+LearnedCapacityBackupRestore::LearnedCapacityBackupRestore() {
+    cap_inc_ = 0;
+}
 
 void LearnedCapacityBackupRestore::Restore() {
     ReadFromPersistStorage();
@@ -40,8 +44,12 @@ void LearnedCapacityBackupRestore::Restore() {
 }
 
 void LearnedCapacityBackupRestore::Backup() {
-    ReadFromSRAM();
-    UpdateAndSave();
+    if (++cap_inc_ >= kLCBackupTrigger) {
+        LOG(VERBOSE) << "LC: Triggered ReadFromSRAM() and UpdateAndSave() !";
+        ReadFromSRAM();
+        UpdateAndSave();
+        cap_inc_ = 0;
+    }
 }
 
 void LearnedCapacityBackupRestore::ReadFromPersistStorage() {
