@@ -95,7 +95,7 @@ on fs
     start cdspstart_sh
 
     # Remove "security.restorecon_last" xattr from /mnt/vendor/persist/
-    exec u:r:vendor_init:s0 root root -- /vendor/bin/toybox_vendor setfattr -x security.restorecon_last /mnt/vendor/persist/
+    exec u:r:vendor_toolbox:s0 root root -- /vendor/bin/toybox_vendor setfattr -x security.restorecon_last /mnt/vendor/persist/
     # And force restoring of SELinux labels
     restorecon_recursive /mnt/vendor/persist/
 
