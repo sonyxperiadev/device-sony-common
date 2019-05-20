@@ -30,6 +30,10 @@ PRODUCT_ENFORCE_RRO_TARGETS := \
 # for all devices, regardless of shipping API level
 PRODUCT_SEPOLICY_SPLIT_OVERRIDE := true
 
+BUILD_KERNEL := true
+-include $(KERNEL_PATH)/common-headers/KernelHeaders.mk
+-include $(KERNEL_PATH)/common-kernel/KernelConfig.mk
+
 # Codecs Configuration
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \

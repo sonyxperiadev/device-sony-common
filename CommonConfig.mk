@@ -103,10 +103,6 @@ ifeq ($(HOST_OS),linux)
 endif
 WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY ?= true
 
-BUILD_KERNEL := true
--include $(KERNEL_PATH)/common-headers/KernelHeaders.mk
--include $(KERNEL_PATH)/common-kernel/KernelConfig.mk
-
 # Include build helpers for QCOM proprietary
 -include vendor/qcom/proprietary/common/build/proprietary-build.mk
 
