@@ -1,4 +1,4 @@
-service devstart_sh /vendor/bin/init.qcom.devstart.sh
+service slpistart_sh /vendor/bin/init.qcom.slpistart.sh
     class core
     user root
     group root system

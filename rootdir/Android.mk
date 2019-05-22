@@ -47,10 +47,10 @@ endif
 endif # $(TARGET_LEGACY_KEYMASTER) != true
 
 include $(CLEAR_VARS)
-LOCAL_MODULE := init.qcom.devstart.sh
+LOCAL_MODULE := init.qcom.slpistart.sh
 LOCAL_MODULE_CLASS := EXECUTABLES
-LOCAL_SRC_FILES_arm64 := vendor/bin/init.qcom.devstart.sh
-LOCAL_INIT_RC_64  := vendor/etc/init/devstart.rc
+LOCAL_SRC_FILES_arm64 := vendor/bin/init.qcom.slpistart.sh
+LOCAL_INIT_RC_64  := vendor/etc/init/slpistart.rc
 LOCAL_MODULE_TARGET_ARCH := arm64
 LOCAL_VENDOR_MODULE := true
 include $(BUILD_PREBUILT)

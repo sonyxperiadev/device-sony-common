@@ -5,5 +5,5 @@ service adspstart_sh /vendor/bin/init.qcom.adspstart.sh
     disabled
     oneshot
 
-on property:vendor.qcom.devup=1
+on property:vendor.qcom.slpiup=1
     start adspstart_sh

@@ -89,7 +89,7 @@ on fs
     mount_all /vendor/etc/fstab.${ro.hardware}
 
     # Start devices as soon as partitions are moounted
-    start devstart_sh
+    start slpistart_sh
 
     # Remove "security.restorecon_last" xattr from /mnt/vendor/persist/
     exec u:r:vendor_init:s0 root root -- /vendor/bin/toybox_vendor setfattr -x security.restorecon_last /mnt/vendor/persist/

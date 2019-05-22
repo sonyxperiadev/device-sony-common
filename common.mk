@@ -86,10 +86,10 @@ endif
 
 # Qcom scripts
 PRODUCT_PACKAGES += \
-    init.qcom.devstart.sh \
     init.qcom.adspstart.sh \
     init.qcom.cdspstart.sh \
-    init.qcom.ipastart.sh
+    init.qcom.ipastart.sh \
+    init.qcom.slpistart.sh
 
 # Depend on symlink creation in /vendor:
 PRODUCT_PACKAGES += \
