@@ -39,3 +39,10 @@ PRODUCT_PACKAGES += \
     ta_qmi.rc \
     tftp_server.rc \
     wpa_supplicant.rc
+
+# Common init scripts
+PRODUCT_PACKAGES += \
+    init.qcom.adspstart.sh \
+    init.qcom.cdspstart.sh \
+    init.qcom.ipastart.sh \
+    init.qcom.slpistart.sh
