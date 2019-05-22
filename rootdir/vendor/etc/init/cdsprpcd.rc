@@ -6,4 +6,3 @@ service vendor.cdsprpcd /odm/bin/cdsprpcd
 
 on property:vendor.qcom.cdspup=1
     enable vendor.cdsprpcd
-

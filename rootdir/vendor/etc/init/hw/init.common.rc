@@ -88,8 +88,11 @@ on fs
 
     mount_all /vendor/etc/fstab.${ro.hardware}
 
-    # Start devices as soon as partitions are moounted
-    start slpistart_sh
+    # Start DSP services as soon as partitions are mounted
+    # ADSP devices
+    start adspstart_sh
+    # CDSP devices
+    start cdspstart_sh
 
     # Remove "security.restorecon_last" xattr from /mnt/vendor/persist/
     exec u:r:vendor_init:s0 root root -- /vendor/bin/toybox_vendor setfattr -x security.restorecon_last /mnt/vendor/persist/

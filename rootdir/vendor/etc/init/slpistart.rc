@@ -4,3 +4,6 @@ service slpistart_sh /vendor/bin/init.qcom.slpistart.sh
     group root system
     disabled
     oneshot
+
+on property:vendor.qcom.adspup=1
+    start slpistart_sh

@@ -4,5 +4,5 @@ service vendor.sscrpcd /odm/bin/sscrpcd
     group system
     disabled
 
-on property:vendor.qcom.adspup=1
+on property:vendor.qcom.cdspup=1
     start vendor.sscrpcd
