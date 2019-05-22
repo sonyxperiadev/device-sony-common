@@ -39,6 +39,9 @@ PRODUCT_SEPOLICY_SPLIT_OVERRIDE := true
 # Force moving all vendor props into /vendor/build.prop
 BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
 
+BUILD_KERNEL := true
+-include $(KERNEL_PATH)/common-headers/KernelHeaders.mk
+
 # Codecs Configuration
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
