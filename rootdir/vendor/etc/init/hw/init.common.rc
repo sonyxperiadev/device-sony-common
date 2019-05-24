@@ -94,8 +94,10 @@ on fs
     # CDSP devices
     start cdspstart_sh
 
-    # Remove "security.restorecon_last" xattr from /mnt/vendor/persist/
+    # (Android <= 9): Remove "security.restorecon_last" xattr from /mnt/vendor/persist/
     exec u:r:vendor_toolbox:s0 root root -- /vendor/bin/toybox_vendor setfattr -x security.restorecon_last /mnt/vendor/persist/
+    # (Android >= 10): Remove "security.sehash" xattr from /mnt/vendor/persist/
+    exec u:r:vendor_toolbox:s0 root root -- /vendor/bin/toybox_vendor setfattr -x security.sehash /mnt/vendor/persist/
     # And force restoring of SELinux labels
     restorecon_recursive /mnt/vendor/persist/
 
