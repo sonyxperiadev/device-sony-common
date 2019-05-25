@@ -30,7 +30,7 @@ PRODUCT_ENFORCE_RRO_TARGETS := \
 # for all devices, regardless of shipping API level
 PRODUCT_SEPOLICY_SPLIT_OVERRIDE := true
 
-BUILD_KERNEL := true
+BUILD_KERNEL ?= true
 -include $(KERNEL_PATH)/common-headers/KernelHeaders.mk
 
 # Codecs Configuration
