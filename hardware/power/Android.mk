@@ -20,6 +20,9 @@ include $(CLEAR_VARS)
 ifneq ($(TARGET_TAP_TO_WAKE_NODE),)
     LOCAL_CFLAGS += -DTAP_TO_WAKE_NODE=\"$(TARGET_TAP_TO_WAKE_NODE)\"
 endif
+ifeq (user,$(TARGET_BUILD_VARIANT)))
+    LOCAL_CFLAGS += -DREMOVE_POWER_STATISTICS
+endif
 LOCAL_HEADER_LIBRARIES := libhardware_headers
 
 LOCAL_C_INCLUDES := external/expat/lib
