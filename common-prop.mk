@@ -149,6 +149,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.nfc.port=I2C
 
+# Camera
+PRODUCT_PROPERTY_OVERRIDES += \
+	persist.vendor.camera.CDS=Off
+
 # RILD
 PRODUCT_PROPERTY_OVERRIDES += \
     vendor.rild.libpath=/odm/lib64/libril-qc-qmi-1.so \
