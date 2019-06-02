@@ -72,7 +72,6 @@ PRODUCT_PACKAGES += \
 
 # WLAN
 PRODUCT_PACKAGES += \
-    p2p_supplicant.conf \
     hostapd \
     libwpa_client \
     wpa_supplicant \
