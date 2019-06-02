@@ -137,7 +137,6 @@ PRODUCT_PACKAGES += \
 # AOSP Packages
 PRODUCT_PACKAGES += \
     Launcher3QuickStep \
-    libemoji \
     libion \
     libjson \
     libxml2 \
