@@ -79,6 +79,10 @@ PRODUCT_PACKAGES += \
     wpa_supplicant.conf \
     libwpa_client
 
+# Wrapped net utils for /vendor access.
+PRODUCT_PACKAGES += \
+	netutils-wrapper-1.0
+
 # NFC packages
 PRODUCT_PACKAGES += \
     NfcNci \
