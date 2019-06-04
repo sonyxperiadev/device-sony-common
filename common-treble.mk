@@ -76,7 +76,6 @@ ifeq ($(TARGET_LEGACY_KEYMASTER),true)
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@3.0-impl \
     android.hardware.keymaster@3.0-service
-
 # Gatekeeper
 PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-impl \
@@ -85,20 +84,15 @@ else ifeq ($(TARGET_KEYMASTER_V4),true)
 # Keymaster 4
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@4.0-service-qti
-
 # Gatekeeper
 PRODUCT_PACKAGES += \
-    android.hardware.gatekeeper@1.0-impl-qti \
     android.hardware.gatekeeper@1.0-service-qti
 else
 # Keymaster
 PRODUCT_PACKAGES += \
-    android.hardware.keymaster@3.0-impl-qti \
     android.hardware.keymaster@3.0-service-qti
-
 # Gatekeeper
 PRODUCT_PACKAGES += \
-    android.hardware.gatekeeper@1.0-impl-qti \
     android.hardware.gatekeeper@1.0-service-qti
 endif
 
