@@ -1,7 +1,9 @@
 # Vendor version
 TARGET_VENDOR_VERSION := v1
 
-# Set this flags true to build the ODM image
+ifneq (,$(SONY_BUILD_ODM))
+
+# Set this flag to true to build the ODM image
 PRODUCT_BUILD_ODM_IMAGE := true
 TARGET_COPY_OUT_ODM := odm
 BOARD_ODMIMAGE_FILE_SYSTEM_TYPE := ext4
@@ -421,3 +423,5 @@ PRODUCT_PACKAGES += \
     libchromatix_s5k4h7yx_zsl_preview \
     libchromatix_s5k4h7yx_zsl_video \
     libmmcamera_s5k4h7yx
+
+endif
