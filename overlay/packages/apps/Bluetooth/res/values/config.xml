@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
+
     <bool name="profile_supported_sap">true</bool>
+
+    <!-- If true, we will require location to be enabled on the device to
+         fire Bluetooth LE scan result callbacks in addition to having one
+         of the location permissions.
+
+         TODO: Should we deviate from standard AOSP behaviour here?
+         This setting is mainly meant for WearOS devices which do not have
+         a "location" setting.
+         Could potentially impede users' privacy as well.
+     -->
+    <bool name="strict_location_check">false</bool>
+
 </resources>
