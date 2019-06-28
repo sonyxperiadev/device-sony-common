@@ -145,10 +145,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.bt.bdaddr_path=/data/vendor/bluetooth/bluetooth_bdaddr
 
-# System prop for NFC DT
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.nfc.port=I2C
-
 # RILD
 PRODUCT_PROPERTY_OVERRIDES += \
     vendor.rild.libpath=/odm/lib64/libril-qc-qmi-1.so \
