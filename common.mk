@@ -29,6 +29,8 @@ PRODUCT_ENFORCE_RRO_TARGETS := \
 # Force split of sepolicy into /system/etc/selinux and (/system)/vendor/etc/selinux
 # for all devices, regardless of shipping API level
 PRODUCT_SEPOLICY_SPLIT_OVERRIDE := true
+# Force moving all vendor props into /vendor/build.prop
+BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
 
 # Codecs Configuration
 PRODUCT_COPY_FILES += \
