@@ -94,7 +94,6 @@ PRODUCT_PACKAGES += \
 
 # QMI
 PRODUCT_PACKAGES += \
-    irsc_util \
     libidl \
     libsmemlog \
     libqcci_legacy \

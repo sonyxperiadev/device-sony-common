@@ -20,7 +20,6 @@ PRODUCT_PACKAGES += \
     cdsprpcd.rc \
     cnss-daemon.rc \
     ipacm.rc \
-    irsc_util.rc \
     imsservices.rc \
     mlog_qmi.rc \
     msm_irq.rc \
