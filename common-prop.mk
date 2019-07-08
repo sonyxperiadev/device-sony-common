@@ -181,3 +181,7 @@ else
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.keymaster.version=v3
 endif
+
+# Reduce cost of scrypt for FBE CE decryption
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.crypto.scrypt_params=15:3:1
