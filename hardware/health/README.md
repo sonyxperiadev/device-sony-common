@@ -78,6 +78,10 @@ Relevant files and folders:
   - frameworks/base/services/core/jni/com_android_server_AlarmManagerService.cpp
   - kernel: fs/timerfd.c for timerfd_create() from healthd_common.cpp, included
     through the android.hardware.health@2.0-impl shared_lib
+- Storage-related:
+  - hardware/interfaces/health/2.0/IHealth.hal
+  - hardware/interfaces/health/2.0/types.hal
+  - system/core/storaged/storaged_diskstats.cpp
 
 ## Terminology
 
@@ -107,6 +111,7 @@ Relevant files and folders:
 - PMIC = [Power Management Integrated Circuit][pmic]
 - SPMI = [System Power Management Interface][spmi]
 - FCC = Full charge capacity
+- ESR = [Equivalent series resistance][esr]
 
 ## Sources
 
@@ -123,3 +128,4 @@ Relevant files and folders:
 [marlin]: https://android.googlesource.com/device/google/marlin/+/android-9.0.0_r22/health/
 [wahoo]: https://android.googlesource.com/device/google/wahoo/+/android-9.0.0_r22/health/
 [crosshatch]: https://android.googlesource.com/device/google/crosshatch/+/android-9.0.0_r22/health/
+[esr]: https://en.wikipedia.org/wiki/ESR_meter
