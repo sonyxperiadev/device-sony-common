@@ -22,7 +22,37 @@
 /* For health_service_main() */
 #include <health2/service.h>
 
-#include <libhealthd_board/libhealthd_board.h>
+#include <batteryservice/BatteryService.h>
+#include <health2/Health.h>
+#include <healthd/healthd.h>
+
+#include "CycleCountBackupRestore.h"
+#include "LearnedCapacityBackupRestore.h"
+
+namespace {
+using ::device::sony::health::CycleCountBackupRestore;
+using ::device::sony::health::LearnedCapacityBackupRestore;
+static CycleCountBackupRestore ccBackupRestore;
+static LearnedCapacityBackupRestore lcBackupRestore;
+}  // namespace
+
+/* healthd_board_init() is called from health@2.0:Health.cpp when
+ * the IHealth object is initialized */
+void healthd_board_init(struct healthd_config *) {
+    ccBackupRestore.Restore();
+    lcBackupRestore.Restore();
+}
+
+/* Called from libbatterymonitor/BatteryMonitor.cpp */
+/* BatteryMonitor::update() { */
+/*     logthis = !healthd_board_battery_update(&props); */
+/* } */
+int healthd_board_battery_update(struct android::BatteryProperties *props) {
+    ccBackupRestore.Backup(props->batteryLevel);
+    lcBackupRestore.Backup();
+    // return 0 to log periodic polled battery status to kernel log
+    return 0;
+}
 
 int main() {
 
@@ -41,5 +71,4 @@ int main() {
     /* After healthd_init() is done, healthd_common.cpp starts healthd_mainloop() */
     /* The mainloop then sets up some polling and runs forever, reacting to */
     /* "SUBSYSTEM=power_supply" uevents and setting timers */
-
 }
