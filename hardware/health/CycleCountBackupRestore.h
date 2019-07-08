@@ -18,19 +18,12 @@
 #ifndef DEVICE_SONY_HEALTH_CYCLECOUNTBACKUPRESTORE_H
 #define DEVICE_SONY_HEALTH_CYCLECOUNTBACKUPRESTORE_H
 
-#include <stdexcept>
-#include <string>
-
-#include <android-base/logging.h>
-#include <android-base/file.h>
-#include <android-base/strings.h>
-
 namespace device {
 namespace sony {
 namespace health {
 
-static constexpr char kSysCycleFile[] = "/sys/class/power_supply/bms/cycle_count";
-static constexpr char kPersistCycleFile[] = "/mnt/vendor/persist/battery/battery_cycle_count";
+static const std::string kSysCycleFile = "/sys/class/power_supply/bms/cycle_count";
+static const std::string kPersistCycleFile = "/mnt/vendor/persist/battery/battery_cycle_count";
 
 class CycleCountBackupRestore {
    public:
@@ -39,8 +32,8 @@ class CycleCountBackupRestore {
     void Backup(int battery_level);
 
    private:
-    int sw_cycles_;
-    int hw_cycles_;
+    int persist_cycles;
+    int sysfs_cycles;
     int saved_soc_;
     int soc_inc_;
 
