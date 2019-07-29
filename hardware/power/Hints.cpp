@@ -376,7 +376,6 @@ retry_send:
 int RQBalanceHintsHandler::manage_powerserver(bool start)
 {
     int ret;
-    struct stat st = {};
     struct passwd *pwd;
     struct passwd *grp;
     uid_t uid;
