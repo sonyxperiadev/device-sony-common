@@ -261,4 +261,9 @@
 
     <!-- Flag indicating whether we should enable smart battery. -->
     <bool name="config_smart_battery_available">true</bool>
+
+    <!-- Allow the gesture of long-pressing the camera button to launch a camera application
+         from anywhere. Enable only if the device has a physical camera button. -->
+    <bool name="config_cameraButtonLaunchEnabled">true</bool>
+
 </resources>
