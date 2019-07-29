@@ -72,7 +72,6 @@ PRODUCT_PACKAGES += \
 
 # WLAN
 PRODUCT_PACKAGES += \
-    p2p_supplicant.conf \
     hostapd \
     libwpa_client \
     wpa_supplicant \
@@ -138,7 +137,6 @@ PRODUCT_PACKAGES += \
 # AOSP Packages
 PRODUCT_PACKAGES += \
     Launcher3QuickStep \
-    libemoji \
     libion \
     libjson \
     libxml2 \
