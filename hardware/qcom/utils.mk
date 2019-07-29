@@ -1,8 +1,6 @@
 # vars for use by utils
-empty :=
-space := $(empty) $(empty)
-colon := $(empty):$(empty)
-underscore := $(empty)_$(empty)
+colon ?= $(empty):$(empty)
+underscore ?= $(empty)_$(empty)
 
 # $(call match-word,w1,w2)
 # checks if w1 == w2
