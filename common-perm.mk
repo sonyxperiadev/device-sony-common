@@ -50,10 +50,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.device_id_attestation.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.device_id_attestation.xml
 endif
 
-# Common System Permissions
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/system/etc/permissions/privapp-permissions-extension.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-extension.xml
-
 # Transmit power
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/vendor/etc/permissions/privapp-permissions-transmitpower.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/privapp-permissions-transmitpower.xml
