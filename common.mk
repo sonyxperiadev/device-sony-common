@@ -51,6 +51,9 @@ PRODUCT_SEPOLICY_SPLIT_OVERRIDE := true
 # Force moving all vendor props into /vendor/build.prop
 BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
 
+# Force building a recovery image: Needed for OTA packaging to work since Q
+PRODUCT_BUILD_RECOVERY_IMAGE := true
+
 BUILD_KERNEL := true
 -include $(KERNEL_PATH)/common-headers/KernelHeaders.mk
 
