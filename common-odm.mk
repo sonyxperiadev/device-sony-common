@@ -73,6 +73,7 @@ PRODUCT_PACKAGES += \
     sensors.msm8998 \
     sensors.sdm660 \
     sensors.sdm845 \
+    sensors.sm8150 \
     sensors.qcom
 
 # Data

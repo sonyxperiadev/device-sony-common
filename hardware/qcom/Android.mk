@@ -3,15 +3,15 @@ ifneq ($(wildcard device/sony/common/hardware/qcom/custom.mk),)
 else
 # Board platforms lists to be used for
 # TARGET_BOARD_PLATFORM specific featurization
-QCOM_BOARD_PLATFORMS += msm8952 msm8996 msm8998 sdm660 sdm845
+QCOM_BOARD_PLATFORMS += msm8952 msm8996 msm8998 sdm660 sdm845 sm8150
 
-QCOM_NEW_MEDIA_PLATFORM := sdm845
+QCOM_NEW_MEDIA_PLATFORM := sdm845 sm8150
 
 #List of targets that use video hw
-MSM_VIDC_TARGET_LIST := msm8952 msm8996 msm8998 sdm660 sdm845
+MSM_VIDC_TARGET_LIST := msm8952 msm8996 msm8998 sdm660 sdm845 sm8150
 
 #List of targets that use master side content protection
-MASTER_SIDE_CP_TARGET_LIST := msm8996 msm8998 sdm660 sdm845
+MASTER_SIDE_CP_TARGET_LIST := msm8996 msm8998 sdm660 sdm845 sm8150
 
 audio-hal := hardware/qcom/audio
 gps-hal := hardware/qcom/gps/sdm845

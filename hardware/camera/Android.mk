@@ -1,9 +1,9 @@
 # Create symlinks for camera libraries. Currently only applicable
-# to sdm845 boards.
+# to sdm845 and sm8150 boards.
 
 LOCAL_PATH := $(call my-dir)
 
-ifneq ($(filter sdm845,$(TARGET_BOARD_PLATFORM)),)
+ifneq ($(filter sdm845 sm8150,$(TARGET_BOARD_PLATFORM)),)
 
 include $(SONY_CLEAR_VARS)
 LOCAL_MODULE := camera_symlinks
@@ -26,6 +26,7 @@ SONY_SYMLINKS := $(foreach p,$(library_names), \
 
 # Special exception for camera.qcom.so that is also linked to as camera.sdm845.so:
 SONY_SYMLINKS += /odm/lib/hw/camera.qcom.so:$(TARGET_COPY_OUT_VENDOR)/lib/hw/camera.sdm845.so
+SONY_SYMLINKS += /odm/lib/hw/camera.qcom.so:$(TARGET_COPY_OUT_VENDOR)/lib/hw/camera.sm8150.so
 
 include $(SONY_BUILD_SYMLINKS)
 
