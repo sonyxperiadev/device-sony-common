@@ -24,6 +24,11 @@ SONY_BUILD_SYMLINKS := $(COMMON_PATH)/sony_build_symlinks.mk
 DEVICE_PACKAGE_OVERLAYS += $(COMMON_PATH)/overlay
 
 PRODUCT_ENFORCE_RRO_TARGETS := \
+    Bluetooth \
+    Settings \
+    SettingsProvider \
+    SystemUI \
+    Telephony \
     framework-res
 
 PRODUCT_DEXPREOPT_SPEED_APPS += SystemUI
