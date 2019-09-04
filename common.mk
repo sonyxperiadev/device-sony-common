@@ -26,6 +26,8 @@ DEVICE_PACKAGE_OVERLAYS += $(COMMON_PATH)/overlay
 PRODUCT_ENFORCE_RRO_TARGETS := \
     framework-res
 
+PRODUCT_DEXPREOPT_SPEED_APPS += SystemUI
+
 # Force split of sepolicy into /system/etc/selinux and (/system)/vendor/etc/selinux
 # for all devices, regardless of shipping API level
 PRODUCT_SEPOLICY_SPLIT_OVERRIDE := true
