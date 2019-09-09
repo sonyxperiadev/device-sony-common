@@ -20,7 +20,7 @@ ipa-hal := hardware/qcom/data/ipacfg-mgr/sdm845
 display-hal := hardware/qcom/display/sde
 
 ifneq ($(filter $(QCOM_NEW_MEDIA_PLATFORM), $(TARGET_BOARD_PLATFORM)),)
-QCOM_MEDIA_ROOT := hardware/qcom/media/sm8150
+QCOM_MEDIA_ROOT := hardware/qcom/media/sdm845
 else
 QCOM_MEDIA_ROOT := hardware/qcom/media/msm8998
 endif
