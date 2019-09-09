@@ -12,6 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Enable building packages from device namspaces.
+# Might be temporary! See:
+# https://android.googlesource.com/platform/build/soong/+/master/README.md#name-resolution
+PRODUCT_SOONG_NAMESPACES += \
+    $(PLATFORM_COMMON_PATH)
+
 $(call inherit-product-if-exists, device/sony/customization/customization.mk)
 
 # Common path
