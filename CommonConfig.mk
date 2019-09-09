@@ -134,3 +134,8 @@ DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hw.keymaster_v4.xml
 else
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hw.keymaster_v3.xml
 endif
+
+# Only define bootctrl HAL availability on AB platforms:
+ifeq ($(AB_OTA_UPDATER),true)
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.bootctrl.xml
+endif
