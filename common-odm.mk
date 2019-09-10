@@ -110,7 +110,8 @@ PRODUCT_PACKAGES += \
     libqmiservices_ext \
     libqrtr \
     libqsocket \
-    qmuxd
+    qmuxd \
+    qrtr-ns
 
 # Ril
 PRODUCT_PACKAGES += \

@@ -28,6 +28,7 @@ PRODUCT_PACKAGES += \
     per-proxy.rc \
     per-service.rc \
     qmuxd.rc \
+    qrtr.rc \
     qseecom.rc \
     rild2.rc \
     rmt_storage.rc \
