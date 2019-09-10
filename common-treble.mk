@@ -56,10 +56,6 @@ PRODUCT_PACKAGES += \
 # Health
 PRODUCT_PACKAGES += \
     android.hardware.health@2.0-service.sony
-# Remove deprecated backup healthd; this can be omitted
-# once healthd is no longer included by default.
-DEVICE_FRAMEWORK_MANIFEST_FILE += \
-    system/libhidl/vintfdata/manifest_healthd_exclude.xml
 
 # Sensors
 PRODUCT_PACKAGES += \
@@ -110,7 +106,8 @@ endif
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-impl \
     android.hardware.drm@1.0-service \
-    android.hardware.drm@1.1-service.clearkey
+    android.hardware.drm@1.2-service.clearkey \
+    android.hardware.drm@1.1-service.widevine
 
 ifneq ($(BOARD_USE_LEGACY_USB),true)
 # Usb HAL
@@ -134,6 +131,7 @@ PRODUCT_PACKAGES += \
 ifeq ($(AB_OTA_UPDATER),true)
 # Boot control
 PRODUCT_PACKAGES += \
-    android.hardware.boot@1.0-impl:64 \
+    android.hardware.boot@1.0-impl \
+    android.hardware.boot@1.0-impl.recovery \
     android.hardware.boot@1.0-service
 endif

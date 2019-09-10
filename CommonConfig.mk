@@ -107,8 +107,6 @@ ifeq ($(HOST_OS),linux)
 endif
 WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY ?= true
 
-BUILD_KERNEL := true
--include $(KERNEL_PATH)/common-headers/KernelHeaders.mk
 -include $(KERNEL_PATH)/common-kernel/KernelConfig.mk
 
 # Include build helpers for QCOM proprietary
@@ -135,4 +133,9 @@ ifeq ($(TARGET_KEYMASTER_V4),true)
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hw.keymaster_v4.xml
 else
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hw.keymaster_v3.xml
+endif
+
+# Only define bootctrl HAL availability on AB platforms:
+ifeq ($(AB_OTA_UPDATER),true)
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.bootctrl.xml
 endif

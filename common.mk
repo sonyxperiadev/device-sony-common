@@ -12,6 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Enable building packages from device namspaces.
+# Might be temporary! See:
+# https://android.googlesource.com/platform/build/soong/+/master/README.md#name-resolution
+PRODUCT_SOONG_NAMESPACES += \
+    $(PLATFORM_COMMON_PATH)
+
 $(call inherit-product-if-exists, device/sony/customization/customization.mk)
 
 # Common path
@@ -24,15 +30,27 @@ SONY_BUILD_SYMLINKS := $(COMMON_PATH)/sony_build_symlinks.mk
 DEVICE_PACKAGE_OVERLAYS += $(COMMON_PATH)/overlay
 
 PRODUCT_ENFORCE_RRO_TARGETS := \
+    Bluetooth \
+    Settings \
+    SettingsProvider \
+    SystemUI \
+    Telephony \
     framework-res
 
+PRODUCT_USE_VNDK_OVERRIDE := true
+
 PRODUCT_DEXPREOPT_SPEED_APPS += SystemUI
+
+PRODUCT_ENFORCE_VINTF_MANIFEST_OVERRIDE := true
 
 # Force split of sepolicy into /system/etc/selinux and (/system)/vendor/etc/selinux
 # for all devices, regardless of shipping API level
 PRODUCT_SEPOLICY_SPLIT_OVERRIDE := true
 # Force moving all vendor props into /vendor/build.prop
 BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
+
+BUILD_KERNEL := true
+-include $(KERNEL_PATH)/common-headers/KernelHeaders.mk
 
 # Codecs Configuration
 PRODUCT_COPY_FILES += \
@@ -43,11 +61,6 @@ PRODUCT_COPY_FILES += \
 # Common etc
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/system/etc/nfcee_access.xml:system/etc/nfcee_access.xml
-
-# GPS Configuration
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/vendor/etc/gps.conf:$(TARGET_COPY_OUT_VENDOR)/etc/gps.conf \
-    $(COMMON_PATH)/rootdir/system/etc/gps_debug.conf:system/etc/gps_debug.conf
 
 # Sensors common
 PRODUCT_COPY_FILES += \
