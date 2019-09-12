@@ -24,9 +24,6 @@ SONY_SYMLINKS := $(foreach p,$(library_names), \
     /odm/lib/$p:$(TARGET_COPY_OUT_VENDOR)/lib/$p \
 )
 
-# Special exception for camera.qcom.so that is also linked to as camera.$(TARGET_BOARD_PLATFORM).so:
-SONY_SYMLINKS += /odm/lib/hw/camera.qcom.so:$(TARGET_COPY_OUT_VENDOR)/lib/hw/camera.$(TARGET_BOARD_PLATFORM).so
-
 include $(SONY_BUILD_SYMLINKS)
 
 endif
