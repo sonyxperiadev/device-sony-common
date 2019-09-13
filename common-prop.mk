@@ -181,3 +181,7 @@ endif
 # Reduce cost of scrypt for FBE CE decryption
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.crypto.scrypt_params=15:3:1
+
+# Look for vulkan.qcom.so instead of vulkan.$(BOARD_TARGET_PLATFORM).so
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.hardware.vulkan=qcom
