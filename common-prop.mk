@@ -215,3 +215,8 @@ endif
 # Reduce cost of scrypt for FBE CE decryption
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.crypto.scrypt_params=15:3:1
+
+# Disable PartyCrasher: No need to reboot to recovery
+# and request a wipe when something is broken.
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.sys.disable_rescue=1
