@@ -121,7 +121,7 @@ public:
 private:
     std::mutex mLock;
     std::mutex mLcdLock;
-    int mBacklightBits;
+    int mBacklightMax;
 
     Brightness mLastBacklightMode;
     LightState batteryState;

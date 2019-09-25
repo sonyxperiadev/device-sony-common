@@ -36,20 +36,16 @@ namespace implementation {
 
 Light::Light()
 {
-    int lcd_max = 0;
-
     LOG(INFO) << __func__ << ": Setup HAL";
 
     mLastBacklightMode = Brightness::USER;
 
-    lcd_max = readInt(LCD_MAX_FILE);
+    mBacklightMax = readInt(LCD_MAX_FILE);
 
-    if (lcd_max == 4095)
-        mBacklightBits = 12;
-    else if (lcd_max == 1023)
-        mBacklightBits = 10;
-    else
-        mBacklightBits = 8;
+    if (mBacklightMax < 0) {
+        LOG(WARNING) << "Max backlight value " << mBacklightMax << " invalid. Using 255";
+        mBacklightMax = 255;
+    }
 }
 
 // Methods from ::android::hardware::light::V2_0::ILight follow.
@@ -186,9 +182,9 @@ int Light::setLightBacklight(const LightState &state)
 #endif
 
     if (!err) {
-        if (mBacklightBits > 8) {
-            int sbits = mBacklightBits - 8;
-            brightness = (brightness << sbits) | (brightness >> sbits);
+        if (mBacklightMax != 255) {
+            // Adding half of the max (255/2=127) provides proper rounding while staying in integer mode:
+            brightness = (brightness * mBacklightMax + 127) / 255;
         }
 #ifdef UCOMMSVR_BACKLIGHT
         err = ucommsvr_set_backlight(brightness);
