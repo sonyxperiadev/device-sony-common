@@ -71,29 +71,26 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.biometrics.fingerprint@2.1-service.sony
 
+# Gatekeeper passthrough service
+PRODUCT_PACKAGES += \
+    android.hardware.gatekeeper@1.0-service
+
 ifeq ($(TARGET_LEGACY_KEYMASTER),true)
 # Keymaster
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@3.0-impl \
     android.hardware.keymaster@3.0-service
-# Gatekeeper
+# Gatekeeper libhardware module passthrough
 PRODUCT_PACKAGES += \
-    android.hardware.gatekeeper@1.0-impl \
-    android.hardware.gatekeeper@1.0-service
+    android.hardware.gatekeeper@1.0-impl
 else ifeq ($(TARGET_KEYMASTER_V4),true)
-# Keymaster 4
+# Keymaster 4 passthrough service
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@4.0-service-qti
-# Gatekeeper
-PRODUCT_PACKAGES += \
-    android.hardware.gatekeeper@1.0-service-qti
 else
-# Keymaster
+# Keymaster 3 passthrough service
 PRODUCT_PACKAGES += \
-    android.hardware.keymaster@3.0-service-qti
-# Gatekeeper
-PRODUCT_PACKAGES += \
-    android.hardware.gatekeeper@1.0-service-qti
+    android.hardware.keymaster@3.0-service
 endif
 
 # DRM
