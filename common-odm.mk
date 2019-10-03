@@ -1,7 +1,10 @@
 # Vendor version
 TARGET_VENDOR_VERSION := v1
 
-PRODUCT_CUSTOM_IMAGE_MAKEFILES := $(COMMON_PATH)/odm.mk
+# Set this flags true to build the ODM image
+PRODUCT_BUILD_ODM_IMAGE := true
+TARGET_COPY_OUT_ODM := odm
+BOARD_ODMIMAGE_FILE_SYSTEM_TYPE := ext4
 
 PRODUCT_PACKAGES += \
     odm_build_prop_version
