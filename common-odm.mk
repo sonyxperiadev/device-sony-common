@@ -1,13 +1,15 @@
 # Vendor version
 TARGET_VENDOR_VERSION := v1
 
-# Set this flags true to build the ODM image
+ifneq (,$(SONY_BUILD_ODM))
+
+# Set this flag to true to build the ODM image
 PRODUCT_BUILD_ODM_IMAGE := true
 TARGET_COPY_OUT_ODM := odm
 BOARD_ODMIMAGE_FILE_SYSTEM_TYPE := ext4
 
-PRODUCT_PACKAGES += \
-    odm_build_prop_version
+PRODUCT_ODM_PROPERTIES += \
+    ro.odm.version=$(PLATFORM_VERSION)_$(SOMC_KERNEL_VERSION)_$(SOMC_PLATFORM)_$(TARGET_VENDOR_VERSION)
 
 # SDE DRM
 PRODUCT_PACKAGES += \
@@ -115,6 +117,17 @@ PRODUCT_PACKAGES += \
     libqsocket \
     qmuxd \
     qrtr-ns
+
+ifneq ($(TARGET_LEGACY_KEYMASTER),true)
+ifneq ($(TARGET_KEYMASTER_V4),true)
+# Keymaster
+PRODUCT_PACKAGES += \
+    android.hardware.keymaster@3.0-impl-qti
+endif
+# Gatekeeper
+PRODUCT_PACKAGES += \
+    android.hardware.gatekeeper@1.0-impl-qti
+endif
 
 # Ril
 PRODUCT_PACKAGES += \
@@ -421,3 +434,5 @@ PRODUCT_PACKAGES += \
     libchromatix_s5k4h7yx_zsl_preview \
     libchromatix_s5k4h7yx_zsl_video \
     libmmcamera_s5k4h7yx
+
+endif
