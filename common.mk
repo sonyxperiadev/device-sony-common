@@ -145,6 +145,10 @@ MODEM_CONFIG := $(shell find $(COMMON_PATH)/rootdir/vendor/oem/modem-config -typ
 endif
 PRODUCT_COPY_FILES += $(MODEM_CONFIG)
 
+# Bluetooth
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/vendor/etc/sysconfig/component-overrides.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sysconfig/component-overrides.xml
+
 -include device/sony/customization/customization.mk
 
 $(call inherit-product, device/sony/common/common-init.mk)
