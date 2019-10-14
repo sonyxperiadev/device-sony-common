@@ -20,19 +20,19 @@
 #include <android/hardware/light/2.0/ILight.h>
 #include <hardware/hardware.h>
 #include <hardware/lights.h>
-#include <hidl/Status.h>
 #include <hidl/MQDescriptor.h>
+#include <hidl/Status.h>
 #include <map>
 
 #include <cutils/properties.h>
 
+#include <errno.h>
+#include <fcntl.h>
+#include <pthread.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <pthread.h>
 
 #include <linux/msm_mdp.h>
 
@@ -53,112 +53,112 @@ struct lights_t {
 };
 
 static constexpr int RAMP_SIZE = 8;
-static constexpr int BRIGHTNESS_RAMP[RAMP_SIZE] = {0, 14, 28, 42, 56, 70, 84, 100};
+static constexpr int BRIGHTNESS_RAMP[RAMP_SIZE] = { 0, 14, 28, 42, 56, 70, 84, 100 };
 
 const static std::string RED_LED_BASE
-        = "/sys/class/leds/led:rgb_red/";
+    = "/sys/class/leds/led:rgb_red/";
 
 const static std::string GREEN_LED_BASE
-        = "/sys/class/leds/led:rgb_green/";
+    = "/sys/class/leds/led:rgb_green/";
 
 const static std::string BLUE_LED_BASE
-        = "/sys/class/leds/led:rgb_blue/";
+    = "/sys/class/leds/led:rgb_blue/";
 
 const static std::string RED_LED_FILE
-        = RED_LED_BASE + "brightness";
+    = RED_LED_BASE + "brightness";
 
 const static std::string GREEN_LED_FILE
-        = GREEN_LED_BASE + "brightness";
+    = GREEN_LED_BASE + "brightness";
 
 const static std::string BLUE_LED_FILE
-        = BLUE_LED_BASE + "brightness";
+    = BLUE_LED_BASE + "brightness";
 
 const static std::string RED_LED_DUTY_PCTS_FILE
-        = RED_LED_BASE + "duty_pcts";
+    = RED_LED_BASE + "duty_pcts";
 
 const static std::string GREEN_LED_DUTY_PCTS_FILE
-        = GREEN_LED_BASE + "duty_pcts";
+    = GREEN_LED_BASE + "duty_pcts";
 
 const static std::string BLUE_LED_DUTY_PCTS_FILE
-        = BLUE_LED_BASE + "duty_pcts";
+    = BLUE_LED_BASE + "duty_pcts";
 
 const static std::string RED_BLINK_FILE
-        = RED_LED_BASE + "blink";
+    = RED_LED_BASE + "blink";
 
 const static std::string GREEN_BLINK_FILE
-        = GREEN_LED_BASE + "blink";
+    = GREEN_LED_BASE + "blink";
 
 const static std::string BLUE_BLINK_FILE
-        = BLUE_LED_BASE + "blink";
+    = BLUE_LED_BASE + "blink";
 
 const static std::string RGB_BLINK_FILE
-        = "/sys/class/leds/rgb/rgb_blink";
+    = "/sys/class/leds/rgb/rgb_blink";
 
 #ifdef DRMSDE_BACKLIGHT
 const static std::string LCD_FILE
-        = "/sys/class/backlight/panel0-backlight/brightness";
+    = "/sys/class/backlight/panel0-backlight/brightness";
 
 const static std::string LCD_MAX_FILE
-        = "/sys/class/backlight/panel0-backlight/max_brightness";
+    = "/sys/class/backlight/panel0-backlight/max_brightness";
 #else
 const static std::string LCD_FILE
-        = "/sys/class/leds/lcd-backlight/brightness";
+    = "/sys/class/leds/lcd-backlight/brightness";
 
 const static std::string LCD_MAX_FILE
-        = "/sys/class/leds/lcd-backlight/max_brightness";
+    = "/sys/class/leds/lcd-backlight/max_brightness";
 #endif
 
 const static std::string PERSISTENCE_FILE
-        = "/sys/class/graphics/fb0/msm_fb_persist_mode";
+    = "/sys/class/graphics/fb0/msm_fb_persist_mode";
 
 namespace android {
-    namespace hardware {
-        namespace light {
-            namespace V2_0 {
-                namespace implementation {
-                    using::android::hardware::light::V2_0::ILight;
-                    using::android::hardware::light::V2_0::LightState;
-                    using::android::hardware::light::V2_0::Status;
-                    using::android::hardware::light::V2_0::Type;
-                    using::android::hardware::Return;
-                    using::android::hardware::Void;
-                    using::android::hardware::hidl_vec;
-                    using::android::hardware::hidl_string;
-                    using::android::sp;
+namespace hardware {
+namespace light {
+namespace V2_0 {
+namespace implementation {
+using ::android::sp;
+using ::android::hardware::hidl_string;
+using ::android::hardware::hidl_vec;
+using ::android::hardware::Return;
+using ::android::hardware::Void;
+using ::android::hardware::light::V2_0::ILight;
+using ::android::hardware::light::V2_0::LightState;
+using ::android::hardware::light::V2_0::Status;
+using ::android::hardware::light::V2_0::Type;
 
-                    struct Light : public ILight {
-                        public:
-                        Light();
+struct Light : public ILight {
+public:
+    Light();
 
-                        static ILight *getInstance();
+    static ILight *getInstance();
 
-                        // Methods from ::android::hardware::light::V2_0::ILight follow.
-                        Return <Status> setLight(Type type, const LightState &state) override;
-                        Return<void> getSupportedTypes(getSupportedTypes_cb _hidl_cb) override;
+    // Methods from ::android::hardware::light::V2_0::ILight follow.
+    Return<Status> setLight(Type type, const LightState &state) override;
+    Return<void> getSupportedTypes(getSupportedTypes_cb _hidl_cb) override;
 
-                        private:
-                        static Light *sInstance;
-                        lights_t *mDevice;
-                        LightState batteryState;
-                        LightState notificationState;
-                        int setLightBacklight(const LightState &state);
-                        int setLightBattery(const LightState &state);
-                        int setLightNotifications(const LightState &state);
-                        void handleSpeakerBatteryLocked();
-                        int setSpeakerLightLocked(const LightState &state);
-                        std::string getScaledDutyPcts(int brightness);
-                        int isLit(const LightState &state);
-                        bool isRgbSyncAvailable();
-                        int rgbToBrightness(const LightState &state);
-                        static int writeInt(const std::string &path, int value);
-                        static int readInt(const std::string &path);
-                        static int writeStr(const std::string &path, const std::string &value);
-                        void openHal();
-                    };
-                }  // namespace implementation
-            }  // namespace V2_0
-        }  // namespace light
-    }  // namespace hardware
-}  // namespace android
+private:
+    static Light *sInstance;
+    lights_t *mDevice;
+    LightState batteryState;
+    LightState notificationState;
+    int setLightBacklight(const LightState &state);
+    int setLightBattery(const LightState &state);
+    int setLightNotifications(const LightState &state);
+    void handleSpeakerBatteryLocked();
+    int setSpeakerLightLocked(const LightState &state);
+    std::string getScaledDutyPcts(int brightness);
+    int isLit(const LightState &state);
+    bool isRgbSyncAvailable();
+    int rgbToBrightness(const LightState &state);
+    static int writeInt(const std::string &path, int value);
+    static int readInt(const std::string &path);
+    static int writeStr(const std::string &path, const std::string &value);
+    void openHal();
+};
+} // namespace implementation
+} // namespace V2_0
+} // namespace light
+} // namespace hardware
+} // namespace android
 
-#endif  // ANDROID_HARDWARE_LIGHT_V2_0_LIGHT_H
+#endif // ANDROID_HARDWARE_LIGHT_V2_0_LIGHT_H

@@ -17,20 +17,21 @@
 
 #define LOG_TAG "android.hardware.light@2.0-service.sony"
 
-#include <hidl/HidlSupport.h>
-#include <hidl/HidlTransportSupport.h>
+#include "Light.h"
 #include <android-base/logging.h>
 #include <android/hardware/light/2.0/ILight.h>
-#include "Light.h"
+#include <hidl/HidlSupport.h>
+#include <hidl/HidlTransportSupport.h>
 
-using android::hardware::light::V2_0::ILight;
-using android::hardware::light::V2_0::implementation::Light;
+using android::NO_ERROR;
+using android::sp;
 using android::hardware::configureRpcThreadpool;
 using android::hardware::joinRpcThreadpool;
-using android::sp;
-using android::NO_ERROR;
+using android::hardware::light::V2_0::ILight;
+using android::hardware::light::V2_0::implementation::Light;
 
-int main() {
+int main()
+{
     LOG(INFO) << __func__ << " : Start HAL";
     android::sp<ILight> light = Light::getInstance();
 
