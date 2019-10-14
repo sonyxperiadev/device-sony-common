@@ -33,7 +33,7 @@ using android::hardware::light::V2_0::implementation::Light;
 int main()
 {
     LOG(INFO) << __func__ << " : Start HAL";
-    android::sp<ILight> light = Light::getInstance();
+    android::sp<ILight> light = new Light();
 
     configureRpcThreadpool(1, true /*callerWillJoin*/);
 

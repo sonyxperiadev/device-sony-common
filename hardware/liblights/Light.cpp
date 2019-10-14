@@ -33,48 +33,23 @@ namespace hardware {
 namespace light {
 namespace V2_0 {
 namespace implementation {
-static_assert(LIGHT_FLASH_NONE == static_cast<int>(Flash::NONE),
-    "Flash::NONE must match legacy value.");
-static_assert(LIGHT_FLASH_TIMED == static_cast<int>(Flash::TIMED),
-    "Flash::TIMED must match legacy value.");
-static_assert(LIGHT_FLASH_HARDWARE == static_cast<int>(Flash::HARDWARE),
-    "Flash::HARDWARE must match legacy value.");
-
-static_assert(BRIGHTNESS_MODE_USER == static_cast<int>(Brightness::USER),
-    "Brightness::USER must match legacy value.");
-static_assert(BRIGHTNESS_MODE_SENSOR == static_cast<int>(Brightness::SENSOR),
-    "Brightness::SENSOR must match legacy value.");
-static_assert(BRIGHTNESS_MODE_LOW_PERSISTENCE == static_cast<int>(Brightness::LOW_PERSISTENCE),
-    "Brightness::LOW_PERSISTENCE must match legacy value.");
-
-Light *Light::sInstance = nullptr;
 
 Light::Light()
 {
-    LOG(INFO) << "%s";
-    openHal();
-    sInstance = this;
-}
-
-void Light::openHal()
-{
     int lcd_max = 0;
-    LOG(INFO) << __func__ << ": Setup HAL";
-    mDevice = static_cast<lights_t *>(malloc(sizeof(lights_t)));
-    memset(mDevice, 0, sizeof(lights_t));
 
-    mDevice->g_last_backlight_mode = BRIGHTNESS_MODE_USER;
-    mDevice->g_lock = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
-    mDevice->g_lcd_lock = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
+    LOG(INFO) << __func__ << ": Setup HAL";
+
+    mLastBacklightMode = Brightness::USER;
 
     lcd_max = readInt(LCD_MAX_FILE);
 
     if (lcd_max == 4095)
-        mDevice->backlight_bits = 12;
+        mBacklightBits = 12;
     else if (lcd_max == 1023)
-        mDevice->backlight_bits = 10;
+        mBacklightBits = 10;
     else
-        mDevice->backlight_bits = 8;
+        mBacklightBits = 8;
 }
 
 // Methods from ::android::hardware::light::V2_0::ILight follow.
@@ -98,14 +73,6 @@ Return<Status> Light::setLight(Type type, const LightState &state)
         return Status::LIGHT_NOT_SUPPORTED;
     }
     return Status::SUCCESS;
-}
-
-ILight *Light::getInstance()
-{
-    if (!sInstance) {
-        sInstance = new Light();
-    }
-    return sInstance;
 }
 
 int Light::writeInt(const std::string &path, int value)
@@ -192,23 +159,19 @@ int Light::rgbToBrightness(const LightState &state)
 
 int Light::setLightBacklight(const LightState &state)
 {
+    std::lock_guard<std::mutex> lock(mLcdLock);
+
     int err = 0;
     int brightness = rgbToBrightness(state);
 #ifdef LOW_PERSISTENCE_DISPLAY
-    unsigned int lpEnabled = state.brightnessMode == Brightness::LOW_PERSISTENCE;
+    Brightness currState = state.brightnessMode;
+    bool lpEnabled = state.brightnessMode == Brightness::LOW_PERSISTENCE;
 #endif
 
-    if (!mDevice) {
-        return -1;
-    }
-
-    pthread_mutex_lock(&mDevice->g_lcd_lock);
-
 #ifdef LOW_PERSISTENCE_DISPLAY
-    int currState = static_cast<int>(state.brightnessMode);
     // If we're not in lp mode and it has been enabled or if we are in lp mode
     // and it has been disabled send an ioctl to the display with the update
-    if ((mDevice->g_last_backlight_mode != currState && lpEnabled) || (!lpEnabled && mDevice->g_last_backlight_mode == BRIGHTNESS_MODE_LOW_PERSISTENCE)) {
+    if ((mLastBacklightMode != currState && lpEnabled) || (!lpEnabled && mLastBacklightMode == Brightness::LOW_PERSISTENCE)) {
         if ((err = writeInt(PERSISTENCE_FILE, lpEnabled)) != 0) {
             LOG(ERROR) << __func__ << " : Failed to write to " << PERSISTENCE_FILE << ": " << strerror(errno);
         }
@@ -219,12 +182,12 @@ int Light::setLightBacklight(const LightState &state)
                 DEFAULT_LOW_PERSISTENCE_MODE_BRIGHTNESS);
         }
     }
-    mDevice->g_last_backlight_mode = static_cast<int>(state.brightnessMode);
+    mLastBacklightMode = state.brightnessMode;
 #endif
 
     if (!err) {
-        if (mDevice->backlight_bits > 8) {
-            int sbits = mDevice->backlight_bits - 8;
+        if (mBacklightBits > 8) {
+            int sbits = mBacklightBits - 8;
             brightness = (brightness << sbits) | (brightness >> sbits);
         }
 #ifdef UCOMMSVR_BACKLIGHT
@@ -234,7 +197,6 @@ int Light::setLightBacklight(const LightState &state)
 #endif
     }
 
-    pthread_mutex_unlock(&mDevice->g_lcd_lock);
     return err;
 }
 
@@ -244,10 +206,6 @@ int Light::setSpeakerLightLocked(const LightState &state)
     bool blink;
     int onMS, offMS;
     unsigned int colorRGB;
-
-    if (!mDevice) {
-        return -1;
-    }
 
     switch (state.flashMode) {
     case Flash::TIMED:
@@ -329,55 +287,31 @@ void Light::handleSpeakerBatteryLocked()
 
 int Light::setLightBattery(const LightState &state)
 {
-    if (!mDevice) {
-        return -1;
-    }
-
-    pthread_mutex_lock(&mDevice->g_lock);
+    std::lock_guard<std::mutex> lock(mLock);
     batteryState = state;
     handleSpeakerBatteryLocked();
-    pthread_mutex_unlock(&mDevice->g_lock);
     return 0;
 }
 
 int Light::setLightNotifications(const LightState &state)
 {
-    if (!mDevice) {
-        return -1;
-    }
-
-    pthread_mutex_lock(&mDevice->g_lock);
+    std::lock_guard<std::mutex> lock(mLock);
     notificationState = state;
     handleSpeakerBatteryLocked();
-    pthread_mutex_unlock(&mDevice->g_lock);
     return 0;
 }
 
-const static std::map<Type, const char *> kLogicalLights = {
-    { Type::BACKLIGHT, LIGHT_ID_BACKLIGHT },
-    { Type::BATTERY, LIGHT_ID_BATTERY },
-    { Type::NOTIFICATIONS, LIGHT_ID_NOTIFICATIONS }
+static const std::vector<Type> kSupportedTypes = {
+    Type::BACKLIGHT,
+    Type::BATTERY,
+    Type::NOTIFICATIONS,
 };
 
 Return<void> Light::getSupportedTypes(getSupportedTypes_cb _hidl_cb)
 {
-    Type *types = new Type[kLogicalLights.size()];
+    hidl_vec<Type> hidl_types{ kSupportedTypes };
 
-    int idx = 0;
-    for (auto const &pair : kLogicalLights) {
-        Type type = pair.first;
-
-        types[idx++] = type;
-    }
-
-    {
-        hidl_vec<Type> hidl_types{};
-        hidl_types.setToExternal(types, kLogicalLights.size());
-
-        _hidl_cb(hidl_types);
-    }
-
-    delete[] types;
+    _hidl_cb(hidl_types);
 
     return Void();
 }
