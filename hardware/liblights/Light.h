@@ -20,6 +20,7 @@
 #include <android/hardware/light/2.0/ILight.h>
 #include <hidl/Status.h>
 
+#include <algorithm>
 #include <mutex>
 #include <vector>
 
@@ -121,7 +122,8 @@ public:
 private:
     std::mutex mLock;
     std::mutex mLcdLock;
-    int mBacklightMax;
+    int mBacklightMax = 0;
+    int mBacklightShift = 0;
 
     Brightness mLastBacklightMode;
     LightState batteryState;

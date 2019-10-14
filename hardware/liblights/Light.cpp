@@ -46,6 +46,17 @@ Light::Light()
         LOG(WARNING) << "Max backlight value " << mBacklightMax << " invalid. Using 255";
         mBacklightMax = 255;
     }
+
+    // Bit-shifting optimization does not work above 2^16-1:
+    if (mBacklightMax < (1 << 16)) {
+        // Find most significant bit:
+        int backlightHighestBit = 32 - __builtin_clz((unsigned)mBacklightMax);
+        // Bit-shift optimization scales to full 2^x-1; make sure
+        // mBacklightMax equals this full set of bits:
+        if (mBacklightMax == (1 << backlightHighestBit) - 1)
+            // Input value is already 1<<8:
+            mBacklightShift = std::max(0, backlightHighestBit - 8);
+    }
 }
 
 // Methods from ::android::hardware::light::V2_0::ILight follow.
@@ -182,7 +193,11 @@ int Light::setLightBacklight(const LightState &state)
 #endif
 
     if (!err) {
-        if (mBacklightMax != 255) {
+        if (mBacklightShift) {
+            // Use bit-shifting optimizations:
+            // (For demo/"coolness" purposes only; saved cycles are negligible)
+            brightness = brightness << mBacklightShift | brightness >> 8 - mBacklightShift;
+        } else if (mBacklightMax != 255) {
             // Adding half of the max (255/2=127) provides proper rounding while staying in integer mode:
             brightness = (brightness * mBacklightMax + 127) / 255;
         }
