@@ -32,9 +32,15 @@ PRODUCT_PACKAGES += \
     android.hardware.soundtrigger@2.1-impl:32
 
 # Camera
+ifeq ($(TARGET_USES_64BIT_CAMERA),true)
+PRODUCT_PACKAGES += \
+    android.hardware.camera.provider@2.4-impl:64 \
+    android.hardware.camera.provider@2.4-service_64
+else
 PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl:32 \
     android.hardware.camera.provider@2.4-service
+endif
 
 # Wi-Fi
 PRODUCT_PACKAGES += \
