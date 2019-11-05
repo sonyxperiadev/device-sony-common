@@ -18,18 +18,12 @@
 #ifndef DEVICE_SONY_HEALTH_LEARNEDCAPACITYBACKUPRESTORE_H
 #define DEVICE_SONY_HEALTH_LEARNEDCAPACITYBACKUPRESTORE_H
 
-#include <string>
-
-#include <android-base/logging.h>
-#include <android-base/file.h>
-#include <android-base/strings.h>
-
 namespace device {
 namespace sony {
 namespace health {
 
-static constexpr char kSysChargeFullFile[] = "/sys/class/power_supply/bms/charge_full";
-static constexpr char kPersistChargeFullFile[] = "/mnt/vendor/persist/battery/battery_charge_full";
+static const std::string kSysChargeFullFile = "/sys/class/power_supply/bms/charge_full";
+static const std::string kPersistChargeFullFile = "/mnt/vendor/persist/battery/battery_charge_full";
 
 class LearnedCapacityBackupRestore {
    public:
@@ -38,9 +32,9 @@ class LearnedCapacityBackupRestore {
     void Backup();
 
    private:
-    int sw_cap_;
-    int hw_cap_;
-    int cap_inc_;
+    int persist_capacity;
+    int sysfs_capacity;
+    int cap_counter;
 
     void ReadFromPersistStorage();
     void SaveToPersistStorage();
