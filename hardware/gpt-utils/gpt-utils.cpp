@@ -1072,12 +1072,14 @@ static int get_dev_path_from_partition_name(const char *partname,
                 if (stat(path, &st)) {
                         goto error;
                 }
-                if (readlink(path, buf, buflen) < 0)
-                {
+                char resolved[PATH_MAX] = {0};
+                if (!realpath(path, resolved)) {
                         goto error;
-                } else {
-                        buf[PATH_TRUNCATE_LOC] = '\0';
                 }
+                int pos = (int)strlen(resolved) - 1;
+                while (pos >= 0 && isdigit(resolved[pos])) pos--;
+                resolved[pos + 1] = '\0';
+                strncpy(buf, resolved, buflen);
         } else {
                 snprintf(buf, buflen, BLK_DEV_FILE);
         }
