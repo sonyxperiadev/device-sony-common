@@ -1079,6 +1079,9 @@ static int get_dev_path_from_partition_name(const char *partname,
                 int pos = (int)strlen(resolved) - 1;
                 while (pos >= 0 && isdigit(resolved[pos])) pos--;
                 resolved[pos + 1] = '\0';
+		if (buflen < pos + 2) {
+			goto error;
+		}
                 strncpy(buf, resolved, buflen);
         } else {
                 snprintf(buf, buflen, BLK_DEV_FILE);
