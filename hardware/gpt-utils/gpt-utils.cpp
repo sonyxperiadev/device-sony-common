@@ -1074,14 +1074,16 @@ static int get_dev_path_from_partition_name(const char *partname,
                 }
                 char resolved[PATH_MAX] = {0};
                 if (!realpath(path, resolved)) {
+                        ALOGE("%s: Cannot find realpath for %s", __func__, path);
                         goto error;
                 }
                 int pos = (int)strlen(resolved) - 1;
                 while (pos >= 0 && isdigit(resolved[pos])) pos--;
                 resolved[pos + 1] = '\0';
-		if (buflen < pos + 2) {
-			goto error;
-		}
+                if (buflen < pos + 2) {
+                        ALOGE("%s: Insufficient buffer to hold %s", __func__, resolved);
+                        goto error;
+                }
                 strncpy(buf, resolved, buflen);
         } else {
                 snprintf(buf, buflen, BLK_DEV_FILE);
