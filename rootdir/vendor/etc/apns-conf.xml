@@ -447,25 +447,26 @@
   <apn carrier="3" mcc="222" mnc="99" apn="tre.it" proxy="" port="" user="" password="" mmsc="http://10.216.59.240:10021/mmsc" mmsproxy="62.13.171.3" mmsport="8799" type="default,supl,mms" />
   <apn carrier="3 IT" mcc="222" mnc="99" apn="tre.it" proxy="" port="" user="" password="" mmsc="http://10.216.59.240:10021/mmsc" mmsproxy="wsb.treumts.it" mmsport="8799" type="default,supl,mms" />
   <apn carrier="Fastweb 3G" mcc="222" mnc="99" apn="apn.fastweb.it" proxy="" port="" user="" password="" mmsc="http://mms.fastweb.it/mms/wapenc" mmsproxy="10.0.65.9" mmsport="8080" mvno_type="spn" mvno_match_data="FASTWEB" authtype="2" type="default,supl,mms" />
+  <apn carrier="Connect Mobile" mcc="226" mnc="03" apn="broadband" type="default,supl" protocol="IP" roaming_protocol="IP" />
+  <apn carrier="Connect Mobile" mcc="226" mnc="06" apn="broadband" type="default,supl" protocol="IP" roaming_protocol="IP" />
+  <apn carrier="Digi.Mobil" mcc="226" mnc="05" apn="internet" type="default,supl" />
+  <apn carrier="IMS" mcc="226" mnc="03" apn="ims" type="ims" protocol="IP" roaming_protocol="IP" />
+  <apn carrier="IMS" mcc="226" mnc="05" apn="ims" type="ims" protocol="IP" roaming_protocol="IPV4V6" />
+  <apn carrier="IMS" mcc="226" mnc="06" apn="ims" type="ims" protocol="IP" roaming_protocol="IP" />
+  <apn carrier="Internet" mcc="226" mnc="01" apn="internet.vodafone.ro" protocol="IP" roaming_protocol="IP"/>
+  <apn carrier="MMS" mcc="226" mnc="05" apn="mms" mmsc="http://10.10.3.133:8002" mmsport="8080" mmsproxy="10.10.3.130" type="mms" />
+  <apn carrier="Orange Internet" mcc="226" mnc="10" apn="net" type="default" />
+  <apn carrier="Orange MMS" mcc="226" mnc="10" apn="mms" user="mms"  mmsc="http://wap.mms.orange.ro:8002" mmsport="8799" authtype="1" type="mms" />
+  <apn carrier="Orange Voce" mcc="226" mnc="10" apn="ims" type="ims" authtype="0" protocol="IPV6" />
+  <apn carrier="RO - Cosmote (WnW) Web" mcc="226" mnc="04" apn="wnw" type="default,supl" authtype="1" user="wnw" password="wnw" />
+  <apn carrier="Telekom MMS" mcc="226" mnc="03" apn="mms" mmsc="http://mmsc1.mms.telekom.ro:8002" mmsport="8080" mmsproxy="10.252.1.62" password="mms" type="mms" user="mms" authtype="1" protocol="IP" roaming_protocol="IP" />
+  <apn carrier="Telekom MMS" mcc="226" mnc="06" apn="mms" mmsc="http://mmsc1.mms.telekom.ro:8002" mmsport="8080" mmsproxy="10.252.1.62" password="mms" type="mms" user="mms" authtype="1" protocol="IP" roaming_protocol="IP" />
   <apn carrier="Vodafone Internet" mcc="226" mnc="01" apn="internet.vodafone.ro" proxy="" port="" user="internet.vodafone.ro" password="vodafone" mmsc="" type="default,supl" />
+  <apn carrier="Vodafone MMS" mcc="226" mnc="01" apn="mms.vodafone.ro" mmsc="http://multimedia/servlets/mms" mmsport="8080" mmsproxy="193.230.161.231" password="vodafone" type="mms" user="mms" protocol="IP" roaming_protocol="IP" />
   <apn carrier="Vodafone RO" mcc="226" mnc="01" apn="internet.vodafone.ro" proxy="" port="" user="internet.vodafone.ro" password="vodafone" mmsc="" type="default,supl" />
-  <apn carrier="Vodafone RO live! PRE" mcc="226" mnc="01" apn="live.pre.vodafone.com" proxy="193.230.161.231" port="8080" user="live" password="vodafone" mmsc="" type="default,supl" />
-  <apn carrier="Vodafone RO live!" mcc="226" mnc="01" apn="live.vodafone.com" proxy="193.230.161.231" port="8080" user="live" password="vodafone" mmsc="" type="default,supl" />
-  <apn carrier="Vodafone RO MMS PRE" mcc="226" mnc="01" apn="mms.pre.vodafone.ro" proxy="" port="" user="mms" password="vodafone" mmsc="http://multimedia/servlets/mms" mmsproxy="193.230.161.231" mmsport="8080" type="mms" />
-  <apn carrier="Vodafone RO MMS" mcc="226" mnc="01" apn="mms.vodafone.ro" proxy="" port="" user="mms" password="vodafone" mmsc="http://multimedia/servlets/mms" mmsproxy="193.230.161.231" mmsport="8080" type="mms" />
-  <apn carrier="Cosmote Internet" mcc="226" mnc="03" apn="internet" user="" password="" authtype="3" type="default,supl" />
-  <apn carrier="Cosmote Broadband RO" mcc="226" mnc="03" apn="broadband" proxy="" port="" user="" password="" mmsc="" type="default,supl" />
-  <apn carrier="Cosmote RO MMS" mcc="226" mnc="03" apn="mms" proxy="" port="" user="mms" password="mms" mmsc="http://mmsc1.mms.cosmote.ro:8002" mmsproxy="10.252.1.62" mmsport="8080" type="mms" />
-  <apn carrier="Cosmote WNW RO" mcc="226" mnc="03" apn="wnw" proxy="10.252.1.62" port="8080" user="wnw" password="wnw" mmsc="" type="default,supl" />
-  <apn carrier="Telekom Romania Broadband" mcc="226" mnc="03" apn="broadband" type="default,supl" />
-  <apn carrier="Digi Mobil" mcc="226" mnc="05" apn="internet" proxy="" port="" user="" password="" mmsc="" type="default,supl" />
-  <apn carrier="DIGI Proxy" mcc="226" mnc="05" apn="internet" proxy="10.10.3.130" port="8080" mmsc="" user="" password="" authtype="1" type="default,supl" />
-  <apn carrier="MMS" mcc="226" mnc="05" apn="mms" proxy="" port="" mmsc="http://10.10.3.133:8002" user="" password="" type="mms" />
-  <apn carrier="Cosmote Internet" mcc="226" mnc="06" apn="internet" user="" password="" authtype="3" type="default,supl" />
-  <apn carrier="Cosmote MMS" mcc="226" mnc="06" apn="mms" proxy="" port="" mmsproxy="10.252.1.62" mmsport="8080" mmsc="http://mmsc1.mms.cosmote.ro:8002" user="" password="" authtype="3" type="mms" />
-  <apn carrier="web'n'walk" mcc="226" mnc="06" apn="wnw" user="wnw" password="wnw" type="default,supl" />
-  <apn carrier="Orange MMS" mcc="226" mnc="10" apn="mms" proxy="" port="" mmsproxy="62.217.247.252" mmsport="8799" mmsc="http://wap.mms.orange.ro:8002" user="" password="" type="mms" />
-  <apn carrier="Orange Internet" mcc="226" mnc="10" apn="net" user="" password="" type="default,supl" />
+  <apn carrier="Vodafone live!" mcc="226" apn="live.vodafone.com" type="default,supl,dun" roaming_protocol="IP" />
+  <apn carrier="web'n'walk" mcc="226" mnc="03" apn="wnw" type="default,supl" user="wnw" password="wnw" authtype="3" protocol="IP" roaming_protocol="IP" />
+  <apn carrier="web'n'walk" mcc="226" mnc="06" apn="wnw" type="default,supl" user="wnw" password="wnw" authtype="3" protocol="IP" roaming_protocol="IP" />
   <apn carrier="Swisscom" mcc="228" mnc="01" apn="gprs.swisscom.ch" user="" password="" authtype="3" type="default,supl" />
   <apn carrier="Swisscom-MMS" mcc="228" mnc="01" apn="event.swisscom.ch" proxy="" port="" mmsproxy="192.168.210.2" mmsport="8080" mmsc="http://mms.natel.ch:8079" user="" password="" authtype="3" type="mms" />
   <apn carrier="Sunrise Internet" mcc="228" mnc="02" apn="internet" proxy="" port="" user="" password="" mmsc="" type="default,supl" />
