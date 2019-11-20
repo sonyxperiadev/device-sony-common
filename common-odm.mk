@@ -443,7 +443,8 @@ PRODUCT_PACKAGES += \
     com.qti.chi.override \
     com.qti.node.eisv2 \
     com.qti.node.eisv3 \
-    camera.qcom
+    camera.sdm845 \
+    camera.sm8150
 
 # Common
 PRODUCT_PACKAGES += \
