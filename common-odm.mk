@@ -435,4 +435,49 @@ PRODUCT_PACKAGES += \
     libchromatix_s5k4h7yx_zsl_video \
     libmmcamera_s5k4h7yx
 
+# CAMX Libs
+PRODUCT_PACKAGES += \
+    com.qti.node.swregistration \
+    com.qti.camx.chiiqutils \
+    libcom.qti.chinodeutils \
+    com.qti.chi.override \
+    com.qti.node.eisv2 \
+    com.qti.node.eisv3 \
+    camera.qcom
+
+# Common
+PRODUCT_PACKAGES += \
+    fdconfigpreview \
+    fdconfigpreviewlite \
+    fdconfigvideo \
+    fdconfigvideolite \
+    com.qti.tuned.default \
+
+# Tama
+PRODUCT_PACKAGES += \
+    com.sony.sensormodule.blakiston_imx400 \
+    com.sony.sensormodule.pansy_imx241 \
+    com.sony.sensormodule.poodle_imx258 \
+    com.sony.eeprom.blakiston \
+    com.sony.eeprom.pansy \
+    com.sony.eeprom.poodle \
+    com.sony.tuned.imx400 \
+    com.sony.tuned.imx241 \
+    com.sony.tuned.imx258
+
+# Kumano
+PRODUCT_PACKAGES += \
+    com.sony.sensormodule.milvus_imx445 \
+    com.sony.sensormodule.milvus_s5k3m3 \
+    com.sony.sensormodule.vulture_imx563 \
+    com.sony.sensormodule.rose_s5k4h7 \
+    com.sony.sensormodule.goby_s5k3m3 \
+    com.sony.eeprom.milvus_main \
+    com.sony.eeprom.milvus_sub \
+    com.sony.eeprom.rose_otp \
+    com.sony.eeprom.goby_otp \
+    com.sony.tuned.imx445 \
+    com.sony.tuned.imx563 \
+    com.sony.tuned.s5k3m3 \
+    com.sony.tuned.s5k4h7
 endif
