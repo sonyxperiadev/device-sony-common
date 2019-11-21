@@ -32,6 +32,9 @@ LOCAL_SHARED_LIBRARIES := \
     libhidltransport \
     android.hardware.light@2.0
 
+# We want the full operator-precedence experience:
+LOCAL_CFLAGS += -Wno-parentheses
+
 ifeq ($(TARGET_USES_UCOMM_BACKLIGHT),true)
     LOCAL_SHARED_LIBRARIES += libucommunicator
 endif
