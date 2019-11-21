@@ -56,7 +56,7 @@
 #endif
 
 #ifndef WLAN_STATS_FILE
-#define WLAN_STATS_FILE "/d/wlan0/power_stats"
+#define WLAN_STATS_FILE "/sys/kernel/wlan/power_stats"
 #endif
 
 #define LINE_SIZE 128
