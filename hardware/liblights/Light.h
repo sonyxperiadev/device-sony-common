@@ -40,14 +40,17 @@
 static constexpr int RAMP_SIZE = 8;
 static constexpr int BRIGHTNESS_RAMP[RAMP_SIZE] = { 0, 14, 28, 42, 56, 70, 84, 100 };
 
+const static std::string LEDS_CLASS_BASE
+    = "/sys/class/leds/";
+
 static const std::string RED_LED_BASE
-    = "/sys/class/leds/led:rgb_red/";
+    = LEDS_CLASS_BASE + "red/";
 
 static const std::string GREEN_LED_BASE
-    = "/sys/class/leds/led:rgb_green/";
+    = LEDS_CLASS_BASE + "green/";
 
 static const std::string BLUE_LED_BASE
-    = "/sys/class/leds/led:rgb_blue/";
+    = LEDS_CLASS_BASE + "blue/";
 
 static const std::string RED_LED_FILE
     = RED_LED_BASE + "brightness";
@@ -58,14 +61,14 @@ static const std::string GREEN_LED_FILE
 static const std::string BLUE_LED_FILE
     = BLUE_LED_BASE + "brightness";
 
-static const std::string RED_LED_DUTY_PCTS_FILE
-    = RED_LED_BASE + "duty_pcts";
+const static std::string RED_LED_BREATH_FILE
+    = RED_LED_BASE + "breath";
 
-static const std::string GREEN_LED_DUTY_PCTS_FILE
-    = GREEN_LED_BASE + "duty_pcts";
+const static std::string GREEN_LED_BREATH_FILE
+    = GREEN_LED_BASE + "breath";
 
-static const std::string BLUE_LED_DUTY_PCTS_FILE
-    = BLUE_LED_BASE + "duty_pcts";
+const static std::string BLUE_LED_BREATH_FILE
+    = BLUE_LED_BASE + "breath";
 
 static const std::string RED_BLINK_FILE
     = RED_LED_BASE + "blink";
@@ -75,9 +78,6 @@ static const std::string GREEN_BLINK_FILE
 
 static const std::string BLUE_BLINK_FILE
     = BLUE_LED_BASE + "blink";
-
-static const std::string RGB_BLINK_FILE
-    = "/sys/class/leds/rgb/rgb_blink";
 
 #ifdef DRMSDE_BACKLIGHT
 static const std::string LCD_FILE
