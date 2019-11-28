@@ -17,6 +17,7 @@ PRODUCT_PACKAGES += \
 
 # Secure MSM
 PRODUCT_PACKAGES += \
+    libkeymasterutils \
     qseecomd
 
 # IRQ Balance
