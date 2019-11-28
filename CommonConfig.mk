@@ -58,6 +58,9 @@ BOARD_ROOT_EXTRA_SYMLINKS += /$(TARGET_COPY_OUT_VENDOR)/bt_firmware:/bt_firmware
 BOARD_ROOT_EXTRA_SYMLINKS += /$(TARGET_COPY_OUT_VENDOR)/odm:/odm
 BOARD_ROOT_EXTRA_SYMLINKS += /mnt/vendor/persist:/persist
 
+# DSP RPC daemons need this extra link to find the right dsp apps
+BOARD_ROOT_EXTRA_SYMLINKS += /$(TARGET_COPY_OUT_VENDOR)/lib/rfsa/adsp:/odm/dsp
+
 # Filesystem
 TARGET_FS_CONFIG_GEN := $(COMMON_PATH)/config.fs
 
