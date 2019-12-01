@@ -105,6 +105,7 @@ PRODUCT_PACKAGES += \
     adreno_symlinks \
     camera_symlinks \
     qca_cld3_symlinks \
+    rfsa_symlinks \
     tftp_symlinks
 
 # Create firmware mount point folders in /vendor:
