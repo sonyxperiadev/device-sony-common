@@ -73,6 +73,7 @@ TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 TARGET_USES_COLOR_METADATA := true
 TARGET_USES_HWC2 := true
+TARGET_USES_DISPLAY_RENDER_INTENTS := true
 
 # Audio
 BOARD_USES_ALSA_AUDIO := true
@@ -137,6 +138,12 @@ endif
 # Only define bootctrl HAL availability on AB platforms:
 ifeq ($(AB_OTA_UPDATER),true)
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.bootctrl.xml
+endif
+
+ifeq ($(TARGET_HARDWARE_GRAPHICS_V3),true)
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.graphics_v3.xml
+else
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.graphics_v2.xml
 endif
 
 # New vendor security patch level: https://r.android.com/660840/
