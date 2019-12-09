@@ -50,7 +50,7 @@ PRODUCT_PACKAGES += \
 # Force building a recovery image: Needed for OTA packaging to work since Q
 PRODUCT_BUILD_RECOVERY_IMAGE := true
 
-BUILD_KERNEL := true
+# Sanitized prebuilt kernel headers
 -include $(KERNEL_PATH)/common-headers/KernelHeaders.mk
 
 # Codecs Configuration
