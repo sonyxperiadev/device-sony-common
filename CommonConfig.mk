@@ -115,6 +115,12 @@ ifeq ($(HOST_OS),linux)
 endif
 WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY ?= true
 
+# Build kernel using kernel's Android.mk file.
+# May be overriden by KernelConfig.mk if prebuilt kernel present.
+# Can also be turned off in Customization.mk in case it is desired to use a
+# custom ROM's kernel build system, e.g. LineageOS' or PE's.
+BUILD_KERNEL ?= true
+
 -include $(KERNEL_PATH)/common-kernel/KernelConfig.mk
 
 # Include build helpers for QCOM proprietary
