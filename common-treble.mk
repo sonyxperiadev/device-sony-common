@@ -84,10 +84,16 @@ PRODUCT_PACKAGES += \
     android.hardware.sensors@1.0-impl:64 \
     android.hardware.sensors@1.0-service
 
+ifeq ($(TARGET_VIBRATOR_V1_2),true)
+# QTI Haptics Vibrator
+PRODUCT_PACKAGES += \
+    vendor.qti.hardware.vibrator@1.2-service
+else
 # Vibrator
 PRODUCT_PACKAGES += \
     android.hardware.vibrator@1.0-impl \
     android.hardware.vibrator@1.0-service
+endif
 
 # Fingerprint
 PRODUCT_PACKAGES += \
