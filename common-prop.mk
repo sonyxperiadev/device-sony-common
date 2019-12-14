@@ -132,6 +132,18 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Property to choose between virtual/external wfd display
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.wfd.virtual=0
+    
+# Display properties
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.demo.hdmirotationlock=false \
+    persist.sys.sf.color_saturation=1.0 \
+    vendor.display.disable_inline_rotator=1 \
+    vendor.display.enable_null_display=0 \
+    vendor.display.disable_excl_rect=0 \
+    vendor.display.comp_mask=0 \
+    vendor.display.enable_default_color_mode=1 \
+    vendor.display.enable_optimize_refresh=1 \
+    vendor.display.disable_ui_3d_tonemap=1
 
 # Wi-Fi interface name
 PRODUCT_PROPERTY_OVERRIDES += \
