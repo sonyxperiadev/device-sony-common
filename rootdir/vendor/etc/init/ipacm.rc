@@ -3,6 +3,8 @@ on post-fs-data
     mkdir /data/vendor/ipa 0770 radio radio
 
 service vendor.ipacm /vendor/bin/ipacm
+    interface android.hardware.tetheroffload.config@1.0::IOffloadConfig default
+    interface android.hardware.tetheroffload.control@1.0::IOffloadControl default
     class main
     user radio
     group radio inet
