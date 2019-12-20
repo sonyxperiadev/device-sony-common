@@ -33,17 +33,19 @@ PRODUCT_ENFORCE_RRO_TARGETS := *
 
 PRODUCT_DEXPREOPT_SPEED_APPS += SystemUI
 
-# Treble properties
+# Force using the following regardless of shipping API level:
+#   PRODUCT_TREBLE_LINKER_NAMESPACES
+#   PRODUCT_SEPOLICY_SPLIT
+#   PRODUCT_ENFORCE_VINTF_MANIFEST
+#   PRODUCT_NOTICE_SPLIT
+PRODUCT_FULL_TREBLE_OVERRIDE := true
 
-# Match running HAL services against vintf manifest
-PRODUCT_ENFORCE_VINTF_MANIFEST_OVERRIDE := true
+# VNDK
 # Force using VNDK regardless of shipping API level
 PRODUCT_USE_VNDK_OVERRIDE := true
-# Force split of sepolicy into /system/etc/selinux and (/system)/vendor/etc/selinux
-# for all devices, regardless of shipping API level
-PRODUCT_SEPOLICY_SPLIT_OVERRIDE := true
-# Force moving all vendor props into /vendor/build.prop
-BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
+# Include vndk/vndk-sp/ll-ndk modules
+PRODUCT_PACKAGES += \
+    vndk_package
 
 # Force building a recovery image: Needed for OTA packaging to work since Q
 PRODUCT_BUILD_RECOVERY_IMAGE := true
