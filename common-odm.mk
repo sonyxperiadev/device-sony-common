@@ -153,10 +153,6 @@ PRODUCT_PACKAGES += \
     libqomx_jpegenc_pipe \
     libqomx_jpegenc \
 
-# Camera Override
-PRODUCT_PACKAGES += \
-    libcom.qti.chinodeutils \
-    com.qti.chi.override
 
 # Camera Framework
 PRODUCT_PACKAGES += \
@@ -444,6 +440,15 @@ PRODUCT_PACKAGES += \
     com.qti.chi.override \
     com.qti.node.eisv2 \
     com.qti.node.eisv3 \
+    com.qti.node.swregistration \
+    com.qti.camx.chiiqutils \
+    com.qti.node.memcpy \
+    com.qti.hvx.binning \
+    com.qti.hvx.addconstant \
+    com.qti.node.gpu \
+    com.qti.node.remosaic \
+    com.qti.node.stitch \
+    com.qti.node.depth \
     camera.sdm845 \
     camera.sm8150
 
