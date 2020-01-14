@@ -1,0 +1,11 @@
+service vendor.ims_rtp_daemon /odm/bin/ims_rtp_daemon
+   class main
+   user system
+   group radio diag inet log
+
+on property:vendor.ims.DATA_DAEMON_STATUS=1
+    restart vendor.ims_rtp_daemon
+
+on property:sys.shutdown.requested=*
+    stop vendor.ims_rtp_daemon
+
