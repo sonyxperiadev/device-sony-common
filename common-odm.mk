@@ -119,6 +119,45 @@ PRODUCT_PACKAGES += \
     qmuxd \
     qrtr-ns
 
+# IMS
+PRODUCT_PACKAGES += \
+    imsdatadaemon \
+    imsqmidaemon \
+    imsrcsd \
+    ims_rtp_daemon \
+    libcneapiclient \
+    libcne \
+    lib-dplmedia \
+    lib-imscmservice \
+    lib-imsdpl \
+    lib-imsqimf \
+    lib-imsrcsbaseimpl \
+    lib-imsrcs-v2 \
+    lib-imsvtextutils \
+    lib-imsvt \
+    lib-imsvtutils \
+    lib-imsxml \
+    lib-rtpcommon \
+    lib-rtpcore \
+    lib-rtpdaemoninterface \
+    lib-rtpsl \
+    lib-siputility \
+    lib-uceservice \
+    com.qualcomm.qti.uceservice@2.0 \
+    com.qualcomm.qti.imscmservice@1.0 \
+    com.qualcomm.qti.imscmservice@2.0 \
+    com.qualcomm.qti.imscmservice@2.1 \
+    vendor.qti.data.factory@1.1 \
+    vendor.qti.hardware.data.connection@1.0 \
+    vendor.qti.hardware.data.dynamicdds@1.0 \
+    vendor.qti.hardware.data.qmi@1.0 \
+    vendor.qti.hardware.radio.ims@1.0 \
+    vendor.qti.ims.callinfo@1.0 \
+    vendor.qti.ims.rcsconfig@1.0 \
+    vendor.qti.imsrtpservice@1.0-service-Impl \
+    vendor.qti.imsrtpservice@1.0 \
+    vendor.qti.latency@2.0
+
 ifneq ($(TARGET_LEGACY_KEYMASTER),true)
 ifneq ($(TARGET_KEYMASTER_V4),true)
 # Keymaster
