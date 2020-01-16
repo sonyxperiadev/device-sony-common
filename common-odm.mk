@@ -491,6 +491,7 @@ PRODUCT_PACKAGES += \
     camera.sdm845 \
     camera.sm8150
 
+
 # Common
 PRODUCT_PACKAGES += \
     fdconfigpreview \
@@ -507,6 +508,9 @@ PRODUCT_PACKAGES += \
     com.sony.eeprom.blakiston \
     com.sony.eeprom.pansy \
     com.sony.eeprom.poodle \
+    com.sony.sensor.imx400 \
+    com.sony.sensor.imx241 \
+    com.sony.sensor.imx258 \
     com.sony.tuned.imx400 \
     com.sony.tuned.imx241 \
     com.sony.tuned.imx258
@@ -522,6 +526,10 @@ PRODUCT_PACKAGES += \
     com.sony.eeprom.milvus_sub \
     com.sony.eeprom.rose_otp \
     com.sony.eeprom.goby_otp \
+    com.sony.sensor.imx445 \
+    com.sony.sensor.s5k3m3sn \
+    com.sony.sensor.imx563 \
+    com.sony.sensor.s5k4h7 \
     com.sony.tuned.imx445 \
     com.sony.tuned.imx563 \
     com.sony.tuned.s5k3m3 \
