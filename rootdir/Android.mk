@@ -266,7 +266,7 @@ LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/init
 include $(BUILD_PREBUILT)
 
 ifneq ($(filter sdm660 msm8998 sdm845 sm8150,$(TARGET_BOARD_PLATFORM)),)
-ifneq ($(filter sdm845,$(TARGET_BOARD_PLATFORM)),)
+ifneq ($(filter sdm845 sm8150,$(TARGET_BOARD_PLATFORM)),)
 include $(CLEAR_VARS)
 LOCAL_MODULE := init.qcom.cdspstart.sh
 LOCAL_MODULE_CLASS := EXECUTABLES
