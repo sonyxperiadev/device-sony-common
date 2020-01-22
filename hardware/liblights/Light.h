@@ -70,15 +70,6 @@ const static std::string GREEN_LED_BREATH_FILE
 const static std::string BLUE_LED_BREATH_FILE
     = BLUE_LED_BASE + "breath";
 
-static const std::string RED_BLINK_FILE
-    = RED_LED_BASE + "blink";
-
-static const std::string GREEN_BLINK_FILE
-    = GREEN_LED_BASE + "blink";
-
-static const std::string BLUE_BLINK_FILE
-    = BLUE_LED_BASE + "blink";
-
 #ifdef DRMSDE_BACKLIGHT
 static const std::string LCD_FILE
     = "/sys/class/backlight/panel0-backlight/brightness";
@@ -132,8 +123,9 @@ private:
     int setLightBacklight(const LightState &state);
     int setLightBattery(const LightState &state);
     int setLightNotifications(const LightState &state);
-    void handleSpeakerBatteryLocked();
     int setSpeakerLightLocked(const LightState &state);
+    void blinkLed(const std::string &base_path, int brightness, int onMS, int offMS);
+    void handleSpeakerBatteryLocked();
 
     static std::string getScaledDutyPcts(int brightness);
     static int isLit(const LightState &state);

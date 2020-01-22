@@ -215,6 +215,19 @@ int Light::setLightBacklight(const LightState &state)
     return err;
 }
 
+void Light::blinkLed(const std::string &base_path, int brightness, int onMS, int offMS)
+{
+    LOG(VERBOSE) << "Writing blinking " << brightness << " to " << base_path;
+    writeInt(base_path + "brightness", brightness);
+
+    if (brightness) {
+        writeInt(base_path + "delay_on", onMS);
+        writeInt(base_path + "delay_off", offMS);
+        // Disable breath for now: this breaks the LED entirely
+        // writeInt(base_path + "breath", 1);
+    }
+}
+
 int Light::setSpeakerLightLocked(const LightState &state)
 {
     int red, green, blue;
@@ -251,17 +264,9 @@ int Light::setSpeakerLightLocked(const LightState &state)
     writeInt(BLUE_LED_BREATH_FILE, 0);
 
     if (blink) {
-        writeInt(RED_LED_BASE   + "delay_off", offMS);
-        writeInt(GREEN_LED_BASE + "delay_off", offMS);
-        writeInt(BLUE_LED_BASE  + "delay_off", offMS);
-
-        writeInt(RED_LED_BASE   + "delay_on", onMS);
-        writeInt(GREEN_LED_BASE + "delay_on", onMS);
-        writeInt(BLUE_LED_BASE  + "delay_on", onMS);
-
-        writeInt(RED_LED_BREATH_FILE, 1);
-        writeInt(GREEN_LED_BREATH_FILE, 1);
-        writeInt(BLUE_LED_BREATH_FILE, 1);
+        blinkLed(RED_LED_BASE, red, onMS, offMS);
+        blinkLed(GREEN_LED_BASE, green, onMS, offMS);
+        blinkLed(BLUE_LED_BASE, blue, onMS, offMS);
     } else {
         writeInt(RED_LED_FILE, red);
         writeInt(GREEN_LED_FILE, green);
