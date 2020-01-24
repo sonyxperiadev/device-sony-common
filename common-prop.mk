@@ -84,6 +84,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.hwui.text_large_cache_width=2048 \
     ro.hwui.text_large_cache_height=1024
 
+# Stagefright
+PRODUCT_PROPERTY_OVERRIDES += \
+    media.stagefright.thumbnail.prefer_hw_codecs=true
+
 # Delay reduction
 PRODUCT_PROPERTY_OVERRIDES += \
     sdm.debug.rotator_downscale=1
