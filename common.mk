@@ -112,10 +112,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     firmware_folders
 
-# APN list
+# Community APN list
 PRODUCT_COPY_FILES += \
-    device/sample/etc/old-apns-conf.xml:system/etc/old-apns-conf.xml \
-    device/sample/etc/apns-full-conf.xml:system/etc/apns-conf.xml
+    $(COMMON_PATH)/rootdir/vendor/etc/apns-conf.xml:system/etc/apns-conf.xml
 
 $(call inherit-product, device/sony/common/common-init.mk)
 $(call inherit-product, device/sony/common/common-odm.mk)
