@@ -176,6 +176,7 @@
   <apn carrier="NRJ WEB" mcc="208" mnc="10" apn="fnetnrj" proxy="" port="" user="" password="" mmsc="" spn="NRJ (SFR)" type="default,supl" />
   <apn carrier="NRJ Mobile FR Internet" mcc="208" mnc="10" apn="internetnrj" proxy="" port="" user="" password="" mmsc="" type="dun" />
   <apn carrier="SFR Internet Mobile" mcc="208" mnc="10" apn="sl2sfr" user="" password="" spn="F SFR" type="default,supl" />
+  <apn carrier="SFR IMS" mcc="208" mnc="10" apn="ims" type="ims" protocol="IPV4V6" roaming_protocol="IPV4V6" />
   <apn carrier="SFR MMS" mcc="208" mnc="10" apn="mmssfr" proxy="" port="" mmsproxy="10.151.0.1" mmsport="8080" mmsc="http://mms1" user="" password="" spn="F SFR" type="mms" />
   <apn carrier="SFR WEB" mcc="208" mnc="10" apn="websfr" user="" password="" spn="F SFR" type="default,dun" />
   <apn carrier="SFR WAP" mcc="208" mnc="10" apn="wapsfr" proxy="195.115.25.129" port="8080" user="none" password="none" server="*" mmsc="" type="default,supl" />
