@@ -5,7 +5,7 @@ else
 # TARGET_BOARD_PLATFORM specific featurization
 QCOM_BOARD_PLATFORMS += msm8952 msm8996 msm8998 sdm660 sdm845 sm8150
 
-QCOM_NEW_MEDIA_PLATFORM := msm8952 msm8996 msm8998 sdm660 sdm845 sm8150
+QCOM_NEW_MEDIA_PLATFORM := sdm845 sm8150
 
 #List of targets that use video hw
 MSM_VIDC_TARGET_LIST := msm8952 msm8996 msm8998 sdm660 sdm845 sm8150
