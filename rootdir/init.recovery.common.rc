@@ -1,7 +1,4 @@
 on init
-    wait /dev/block/platform/soc/${ro.boot.bootdevice}
-    symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
-
     # USB setup
     mkdir /config 0770 shell shell
     mount configfs none /config
@@ -17,10 +14,14 @@ on init
     mkdir /config/usb_gadget/g1/configs/b.1 0770 shell shell
     mkdir /config/usb_gadget/g1/configs/b.1/strings/0x409 0770 shell shell
     symlink /config/usb_gadget/g1/configs/b.1 /config/usb_gadget/g1/os_desc/b.1
-    mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=2000
     setprop sys.usb.config adb
+    setprop sys.usb.configfs 1
 
-# USB compositions
+on fs      
+    wait /dev/block/platform/soc/${ro.boot.bootdevice}
+    symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
+
+# Keep a paranoid ADB configuration
 on property:sys.usb.ffs.ready=1 && property:sys.usb.config=adb
     write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "adb"
     rm /config/usb_gadget/g1/configs/b.1/f1
@@ -36,3 +37,7 @@ on property:sys.usb.ffs.ready=1 && property:sys.usb.config=adb
 
 on property:sys.usb.config=adb
     start adbd
+
+# Set idVendor as Sony for all USB configurations
+on property:sys.usb.config=*
+    write /config/usb_gadget/g1/idVendor 0x0fce
