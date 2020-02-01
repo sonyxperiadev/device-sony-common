@@ -61,6 +61,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/system/etc/nfcee_access.xml:system/etc/nfcee_access.xml
 
+# GPS Configuration
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/vendor/etc/gps.conf:$(TARGET_COPY_OUT_VENDOR)/etc/gps.conf
+
 # Sensors common
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/vendor/etc/sensors/sensors_settings:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/sensors_settings
