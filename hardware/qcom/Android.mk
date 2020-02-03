@@ -5,7 +5,7 @@ else
 # TARGET_BOARD_PLATFORM specific featurization
 QCOM_BOARD_PLATFORMS += msm8952 msm8996 msm8998 sdm660 sdm845 sm8150
 
-QCOM_NEW_MEDIA_PLATFORM := msm8952 msm8996 msm8998 sdm660 sdm845 sm8150
+QCOM_NEW_MEDIA_PLATFORM := sdm845 sm8150
 
 #List of targets that use video hw
 MSM_VIDC_TARGET_LIST := msm8952 msm8996 msm8998 sdm660 sdm845 sm8150
@@ -22,7 +22,7 @@ display-hal := hardware/qcom/display/sde
 ifneq ($(filter $(QCOM_NEW_MEDIA_PLATFORM), $(TARGET_BOARD_PLATFORM)),)
 QCOM_MEDIA_ROOT := hardware/qcom/media/sm8150
 else
-QCOM_MEDIA_ROOT := hardware/qcom/media/msm8998
+QCOM_MEDIA_ROOT := hardware/qcom/media/sdm660-libion
 endif
 
 OMX_VIDEO_PATH := mm-video-v4l2
