@@ -63,10 +63,6 @@ Light::Light()
 Return<Status> Light::setLight(Type type, const LightState &state)
 {
     switch (type) {
-    case Type::ATTENTION:
-        LOG(DEBUG) << __func__ << " : Type::ATTENTION";
-        setLightNotifications(state);
-        break;
     case Type::BACKLIGHT:
         LOG(DEBUG) << __func__ << " : Type::BACKLIGHT";
         setLightBacklight(state);
@@ -156,8 +152,8 @@ int Light::isLit(const LightState &state)
 
 bool Light::isRgbSyncAvailable()
 {
-    /* ToDo: Check LED trigger mode here */
-    return true;
+    std::ifstream stream(RGB_BLINK_FILE);
+    return stream.good();
 }
 
 int Light::rgbToBrightness(const LightState &state)
@@ -246,22 +242,42 @@ int Light::setSpeakerLightLocked(const LightState &state)
     blue = colorRGB & 0xFF;
     blink = onMS > 0 && offMS > 0;
 
-    writeInt(RED_LED_BREATH_FILE, 0);
-    writeInt(GREEN_LED_BREATH_FILE, 0);
-    writeInt(BLUE_LED_BREATH_FILE, 0);
+    if (isRgbSyncAvailable()) {
+        writeInt(RGB_BLINK_FILE, 0);
+    }
 
     if (blink) {
-        writeInt(RED_LED_BASE   + "delay_off", offMS);
-        writeInt(GREEN_LED_BASE + "delay_off", offMS);
-        writeInt(BLUE_LED_BASE  + "delay_off", offMS);
+        if (isRgbSyncAvailable()) {
+            writeStr(RED_LED_DUTY_PCTS_FILE, getScaledDutyPcts(red));
+            writeStr(GREEN_LED_DUTY_PCTS_FILE, getScaledDutyPcts(green));
+            writeStr(BLUE_LED_DUTY_PCTS_FILE, getScaledDutyPcts(blue));
 
-        writeInt(RED_LED_BASE   + "delay_on", onMS);
-        writeInt(GREEN_LED_BASE + "delay_on", onMS);
-        writeInt(BLUE_LED_BASE  + "delay_on", onMS);
+            writeInt(RED_LED_BASE + "pause_lo", offMS);
+            writeInt(GREEN_LED_BASE + "pause_lo", offMS);
+            writeInt(BLUE_LED_BASE + "pause_lo", offMS);
 
-        writeInt(RED_LED_BREATH_FILE, 1);
-        writeInt(GREEN_LED_BREATH_FILE, 1);
-        writeInt(BLUE_LED_BREATH_FILE, 1);
+            writeInt(RED_LED_BASE + "pause_hi", onMS);
+            writeInt(GREEN_LED_BASE + "pause_hi", onMS);
+            writeInt(BLUE_LED_BASE + "pause_hi", onMS);
+
+            writeInt(RGB_BLINK_FILE, 1);
+        } else {
+            if (red) {
+                if (writeInt(RED_BLINK_FILE, onMS == offMS ? 2 : 1)) {
+                    writeInt(RED_LED_FILE, 0);
+                }
+            }
+            if (green) {
+                if (writeInt(GREEN_BLINK_FILE, onMS == offMS ? 2 : 1)) {
+                    writeInt(GREEN_LED_FILE, 0);
+                }
+            }
+            if (blue) {
+                if (writeInt(BLUE_BLINK_FILE, onMS == offMS ? 2 : 1)) {
+                    writeInt(BLUE_LED_FILE, 0);
+                }
+            }
+        }
     } else {
         writeInt(RED_LED_FILE, red);
         writeInt(GREEN_LED_FILE, green);
@@ -297,7 +313,6 @@ int Light::setLightNotifications(const LightState &state)
 }
 
 static const std::vector<Type> kSupportedTypes = {
-    Type::ATTENTION,
     Type::BACKLIGHT,
     Type::BATTERY,
     Type::NOTIFICATIONS,
