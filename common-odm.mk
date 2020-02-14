@@ -116,8 +116,7 @@ PRODUCT_PACKAGES += \
     libqmiservices_ext \
     libqrtr \
     libqsocket \
-    qmuxd \
-    qrtr-ns
+    qmuxd
 
 # IMS
 PRODUCT_PACKAGES += \
