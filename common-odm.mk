@@ -84,6 +84,7 @@ PRODUCT_PACKAGES += \
 
 # Data
 PRODUCT_PACKAGES += \
+    libqcmaputils \
     libconfigdb \
     libdiag \
     libdsi_netctrl \
@@ -92,6 +93,8 @@ PRODUCT_PACKAGES += \
     liblqe \
     libqdi \
     libqdp \
+    adpl\
+    qdi \
     netmgrd
 
 PRODUCT_PACKAGES += \
