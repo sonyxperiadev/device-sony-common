@@ -530,6 +530,7 @@ PRODUCT_PACKAGES += \
     com.sony.eeprom.rose_otp \
     com.sony.eeprom.goby_otp \
     com.sony.sensor.imx445 \
+    com.sony.sensor.s5k3m3 \
     com.sony.sensor.s5k3m3sn \
     com.sony.sensor.imx563 \
     com.sony.sensor.s5k4h7 \
