@@ -17,7 +17,6 @@ PRODUCT_PACKAGES += \
     init.usb.rc \
     adb_tcp.rc \
     adsprpcd.rc \
-    adpl.rc \
     cdsprpcd.rc \
     cnss-daemon.rc \
     ipacm.rc \
@@ -31,7 +30,6 @@ PRODUCT_PACKAGES += \
     qmuxd.rc \
     qrtr.rc \
     qseecom.rc \
-    qti.rc \
     rild2.rc \
     rmt_storage.rc \
     sct_service.rc \
@@ -48,6 +46,12 @@ PRODUCT_PACKAGES += \
     imsdatadaemon.rc \
     imsqmidaemon.rc \
     imsrcsd.rc
+endif
+
+ifneq ($(filter sm8150,$(TARGET_BOARD_PLATFORM)),)
+PRODUCT_PACKAGES += \
+    adpl.rc \
+    qti.rc
 endif
 
 # Common init scripts
