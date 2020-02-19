@@ -157,4 +157,6 @@ endif
 # Used by newer keymaster binaries
 VENDOR_SECURITY_PATCH=$(PLATFORM_SECURITY_PATCH)
 
+ifneq ($(filter sdm660 msm8998 sdm845 sm8150,$(TARGET_BOARD_PLATFORM)),)
 TARGET_USES_IMS:= true
+endif

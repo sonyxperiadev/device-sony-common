@@ -21,10 +21,6 @@ PRODUCT_PACKAGES += \
     cdsprpcd.rc \
     cnss-daemon.rc \
     ipacm.rc \
-    imsdatadaemon.rc \
-    imsqmidaemon.rc \
-    imsrcsd.rc \
-    ims_rtp_daemon.rc \
     irsc_util.rc \
     mlog_qmi.rc \
     msm_irq.rc \
@@ -45,6 +41,14 @@ PRODUCT_PACKAGES += \
     ta_qmi.rc \
     tftp_server.rc \
     wpa_supplicant.rc
+
+ifeq ($(TARGET_USES_IMS),true)
+PRODUCT_PACKAGES += \
+    ims_rtp_daemon.rc \
+    imsdatadaemon.rc \
+    imsqmidaemon.rc \
+    imsrcsd.rc
+endif
 
 # Common init scripts
 PRODUCT_PACKAGES += \
