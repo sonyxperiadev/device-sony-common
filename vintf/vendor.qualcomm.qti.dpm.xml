@@ -1,0 +1,7 @@
+<manifest version="1.0" type="device">
+    <hal format="hidl">
+        <name>com.qualcomm.qti.dpm.api</name>
+        <transport>hwbinder</transport>
+        <fqname>@1.0::IdpmQmi/dpmQmiService</fqname>
+    </hal>
+</manifest>
