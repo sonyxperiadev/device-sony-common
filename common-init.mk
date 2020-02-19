@@ -21,6 +21,7 @@ PRODUCT_PACKAGES += \
     cdsprpcd.rc \
     cnss-daemon.rc \
     ipacm.rc \
+    dpmQmiMgr.rc \
     imsdatadaemon.rc \
     imsqmidaemon.rc \
     imsrcsd.rc \
