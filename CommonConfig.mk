@@ -149,6 +149,9 @@ DEVICE_MATRIX_FILE   += $(COMMON_PATH)/vintf/compatibility_matrix.xml
 # Custom NXP vendor interfaces
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.nxp.nfc.interfaces.xml
 
+# Dynamic Power Management
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.qualcomm.qti.dpm.xml
+
 ifeq ($(PRODUCT_DEVICE_DS),true)
 ifeq ($(TARGET_USE_QCRILD),true)
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hw.qcradio_ds.xml
