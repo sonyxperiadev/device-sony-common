@@ -24,6 +24,7 @@ PRODUCT_PACKAGES += \
     ipacm.rc \
     dataqti.rc \
     dpmQmiMgr.rc \
+    dpmd.rc \
     imsdatadaemon.rc \
     imsqmidaemon.rc \
     imsrcsd.rc \
