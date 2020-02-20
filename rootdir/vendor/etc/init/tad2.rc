@@ -1,0 +1,8 @@
+# TA Daemon
+service vendor.tad_static /odm/bin/tad_static /dev/block/bootdevice/by-name/TA 0,16 2
+    class core
+    user root
+    group root system wakelock
+    socket tad stream 0660 system system
+    seclabel u:r:tad:s0
+    shutdown critical
