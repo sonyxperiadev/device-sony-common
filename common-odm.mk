@@ -146,7 +146,7 @@ PRODUCT_PACKAGES += \
     lib-rtpsl \
     lib-siputility \
     lib-uceservice \
-    com.qualcomm.qti.uceservice@2.0 \
+    com.qualcomm.qti.uceservice@2.1 \
     com.qualcomm.qti.imscmservice@1.0 \
     com.qualcomm.qti.imscmservice@2.2 \
     vendor.qti.data.factory@1.1 \
