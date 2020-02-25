@@ -506,6 +506,7 @@ PRODUCT_PACKAGES += \
     com.qti.tuned.default \
 
 # Tama
+ifeq ($(SOMC_PLATFORM),tama)
 PRODUCT_PACKAGES += \
     com.sony.sensormodule.blakiston_imx400 \
     com.sony.sensormodule.pansy_imx241 \
@@ -519,8 +520,10 @@ PRODUCT_PACKAGES += \
     com.sony.tuned.imx400 \
     com.sony.tuned.imx241 \
     com.sony.tuned.imx258
+endif
 
 # Kumano
+ifeq ($(SOMC_PLATFORM),kumano)
 PRODUCT_PACKAGES += \
     com.sony.sensormodule.milvus_imx445 \
     com.sony.sensormodule.milvus_s5k3m3 \
@@ -540,4 +543,5 @@ PRODUCT_PACKAGES += \
     com.sony.tuned.imx563 \
     com.sony.tuned.s5k3m3 \
     com.sony.tuned.s5k4h7
+endif
 endif
