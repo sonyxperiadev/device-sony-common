@@ -150,6 +150,7 @@ PRODUCT_PACKAGES += \
     com.qualcomm.qti.imscmservice@1.0 \
     com.qualcomm.qti.imscmservice@2.2 \
     vendor.qti.data.factory@1.1 \
+    vendor.qti.data.slm@1.0 \
     vendor.qti.hardware.data.connection@1.0 \
     vendor.qti.hardware.data.dynamicdds@1.0 \
     vendor.qti.hardware.data.qmi@1.0 \
