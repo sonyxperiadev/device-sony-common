@@ -38,7 +38,6 @@ PRODUCT_PACKAGES += \
     qrtr.rc \
     qseecom.rc \
     qti.rc \
-    rild2.rc \
     rmt_storage.rc \
     sct_service.rc \
     sensors.rc \
@@ -47,6 +46,16 @@ PRODUCT_PACKAGES += \
     ta_qmi.rc \
     tftp_server.rc \
     wpa_supplicant.rc
+
+# RIL
+ifeq ($(TARGET_USE_QCRILD),true)
+PRODUCT_PACKAGES += \
+    qcrild.rc \
+    qcrild2.rc
+else
+PRODUCT_PACKAGES += \
+    rild2.rc
+endif
 
 # Common init scripts
 PRODUCT_PACKAGES += \

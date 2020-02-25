@@ -1,0 +1,10 @@
+service vendor.qcrild /odm/bin/hw/qcrild
+    class main
+    user radio
+    disabled
+    group radio cache inet misc audio log readproc wakelock
+    capabilities BLOCK_SUSPEND NET_ADMIN NET_RAW
+
+on property:vendor.rild.libpath=/odm/lib64/libril-qc-hal-qmi.so
+    stop ril-daemon
+    enable vendor.qcrild

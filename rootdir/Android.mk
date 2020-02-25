@@ -242,6 +242,22 @@ LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/init
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
+LOCAL_MODULE := qcrild.rc
+LOCAL_MODULE_CLASS := ETC
+LOCAL_SRC_FILES := vendor/etc/init/qcrild.rc
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/init
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := qcrild2.rc
+LOCAL_MODULE_CLASS := ETC
+LOCAL_SRC_FILES := vendor/etc/init/qcrild2.rc
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/init
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
 LOCAL_MODULE := rild2.rc
 LOCAL_MODULE_CLASS := ETC
 LOCAL_SRC_FILES := vendor/etc/init/rild2.rc
