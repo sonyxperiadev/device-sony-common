@@ -148,9 +148,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.bt.bdaddr_path=/data/vendor/bluetooth/bluetooth_bdaddr
 
 # RILD
+ifeq ($(TARGET_USE_QCRILD),true)
+PRODUCT_PROPERTY_OVERRIDES += \
+    vendor.rild.libpath=/odm/lib64/libril-qc-hal-qmi.so \
+    ril.subscription.types=NV,RUIM
+else
 PRODUCT_PROPERTY_OVERRIDES += \
     vendor.rild.libpath=/odm/lib64/libril-qc-qmi-1.so \
     ril.subscription.types=NV,RUIM
+endif
 
 # OpenGLES version
 PRODUCT_PROPERTY_OVERRIDES += \
