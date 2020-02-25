@@ -148,8 +148,7 @@ PRODUCT_PACKAGES += \
     lib-uceservice \
     com.qualcomm.qti.uceservice@2.0 \
     com.qualcomm.qti.imscmservice@1.0 \
-    com.qualcomm.qti.imscmservice@2.0 \
-    com.qualcomm.qti.imscmservice@2.1 \
+    com.qualcomm.qti.imscmservice@2.2 \
     vendor.qti.data.factory@1.1 \
     vendor.qti.hardware.data.connection@1.0 \
     vendor.qti.hardware.data.dynamicdds@1.0 \
