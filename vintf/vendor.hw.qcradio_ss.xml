@@ -1,0 +1,12 @@
+<manifest version="1.0" type="device">
+    <!-- Hidl service for 5G network apis -->
+    <hal format="hidl">
+        <name>vendor.qti.hardware.radio.qtiradio</name>
+           <transport>hwbinder</transport>
+           <version>2.3</version>
+           <interface>
+               <name>IQtiRadio</name>
+               <instance>slot1</instance>
+           </interface>
+    </hal>
+</manifest>
