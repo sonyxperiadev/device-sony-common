@@ -16,7 +16,8 @@
 # Might be temporary! See:
 # https://android.googlesource.com/platform/build/soong/+/master/README.md#name-resolution
 PRODUCT_SOONG_NAMESPACES += \
-    $(PLATFORM_COMMON_PATH)
+    $(PLATFORM_COMMON_PATH) \
+    vendor/qcom/opensource/core-utils
 
 $(call inherit-product-if-exists, device/sony/customization/customization.mk)
 
