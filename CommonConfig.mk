@@ -149,6 +149,7 @@ endif
 
 ifeq ($(TARGET_USE_QCRILD),true)
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.radio.config.xml
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.radio.uceservice.xml
 endif
 
 ifeq ($(TARGET_KEYMASTER_V4),true)
