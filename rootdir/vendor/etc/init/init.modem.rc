@@ -1,0 +1,5 @@
+service vendor.init-modem /vendor/bin/init.qcom.modem.sh
+    class late_start
+    user radio
+    group root system radio
+    oneshot

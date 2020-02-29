@@ -24,6 +24,15 @@ include $(BUILD_PREBUILT)
 endif # $(TARGET_KEYMASTER_V4) == true
 
 include $(CLEAR_VARS)
+LOCAL_MODULE := init.qcom.modem.sh
+LOCAL_MODULE_CLASS := EXECUTABLES
+LOCAL_SRC_FILES_arm64 := vendor/bin/init.qcom.modem.sh
+LOCAL_INIT_RC_64  := vendor/etc/init/init.modem.rc
+LOCAL_MODULE_TARGET_ARCH := arm64
+LOCAL_VENDOR_MODULE := true
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
 LOCAL_MODULE := init.qcom.slpistart.sh
 LOCAL_MODULE_CLASS := EXECUTABLES
 LOCAL_SRC_FILES_arm64 := vendor/bin/init.qcom.slpistart.sh
