@@ -67,7 +67,7 @@ PRODUCT_PACKAGES += \
 
 # IPA
 PRODUCT_PACKAGES += \
-    libqti_vndfwk_detect \
+    libqti_vndfwk_detect.vendor \
     IPACM_cfg.xml \
     ipacm
 
