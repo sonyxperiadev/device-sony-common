@@ -18,8 +18,6 @@
 PRODUCT_SOONG_NAMESPACES += \
     $(PLATFORM_COMMON_PATH)
 
-$(call inherit-product-if-exists, device/sony/customization/customization.mk)
-
 # Common path
 COMMON_PATH := device/sony/common
 
@@ -126,6 +124,8 @@ PRODUCT_PACKAGES += \
 # Community APN list
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/vendor/etc/apns-conf.xml:system/etc/apns-conf.xml
+
+-include device/sony/customization/customization.mk
 
 $(call inherit-product, device/sony/common/common-init.mk)
 $(call inherit-product, device/sony/common/common-odm.mk)
