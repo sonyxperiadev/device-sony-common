@@ -2,11 +2,7 @@
     <!-- Hidl service for 5G network apis -->
     <hal format="hidl">
         <name>vendor.qti.hardware.radio.qtiradio</name>
-           <transport>hwbinder</transport>
-           <version>2.3</version>
-           <interface>
-               <name>IQtiRadio</name>
-               <instance>slot1</instance>
-           </interface>
+        <transport>hwbinder</transport>
+        <fqname>@2.3::IQtiRadio/slot1</fqname>
     </hal>
 </manifest>

@@ -2,10 +2,6 @@
     <hal format="hidl">
         <name>android.hardware.radio.config</name>
         <transport>hwbinder</transport>
-        <version>1.1</version>
-        <interface>
-            <name>IRadioConfig</name>
-            <instance>default</instance>
-        </interface>
+        <fqname>@1.1::IRadioConfig/default</fqname>
     </hal>
 </manifest>
