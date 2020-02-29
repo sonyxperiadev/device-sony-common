@@ -31,4 +31,7 @@
     <!-- Determine whether we should show the "listen for instructions" screen after
          successfully placing the OTA call -->
     <integer name="OtaShowListeningScreen">1</integer>
+
+    <!-- Allow handover from telephony calls to another ConnectionService. -->
+    <bool name="config_support_handover_from">true</bool>
 </resources>
