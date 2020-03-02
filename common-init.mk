@@ -17,6 +17,7 @@ PRODUCT_PACKAGES += \
     init.usb.rc \
     adb_tcp.rc \
     adsprpcd.rc \
+    audiopd.rc \
     cdsprpcd.rc \
     cnss-daemon.rc \
     ipacm.rc \
