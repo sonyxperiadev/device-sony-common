@@ -1,4 +1,4 @@
-service cdspstart_sh /vendor/bin/init.qcom.cdspstart.sh
+service vendor.cdspstart_sh /vendor/bin/init.qcom.cdspstart.sh
     class core
     user root
     group root system

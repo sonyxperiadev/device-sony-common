@@ -91,9 +91,9 @@ on fs
 
     # Start DSP services as soon as partitions are mounted
     # ADSP devices
-    start adspstart_sh
+    start vendor.adspstart_sh
     # CDSP devices
-    start cdspstart_sh
+    start vendor.cdspstart_sh
 
     # (Android <= 9): Remove "security.restorecon_last" xattr from /mnt/vendor/persist/
     exec u:r:vendor_toolbox:s0 root root -- /vendor/bin/toybox_vendor setfattr -x security.restorecon_last /mnt/vendor/persist/
@@ -364,4 +364,4 @@ on property:sys.boot_completed=1
 
 on property:vendor.sys.listeners.registered=true
     # load IPA FWs
-    start ipastart_sh
+    start vendor.ipastart_sh
