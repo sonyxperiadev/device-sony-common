@@ -1,4 +1,4 @@
-service adspstart_sh /vendor/bin/init.qcom.adspstart.sh
+service vendor.adspstart_sh /vendor/bin/init.qcom.adspstart.sh
     class core
     user root
     group root system

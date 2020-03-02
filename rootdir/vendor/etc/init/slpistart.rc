@@ -1,4 +1,4 @@
-service slpistart_sh /vendor/bin/init.qcom.slpistart.sh
+service vendor.slpistart_sh /vendor/bin/init.qcom.slpistart.sh
     class core
     user root
     group root system
@@ -6,4 +6,4 @@ service slpistart_sh /vendor/bin/init.qcom.slpistart.sh
     oneshot
 
 on property:vendor.qcom.adspup=1
-    start slpistart_sh
+    start vendor.slpistart_sh
