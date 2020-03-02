@@ -1,0 +1,4 @@
+service vendor.audiopd /odm/bin/adsprpcd audiopd
+   class main
+   user media
+   group media
