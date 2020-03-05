@@ -1,0 +1,82 @@
+{
+  "config":
+  {
+    "hw_platform": ["QRD", "MTP", "Dragon", "Surf", "HDK"],
+    "soc_id": ["339", "341", "361"]
+  },
+  "bme680_0":{
+    "owner": "sns_bme680",
+    ".gas":{
+      "owner": "sns_bme680",
+      ".config":{
+        "owner": "sns_bme680",
+        "is_dri":{ "type": "int", "ver": "0",
+          "data": "0"
+        },
+        "hw_id":{ "type": "int", "ver": "0",
+          "data": "1"
+        },
+        "res_idx":{ "type": "int", "ver": "0",
+          "data": "3"
+        },
+        "sync_stream":{ "type": "int", "ver": "0",
+          "data": "0"
+        }
+      }
+    },
+    ".temperature":{
+      "owner": "sns_bme680",
+      ".config":{
+        "owner": "sns_bme680",
+        "is_dri":{ "type": "int", "ver": "0",
+          "data": "0"
+        },
+        "hw_id":{ "type": "int", "ver": "0",
+          "data": "1"
+        },
+        "res_idx":{ "type": "int", "ver": "0",
+          "data": "1"
+        },
+        "sync_stream":{ "type": "int", "ver": "0",
+          "data": "0"
+        }
+      }
+    },
+    ".humidity":{
+      "owner": "sns_bme680",
+      ".config":{
+        "owner": "sns_bme680",
+        "is_dri":{ "type": "int", "ver": "0",
+          "data": "0"
+        },
+        "hw_id":{ "type": "int", "ver": "0",
+          "data": "1"
+        },
+        "res_idx":{ "type": "int", "ver": "0",
+          "data": "2"
+        },
+        "sync_stream":{ "type": "int", "ver": "0",
+          "data": "0"
+        }
+      }
+    },
+    ".pressure":{
+      "owner": "sns_bme680",
+      ".config":{
+        "owner": "sns_bme680",
+        "is_dri":{ "type": "int", "ver": "0",
+          "data": "0"
+        },
+        "hw_id":{ "type": "int", "ver": "0",
+          "data": "1"
+        },
+        "res_idx":{ "type": "int", "ver": "0",
+          "data": "0"
+        },
+        "sync_stream":{ "type": "int", "ver": "0",
+          "data": "0"
+        }
+      }
+    }
+  }
+}

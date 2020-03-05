@@ -1,0 +1,46 @@
+{
+  "config":
+  {
+    "hw_platform": ["MTP", "Dragon", "Surf", "HDK"],
+    "soc_id": ["291", "246", "305", "321", "339", "361"]
+  },
+  "ifx_dps368_0":{
+    "owner": "ifx_dps368",
+    ".temp":{
+      "owner": "ifx_dps368",
+      ".config":{
+        "owner": "ifx_dps368",
+        "is_dri":{ "type": "int", "ver": "0",
+          "data": "0"
+        },
+        "hw_id":{ "type": "int", "ver": "0",
+          "data": "0"
+        },
+        "res_idx":{ "type": "int", "ver": "0",
+          "data": "2"
+        },
+        "sync_stream":{ "type": "int", "ver": "0",
+          "data": "0"
+        }
+      }
+    },
+    ".pressure":{
+      "owner": "ifx_dps368",
+      ".config":{
+        "owner": "ifx_dps368",
+        "is_dri":{ "type": "int", "ver": "0",
+          "data": "0"
+        },
+        "hw_id":{ "type": "int", "ver": "0",
+          "data": "0"
+        },
+        "res_idx":{ "type": "int", "ver": "0",
+          "data": "2"
+        },
+        "sync_stream":{ "type": "int", "ver": "0",
+          "data": "0"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "config":
+  {
+    "hw_platform": ["MTP", "Dragon", "Surf", "IDP"],
+    "soc_id": ["291", "246", "305", "339", "355", "361", "365", "366", "394"]
+  },
+  "bu52053nvx_0":{
+    "owner": "sns_bu52053nvx",
+    ".hall":{
+      "owner": "sns_bu52053nvx",
+      ".config":{
+        "owner": "sns_bu52053nvx",
+        "is_dri":{ "type": "int", "ver": "0",
+          "data": "1"
+        },
+        "hw_id":{ "type": "int", "ver": "0",
+          "data": "0"
+        },
+        "res_idx":{ "type": "int", "ver": "0",
+          "data": "1"
+        },
+        "sync_stream":{ "type": "int", "ver": "0",
+          "data": "0"
+        }
+      }
+    }
+  }
+}
