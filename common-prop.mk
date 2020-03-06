@@ -49,8 +49,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Enable Power save functionality for modem
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.radio.add_power_save=1 \
-    persist.vendor.radio.apm_sim_not_pwdn=1 \
-    persist.vendor.radio.oem_socket=false
+    persist.vendor.radio.apm_sim_not_pwdn=1
 
 # IMS
 PRODUCT_PROPERTY_OVERRIDES += \
