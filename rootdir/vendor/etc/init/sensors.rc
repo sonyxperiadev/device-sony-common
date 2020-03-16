@@ -1,10 +1,4 @@
 on post-fs-data
-    # Sensors
-    mkdir /data/vendor/sensors 0775 system system
-
-    # LEGACY: Sensors
-    mkdir /data/misc/sensors 0775 system system
-
     # Fix sensors permissions
     chown system system /persist/sensors
 
@@ -18,19 +12,10 @@ on post-fs-data
 
 # Sensor service
 service sensors /odm/bin/sensors.qcom
-    class late_start
+    class core
     user system
     group system
     disabled
 
-# Start the service for unecrypted devices
-on property:ro.crypto.state=unencrypted
+on property:sys.qcom.devup=1
     enable sensors
-
-# Enable the service for FBE devices
-on property:ro.crypto.type=file
-    enable sensors
-
-# Start the service for FDE devices
-on property:vold.decrypt=trigger_post_fs_data
-    start sensors
