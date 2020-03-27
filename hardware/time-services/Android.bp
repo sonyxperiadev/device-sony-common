@@ -1,0 +1,9 @@
+// @file vendor/qcom/opensource/time_services/Android.mk
+// @brief Makefile for installing  time services header on Android.
+
+cc_library_headers {
+    name: "time_services_headers",
+    owner: "sony",
+    vendor: true,
+    export_include_dirs: ["include"],
+}
