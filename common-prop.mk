@@ -66,6 +66,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.latch_unsignaled=1
 
+# SurfaceFlinger
+# Keep uppercase makevars like TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS
+# in sync, use hardware/interfaces/configstore/1.1/default/surfaceflinger.mk
+# as a reference
+# ConfigStore is being deprecated and sf is moving to props, see
+# frameworks/native/services/surfaceflinger/sysprop/SurfaceFlingerProperties.sysprop
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.surface_flinger.force_hwc_copy_for_virtual_displays=true
+
 # Disable buffer age (b/74534157)
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.hwui.use_buffer_age=false
@@ -122,7 +131,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Property to choose between virtual/external wfd display
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.wfd.virtual=0
-    
+
 # Display properties
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.demo.hdmirotationlock=false \
