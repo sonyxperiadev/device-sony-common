@@ -62,7 +62,8 @@ PRODUCT_PROPERTY_OVERRIDES +=
     persist.vendor.radio.wait_for_pbm=1 \
     persist.vendor.radio.mt_sms_ack=19 \
     persist.vendor.radio.enableadvancedscan=true \
-    persist.vendor.radio.unicode_op_names=true
+    persist.vendor.radio.unicode_op_names=true \
+    persist.vendor.radio.sib16_support=1
 
 # Ringer
 PRODUCT_PROPERTY_OVERRIDES += \
