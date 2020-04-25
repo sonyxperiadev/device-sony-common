@@ -52,6 +52,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.radio.apm_sim_not_pwdn=1 \
     persist.vendor.radio.oem_socket=false
 
+# IMS
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.vendor.radio.vdp_on_ims_cap=1 \
+    persist.vendor.radio.report_codec=1
+
 # Ringer
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.call_ring.multiple=false
