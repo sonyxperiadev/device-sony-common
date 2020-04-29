@@ -121,6 +121,11 @@ PRODUCT_PACKAGES += \
     libandroid_net \
     libprotobuf-cpp-full
 
+# FIXME: master: compat for libprotobuf
+# See https://android-review.googlesource.com/c/platform/prebuilts/vndk/v28/+/1109518
+PRODUCT_PACKAGES += \
+    libprotobuf-cpp-full-vendorcompat
+
 # RenderScript
 PRODUCT_PACKAGES += \
     librsjni
