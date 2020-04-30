@@ -1,0 +1,11 @@
+<manifest version="1.0" type="device">
+    <hal format="hidl">
+        <name>ISecureElement</name>
+        <version>1.1</version>
+        <transport>hwbinder</transport>
+        <interface>
+            <name>ISecureElement</name>
+            <instance>eSE1</instance>
+        </interface>
+    </hal>
+</manifest>
