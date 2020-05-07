@@ -5,5 +5,5 @@ cc_library_headers {
     name: "time_services_headers",
     owner: "sony",
     vendor: true,
-    export_include_dirs: ["include"],
+    export_include_dirs: ["time-services"],
 }
