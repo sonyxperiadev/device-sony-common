@@ -1,0 +1,4 @@
+service vendor.somc.hardware.miscta-1-0 /odm/bin/hw/vendor.somc.hardware.miscta@1.0-service
+   class hal trimarea
+   user system
+   group system

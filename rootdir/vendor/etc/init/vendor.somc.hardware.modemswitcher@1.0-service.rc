@@ -1,0 +1,8 @@
+# Modem-switcher service
+service vendor.somc.hardware.modemswitcher-1-0 /odm/bin/hw/vendor.somc.hardware.modemswitcher@1.0-service
+    interface vendor.somc.hardware.modemswitcher@1.0::IModemSwitcher default
+    oneshot
+    disabled
+    class hal
+    user radio
+    group radio root system

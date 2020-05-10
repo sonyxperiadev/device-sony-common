@@ -1,0 +1,31 @@
+# Copyright (C) 2018 Sony Mobile Communications Inc.
+# All rights, including trade secret rights, reserved.
+
+# SONY: Trigger modem-switcher to swap modem fs
+on boot
+    start modem_switcher
+
+on property:persist.somc.cust.modem0.debug=*
+   start modem_switcher
+
+on property:persist.somc.cust.modem1.debug=*
+   start modem_switcher
+
+on property:persist.somc.cust.modem0=*
+   start modem_switcher
+
+on property:persist.somc.cust.modem1=*
+   start modem_switcher
+
+on property:somc.cust.copy_mcfg_file=1
+   mkdir /data/customization 0755 system system
+   mkdir /data/customization/mcfg 0775 system system
+   restorecon /data/customization
+   start modem_switcher
+
+# Modem-switcher service
+service modem_switcher /odm/bin/sony-modem-switcher
+    user root
+    group root system radio
+    disabled
+    oneshot
