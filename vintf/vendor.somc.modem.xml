@@ -1,0 +1,12 @@
+<manifest version="1.0" type="device">
+    <hal format="hidl">
+        <name>vendor.somc.hardware.miscta</name>
+        <transport>hwbinder</transport>
+        <fqname>@1.0::IMisctaGlobal/default</fqname>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.somc.hardware.modemswitcher</name>
+        <transport>hwbinder</transport>
+        <fqname>@1.0::IModemSwitcher/default</fqname>
+    </hal>
+</manifest>
