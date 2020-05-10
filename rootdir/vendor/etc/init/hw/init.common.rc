@@ -112,6 +112,8 @@ on late-fs
     # cause services for bootanim not running.
     wait_for_prop hwservicemanager.ready true
 
+    mount none /vendor/oem /oem bind rec
+
 
 on post-fs-data
     # We can start netd here before in is launched in common init.rc on zygote-start

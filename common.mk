@@ -125,6 +125,13 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/vendor/etc/apns-conf.xml:system/etc/apns-conf.xml
 
+ifeq ($(MODEM_CONFIG_LEGACY_PLATFORM),true)
+MODEM_CONFIG := $(shell find $(COMMON_PATH)/rootdir/vendor/oem/modem-config-legacy -type f -printf '%p:$(TARGET_COPY_OUT_VENDOR)/oem/modem-config/%P\n')
+else
+MODEM_CONFIG := $(shell find $(COMMON_PATH)/rootdir/vendor/oem/modem-config -type f -printf '%p:$(TARGET_COPY_OUT_VENDOR)/oem/modem-config/%P\n')
+endif
+PRODUCT_COPY_FILES += $(MODEM_CONFIG)
+
 -include device/sony/customization/customization.mk
 
 $(call inherit-product, device/sony/common/common-init.mk)
