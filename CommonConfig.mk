@@ -172,6 +172,7 @@ DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.radio.config.xml
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.radio.uceservice.xml
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.imsservices.xml
 DEVICE_MANIFEST_FILE += ${COMMON_PATH}/vintf/vendor.hw.dataservices.xml
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.somc.modem.xml
 endif
 
 ifeq ($(TARGET_KEYMASTER_V4),true)
