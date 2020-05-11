@@ -17,6 +17,13 @@ on property:persist.somc.cust.modem0=*
 on property:persist.somc.cust.modem1=*
    start modem_switcher
 
+# Map SDK-compliant vendor.* props to the binary
+on property:persist.vendor.somc.cust.modem0=*
+   setprop persist.somc.cust.modem0 ${persist.vendor.somc.cust.modem0}
+
+on property:persist.vendor.somc.cust.modem1=*
+   setprop persist.somc.cust.modem1 ${persist.vendor.somc.cust.modem1}
+
 on property:somc.cust.copy_mcfg_file=1
    mkdir /data/customization 0755 system system
    mkdir /data/customization/mcfg 0775 system system
