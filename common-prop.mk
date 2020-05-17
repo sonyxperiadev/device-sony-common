@@ -60,7 +60,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.radio.report_codec=1
 
 # Modem properties
-PRODUCT_PROPERTY_OVERRIDES +=
+PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.radio.wait_for_pbm=1 \
     persist.vendor.radio.mt_sms_ack=19 \
     persist.vendor.radio.enableadvancedscan=true \
