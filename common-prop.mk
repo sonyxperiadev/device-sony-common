@@ -52,7 +52,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.radio.apm_sim_not_pwdn=1
 
 # IMS
+# P.S.: va_{aosp,odm} is necessary to load imscmservice
 PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vendor.qti.va_aosp.support=1 \
+    ro.vendor.qti.va_odm.support=1 \
     persist.vendor.radio.vdp_on_ims_cap=1 \
     persist.vendor.radio.report_codec=1
 
