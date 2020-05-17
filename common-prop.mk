@@ -68,6 +68,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.radio.vdp_on_ims_cap=1 \
     persist.vendor.radio.report_codec=1
 
+# VoLTE / VT / WFC
+# These properties will force availability of the VoLTE,
+# VideoTelephony and Wi-Fi Call, without needing carrier
+# services provisioning sites hooked up: simplifies it.
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.dbg.volte_avail_ovr=1 \
+    persist.dbg.vt_avail_ovr=1  \
+    persist.dbg.wfc_avail_ovr=1
+
 # Modem properties
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.radio.wait_for_pbm=1 \
