@@ -51,6 +51,14 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.radio.add_power_save=1 \
     persist.vendor.radio.apm_sim_not_pwdn=1
 
+# Enable advanced power saving for data connectivity
+# DPM: Data Port Mapper, with TCM (TCP Connection Manager)
+# CnE: Connectivity Engine
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.vendor.dpm.feature=1 \
+    persist.vendor.dpm.tcm=1 \
+    persist.vendor.cne.feature=1
+
 # IMS
 # P.S.: va_{aosp,odm} is necessary to load imscmservice
 PRODUCT_PROPERTY_OVERRIDES += \
