@@ -67,6 +67,16 @@ PRODUCT_PACKAGES += \
     libloc_ds_api \
     libgnsspps
 
+# IMS (OSS)
+PRODUCT_PACKAGES += \
+    qti-telephony-hidl-wrapper \
+    qti_telephony_hidl_wrapper.xml \
+    qti-telephony-utils \
+    qti_telephony_utils.xml \
+    telephony-ext \
+    ims-ext-common \
+    ims_ext_common.xml
+
 # IPA
 PRODUCT_PACKAGES += \
     libqti_vndfwk_detect.vendor \
