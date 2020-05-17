@@ -43,6 +43,7 @@ endif
 # System props for the data modules
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.use_data_netmgrd=true \
+    persist.vendor.data.mode=concurrent \
     persist.data.netmgrd.qos.enable=true \
     ro.data.large_tcp_window_size=true
 
