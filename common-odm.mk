@@ -65,6 +65,13 @@ PRODUCT_PACKAGES += \
     libaudcal \
     libaudioalsa
 
+# Graphite
+PRODUCT_PACKAGES += \
+    libgcs-calwrapper \
+    libgcs-ipc \
+    libgcs-osal \
+    libgcs
+
 # Sensors
 PRODUCT_PACKAGES += \
     sscrpcd \
