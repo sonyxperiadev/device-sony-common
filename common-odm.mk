@@ -116,6 +116,8 @@ PRODUCT_PACKAGES += \
 
 # IMS
 PRODUCT_PACKAGES += \
+    uceShimService \
+    datastatusnotification \
     imsdatadaemon \
     imsqmidaemon \
     imsrcsd \
