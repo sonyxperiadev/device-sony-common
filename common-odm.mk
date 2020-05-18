@@ -160,6 +160,11 @@ PRODUCT_PACKAGES += \
     vendor.qti.imsrtpservice@1.0 \
     vendor.qti.latency@2.0
 
+# DPM
+PRODUCT_PACKAGES += \
+    dpmapi \
+    com.qti.dpmframework
+
 ifneq ($(TARGET_LEGACY_KEYMASTER),true)
 ifneq ($(TARGET_KEYMASTER_V4),true)
 # Keymaster
