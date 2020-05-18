@@ -114,6 +114,11 @@ PRODUCT_PACKAGES += \
     qmuxd \
     qrtr-ns
 
+#EMBMS
+PRODUCT_PACKAGES += \
+    embms \
+    embmslibrary
+
 # IMS
 PRODUCT_PACKAGES += \
     uceShimService \
