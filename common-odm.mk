@@ -168,6 +168,8 @@ endif
 PRODUCT_PACKAGES += \
     qcrild \
     qcril.db \
+    qcrilmsgtunnel \
+    qcrilhook \
     libril-qc-hal-qmi \
     libril-qc-qmi-1 \
     libril-qc-ltedirectdisc \
