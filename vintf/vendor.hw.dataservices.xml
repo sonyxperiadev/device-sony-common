@@ -1,0 +1,12 @@
+<manifest version="1.0" type="device">
+    <hal format="hidl">
+        <name>vendor.qti.dpm.api</name>
+        <transport>hwbinder</transport>
+        <fqname>@1.0::IdpmQmi/dpmQmiService</fqname>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.qti.data.factory</name>
+        <transport>hwbinder</transport>
+        <fqname>@2.0::IFactory/default</fqname>
+    </hal>
+</manifest>
