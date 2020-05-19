@@ -86,6 +86,7 @@ PRODUCT_PACKAGES += \
     libqcmaputils \
     libconfigdb \
     libdiag \
+    libdiag_system \
     libdsi_netctrl \
     libdsutils \
     libnetmgr \
@@ -165,7 +166,29 @@ PRODUCT_PACKAGES += \
     vendor.qti.ims.rcsconfig@1.1 \
     vendor.qti.imsrtpservice@1.0-service-Impl \
     vendor.qti.imsrtpservice@1.0 \
-    vendor.qti.latency@2.0
+    vendor.qti.latency@2.0 \
+    QtiTelephonyService \
+    QtiTelephonyServicelibrary \
+    ims-ext-common \
+    qti-telephony-utils  \
+    qti-telephony-hidl-wrapper \
+    uimgbalibrary \
+    uimgbamanagerlibrary \
+    uimlpalibrary \
+    uimremoteclient \
+    uimremoteclientlibrary \
+    uimremoteserver \
+    uimremoteserverlibrary \
+    com.qualcomm.qti.imscmservice-V2.0-java \
+    com.qualcomm.qti.imscmservice-V2.1-java \
+    com.qualcomm.qti.imscmservice-V2.2-java \
+    vendor.qti.data.factory-V1.0-java \
+    vendor.qti.data.factory-V2.0-java \
+    vendor.qti.ims.callinfo-V1.0-java \
+    vendor.qti.ims.rcsconfig-V1.0-java \
+    vendor.qti.hardware.data.dynamicdds-V1.0-java \
+    vendor.qti.hardware.data.connection-V1.1-java \
+    vendor.qti.hardware.data.connection-V1.0-java
 
 # DPM
 PRODUCT_PACKAGES += \
