@@ -23,6 +23,7 @@
         <name>vendor.qti.hardware.radio.qtiradio</name>
         <transport>hwbinder</transport>
         <fqname>@1.0::IQtiRadio/slot1</fqname>
+        <fqname>@2.3::IQtiRadio/slot1</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.qti.hardware.data.iwlan</name>
