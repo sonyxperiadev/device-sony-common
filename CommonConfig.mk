@@ -140,8 +140,8 @@ endif
 # SELinux
 include device/sony/sepolicy/sepolicy.mk
 
-DEVICE_MANIFEST_FILE := $(COMMON_PATH)/vintf/manifest.xml
-DEVICE_MATRIX_FILE   := $(COMMON_PATH)/vintf/compatibility_matrix.xml
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/manifest.xml
+DEVICE_MATRIX_FILE   += $(COMMON_PATH)/vintf/compatibility_matrix.xml
 
 # Custom NXP vendor interfaces
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.nxp.nfc.interfaces.xml
