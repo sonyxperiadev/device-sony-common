@@ -17,7 +17,7 @@ MSM_VIDC_TARGET_LIST := msm8952 msm8996 msm8998 sdm660 sdm845 sm8150
 MASTER_SIDE_CP_TARGET_LIST := msm8996 msm8998 sdm660 sdm845 sm8150
 
 audio-hal := hardware/qcom/audio
-gps-hal := hardware/qcom/gps/sdm845
+gps-hal := vendor/qcom/opensource/gps
 ipa-hal := vendor/qcom/opensource/data/ipacfg-mgr/sdm845
 
 display-hal := vendor/qcom/opensource/display
@@ -39,5 +39,4 @@ TARGET_KERNEL_VERSION := $(SOMC_KERNEL_VERSION)
 include device/sony/common/hardware/qcom/utils.mk
 
 include $(call all-makefiles-under,$(audio-hal))
-include $(call all-makefiles-under,$(gps-hal))
 endif
