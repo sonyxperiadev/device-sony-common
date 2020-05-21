@@ -59,13 +59,16 @@ PRODUCT_PACKAGES += \
     libgps.utils \
     liblocation_api \
     libloc_pla \
+    libbatching \
+    libgeofencing \
     libgnss
 
 # Location
 PRODUCT_PACKAGES += \
     libloc_api_v02 \
     libloc_ds_api \
-    libgnsspps
+    libgnsspps \
+    libsynergy_loc_api
 
 # IMS (OSS)
 PRODUCT_PACKAGES += \
