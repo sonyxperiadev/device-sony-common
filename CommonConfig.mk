@@ -27,6 +27,10 @@ TARGET_NO_BOOTLOADER := true
 TARGET_NO_RECOVERY ?= false
 TARGET_NO_KERNEL := false
 
+# Android R: Disable logic for new vendor_boot
+# Our devices do not support it
+TARGET_NO_VENDOR_BOOT := true
+
 # common cmdline parameters
 ifneq ($(BOARD_USE_ENFORCING_SELINUX),true)
 BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
