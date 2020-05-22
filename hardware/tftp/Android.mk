@@ -7,9 +7,9 @@ LOCAL_MODULE := tftp_symlinks
 LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)
 
 target_combinations := \
-    /persist/rfs/shared:shared \
-    /persist/hlos_rfs/shared:hlos \
-    /firmware:readonly/firmware \
+    /mnt/vendor/persist/rfs/shared:shared \
+    /mnt/vendor/persist/hlos_rfs/shared:hlos \
+    /vendor/firmware_mnt:readonly/firmware \
     /odm/firmware:readonly/vendor/firmware
 
 target_prefixes := \
@@ -28,7 +28,7 @@ SONY_SYMLINKS := $(foreach prefix,$(target_prefixes), \
 
 # Edgecase for readwrite folders that all point to their own persist folder:
 SONY_SYMLINKS += $(foreach prefix,$(target_prefixes), \
-    /persist/rfs/msm/$(prefix):$(TARGET_COPY_OUT_VENDOR)/rfs/msm/$(prefix)/readwrite \
+    /mnt/vendor/persist/rfs/msm/$(prefix):$(TARGET_COPY_OUT_VENDOR)/rfs/msm/$(prefix)/readwrite \
 )
 
 # Edgecase for tombstone folders that do not follow the above pattern:
