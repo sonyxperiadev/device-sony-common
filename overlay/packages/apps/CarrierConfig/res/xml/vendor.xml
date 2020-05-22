@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<carrier_config_list>
+    <carrier_config>
+        <string name="gps.supl_host">supl.sonyericsson.com</string>
+        <string name="gps.supl_port">7275</string>
+        <string name="gps.supl_mode">1</string>
+        <string name="gps.supl_ver">0x20000</string>
+        <string name="gps.lpp_profile">2</string>
+        <string name="gps.a_glonass_pos_protocol_select">2</string>
+    </carrier_config>
+</carrier_config_list>
