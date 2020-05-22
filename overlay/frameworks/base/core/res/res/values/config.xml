@@ -255,16 +255,6 @@
     <!-- Specifies the path that is used by AdaptiveIconDrawable class to crop launcher icons. -->
     <string name="config_icon_mask" translatable="false">"M50 0C77.6 0 100 22.4 100 50C100 77.6 77.6 100 50 100C22.4 100 0 77.6 0 50C0 22.4 22.4 0 50 0Z"</string>
 
-    <!-- Values for GPS configuration -->
-    <string-array translatable="false" name="config_gpsParameters">
-        <item>SUPL_HOST=supl.sonyericsson.com</item>
-        <item>SUPL_PORT=7275</item>
-        <item>SUPL_MODE=1</item>
-        <item>SUPL_VER=0x20000</item>
-        <item>LPP_PROFILE=2</item>
-        <item>A_GLONASS_POS_PROTOCOL_SELECT=2</item>
-    </string-array>
-
     <!-- If this is true, device supports Sustained Performance Mode. -->
     <bool name="config_sustainedPerformanceModeSupported">true</bool>
 
