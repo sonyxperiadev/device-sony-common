@@ -1,8 +1,8 @@
 {
   "config":
   {
-    "hw_platform": ["QRD", "MTP", "Dragon", "Surf", "HDK"],
-    "soc_id": ["336", "339", "341", "347", "360"]
+    "hw_platform": ["IDP", "QRD", "MTP", "Dragon", "Surf", "HDK"],
+    "soc_id": ["394", "336", "339", "341", "347", "360"]
   },
   "lsm6dsm_0":{
     "owner": "lsm6dsm",

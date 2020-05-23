@@ -689,3 +689,103 @@ LOCAL_MODULE_SUFFIX :=
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/sensors/config
 include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := nicobar_ak991x_0.json
+LOCAL_SRC_FILES := config/nicobar_ak991x_0.json
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_STEM := nicobar_ak991x_0.json
+LOCAL_MODULE_SUFFIX :=
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/sensors/config
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := nicobar_bmp285_0.json
+LOCAL_SRC_FILES := config/nicobar_bmp285_0.json
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_STEM := nicobar_bmp285_0.json
+LOCAL_MODULE_SUFFIX :=
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/sensors/config
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := nicobar_bu52053nvx_0.json
+LOCAL_SRC_FILES := config/nicobar_bu52053nvx_0.json
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_STEM := nicobar_bu52053nvx_0.json
+LOCAL_MODULE_SUFFIX :=
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/sensors/config
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := nicobar_default_sensors.json
+LOCAL_SRC_FILES := config/nicobar_default_sensors.json
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_STEM := nicobar_default_sensors.json
+LOCAL_MODULE_SUFFIX :=
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/sensors/config
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := nicobar_lsm6dso_0.json
+LOCAL_SRC_FILES := config/nicobar_lsm6dso_0.json
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_STEM := nicobar_lsm6dso_0.json
+LOCAL_MODULE_SUFFIX :=
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/sensors/config
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := nicobar_qrd_ak991x_0.json
+LOCAL_SRC_FILES := config/nicobar_qrd_ak991x_0.json
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_STEM := nicobar_qrd_ak991x_0.json
+LOCAL_MODULE_SUFFIX :=
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/sensors/config
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := nicobar_qrd_lsm6dso_0.json
+LOCAL_SRC_FILES := config/nicobar_qrd_lsm6dso_0.json
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_STEM := nicobar_qrd_lsm6dso_0.json
+LOCAL_MODULE_SUFFIX :=
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/sensors/config
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := nicobar_qrd_tmd2725.json
+LOCAL_SRC_FILES := config/nicobar_qrd_tmd2725.json
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_STEM := nicobar_qrd_tmd2725.json
+LOCAL_MODULE_SUFFIX :=
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/sensors/config
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := nicobar_tmd2725.json
+LOCAL_SRC_FILES := config/nicobar_tmd2725.json
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_STEM := nicobar_tmd2725.json
+LOCAL_MODULE_SUFFIX :=
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/sensors/config
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := stk3x3x_0.json
+LOCAL_SRC_FILES := config/stk3x3x_0.json
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_STEM := stk3x3x_0.json
+LOCAL_MODULE_SUFFIX :=
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/sensors/config
+include $(BUILD_PREBUILT)
