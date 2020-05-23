@@ -50,6 +50,9 @@ PRODUCT_PACKAGES += \
 
 # Miscta
 PRODUCT_PACKAGES += \
+    vendor.somc.hardware.miscta@1.0-service \
+    vendor.somc.hardware.miscta@1.0 \
+    libMiscTaWrapper \
     libmiscta \
     libta \
     ta_qmi_service \
