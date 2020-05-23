@@ -196,6 +196,12 @@ PRODUCT_PACKAGES += \
     dpmapi \
     com.qti.dpmframework
 
+# Modem Switcher
+PRODUCT_PACKAGES += \
+    sony-modem-switcher \
+    vendor.somc.hardware.modemswitcher@1.0-service \
+    vendor.somc.hardware.modemswitcher@1.0
+
 ifneq ($(TARGET_LEGACY_KEYMASTER),true)
 ifneq ($(TARGET_KEYMASTER_V4),true)
 # Keymaster
