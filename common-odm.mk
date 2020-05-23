@@ -120,6 +120,7 @@ PRODUCT_PACKAGES += \
     libqrtr \
     libqsocket \
     qmuxd \
+    qti \
     qrtr-ns
 
 #EMBMS
