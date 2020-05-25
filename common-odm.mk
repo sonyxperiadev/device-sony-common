@@ -173,9 +173,6 @@ PRODUCT_PACKAGES += \
     vendor.qti.latency@2.0 \
     QtiTelephonyService \
     QtiTelephonyServicelibrary \
-    ims-ext-common \
-    qti-telephony-utils  \
-    qti-telephony-hidl-wrapper \
     uimgbalibrary \
     uimgbamanagerlibrary \
     uimlpalibrary \
