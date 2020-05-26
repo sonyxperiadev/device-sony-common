@@ -236,9 +236,9 @@ LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/init
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
-LOCAL_MODULE := qti.rc
+LOCAL_MODULE := dataqti.rc
 LOCAL_MODULE_CLASS := ETC
-LOCAL_SRC_FILES := vendor/etc/init/qti.rc
+LOCAL_SRC_FILES := vendor/etc/init/dataqti.rc
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/init
 include $(BUILD_PREBUILT)
