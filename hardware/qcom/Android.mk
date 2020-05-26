@@ -17,10 +17,6 @@ MSM_VIDC_TARGET_LIST := msm8952 msm8996 msm8998 sdm660 sdm845 sm8150
 MASTER_SIDE_CP_TARGET_LIST := msm8996 msm8998 sdm660 sdm845 sm8150
 
 audio-hal := hardware/qcom/audio
-gps-hal := vendor/qcom/opensource/gps
-ipa-hal := vendor/qcom/opensource/data/ipacfg-mgr/sdm845
-
-display-hal := vendor/qcom/opensource/display
 
 ifneq ($(filter $(QCOM_NEW_MEDIA_PLATFORM), $(TARGET_BOARD_PLATFORM)),)
 QCOM_MEDIA_ROOT := vendor/qcom/opensource/media/sm8150
@@ -29,10 +25,9 @@ QCOM_MEDIA_ROOT := vendor/qcom/opensource/media/sdm660-libion
 endif
 
 OMX_VIDEO_PATH := mm-video-v4l2
-media-hal := $(QCOM_MEDIA_ROOT)
 
 SRC_CAMERA_HAL_DIR ?= vendor/qcom/opensource/camera
-SRC_DISPLAY_HAL_DIR := $(display-hal)
+SRC_DISPLAY_HAL_DIR := vendor/qcom/opensource/display
 SRC_MEDIA_HAL_DIR := $(QCOM_MEDIA_ROOT)
 TARGET_KERNEL_VERSION := $(SOMC_KERNEL_VERSION)
 
