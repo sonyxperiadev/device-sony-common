@@ -2,6 +2,7 @@ cc_binary {
     name: "android.hardware.health@2.0-service.sony",
     init_rc: ["android.hardware.health@2.0-service.sony.rc"],
     vendor: true,
+    recovery_available: true,
     relative_install_path: "hw",
     cflags: [
         "-Wall",
