@@ -197,7 +197,7 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/init
 include $(BUILD_PREBUILT)
 
-ifneq ($(filter msm8916 msm8952,$(TARGET_BOARD_PLATFORM)),)
+ifneq ($(filter msm8952,$(TARGET_BOARD_PLATFORM)),)
 include $(CLEAR_VARS)
 LOCAL_MODULE := qmuxd.rc
 LOCAL_MODULE_CLASS := ETC
