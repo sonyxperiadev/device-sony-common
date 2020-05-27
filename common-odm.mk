@@ -48,6 +48,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     rmt_storage
 
+# GPS
+PRODUCT_PACKAGES += \
+    libdataitems
+
 # Miscta
 PRODUCT_PACKAGES += \
     vendor.somc.hardware.miscta@1.0-service \
