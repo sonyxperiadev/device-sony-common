@@ -216,11 +216,7 @@ endif
 # Ril
 PRODUCT_PACKAGES += \
     qcrild \
-    qcril.db \
-    qcrilmsgtunnel \
-    qcrilhook \
     libril-qc-hal-qmi \
-    libril-qc-qmi-1 \
     libril-qc-ltedirectdisc \
     libril-qc-radioconfig \
     libril-qcril-hook-oem \
