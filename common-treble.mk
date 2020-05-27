@@ -79,7 +79,8 @@ PRODUCT_PACKAGES += \
 
 # Health
 PRODUCT_PACKAGES += \
-    android.hardware.health@2.0-service.sony
+    android.hardware.health@2.0-service.sony \
+    android.hardware.health@2.0-service.sony.recovery
 
 # Sensors
 PRODUCT_PACKAGES += \
