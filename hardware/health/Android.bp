@@ -36,14 +36,7 @@ cc_binary {
         "libbatteryservice_headers",
     ],
 
-    // Only availbale in current Android Q master.
-    // Nead to remove health section from common/vintf/manifext.xml as well
-    // once we decide to use this instead.
-    //vintf_fragments: [
-    //    "manifest_android.hardware.health@2.0.xml",
-    //],
-
-    overrides: [
-        "healthd",
+    vintf_fragments: [
+        "manifest_android.hardware.health@2.0.xml",
     ],
 }
