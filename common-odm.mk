@@ -518,7 +518,7 @@ PRODUCT_PACKAGES += \
     libmmcamera_s5k3l6
 endif
 
-ifneq ($(filter ganges seine,$(SOMC_PLATFORM)),)
+ifneq ($(filter ganges,$(SOMC_PLATFORM)),)
 PRODUCT_PACKAGES += \
     libchromatix_s5k4h7yx_common \
     libchromatix_s5k4h7yx_cpp_liveshot \
@@ -535,6 +535,55 @@ PRODUCT_PACKAGES += \
     libmmcamera_s5k4h7yx
 endif
 
+ifneq ($(filter seine,$(SOMC_PLATFORM)),)
+PRODUCT_PACKAGES += \
+    libactuator_dw9768_tele \
+    libchromatix_s5k4h7yx_front_common \
+    libchromatix_s5k4h7yx_front_cpp_liveshot \
+    libchromatix_s5k4h7yx_front_cpp_preview \
+    libchromatix_s5k4h7yx_front_cpp_snapshot \
+    libchromatix_s5k4h7yx_front_cpp_video \
+    libchromatix_s5k4h7yx_front_postproc \
+    libchromatix_s5k4h7yx_front_liveshot \
+    libchromatix_s5k4h7yx_front_preview \
+    libchromatix_s5k4h7yx_front_snapshot \
+    libchromatix_s5k4h7yx_front_video \
+    libchromatix_s5k4h7yx_front_zsl_preview \
+    libchromatix_s5k4h7yx_front_zsl_video \
+    libmmcamera_s5k4h7yx_front
+
+PRODUCT_PACKAGES += \
+    libactuator_dw9768_tele \
+    libchromatix_s5k4h7yx_tele_common \
+    libchromatix_s5k4h7yx_tele_cpp_liveshot \
+    libchromatix_s5k4h7yx_tele_cpp_preview \
+    libchromatix_s5k4h7yx_tele_cpp_snapshot \
+    libchromatix_s5k4h7yx_tele_cpp_video \
+    libchromatix_s5k4h7yx_tele_postproc \
+    libchromatix_s5k4h7yx_tele_liveshot \
+    libchromatix_s5k4h7yx_tele_preview \
+    libchromatix_s5k4h7yx_tele_snapshot \
+    libchromatix_s5k4h7yx_tele_video \
+    libchromatix_s5k4h7yx_tele_zsl_preview \
+    libchromatix_s5k4h7yx_tele_zsl_video \
+    libmmcamera_s5k4h7yx_tele
+
+PRODUCT_PACKAGES += \
+    libactuator_dw9768_wide \
+    libchromatix_s5k4h7yx_uwide_common \
+    libchromatix_s5k4h7yx_uwide_cpp_liveshot \
+    libchromatix_s5k4h7yx_uwide_cpp_preview \
+    libchromatix_s5k4h7yx_uwide_cpp_snapshot \
+    libchromatix_s5k4h7yx_uwide_cpp_video \
+    libchromatix_s5k4h7yx_uwide_postproc \
+    libchromatix_s5k4h7yx_uwide_liveshot \
+    libchromatix_s5k4h7yx_uwide_preview \
+    libchromatix_s5k4h7yx_uwide_snapshot \
+    libchromatix_s5k4h7yx_uwide_video \
+    libchromatix_s5k4h7yx_uwide_zsl_preview \
+    libchromatix_s5k4h7yx_uwide_zsl_video \
+    libmmcamera_s5k4h7yx_wide
+endif
 
 # CAMX Libs
 ifneq ($(filter kumano tama,$(SOMC_PLATFORM)),)
