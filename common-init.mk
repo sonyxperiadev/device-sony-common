@@ -20,6 +20,7 @@ PRODUCT_PACKAGES += \
     adsprpcd.rc \
     audiopd.rc \
     cdsprpcd.rc \
+    charger.rc \
     cnss-daemon.rc \
     ipacm.rc \
     dataqti.rc \

@@ -60,6 +60,13 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
+    name: "charger.rc",
+    src: "vendor/etc/init/charger.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
     name: "ipacm.rc",
     src: "vendor/etc/init/ipacm.rc",
     sub_dir: "init",

@@ -1,0 +1,37 @@
+on charger
+    # To mount /persist for health HAL inside charger
+    trigger fs
+
+    start system_suspend
+    start vendor.rmt_storage
+    start vendor.mlog_qmi_service
+    start vendor.irsc_util
+    # Should not be needed
+    #start vendor.qrtr-ns
+    #start vendor.tftp_server
+    start vendor.per_mgr
+
+on property:init.svc.vendor.charger=running
+    stop vendor.qseecomd
+    stop vendor.gatekeeper-1-0
+    # Legacy devices
+    stop vendor.keymaster-3-0
+    # KM4+ devices
+    stop vendor.keymaster-4-0
+    write /sys/class/typec/port0/port_type sink
+    write /sys/module/lpm_levels/parameters/sleep_disabled 0
+    setprop sys.usb.configfs 1
+
+# Offline charger
+service vendor.charger /system/bin/charger
+    class charger
+    seclabel u:r:charger:s0
+    user system
+    group system wakelock input
+    capabilities SYS_BOOT
+    file /dev/kmsg w
+    # Infer information about last boot
+    # Not needed as our charger bin does not do this
+    #file /sys/fs/pstore/console-ramoops-0 r
+    #file /sys/fs/pstore/console-ramoops r
+    #file /proc/last_kmsg r
