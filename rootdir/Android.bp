@@ -1,0 +1,235 @@
+// Scripts
+
+cc_prebuilt_binary {
+    name: "rdclean.sh",
+    srcs: ["vendor/bin/rdclean.sh"],
+    init_rc: ["vendor/etc/init/rdclean.rc"],
+    vendor: true,
+}
+
+cc_prebuilt_binary {
+    name: "init.qcom.modem.sh",
+    srcs: ["vendor/bin/init.qcom.modem.sh"],
+    init_rc: ["vendor/etc/init/init.modem.rc"],
+    vendor: true,
+}
+
+cc_prebuilt_binary {
+    name: "init.qcom.slpistart.sh",
+    srcs: ["vendor/bin/init.qcom.slpistart.sh"],
+    init_rc: ["vendor/etc/init/slpistart.rc"],
+    vendor: true,
+}
+
+cc_prebuilt_binary {
+    name: "init.qcom.adspstart.sh",
+    srcs: ["vendor/bin/init.qcom.adspstart.sh"],
+    init_rc: ["vendor/etc/init/adspstart.rc"],
+    vendor: true,
+}
+
+cc_prebuilt_binary {
+    name: "init.qcom.ipastart.sh",
+    srcs: ["vendor/bin/init.qcom.ipastart.sh"],
+    init_rc: ["vendor/etc/init/ipastart.rc"],
+    vendor: true,
+}
+
+
+// Init files
+
+prebuilt_etc {
+    name: "init.usb.rc",
+    src: "vendor/etc/init/init.usb.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "adb_tcp.rc",
+    src: "vendor/etc/init/adb_tcp.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "adsprpcd.rc",
+    src: "vendor/etc/init/adsprpcd.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "ipacm.rc",
+    src: "vendor/etc/init/ipacm.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "irsc_util.rc",
+    src: "vendor/etc/init/irsc_util.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "imsdatadaemon.rc",
+    src: "vendor/etc/init/imsdatadaemon.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "imsqmidaemon.rc",
+    src: "vendor/etc/init/imsqmidaemon.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "imsrcsd.rc",
+    src: "vendor/etc/init/imsrcsd.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "ims_rtp_daemon.rc",
+    src: "vendor/etc/init/ims_rtp_daemon.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "mlog_qmi.rc",
+    src: "vendor/etc/init/mlog_qmi.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "msm_irq.rc",
+    src: "vendor/etc/init/msm_irq.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "netmgrd.rc",
+    src: "vendor/etc/init/netmgrd.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "per-proxy.rc",
+    src: "vendor/etc/init/per-proxy.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "per-service.rc",
+    src: "vendor/etc/init/per-service.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "qrtr.rc",
+    src: "vendor/etc/init/qrtr.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "dpmQmiMgr.rc",
+    src: "vendor/etc/init/dpmQmiMgr.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "adpl.rc",
+    src: "vendor/etc/init/adpl.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "dataqti.rc",
+    src: "vendor/etc/init/dataqti.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "dpmd.rc",
+    src: "vendor/etc/init/dpmd.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "qseecom.rc",
+    src: "vendor/etc/init/qseecom.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "qcrild.rc",
+    src: "vendor/etc/init/qcrild.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "qcrild2.rc",
+    src: "vendor/etc/init/qcrild2.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "rild2.rc",
+    src: "vendor/etc/init/rild2.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "rmt_storage.rc",
+    src: "vendor/etc/init/rmt_storage.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "sct_service.rc",
+    src: "vendor/etc/init/sct_service.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "sensors.rc",
+    src: "vendor/etc/init/sensors.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "ta_qmi.rc",
+    src: "vendor/etc/init/ta_qmi.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "wpa_supplicant.rc",
+    src: "vendor/etc/init/wpa_supplicant.rc",
+    sub_dir: "init",
+    vendor: true,
+}
