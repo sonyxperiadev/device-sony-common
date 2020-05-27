@@ -1,0 +1,474 @@
+prebuilt_etc {
+    name: "ak991x_dri_0.json",
+    src: "config/ak991x_dri_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "bma2x2_0.json",
+    src: "config/bma2x2_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "bme680_0.json",
+    src: "config/bme680_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "bmg160_0.json",
+    src: "config/bmg160_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "bmp285_0.json",
+    src: "config/bmp285_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "bmp380_0.json",
+    src: "config/bmp380_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "bu52053nvx_0.json",
+    src: "config/bu52053nvx_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "cm3526_0.json",
+    src: "config/cm3526_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "default_sensors.json",
+    src: "config/default_sensors.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "dps368_0.json",
+    src: "config/dps368_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lsm6dsm_0_16g.json",
+    src: "config/lsm6dsm_0_16g.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lsm6dsm_0.json",
+    src: "config/lsm6dsm_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lsm6dso_0_16g.json",
+    src: "config/lsm6dso_0_16g.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lsm6dso_0.json",
+    src: "config/lsm6dso_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "msmnile_ak991x_0.json",
+    src: "config/msmnile_ak991x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "msmnile_bme680_0.json",
+    src: "config/msmnile_bme680_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "msmnile_bmp380_0.json",
+    src: "config/msmnile_bmp380_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "msmnile_bu52053nvx_0.json",
+    src: "config/msmnile_bu52053nvx_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "msmnile_cm3526_0.json",
+    src: "config/msmnile_cm3526_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "msmnile_dps368_0.json",
+    src: "config/msmnile_dps368_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "msmnile_hdk_ak991x_0.json",
+    src: "config/msmnile_hdk_ak991x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "msmnile_hdk_lsm6dso_0.json",
+    src: "config/msmnile_hdk_lsm6dso_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "msmnile_hdk_tmd2725.json",
+    src: "config/msmnile_hdk_tmd2725.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "msmnile_irq.json",
+    src: "config/msmnile_irq.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "msmnile_lsm6dsm_0.json",
+    src: "config/msmnile_lsm6dsm_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "msmnile_lsm6dso_0.json",
+    src: "config/msmnile_lsm6dso_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "msmnile_power_0.json",
+    src: "config/msmnile_power_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "msmnile_qrd_2_lsm6dso_0.json",
+    src: "config/msmnile_qrd_2_lsm6dso_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "msmnile_qrd_ak991x_0.json",
+    src: "config/msmnile_qrd_ak991x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "msmnile_qrd_lsm6dso_0.json",
+    src: "config/msmnile_qrd_lsm6dso_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "msmnile_qrd_tmd2725.json",
+    src: "config/msmnile_qrd_tmd2725.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "msmnile_shtw2_0.json",
+    src: "config/msmnile_shtw2_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "msmnile_tmd2725.json",
+    src: "config/msmnile_tmd2725.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "msmnile_tmd3725.json",
+    src: "config/msmnile_tmd3725.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sdm845_ak991x_0.json",
+    src: "config/sdm845_ak991x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sdm845_bmp380_0.json",
+    src: "config/sdm845_bmp380_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sdm845_lsm6dsm_0.json",
+    src: "config/sdm845_lsm6dsm_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sdm845_tmd2725.json",
+    src: "config/sdm845_tmd2725.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "shtw2_0.json",
+    src: "config/shtw2_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_amd.json",
+    src: "config/sns_amd.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_amd_sw_disabled.json",
+    src: "config/sns_amd_sw_disabled.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_amd_sw_enabled.json",
+    src: "config/sns_amd_sw_enabled.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_aont.json",
+    src: "config/sns_aont.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_basic_gestures.json",
+    src: "config/sns_basic_gestures.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_bring_to_ear.json",
+    src: "config/sns_bring_to_ear.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_ccd.json",
+    src: "config/sns_ccd.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_cm.json",
+    src: "config/sns_cm.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_dae.json",
+    src: "config/sns_dae.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_device_orient.json",
+    src: "config/sns_device_orient.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_diag_filter.json",
+    src: "config/sns_diag_filter.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_distance_bound.json",
+    src: "config/sns_distance_bound.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_dpc.json",
+    src: "config/sns_dpc.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_facing.json",
+    src: "config/sns_facing.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_fmv.json",
+    src: "config/sns_fmv.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_geomag_rv.json",
+    src: "config/sns_geomag_rv.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_gyro_cal.json",
+    src: "config/sns_gyro_cal.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_mag_cal.json",
+    src: "config/sns_mag_cal.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_multishake.json",
+    src: "config/sns_multishake.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_pedometer.json",
+    src: "config/sns_pedometer.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_rmd.json",
+    src: "config/sns_rmd.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_rotv.json",
+    src: "config/sns_rotv.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_smd.json",
+    src: "config/sns_smd.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_tilt.json",
+    src: "config/sns_tilt.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_tilt_sw_disabled.json",
+    src: "config/sns_tilt_sw_disabled.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_tilt_sw_enabled.json",
+    src: "config/sns_tilt_sw_enabled.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_tilt_to_wake.json",
+    src: "config/sns_tilt_to_wake.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "tmd2725.json",
+    src: "config/tmd2725.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "tmd3725.json",
+    src: "config/tmd3725.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "tmx4903.json",
+    src: "config/tmx4903.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "nicobar_ak991x_0.json",
+    src: "config/nicobar_ak991x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "nicobar_bmp285_0.json",
+    src: "config/nicobar_bmp285_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "nicobar_bu52053nvx_0.json",
+    src: "config/nicobar_bu52053nvx_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "nicobar_default_sensors.json",
+    src: "config/nicobar_default_sensors.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "nicobar_lsm6dso_0.json",
+    src: "config/nicobar_lsm6dso_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "nicobar_qrd_ak991x_0.json",
+    src: "config/nicobar_qrd_ak991x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "nicobar_qrd_lsm6dso_0.json",
+    src: "config/nicobar_qrd_lsm6dso_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "nicobar_qrd_tmd2725.json",
+    src: "config/nicobar_qrd_tmd2725.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "nicobar_tmd2725.json",
+    src: "config/nicobar_tmd2725.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "stk3x3x_0.json",
+    src: "config/stk3x3x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
