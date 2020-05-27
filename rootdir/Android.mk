@@ -1,6 +1,5 @@
 LOCAL_PATH := $(call my-dir)
 
-ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
 include $(CLEAR_VARS)
 LOCAL_MODULE             := rdclean.sh
 LOCAL_MODULE_CLASS       := EXECUTABLES
@@ -9,7 +8,6 @@ LOCAL_INIT_RC_64         := vendor/etc/init/rdclean.rc
 LOCAL_MODULE_TARGET_ARCH := arm64
 LOCAL_VENDOR_MODULE      := true
 include $(BUILD_PREBUILT)
-endif
 
 ifeq ($(TARGET_KEYMASTER_V4), true)
 include $(CLEAR_VARS)
