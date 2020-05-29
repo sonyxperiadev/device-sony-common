@@ -9,6 +9,10 @@ devices with a few small modifications as well.
 Most notably, the sysfs paths might be different and the persist partition might
 be mounted at `/persist` instead of `/mnt/vendor/persist`.
 
+This HAL has a `HealthTestingMock` for debugging purposes. It is only available
+in userdebug/eng builds. The prop `persist.vendor.health.fake_storage=1` will
+trigger fake stats.
+
 ## License
 Apache License version 2, see [LICENSE.txt](LICENSE.txt).
 

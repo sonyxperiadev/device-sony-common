@@ -19,22 +19,28 @@
 
 #define LOG_TAG "android.hardware.health@2.0-service.sony"
 
+#include <batteryservice/BatteryService.h>
+
+#include <health2/Health.h>
 /* For health_service_main() */
 #include <health2/service.h>
-
-#include <batteryservice/BatteryService.h>
-#include <health2/Health.h>
 #include <healthd/healthd.h>
 
 #include "CycleCountBackupRestore.h"
 #include "LearnedCapacityBackupRestore.h"
+#include "StorageStats.h"
 
 namespace {
 using ::device::sony::health::CycleCountBackupRestore;
 using ::device::sony::health::LearnedCapacityBackupRestore;
+using ::device::sony::health::StorageStats;
 static CycleCountBackupRestore ccBackupRestore;
 static LearnedCapacityBackupRestore lcBackupRestore;
+static StorageStats storageStats;
 }  // namespace
+
+using android::hardware::health::V2_0::DiskStats;
+using android::hardware::health::V2_0::StorageInfo;
 
 /* healthd_board_init() is called from health@2.0:Health.cpp when
  * the IHealth object is initialized */
@@ -54,7 +60,20 @@ int healthd_board_battery_update(struct android::BatteryProperties *props) {
     return 0;
 }
 
+void get_storage_info(std::vector<StorageInfo> &vec_storage_info) {
+    storageStats.GetStorageInfo(vec_storage_info);
+}
+
+void get_disk_stats(std::vector<DiskStats> &vec_stats) {
+    storageStats.GetDiskStats(vec_stats);
+}
+
 int main() {
+
+    /* Determine whether internal storage is EMMC or UFS based on ro.boot.bootdevice */
+    storageStats.GetStorageVariant();
+    /* Use sysfs paths based on bootdevice */
+    storageStats.FillStoragePaths();
 
     /* Setting the instance name explicitly is better */
     return health_service_main("default");

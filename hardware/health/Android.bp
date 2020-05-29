@@ -13,6 +13,8 @@ cc_binary {
         "HealthService.cpp",
         "CycleCountBackupRestore.cpp",
         "LearnedCapacityBackupRestore.cpp",
+        "StorageStats.cpp",
+        "Mock.cpp",
     ],
     static_libs: [
         "android.hardware.health@2.0-impl",
@@ -20,8 +22,6 @@ cc_binary {
         "libbatterymonitor",
         // libhealthservice is needed for health_service_main()
         "libhealthservice",
-        // Storage is needed by the HAL definition, use default
-        "libhealthstoragedefault",
     ],
     shared_libs: [
         "android.hardware.health@2.0",
@@ -37,6 +37,14 @@ cc_binary {
         // We only need BatteryService.h
         "libbatteryservice_headers",
     ],
+
+    product_variables: {
+        debuggable: {
+            cflags: [
+                "-DHEALTH_DEBUG",
+            ],
+        }
+    },
 
     // Only availbale in current Android Q master.
     // Nead to remove health section from common/vintf/manifext.xml as well
