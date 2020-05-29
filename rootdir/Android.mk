@@ -1,3 +1,5 @@
+LOCAL_PATH := $(call my-dir)
+
 ifeq ($(TARGET_KEYMASTER_V4), true)
 include $(CLEAR_VARS)
 LOCAL_MODULE := android.hardware.keymaster@4.0-service-qti.rc
