@@ -122,6 +122,7 @@ PRODUCT_PACKAGES += \
 
 # Telephony
 PRODUCT_PACKAGES += \
+    ModemConfig \
     QcRilAm \
     SimDetect
 
