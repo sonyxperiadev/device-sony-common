@@ -108,14 +108,12 @@ on fs
 on late-fs
     mount none /vendor/oem /oem bind rec
 
-on post-fs
-    # Wait for qseecomd to be started
-    wait_for_prop vendor.sys.listeners.registered true
+    # Wait for hwservicemanager ready since fsck might be triggered in mount_all --late
+    # In such case, init won't responce the property_set from hwservicemanager and then
+    # cause services for bootanim not running.
+    wait_for_prop hwservicemanager.ready true
 
-on late-fs
-    # Start services for bootanim
-    start surfaceflinger
-    start bootanim
+    exec_start wait_for_keymaster
 
     # Try for @2.1, for legacy
     start vendor.hwcomposer-2-1
@@ -133,6 +131,10 @@ on late-fs
 
     # Mount RW partitions which need to run fsck
     mount_all /vendor/etc/fstab.${ro.hardware} --late
+
+on post-fs
+    # Wait for qseecomd to be started
+    wait_for_prop vendor.sys.listeners.registered true
 
 on post-fs-data
     # We can start netd here before in is launched in common init.rc on zygote-start
