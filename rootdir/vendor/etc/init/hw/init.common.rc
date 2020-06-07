@@ -87,7 +87,7 @@ on fs
     # Start HW service manager early
     start hwservicemanager
 
-    mount_all /vendor/etc/fstab.${ro.hardware}
+    mount_all /vendor/etc/fstab.${ro.hardware} --early
 
     # Start DSP services as soon as partitions are mounted
     # ADSP devices
@@ -108,6 +108,10 @@ on late-fs
 on post-fs
     # Wait for qseecomd to be started
     wait_for_prop vendor.sys.listeners.registered true
+
+on late-fs
+    # Mount RW partitions which need to run fsck
+    mount_all /vendor/etc/fstab.${ro.hardware} --late
 
 on post-fs-data
     # We can start netd here before in is launched in common init.rc on zygote-start
