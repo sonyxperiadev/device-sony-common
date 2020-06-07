@@ -87,7 +87,7 @@ on fs
     # Start HW service manager early
     start hwservicemanager
 
-    mount_all /vendor/etc/fstab.${ro.hardware}
+    mount_all /vendor/etc/fstab.${ro.hardware} --early
 
     # Start DSP services as soon as partitions are mounted
     # ADSP devices
@@ -111,6 +111,8 @@ on late-fs
     # In such case, init won't responce the property_set from hwservicemanager and then
     # cause services for bootanim not running.
     wait_for_prop hwservicemanager.ready true
+    exec_start wait_for_keymaster
+    mount_all /vendor/etc/fstab.${ro.hardware} --late
 
     mount none /vendor/oem /oem bind rec
 
