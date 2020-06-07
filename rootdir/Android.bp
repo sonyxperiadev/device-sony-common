@@ -5,6 +5,9 @@ cc_prebuilt_binary {
     srcs: ["vendor/bin/rdclean.sh"],
     init_rc: ["vendor/etc/init/rdclean.rc"],
     vendor: true,
+    strip: {
+        none: true,
+    },
 }
 
 cc_prebuilt_binary {
@@ -12,6 +15,9 @@ cc_prebuilt_binary {
     srcs: ["vendor/bin/init.qcom.modem.sh"],
     init_rc: ["vendor/etc/init/init.modem.rc"],
     vendor: true,
+    strip: {
+        none: true,
+    },
 }
 
 cc_prebuilt_binary {
@@ -19,6 +25,9 @@ cc_prebuilt_binary {
     srcs: ["vendor/bin/init.qcom.slpistart.sh"],
     init_rc: ["vendor/etc/init/slpistart.rc"],
     vendor: true,
+    strip: {
+        none: true,
+    },
 }
 
 cc_prebuilt_binary {
@@ -26,6 +35,9 @@ cc_prebuilt_binary {
     srcs: ["vendor/bin/init.qcom.adspstart.sh"],
     init_rc: ["vendor/etc/init/adspstart.rc"],
     vendor: true,
+    strip: {
+        none: true,
+    },
 }
 
 cc_prebuilt_binary {
@@ -33,6 +45,9 @@ cc_prebuilt_binary {
     srcs: ["vendor/bin/init.qcom.ipastart.sh"],
     init_rc: ["vendor/etc/init/ipastart.rc"],
     vendor: true,
+    strip: {
+        none: true,
+    },
 }
 
 
