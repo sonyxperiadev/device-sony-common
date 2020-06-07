@@ -36,6 +36,13 @@ on init
     # vold needs keymaster that needs qseecomd
     start vendor.qseecomd
 
+    # Keymaster 3
+    start vendor.keymaster-3-0
+    # Keymaster 4
+    start vendor.keymaster-4-0
+    # Start vndservicemanager early
+    start vndservicemanager
+
     # Enable subsystem restart
     write /sys/module/subsystem_restart/parameters/enable_ramdumps 0
     write /sys/bus/msm_subsys/devices/subsys0/restart_level "RELATED"
