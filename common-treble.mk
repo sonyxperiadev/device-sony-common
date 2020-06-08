@@ -8,6 +8,8 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.composer@2.3-service \
 
 # Graphics allocator/mapper
+# NOTE: If you bump these versions, do not forget to also bump them in the
+# ro.vendor.<intf>.servicename props in common-prop.mk!
 ifeq ($(TARGET_HARDWARE_GRAPHICS_V3),true)
 
 PRODUCT_PACKAGES += \
@@ -105,6 +107,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-service
 
+# NOTE: If you bump these versions, do not forget to also bump them in the
+# ro.vendor.<intf>.servicename props in common-prop.mk!
 ifeq ($(TARGET_LEGACY_KEYMASTER),true)
 # Keymaster
 PRODUCT_PACKAGES += \
