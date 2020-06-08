@@ -224,13 +224,28 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Keymaster version to differentiate between legacy, v3 and v4
 ifeq ($(TARGET_LEGACY_KEYMASTER),true)
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.keymaster.version=legacy
+    ro.vendor.keymaster.version=legacy \
+    ro.vendor.keymaster.servicename=vendor.keymaster-3-0
 else ifeq ($(TARGET_KEYMASTER_V4),true)
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.keymaster.version=v4
+    ro.vendor.keymaster.version=v4 \
+    ro.vendor.keymaster.servicename=vendor.keymaster-4-0
 else
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.keymaster.version=v3
+    ro.vendor.keymaster.version=v3 \
+    ro.vendor.keymaster.servicename=vendor.keymaster-3-0
+endif
+
+ifeq ($(TARGET_HARDWARE_GRAPHICS_V3),true)
+# QTI gralloc and hwcomposer HALs
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vendor.gralloc.servicename=vendor.qti.hardware.display.allocator \
+    ro.vendor.hwcomposer.servicename=vendor.hwcomposer-2-3
+else
+# AOSP passthrough gralloc, legacy hwcomposer
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vendor.gralloc.servicename=vendor.gralloc-2-0 \
+    ro.vendor.hwcomposer.servicename=vendor.hwcomposer-2-1
 endif
 
 # Reduce cost of scrypt for FBE CE decryption
