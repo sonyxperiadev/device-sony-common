@@ -600,7 +600,7 @@ PRODUCT_PACKAGES += \
     libchromatix_s5k4h7yx_uwide_video \
     libchromatix_s5k4h7yx_uwide_zsl_preview \
     libchromatix_s5k4h7yx_uwide_zsl_video \
-    libmmcamera_s5k4h7yx_wide
+    libmmcamera_s5k4h7yx_uwide
 endif
 
 # CAMX Libs
