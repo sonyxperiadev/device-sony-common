@@ -109,7 +109,8 @@ on fs
     # And force restoring of SELinux labels
     restorecon_recursive /mnt/vendor/persist/
 
-on late-fs
+    # We mount the oem partition at /odm, so the /oem mountpoint is free
+    # for modem-config configs
     mount none /vendor/oem /oem bind rec
 
 on post-fs
