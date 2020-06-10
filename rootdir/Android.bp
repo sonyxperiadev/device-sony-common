@@ -208,13 +208,6 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
-    name: "rild2.rc",
-    src: "vendor/etc/init/rild2.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
     name: "rmt_storage.rc",
     src: "vendor/etc/init/rmt_storage.rc",
     sub_dir: "init",

@@ -150,30 +150,20 @@ DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.nxp.nfc.interfaces.xml
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.qualcomm.qti.dpm.xml
 
 ifeq ($(PRODUCT_DEVICE_DS),true)
-ifeq ($(TARGET_USE_QCRILD),true)
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hw.qcradio_ds.xml
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.qcradio_ds.xml
-else
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hw.radio_ds.xml
-endif
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.radio_ds.xml
 else
-ifeq ($(TARGET_USE_QCRILD),true)
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hw.qcradio_ss.xml
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.qcradio_ss.xml
-else
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hw.radio_ss.xml
-endif
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.radio_ss.xml
 endif
 
-ifeq ($(TARGET_USE_QCRILD),true)
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.radio.config.xml
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.radio.uceservice.xml
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.imsservices.xml
-DEVICE_MANIFEST_FILE += ${COMMON_PATH}/vintf/vendor.hw.dataservices.xml
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.dataservices.xml
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.somc.modem.xml
-endif
 
 ifeq ($(TARGET_KEYMASTER_V4),true)
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hw.keymaster_v4.xml

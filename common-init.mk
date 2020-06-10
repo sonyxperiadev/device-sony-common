@@ -49,14 +49,9 @@ PRODUCT_PACKAGES += \
     wpa_supplicant.rc
 
 # RIL
-ifeq ($(TARGET_USE_QCRILD),true)
 PRODUCT_PACKAGES += \
     qcrild.rc \
     qcrild2.rc
-else
-PRODUCT_PACKAGES += \
-    rild2.rc
-endif
 
 # Common init scripts
 PRODUCT_PACKAGES += \
