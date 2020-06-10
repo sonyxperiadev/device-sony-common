@@ -142,6 +142,9 @@ on post-fs-data
     mkdir /data/misc/qsee 0770 system system
     mkdir /data/fpc 0700 system system
 
+    # Create directory for QSEE Secure FS listener
+    mkdir /data/vendor/tzstorage 0770 system system
+
     mkdir /data/misc/dts 0770 media audio
     mkdir /data/persist 0770 system system
 
