@@ -132,7 +132,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Audio
 PRODUCT_PROPERTY_OVERRIDES += \
     media.aac_51_output_enabled=true \
-    audio.deep_buffer.media=1 \
+    audio.deep_buffer.media=true \
     fmas.hdph_sgain=0 \
     ro.config.vc_call_vol_steps=7 \
     ro.config.media_vol_steps=25
