@@ -131,15 +131,64 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Audio
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.audio.fluence.voicecall=true \
-    persist.audio.fluence.voicecomm=true \
-    persist.audio.fluence.voicerec=true \
-    persist.audio.fluence.speaker=true \
     media.aac_51_output_enabled=true \
     audio.deep_buffer.media=1 \
     fmas.hdph_sgain=0 \
     ro.config.vc_call_vol_steps=7 \
     ro.config.media_vol_steps=25
+
+# Audio (AOSP HAL)
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.qc.sdk.audio.fluencetype=fluence \
+    persist.audio.fluence.voicecall=true \
+    persist.audio.fluence.voicecomm=true \
+    persist.audio.fluence.voicerec=true \
+    persist.audio.fluence.speaker=true
+
+# Audio (newer CAF HALs)
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vendor.audio.sdk.fluencetype=fluence \
+    persist.vendor.audio.fluence.voicecall=true \
+    persist.vendor.audio.fluence.voicecomm=true \
+    persist.vendor.audio.fluence.voicerec=true \
+    persist.vendor.audio.fluence.speaker=true
+
+# Audio Features
+PRODUCT_PROPERTY_OVERRIDES += \
+    vendor.audio.feature.afe_proxy.enable=true \
+    vendor.audio.feature.anc_headset.enable=true \
+    vendor.audio.feature.battery_listener.enable=false \
+    vendor.audio.feature.compr_cap.enable=false \
+    vendor.audio.feature.compress_in.enable=false \
+    vendor.audio.feature.compress_meta_data.enable=true \
+    vendor.audio.feature.compr_voip.enable=false \
+    vendor.audio.feature.dsm_feedback.enable=false \
+    vendor.audio.feature.ext_hw_plugin.enable=false \
+    vendor.audio.feature.external_dsp.enable=false \
+    vendor.audio.feature.external_speaker.enable=false \
+    vendor.audio.feature.external_speaker_tfa.enable=false \
+    vendor.audio.feature.fluence.enable=true \
+    vendor.audio.feature.fm.enable=true \
+    vendor.audio.feature.hfp.enable=true \
+    vendor.audio.feature.hifi_audio.enable=false \
+    vendor.audio.feature.hwdep_cal.enable=false \
+    vendor.audio.feature.incall_music.enable=false \
+    vendor.audio.feature.multi_voice_session.enable=true \
+    vendor.audio.feature.keep_alive.enable=false \
+    vendor.audio.feature.maxx_audio.enable=false \
+    vendor.audio.feature.ras.enable=true \
+    vendor.audio.feature.record_play_concurency.enable=false \
+    vendor.audio.feature.src_trkn.enable=true \
+    vendor.audio.feature.spkr_prot.enable=true \
+    vendor.audio.feature.ssrec.enable=true \
+    vendor.audio.feature.usb_offload.enable=true \
+    vendor.audio.feature.usb_offload_burst_mode.enable=false \
+    vendor.audio.feature.usb_offload_sidetone_volume.enable=false \
+    vendor.audio.feature.deepbuffer_as_primary.enable=false \
+    vendor.audio.feature.vbat.enable=true \
+    vendor.audio.feature.wsa.enable=false \
+    vendor.audio.feature.audiozoom.enable=false \
+    vendor.audio.feature.snd_mon.enable=true
 
 # Enable stats logging in LMKD
 TARGET_LMKD_STATS_LOG := true
