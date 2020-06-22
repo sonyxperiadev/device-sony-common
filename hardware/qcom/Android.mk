@@ -16,8 +16,6 @@ MSM_VIDC_TARGET_LIST := msm8952 msm8996 msm8998 sdm660 sdm845 sm6125 sm8150
 #List of targets that use master side content protection
 MASTER_SIDE_CP_TARGET_LIST := msm8996 msm8998 sdm660 sdm845 sm6125 sm8150
 
-audio-hal := hardware/qcom/audio
-
 ifneq ($(filter $(QCOM_NEW_MEDIA_PLATFORM), $(TARGET_BOARD_PLATFORM)),)
 QCOM_MEDIA_ROOT := vendor/qcom/opensource/media/sm8150
 else
@@ -33,5 +31,4 @@ TARGET_KERNEL_VERSION := $(SOMC_KERNEL_VERSION)
 
 include device/sony/common/hardware/qcom/utils.mk
 
-include $(call all-makefiles-under,$(audio-hal))
 endif
