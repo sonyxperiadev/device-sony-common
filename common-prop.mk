@@ -190,6 +190,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.audio.feature.audiozoom.enable=false \
     vendor.audio.feature.snd_mon.enable=true
 
+# AudioPolicy Manager
+PRODUCT_PROPERTY_OVERRIDES += \
+    audio.offload.video=1
+
 # Enable stats logging in LMKD
 TARGET_LMKD_STATS_LOG := true
 PRODUCT_PROPERTY_OVERRIDES += \
