@@ -151,7 +151,22 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.audio.fluence.voicecall=true \
     persist.vendor.audio.fluence.voicecomm=true \
     persist.vendor.audio.fluence.voicerec=true \
-    persist.vendor.audio.fluence.speaker=true
+    persist.vendor.audio.fluence.speaker=true \
+    vendor.audio.offload.track.enable=true \
+    vendor.voice.path.for.pcm.voip=true \
+    vendor.audio.offload.multiaac.enable=true \
+    vendor.audio.offload.multiple.enabled=false \
+    vendor.audio.offload.passthrough=false \
+    vendor.audio.offload.gapless.enabled=true \
+    vendor.audio.parser.ip.buffer.size=262144 \
+    vendor.audio.volume.headset.gain.depcal=true
+
+# Audio (CAF - Hardware enc/decoding)
+PRODUCT_PROPERTY_OVERRIDES += \
+    vendor.audio.flac.sw.decoder.24bit=true \
+    vendor.audio.use.sw.alac.decoder=true \
+    vendor.audio.use.sw.ape.decoder=true \
+    vendor.audio.hw.aac.encoder=true
 
 # Audio Features
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -193,6 +208,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # AudioPolicy Manager
 PRODUCT_PROPERTY_OVERRIDES += \
     audio.offload.video=1
+
+# AudioFlinger
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.af.client_heap_size_kbyte=7168
 
 # Enable stats logging in LMKD
 TARGET_LMKD_STATS_LOG := true
