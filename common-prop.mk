@@ -159,7 +159,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.audio.offload.passthrough=false \
     vendor.audio.offload.gapless.enabled=true \
     vendor.audio.parser.ip.buffer.size=262144 \
-    vendor.audio.volume.headset.gain.depcal=true
+    vendor.audio.volume.headset.gain.depcal=true \
+    vendor.audio_hal.period_size=192 \
+    vendor.audio_hal.in_period_size=144 \
+    vendor.audio_hal.period_multiplier=3
 
 # Audio (CAF - Hardware enc/decoding)
 PRODUCT_PROPERTY_OVERRIDES += \
