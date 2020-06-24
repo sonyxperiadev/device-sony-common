@@ -41,7 +41,8 @@ PRODUCT_PACKAGES += \
     qseecom.rc \
     rmt_storage.rc \
     sct_service.rc \
-    sensorspd.rc \
+    adsp-sensorspdr.rc \
+    sdsp-sensorspdr.rc \
     sensors.rc \
     sscrpcd.rc \
     tad.rc \
