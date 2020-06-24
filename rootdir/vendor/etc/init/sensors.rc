@@ -24,5 +24,8 @@ service vendor.sensors /odm/bin/sensors.qcom
     disabled
 
 # Enable the service after ADSP and SLPI are up
+# Note: sensorspd exists only on some devices either in
+#       form of adsp-sensorspdr or ssc-sensorspdr.
 on property:vendor.qcom.slpiup=1
+    enable vendor.sensorspd
     enable vendor.sensors

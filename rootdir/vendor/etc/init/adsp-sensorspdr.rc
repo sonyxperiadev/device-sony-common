@@ -2,3 +2,4 @@ service vendor.sensorspd /odm/bin/adsprpcd sensorspd
    class main
    user system
    group system
+   disabled

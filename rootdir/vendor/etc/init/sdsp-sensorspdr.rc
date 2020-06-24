@@ -1,0 +1,7 @@
+# Sensors PDR service
+service vendor.sensorspd /odm/bin/sscrpcd sensorspd
+    class core
+    user system
+    group system wakelock
+    capabilities BLOCK_SUSPEND
+    disabled
