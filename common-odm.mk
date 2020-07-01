@@ -538,6 +538,24 @@ endif
 
 ifneq ($(filter ganges,$(SOMC_PLATFORM)),)
 PRODUCT_PACKAGES += \
+    libchromatix_s5k4e8_common \
+    libchromatix_s5k4e8_cpp_liveshot \
+    libchromatix_s5k4e8_cpp_preview \
+    libchromatix_s5k4e8_cpp_snapshot \
+    libchromatix_s5k4e8_cpp_video \
+    libchromatix_s5k4e8_postproc \
+    libchromatix_s5k4e8_liveshot \
+    libchromatix_s5k4e8_preview \
+    libchromatix_s5k4e8_snapshot \
+    libchromatix_s5k4e8_video \
+    libchromatix_s5k4e8_zsl_preview \
+    libchromatix_s5k4e8_zsl_video \
+    libmmcamera_s5k4e8
+endif
+
+
+ifneq ($(filter ganges,$(SOMC_PLATFORM)),)
+PRODUCT_PACKAGES += \
     libchromatix_s5k4h7yx_common \
     libchromatix_s5k4h7yx_cpp_liveshot \
     libchromatix_s5k4h7yx_cpp_preview \
