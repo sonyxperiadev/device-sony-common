@@ -46,6 +46,12 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.midi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.midi.xml \
     $(COMMON_PATH)/rootdir/vendor/etc/permissions/enable_deprecated_beam.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/enable_deprecated_beam.xml
 
+# Telephony
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.telephony.euicc.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.euicc.xml \
+    frameworks/native/data/etc/android.hardware.telephony.mbms.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.mbms.xml \
+    frameworks/native/data/etc/android.hardware.telephony.ims.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.ims.xml
+
 # Keymaster 4 and StrongBox Permissions
 ifeq ($(TARGET_KEYMASTER_V4),true)
 PRODUCT_COPY_FILES += \
