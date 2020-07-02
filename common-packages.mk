@@ -120,6 +120,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     macaddrsetup
 
+# Carrier configuration
+PRODUCT_PACKAGES += \
+    CarrierConfig
+
 # Telephony
 PRODUCT_PACKAGES += \
     ModemConfig \
