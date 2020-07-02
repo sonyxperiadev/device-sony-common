@@ -137,6 +137,7 @@ PRODUCT_PACKAGES += \
 
 # IMS
 PRODUCT_PACKAGES += \
+    IWlanService \
     uceShimService \
     datastatusnotification \
     imsdatadaemon \
@@ -167,6 +168,7 @@ PRODUCT_PACKAGES += \
     vendor.qti.data.factory@1.1 \
     vendor.qti.data.slm@1.0 \
     vendor.qti.hardware.data.connection@1.0 \
+    vendor.qti.hardware.data.latency@1.0 \
     vendor.qti.hardware.data.dynamicdds@1.0 \
     vendor.qti.hardware.data.qmi@1.0 \
     vendor.qti.hardware.radio.ims@1.0 \
