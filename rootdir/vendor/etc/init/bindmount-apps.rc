@@ -1,0 +1,22 @@
+on post-fs
+    # Bind mount all priv-apps
+    mount none /odm/system_ext/priv-app/dpmserviceapp /product/priv-app/dpmserviceapp bind rec
+    mount none /odm/system-ext/priv-app/ims /product/priv-app/ims bind rec
+
+    # ims.apk relies on libimscamera_jni and libimsmedia_jni.
+    # For more information about this specific bindmount, please
+    # check the readme in common-binds.mk
+    mount none /odm/lib64 /product/priv-app/ims/lib/arm64 bind rec
+
+    # Bind mount all apps
+    mount none /odm/system_ext/app/datastatusnotification /product/app/datastatusnotification bind rec
+    mount none /odm/system_ext/app/embms /product/app/datastatusnotification bind rec
+    mount none /odm/system_ext/app/uceShimService /product/app/uceShimService bind rec
+    mount none /odm/system_ext/app/uimgbaservice /product/app/uimgbaservice bind rec
+    mount none /odm/system_ext/app/uimlpaservice /product/app/uimlpaservice bind rec
+    mount none /odm/system_ext/app/uimremoteclient /product/app/uimremoteclient bind rec
+    mount none /odm/system_ext/app/uimremoteserver /product/app/uimremoteserver bind rec
+    mount none /odm/system_ext/app/QtiTelephonyService /product/app/QtiTelephonyService bind rec
+    mount none /odm/system_ext/app/IWlanService /product/app/IWlanService bind rec
+    mount none /odm/system_ext/app/CneApp /product/app/CneApp bind rec
+

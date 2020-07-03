@@ -1,0 +1,25 @@
+on post-fs
+    # Frameworks
+    mount none /odm/system_ext/framework/QtiTelephonyServicelibrary.jar /product/framework/QtiTelephonyServicelibrary.jar bind rec
+    mount none /odm/system_ext/framework/com.qti.dpmframework.jar /product/framework/com.qti.dpmframework.jar bind rec
+    mount none /odm/system_ext/framework/com.qualcomm.qti.imscmservice-V2.0-java.jar /product/framework/com.qualcomm.qti.imscmservice-V2.0-java.jar bind rec
+    mount none /odm/system_ext/framework/com.qualcomm.qti.imscmservice-V2.1-java.jar /product/framework/com.qualcomm.qti.imscmservice-V2.1-java.jar bind rec
+    mount none /odm/system_ext/framework/com.qualcomm.qti.imscmservice-V2.2-java.jar /product/framework/com.qualcomm.qti.imscmservice-V2.2-java.jar bind rec
+    mount none /odm/system_ext/framework/dpmapi.jar /product/framework/dpmapi.jar bind rec
+    mount none /odm/system_ext/framework/embmslibrary.jar /product/framework/embmslibrary.jar bind rec
+    mount none /odm/system_ext/framework/ims-ext-common.jar /product/framework/ims-ext-common.jar bind rec
+    mount none /odm/system_ext/framework/qcrilhook.jar /product/framework/qcrilhook.jar bind rec
+    mount none /odm/system_ext/framework/qti-telephony-hidl-wrapper.jar /product/framework/qti-telephony-hidl-wrapper.jar bind rec
+    mount none /odm/system_ext/framework/qti-telephony-utils.jar /product/framework/qti-telephony-utils.jar bind rec
+    mount none /odm/system_ext/framework/uimgbalibrary.jar /product/framework/uimgbalibrary.jar bind rec
+    mount none /odm/system_ext/framework/uimgbamanagerlibrary.jar /product/framework/uimgbamanagerlibrary.jar bind rec
+    mount none /odm/system_ext/framework/uimlpalibrary.jar /product/framework/uimlpalibrary.jar bind rec
+    mount none /odm/system_ext/framework/uimremoteclientlibrary.jar /product/framework/uimremoteclientlibrary.jar bind rec
+    mount none /odm/system_ext/framework/uimremoteserverlibrary.jar /product/framework/uimremoteserverlibrary.jar bind rec
+    mount none /odm/system_ext/framework/uimservicelibrary.jar /product/framework/uimservicelibrary.jar bind rec
+    mount none /odm/system_ext/framework/vendor.qti.data.factory-V1.0-java.jar /product/framework/vendor.qti.data.factory-V1.0-java.jar bind rec
+    mount none /odm/system_ext/framework/vendor.qti.data.factory-V2.0-java.jar /product/framework/vendor.qti.data.factory-V2.0-java.jar bind rec
+    mount none /odm/system_ext/framework/vendor.qti.hardware.data.connection-V1.0-java.jar /product/framework/vendor.qti.hardware.data.connection-V1.0-java.jar bind rec
+    mount none /odm/system_ext/framework/vendor.qti.hardware.data.connection-V1.1-java.jar /product/framework/vendor.qti.hardware.data.connection-V1.1-java.jar bind rec
+    mount none /odm/system_ext/framework/vendor.qti.hardware.data.dynamicdds-V1.0-java.jar /product/framework/vendor.qti.hardware.data.dynamicdds-V1.0-java.jar bind rec
+    mount none /odm/system_ext/framework/vendor.qti.ims.rcsconfig-V1.0-java.jar /product/framework/vendor.qti.ims.rcsconfig-V1.0-java.jar bind rec
