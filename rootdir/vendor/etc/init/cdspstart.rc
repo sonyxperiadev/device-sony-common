@@ -4,3 +4,7 @@ service vendor.cdspstart_sh /vendor/bin/init.qcom.cdspstart.sh
     group root system
     disabled
     oneshot
+
+# Start DSP services as soon as partitions are mounted
+on property:vendor.init.earlymount.ready=1
+    start vendor.cdspstart_sh
