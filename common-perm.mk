@@ -52,6 +52,11 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.telephony.mbms.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.mbms.xml \
     frameworks/native/data/etc/android.hardware.telephony.ims.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.ims.xml
 
+# Telephony: IMS framework
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/product/etc/permissions/ims_permissions.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/ims_permissions.xml \
+    $(COMMON_PATH)/rootdir/product/etc/permissions/privapp-permissions-ims.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-ims.xml
+
 # Keymaster 4 and StrongBox Permissions
 ifeq ($(TARGET_KEYMASTER_V4),true)
 PRODUCT_COPY_FILES += \
