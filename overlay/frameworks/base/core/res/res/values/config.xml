@@ -291,4 +291,10 @@
 
     <!-- Flag specifying whether or not IMS will use the ImsResolver dynamically -->
     <bool name="config_dynamic_bind_ims">true</bool>
+
+    <!-- Add the IWLan services for VoWiFi -->
+    <string name="config_wlan_data_service_package">vendor.qti.iwlan</string>
+    <string name="config_wlan_network_service_package">vendor.qti.iwlan</string>
+    <string name="config_qualified_networks_service_package">vendor.qti.iwlan</string>
+
 </resources>

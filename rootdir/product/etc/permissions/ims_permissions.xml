@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<permissions>
+    <library name="com.qti.dpmframework" file="/product/framework/com.qti.dpmframework.jar"/>
+    <permission name="com.qualcomm.permission.READPROC" >
+    <group gid="readproc" />
+    </permission>
+    <library name="com.qualcomm.qti.imscmservice-V2.0-java" file="/product/framework/com.qualcomm.qti.imscmservice-V2.0-java.jar" />
+    <library name="com.qualcomm.qti.imscmservice-V2.1-java" file="/product/framework/com.qualcomm.qti.imscmservice-V2.1-java.jar" />
+    <library name="com.qualcomm.qti.imscmservice-V2.2-java" file="/product/framework/com.qualcomm.qti.imscmservice-V2.2-java.jar" />
+    <library name="com.qti.dpmapi" file="/product/framework/dpmapi.jar"/>
+    <library name="com.qualcomm.embmslibrary" file="/product/framework/embmslibrary.jar"/>
+    <library name="ims-ext-common" file="/product/framework/ims-ext-common.jar"/>
+    <library name="com.qualcomm.qcrilhook" file="/product/framework/qcrilhook.jar" dependency="qti-telephony-utils:qti-telephony-hidl-wrapper" />
+    <library name="qti-telephony-hidl-wrapper" file="/product/framework/qti-telephony-hidl-wrapper.jar"/>
+    <library name="qti-telephony-utils" file="/product/framework/qti-telephony-utils.jar"/>
+    <library name="com.qualcomm.qti.QtiTelephonyServicelibrary" file="/product/framework/QtiTelephonyServicelibrary.jar"/>
+    <library name="com.qualcomm.qti.uimGba.uimgbalibrary" file="/product/framework/uimgbalibrary.jar"/>
+    <library name="com.qualcomm.qti.uimGbaManager.uimgbamanagerlibrary" file="/product/framework/uimgbamanagerlibrary.jar" dependency="com.qualcomm.qti.uimGba.uimgbalibrary"/>
+    <library name="com.qualcomm.qti.lpa.uimlpalibrary" file="/product/framework/uimlpalibrary.jar"/>
+    <library name="com.qualcomm.uimremoteclientlibrary" file="/product/framework/uimremoteclientlibrary.jar"/>
+    <library name="com.qualcomm.uimremoteserverlibrary" file="/product/framework/uimremoteserverlibrary.jar"/>
+    <library name="com.qualcomm.qti.uim.uimservicelibrary" file="/product/framework/uimservicelibrary.jar" dependency="qti-telephony-hidl-wrapper"/>
+    <library name="vendor.qti.hardware.factory-V1.0" file="/system/framework/vendor.qti.hardware.factory-V1.0-java.jar" />
+    <library name="vendor.qti.hardware.factory-V2.0" file="/system/framework/vendor.qti.hardware.factory-V2.0-java.jar" />
+    <library name="vendor.qti.hardware.data.connection-V1.0-java" file="/product/framework/vendor.qti.hardware.data.connection-V1.0-java.jar" />
+    <library name="vendor.qti.hardware.data.connection-V1.1-java" file="/product/framework/vendor.qti.hardware.data.connection-V1.1-java.jar" />
+    <library name="vendor.qti.hardware.data.latency-V1.0-java" file="/system/framework/vendor.qti.hardware.data.latency-V1.0-java.jar" />
+    <permission name="com.qti.permission.AUDIO">
+    <group gid="audio" />
+    </permission>
+</permissions>
