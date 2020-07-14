@@ -30,26 +30,26 @@
 
 # Empty framework jars to bindmount from ODM
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/framework/QtiTelephonyServicelibrary.jar \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/framework/com.qti.dpmframework.jar \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/framework/com.qualcomm.qti.imscmservice-V2.0-java.jar \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/framework/com.qualcomm.qti.imscmservice-V2.1-java.jar \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/framework/com.qualcomm.qti.imscmservice-V2.2-java.jar \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/framework/dpmapi.jar \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/framework/embmslibrary.jar \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/framework/qcrilhook.jar \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/framework/uimgbalibrary.jar \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/framework/uimgbamanagerlibrary.jar \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/framework/uimlpalibrary.jar \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/framework/uimremoteclientlibrary.jar \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/framework/uimremoteserverlibrary.jar \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/framework/uimservicelibrary.jar \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/framework/vendor.qti.data.factory-V1.0-java.jar \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/framework/vendor.qti.data.factory-V2.0-java.jar \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/framework/vendor.qti.hardware.data.connection-V1.0-java.jar \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/framework/vendor.qti.hardware.data.connection-V1.1-java.jar \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/framework/vendor.qti.hardware.data.dynamicdds-V1.0-java.jar \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/framework/vendor.qti.ims.rcsconfig-V1.0-java.jar
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/QtiTelephonyServicelibrary.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/com.qti.dpmframework.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/com.qualcomm.qti.imscmservice-V2.0-java.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/com.qualcomm.qti.imscmservice-V2.1-java.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/com.qualcomm.qti.imscmservice-V2.2-java.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/dpmapi.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/embmslibrary.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/qcrilhook.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/uimgbalibrary.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/uimgbamanagerlibrary.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/uimlpalibrary.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/uimremoteclientlibrary.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/uimremoteserverlibrary.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/uimservicelibrary.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/vendor.qti.data.factory-V1.0-java.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/vendor.qti.data.factory-V2.0-java.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/vendor.qti.hardware.data.connection-V1.0-java.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/vendor.qti.hardware.data.connection-V1.1-java.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/vendor.qti.hardware.data.dynamicdds-V1.0-java.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/vendor.qti.ims.rcsconfig-V1.0-java.jar
 
 ifneq ($(TARGET_USES_ODM_APPS_BINDMOUNT),false)
 # Create folders for priv-apps
