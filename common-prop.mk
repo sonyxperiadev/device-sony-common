@@ -178,7 +178,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.audio.feature.battery_listener.enable=false \
     vendor.audio.feature.compr_cap.enable=false \
     vendor.audio.feature.compress_meta_data.enable=true \
-    vendor.audio.feature.compr_voip.enable=false \
     vendor.audio.feature.dsm_feedback.enable=false \
     vendor.audio.feature.ext_hw_plugin.enable=false \
     vendor.audio.feature.external_dsp.enable=false \
