@@ -52,6 +52,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.radio.add_power_save=1 \
     persist.vendor.radio.apm_sim_not_pwdn=1
 
+ifeq ($(SOMC_KERNEL_VERSION),4.14)
 # Enable advanced power saving for data connectivity
 # DPM: Data Port Mapper, with TCM (TCP Connection Manager)
 # CnE: Connectivity Engine
@@ -85,6 +86,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.radio.unicode_op_names=true \
     persist.vendor.radio.sib16_support=1 \
     persist.vendor.radio.oem_socket=true
+
+else # SOMC_KERNEL_VERSION != 4.14
+# Keep legacy IOemHook interface
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.vendor.radio.oem_socket=false
+endif
 
 # Ringer
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -239,6 +246,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.wfd.virtual=0
 
+ifeq ($(SOMC_KERNEL_VERSION),4.14)
 # Display properties
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.demo.hdmirotationlock=false \
@@ -250,6 +258,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.display.enable_default_color_mode=1 \
     vendor.display.enable_optimize_refresh=1 \
     vendor.display.disable_ui_3d_tonemap=1
+endif
 
 # Wi-Fi interface name
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -265,8 +274,14 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # RILD
 PRODUCT_PROPERTY_OVERRIDES += \
-    vendor.rild.libpath=/odm/lib64/libril-qc-hal-qmi.so \
     ril.subscription.types=NV,RUIM
+ifeq ($(SOMC_KERNEL_VERSION),4.14)
+PRODUCT_PROPERTY_OVERRIDES += \
+    vendor.rild.libpath=/odm/lib64/libril-qc-hal-qmi.so
+else
+PRODUCT_PROPERTY_OVERRIDES += \
+    vendor.rild.libpath=/odm/lib64/libril-qc-qmi-1.so
+endif
 
 # OpenGLES version
 PRODUCT_PROPERTY_OVERRIDES += \

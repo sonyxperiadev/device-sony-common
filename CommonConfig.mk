@@ -32,10 +32,15 @@ ifneq ($(BOARD_USE_ENFORCING_SELINUX),true)
 BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 endif
 #BOARD_KERNEL_CMDLINE += console=ttyMSM0,115200,n8 androidboot.console=ttyMSM0
+ifeq ($(SOMC_KERNEL_VERSION),4.14)
 BOARD_KERNEL_CMDLINE += androidboot.memcg=1
+endif
 BOARD_KERNEL_CMDLINE += msm_rtb.filter=0x3F ehci-hcd.park=3
 BOARD_KERNEL_CMDLINE += coherent_pool=8M
 BOARD_KERNEL_CMDLINE += sched_enable_power_aware=1 user_debug=31
+ifeq ($(SOMC_KERNEL_VERSION),4.9)
+BOARD_KERNEL_CMDLINE += cgroup.memory=nokmem
+endif
 BOARD_KERNEL_CMDLINE += printk.devkmsg=on
 BOARD_KERNEL_CMDLINE += loop.max_part=16
 BOARD_KERNEL_CMDLINE += kpti=0
@@ -51,6 +56,12 @@ TARGET_USES_MKE2FS := true
 TARGET_USERIMAGES_USE_EXT4 := true
 
 BOARD_ROOT_EXTRA_FOLDERS := odm
+ifeq ($(SOMC_KERNEL_VERSION),4.9)
+# Old blobs have not yet migrated to /vendor/dsp and /vendor/firmware_mnt
+BOARD_ROOT_EXTRA_SYMLINKS += /odm/dsp:/dsp
+BOARD_ROOT_EXTRA_SYMLINKS += /$(TARGET_COPY_OUT_VENDOR)/firmware_mnt:/firmware
+BOARD_ROOT_EXTRA_SYMLINKS += /$(TARGET_COPY_OUT_VENDOR)/bt_firmware:/bt_firmware
+endif
 BOARD_ROOT_EXTRA_SYMLINKS += /mnt/vendor/persist:/persist
 
 # Filesystem
@@ -64,6 +75,9 @@ TARGET_USES_ION := true
 MAX_EGL_CACHE_KEY_SIZE := 12*1024
 MAX_EGL_CACHE_SIZE := 2048*1024
 
+ifeq ($(SOMC_KERNEL_VERSION),4.9)
+OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
+endif
 TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
 
 # Display
@@ -95,7 +109,9 @@ AUDIO_FEATURE_ENABLED_HFP := true
 AUDIO_FEATURE_ENABLED_INCALL_MUSIC := true
 AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := true
 AUDIO_FEATURE_ENABLED_KPI_OPTIMIZE := true
+ifeq ($(SOMC_KERNEL_VERSION),4.14)
 AUDIO_FEATURE_ENABLED_SPKR_PROTECTION := true
+endif
 AUDIO_FEATURE_ENABLED_DEV_ARBI := false
 MM_AUDIO_ENABLED_FTM := true
 TARGET_USES_QCOM_MM_AUDIO := true
@@ -171,15 +187,26 @@ DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.nxp.nfc.interfaces.xml
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.qualcomm.qti.dpm.xml
 
 ifeq ($(PRODUCT_DEVICE_DS),true)
+ifeq ($(SOMC_KERNEL_VERSION),4.14)
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hw.qcradio_ds.xml
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.qcradio_ds.xml
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.radio_ds.xml
 else
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hw.radio_ds.xml
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.qti.hw.radio.am_ds.xml
+endif
+else
+ifeq ($(SOMC_KERNEL_VERSION),4.14)
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hw.qcradio_ss.xml
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.qcradio_ss.xml
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.radio_ss.xml
+else
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hw.radio_ss.xml
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.qti.hw.radio.am_ss.xml
+endif
 endif
 
+ifeq ($(SOMC_KERNEL_VERSION),4.14)
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.radio.config.xml
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.radio.uceservice.xml
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.imsservices.xml
@@ -187,6 +214,7 @@ DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.dataservices.xml
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.somc.modem.xml
 
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.cneservices.xml
+endif
 
 ifeq ($(TARGET_KEYMASTER_V4),true)
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hw.keymaster_v4.xml

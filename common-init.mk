@@ -23,13 +23,6 @@ PRODUCT_PACKAGES += \
     cnd.rc \
     cnss-daemon.rc \
     ipacm.rc \
-    dataqti.rc \
-    dpmQmiMgr.rc \
-    dpmd.rc \
-    imsdatadaemon.rc \
-    imsqmidaemon.rc \
-    imsrcsd.rc \
-    ims_rtp_daemon.rc \
     irsc_util.rc \
     mlog_qmi.rc \
     msm_irq.rc \
@@ -38,7 +31,6 @@ PRODUCT_PACKAGES += \
     per-proxy.rc \
     per-service.rc \
     qmuxd.rc \
-    qrtr.rc \
     qseecom.rc \
     rmt_storage.rc \
     sct_service.rc \
@@ -55,6 +47,24 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     qcrild.rc \
     qcrild2.rc
+
+# Legacy RIL
+ifeq ($(SOMC_KERNEL_VERSION),4.9)
+PRODUCT_PACKAGES += \
+    rild2.rc
+endif
+
+ifeq ($(SOMC_KERNEL_VERSION),4.14)
+PRODUCT_PACKAGES += \
+    dataqti.rc \
+    dpmQmiMgr.rc \
+    dpmd.rc \
+    ims_rtp_daemon.rc \
+    imsdatadaemon.rc \
+    imsqmidaemon.rc \
+    imsrcsd.rc \
+    qrtr.rc
+endif
 
 # Common init scripts
 PRODUCT_PACKAGES += \

@@ -2,16 +2,16 @@
 PRODUCT_PACKAGES += \
     android.hardware.renderscript@1.0-impl
 
-# Composer
-PRODUCT_PACKAGES += \
-    android.hardware.graphics.composer@2.3-impl:64 \
-    android.hardware.graphics.composer@2.3-service \
-
 # Graphics allocator/mapper
 ifeq ($(TARGET_HARDWARE_GRAPHICS_V3),true)
 
 PRODUCT_PACKAGES += \
     android.hardware.graphics.mapper@3.0-impl-qti-display
+
+# Composer
+PRODUCT_PACKAGES += \
+    android.hardware.graphics.composer@2.3-impl:64 \
+    android.hardware.graphics.composer@2.3-service
 
 # android.hardware.graphics.allocator@3.0::IAllocator:
 PRODUCT_PACKAGES += \
@@ -23,6 +23,11 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator@2.0-impl:64 \
     android.hardware.graphics.allocator@2.0-service \
     android.hardware.graphics.mapper@2.0-impl
+
+# Composer
+PRODUCT_PACKAGES += \
+    android.hardware.graphics.composer@2.1-impl:64 \
+    android.hardware.graphics.composer@2.1-service
 
 endif
 
@@ -74,8 +79,13 @@ PRODUCT_PACKAGES += \
     android.hardware.gnss@2.0-service-qti
 
 # Light
+ifeq ($(SOMC_KERNEL_VERSION),4.14)
 PRODUCT_PACKAGES += \
     android.hardware.light@2.0-service.sony
+else
+PRODUCT_PACKAGES += \
+    android.hardware.light@2.0-service.sony.legacy
+endif
 
 # Health
 PRODUCT_PACKAGES += \

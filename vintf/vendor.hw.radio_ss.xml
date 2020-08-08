@@ -1,10 +1,5 @@
 <manifest version="1.0" type="device">
     <hal format="hidl">
-        <name>vendor.qti.hardware.radio.am</name>
-        <transport>hwbinder</transport>
-        <fqname>@1.0::IQcRilAudio/slot1</fqname>
-    </hal>
-    <hal format="hidl">
         <name>vendor.qti.hardware.radio.ims</name>
         <transport>hwbinder</transport>
         <fqname>@1.5::IImsRadio/imsradio0</fqname>
