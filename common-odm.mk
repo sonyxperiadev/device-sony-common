@@ -137,6 +137,7 @@ PRODUCT_PACKAGES += \
 
 # IMS
 PRODUCT_PACKAGES += \
+    qcrilhook \
     IWlanService \
     uceShimService \
     datastatusnotification \
