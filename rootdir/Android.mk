@@ -138,6 +138,16 @@ LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/init
 include $(BUILD_PREBUILT)
 endif # TARGET_BOARD_PLATFORM in (sdm660 msm8998 sdm845 sm8150)
 
+ifneq ($(filter sm6125 ,$(TARGET_BOARD_PLATFORM)),)
+include $(CLEAR_VARS)
+LOCAL_MODULE := hvdcp_opti.rc
+LOCAL_MODULE_CLASS := ETC
+LOCAL_SRC_FILES := vendor/etc/init/hvdcp_opti.rc
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/init
+include $(BUILD_PREBUILT)
+endif # TARGET_BOARD_PLATFORM in (sm6125)
+
 ifneq ($(filter sdm660 msm8998 sdm845 sm6125 sm8150,$(TARGET_BOARD_PLATFORM)),)
 include $(CLEAR_VARS)
 LOCAL_MODULE := pd_mapper.rc
