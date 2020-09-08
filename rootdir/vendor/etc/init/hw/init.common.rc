@@ -96,11 +96,7 @@ on fs
 
     mount_all /vendor/etc/fstab.${ro.hardware} --early
 
-    # Start DSP services as soon as partitions are mounted
-    # ADSP devices
-    start vendor.adspstart_sh
-    # CDSP devices
-    start vendor.cdspstart_sh
+    setprop vendor.init.earlymount.ready 1
 
     # (Android <= 9): Remove "security.restorecon_last" xattr from /mnt/vendor/persist/
     exec u:r:vendor_toolbox:s0 root root -- /vendor/bin/toybox_vendor setfattr -x security.restorecon_last /mnt/vendor/persist/
