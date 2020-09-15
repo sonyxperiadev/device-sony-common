@@ -29,7 +29,6 @@ LOCAL_SHARED_LIBRARIES := \
     libutils \
     libhardware \
     libhidlbase \
-    libhidltransport \
     android.hardware.light@2.0
 
 # We want the full operator-precedence experience:
