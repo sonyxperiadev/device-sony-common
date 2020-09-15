@@ -47,7 +47,6 @@ LOCAL_SHARED_LIBRARIES := \
     libutils \
     libhardware \
     libhidlbase \
-    libhidltransport \
     android.hardware.power@1.3
 
 include $(BUILD_EXECUTABLE)
