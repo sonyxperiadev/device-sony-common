@@ -12,6 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# TEMPORARY: These libraries are deprecated, not referenced by any AOSP
+# nor OSS HAL, but are still required by odm blobs (short term).
+# We don't add a dependency on the vndk variants as those end up in
+# /system but require these in /vendor instead:
+PRODUCT_PACKAGES += \
+    libhwbinder.vendor \
+    libhidltransport.vendor
+
 # Audio
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
