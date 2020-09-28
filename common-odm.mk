@@ -163,7 +163,9 @@ PRODUCT_PACKAGES += \
     lib-rtpsl \
     lib-siputility \
     lib-uceservice \
+    com.qualcomm.qti.uceservice@2.0 \
     com.qualcomm.qti.uceservice@2.1 \
+    com.qualcomm.qti.uceservice@2.2 \
     com.qualcomm.qti.imscmservice@1.0 \
     com.qualcomm.qti.imscmservice@2.2 \
     vendor.qti.data.factory@1.1 \
@@ -173,8 +175,10 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.data.dynamicdds@1.0 \
     vendor.qti.hardware.data.qmi@1.0 \
     vendor.qti.hardware.radio.ims@1.0 \
+    vendor.qti.ims.callcapability@1.0 \
     vendor.qti.ims.callinfo@1.0 \
     vendor.qti.ims.rcsconfig@1.1 \
+    vendor.qti.ims.rcsconfig@2.1 \
     vendor.qti.imsrtpservice@1.0-service-Impl \
     vendor.qti.imsrtpservice@1.0 \
     vendor.qti.latency@2.0 \
