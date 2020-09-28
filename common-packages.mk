@@ -115,6 +115,10 @@ PRODUCT_PACKAGES += \
     libmm-qcamera \
     libqomx_core
 
+# Media
+PRODUCT_PACKAGES += \
+    libavservices_minijail
+
 # OSS Time service
 PRODUCT_PACKAGES += \
     timekeep \
