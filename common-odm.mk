@@ -64,6 +64,7 @@ PRODUCT_PACKAGES += \
 
 # Audio
 PRODUCT_PACKAGES += \
+    vendor.qti.hardware.dsp@1.0 \
     libacdbloader \
     libacdbmapper \
     libacdbrtac \
