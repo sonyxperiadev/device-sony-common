@@ -2,10 +2,6 @@
     <hal format="hidl">
         <name>vendor.nxp.nxpnfc</name>
         <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>INxpNfc</name>
-            <instance>default</instance>
-        </interface>
+        <fqname>@1.0::INxpNfc/default</fqname>
     </hal>
 </manifest>

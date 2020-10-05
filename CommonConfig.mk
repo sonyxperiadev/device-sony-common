@@ -165,11 +165,26 @@ endif
 # SELinux
 include device/sony/sepolicy/sepolicy.mk
 
+# Device manifest: What HALs the device provides
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/manifest.xml
+# Framework compatibility matrix: What the device(=vendor) expects of the framework(=system)
 DEVICE_MATRIX_FILE   += $(COMMON_PATH)/vintf/compatibility_matrix.xml
 
-# Custom NXP vendor interfaces
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.nxp.nfc.interfaces.xml
+# Custom NXP NFC vendor interface
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.nxp.nxpnfc.xml
+
+# Secure Element
+ifeq ($(TARGET_HAS_SECURE_ELEMENT),true)
+# NFC secure element, eSE1
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.nxp.nxpese.xml
+
+# SIM secure element, SIM1/SIM2
+ifeq ($(PRODUCT_DEVICE_DS),true)
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.secure_element_ds.xml
+else
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.secure_element_ss.xml
+endif
+endif
 
 # Dynamic Power Management
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.qualcomm.qti.dpm.xml
