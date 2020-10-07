@@ -1,1 +1,6 @@
-read: 1
+openat: 1
+rt_sigprocmask: 1
+mmap: 1
+prctl: 1
+ioctl: 1
+mprotect: 1
