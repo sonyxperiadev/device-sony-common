@@ -11,16 +11,6 @@ cc_prebuilt_binary {
 }
 
 cc_prebuilt_binary {
-    name: "init.qcom.modem.sh",
-    srcs: ["vendor/bin/init.qcom.modem.sh"],
-    init_rc: ["vendor/etc/init/init.modem.rc"],
-    vendor: true,
-    strip: {
-        none: true,
-    },
-}
-
-cc_prebuilt_binary {
     name: "init.qcom.slpistart.sh",
     srcs: ["vendor/bin/init.qcom.slpistart.sh"],
     init_rc: ["vendor/etc/init/slpistart.rc"],
