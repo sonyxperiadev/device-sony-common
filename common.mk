@@ -52,6 +52,10 @@ PRODUCT_BUILD_RECOVERY_IMAGE := true
 # Force building a boot image. This needs to be set explicitly since Android R
 PRODUCT_BUILD_BOOT_IMAGE := true
 
+# Android R: Disable logic for new vendor_boot
+# Our devices do not support it
+PRODUCT_BUILD_VENDOR_BOOT_IMAGE := false
+
 KERNEL_PATH := kernel/sony/msm-$(SOMC_KERNEL_VERSION)
 # Sanitized prebuilt kernel headers
 -include $(KERNEL_PATH)/common-headers/KernelHeaders.mk
