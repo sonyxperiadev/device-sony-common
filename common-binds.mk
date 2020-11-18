@@ -30,7 +30,6 @@
 
 # Empty framework jars to bindmount from ODM
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/QtiTelephonyServicelibrary.jar \
     $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/com.qti.dpmframework.jar \
     $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/com.qualcomm.qti.imscmservice-V2.0-java.jar \
     $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/com.qualcomm.qti.imscmservice-V2.1-java.jar \
@@ -38,6 +37,7 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/dpmapi.jar \
     $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/embmslibrary.jar \
     $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/qcrilhook.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/QtiTelephonyServicelibrary.jar \
     $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/uimgbalibrary.jar \
     $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/uimgbamanagerlibrary.jar \
     $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/uimlpalibrary.jar \
@@ -59,12 +59,14 @@ PRODUCT_COPY_FILES += \
 
 # Create folders for apps
 PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/app/CneApp/.placeholder \
     $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/app/datastatusnotification/.placeholder \
     $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/app/embms/.placeholder \
+    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/app/IWlanService/.placeholder \
+    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/app/QtiTelephonyService/.placeholder \
     $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/app/uceShimService/.placeholder \
     $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/app/uimgbaservice/.placeholder \
     $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/app/uimlpaservice/.placeholder \
     $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/app/uimremoteclient/.placeholder \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/app/uimremoteserver/.placeholder \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/app/QtiTelephonyService/.placeholder
+    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/app/uimremoteserver/.placeholder
 endif # TARGET_USES_ODM_APPS_BINDMOUNT true
