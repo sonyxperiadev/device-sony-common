@@ -133,9 +133,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     firmware_folders
 
-# Community APN list
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/vendor/etc/apns-conf.xml:system/etc/apns-conf.xml
 
 ifeq ($(MODEM_CONFIG_LEGACY_PLATFORM),true)
 MODEM_CONFIG := $(shell find $(COMMON_PATH)/rootdir/vendor/oem/modem-config-legacy -type f -printf '%p:$(TARGET_COPY_OUT_VENDOR)/oem/modem-config/%P\n')
@@ -149,6 +146,13 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/vendor/etc/sysconfig/component-overrides.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sysconfig/component-overrides.xml
 
 -include device/sony/customization/customization.mk
+
+USE_SODP_APNS ?= true
+ifeq ($(USE_SODP_APNS),true)
+# Community APN list
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/vendor/etc/apns-conf.xml:system/etc/apns-conf.xml
+endif #USE_SODP_APNS
 
 $(call inherit-product, device/sony/common/common-init.mk)
 $(call inherit-product, device/sony/common/common-odm.mk)
