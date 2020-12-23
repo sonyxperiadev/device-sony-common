@@ -11,6 +11,10 @@ BOARD_ODMIMAGE_FILE_SYSTEM_TYPE := ext4
 PRODUCT_ODM_PROPERTIES += \
     ro.odm.version=$(PLATFORM_VERSION)_$(SOMC_KERNEL_VERSION)_$(SOMC_PLATFORM)_$(TARGET_VENDOR_VERSION)
 
+# Clear device-specific info from platform-level odm image
+PRODUCT_PACKAGES += \
+    odm_prop_cleaner
+
 # SDE DRM
 PRODUCT_PACKAGES += \
     libsdedrm
