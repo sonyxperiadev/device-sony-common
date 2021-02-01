@@ -634,7 +634,7 @@ PRODUCT_PACKAGES += \
 endif
 
 # CAMX Libs
-ifneq ($(filter kumano tama,$(SOMC_PLATFORM)),)
+ifneq ($(filter kumano tama edo,$(SOMC_PLATFORM)),)
 PRODUCT_PACKAGES += \
     com.qti.node.swregistration \
     com.qti.camx.chiiqutils \
@@ -657,7 +657,8 @@ PRODUCT_PACKAGES += \
     fdconfigvideo \
     fdconfigvideolite \
     camera.sdm845 \
-    camera.sm8150
+    camera.sm8150 \
+    camera.sm8250
 endif
 
 ifeq ($(SOMC_PLATFORM),tama)
