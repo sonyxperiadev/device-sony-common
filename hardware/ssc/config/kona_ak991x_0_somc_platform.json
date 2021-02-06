@@ -1,0 +1,61 @@
+{
+  "config":
+  {
+    "hw_platform": ["MTP", "Surf", "QRD"],
+    "soc_id": ["356"]
+  },
+  "ak0991x_0_platform":{
+    "owner": "sns_ak0991x",
+    ".config":{
+      "owner": "sns_ak0991x",
+      "bus_type":{ "type": "int", "ver": "1",
+        "data": "0"
+      },
+      "irq_pull_type":{ "type": "int", "ver": "1",
+        "data": "0"
+      },
+      "i3c_address":{ "type": "int", "ver": "1",
+        "data": "0"
+      },
+      "max_bus_speed_khz":{ "type": "int", "ver": "1",
+        "data": "400"
+      }
+    },
+    ".mag":{
+      "owner": "sns_ak0991x",
+      ".fac_cal":{
+        "owner": "sns_ak0991x",
+        ".corr_mat":{
+          "owner": "sns_ak0991x",
+          "0_0":{ "type": "flt", "ver": "1",
+            "data": "1.0"
+          },
+          "0_1":{ "type": "flt", "ver": "1",
+            "data": "0.0"
+          },
+          "0_2":{ "type": "flt", "ver": "1",
+            "data": "0.0"
+          },
+          "1_0":{ "type": "flt", "ver": "1",
+            "data": "0.0"
+          },
+          "1_1":{ "type": "flt", "ver": "1",
+            "data": "1.0"
+          },
+          "1_2":{ "type": "flt", "ver": "1",
+            "data": "0.0"
+          },
+          "2_0":{ "type": "flt", "ver": "1",
+            "data": "0.0"
+          },
+          "2_1":{ "type": "flt", "ver": "1",
+            "data": "0.0"
+          },
+          "2_2":{ "type": "flt", "ver": "1",
+            "data": "1.0"
+          }
+        }
+      }
+    }
+  }
+}
