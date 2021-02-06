@@ -65,16 +65,6 @@ LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/init
 include $(BUILD_PREBUILT)
 endif
 
-ifneq ($(filter msm8952,$(TARGET_BOARD_PLATFORM)),)
-include $(CLEAR_VARS)
-LOCAL_MODULE := qmuxd.rc
-LOCAL_MODULE_CLASS := ETC
-LOCAL_SRC_FILES := vendor/etc/init/qmuxd.rc
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/init
-include $(BUILD_PREBUILT)
-endif
-
 ifeq ($(TARGET_USES_TAD_V2), true)
 include $(CLEAR_VARS)
 LOCAL_MODULE := tad.rc
