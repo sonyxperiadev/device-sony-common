@@ -33,6 +33,7 @@ PRODUCT_PACKAGES += \
     ims_rtp_daemon.rc \
     irsc_util.rc \
     mlog_qmi.rc \
+    mdm_helper.rc \
     msm_irq.rc \
     netmgrd.rc \
     pd_mapper.rc \
