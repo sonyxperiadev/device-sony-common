@@ -472,3 +472,243 @@ prebuilt_etc {
     sub_dir: "sensors/config",
     vendor: true,
 }
+prebuilt_etc {
+    name: "kona_ak991x_0.json",
+    src: "config/kona_ak991x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kona_ak991x_0_somc_platform.json",
+    src: "config/kona_ak991x_0_somc_platform.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kona_ak991x_0_somc_product.json",
+    src: "config/kona_ak991x_0_somc_product.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kona_amd_sw_disabled.json",
+    src: "config/kona_amd_sw_disabled.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kona_bmp380_0.json",
+    src: "config/kona_bmp380_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kona_bu52053nvx_0.json",
+    src: "config/kona_bu52053nvx_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kona_default_sensors.json",
+    src: "config/kona_default_sensors.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kona_dynamic_sensors.json",
+    src: "config/kona_dynamic_sensors.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kona_hdk_ak991x_0.json",
+    src: "config/kona_hdk_ak991x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kona_hdk_lsm6dst_0.json",
+    src: "config/kona_hdk_lsm6dst_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kona_hdk_lsm6dst_1.json",
+    src: "config/kona_hdk_lsm6dst_1.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kona_irq.json",
+    src: "config/kona_irq.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kona_lps22hh_0.json",
+    src: "config/kona_lps22hh_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kona_lsm6dsm_0.json",
+    src: "config/kona_lsm6dsm_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kona_lsm6dsm_0_somc_product.json",
+    src: "config/kona_lsm6dsm_0_somc_product.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kona_lsm6dst_0.json",
+    src: "config/kona_lsm6dst_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kona_lsm6dst_1.json",
+    src: "config/kona_lsm6dst_1.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kona_power_0.json",
+    src: "config/kona_power_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kona_qrd_ak991x_0.json",
+    src: "config/kona_qrd_ak991x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kona_qrd_lsm6dst_0.json",
+    src: "config/kona_qrd_lsm6dst_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kona_qrd_sx932x_0.json",
+    src: "config/kona_qrd_sx932x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kona_qrd_tmd2725_0.json",
+    src: "config/kona_qrd_tmd2725_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kona_shtw2_0.json",
+    src: "config/kona_shtw2_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kona_somc_default_sensors.json",
+    src: "config/kona_somc_default_sensors.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kona_stk3x3x_0.json",
+    src: "config/kona_stk3x3x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kona_svr_bma4_0.json",
+    src: "config/kona_svr_bma4_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kona_svr_bmg160_0.json",
+    src: "config/kona_svr_bmg160_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kona_svr_icm4x6xx_0.json",
+    src: "config/kona_svr_icm4x6xx_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kona_svr_rpr0521rs_0.json",
+    src: "config/kona_svr_rpr0521rs_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kona_sx932x_0.json",
+    src: "config/kona_sx932x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kona_tmd2725_0.json",
+    src: "config/kona_tmd2725_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_ccd_v2_walk.json",
+    src: "config/sns_ccd_v2_walk.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_ccd_v3_1_walk.json",
+    src: "config/sns_ccd_v3_1_walk.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_ccd_v3_walk.json",
+    src: "config/sns_ccd_v3_walk.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_device_orient_somc_platform.json",
+    src: "config/sns_device_orient_somc_platform.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_fmv_legacy.json",
+    src: "config/sns_fmv_legacy.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_heart_rate.json",
+    src: "config/sns_heart_rate.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_mag_cal_legacy.json",
+    src: "config/sns_mag_cal_legacy.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_wrist_pedo.json",
+    src: "config/sns_wrist_pedo.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "wigig_sensing_0.json",
+    src: "config/wigig_sensing_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
