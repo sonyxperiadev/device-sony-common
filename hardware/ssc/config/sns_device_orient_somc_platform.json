@@ -1,0 +1,22 @@
+{
+  "config":
+  {
+    "hw_platform": ["MTP", "Dragon", "Surf", "QRD", "HDK", "IDP"],
+    "soc_id": ["394", "356"]
+  },
+  "sns_device_orient_platform": {
+    "owner": "sns_device_orient",
+    ".config":{
+      "owner": "sns_device_orient",
+      "param3": {
+         "type": "flt", "ver": "1", "data": "55.0"
+      },
+      "param5": {
+         "type": "flt", "ver": "1", "data": "1.5"
+      },
+      "param6": {
+         "type": "flt", "ver": "1", "data": "15.0"
+      }
+    }
+  }
+}
