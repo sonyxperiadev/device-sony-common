@@ -40,7 +40,6 @@ PRODUCT_PACKAGES += \
     pd_mapper.rc \
     per-proxy.rc \
     per-service.rc \
-    qmuxd.rc \
     qrtr.rc \
     qseecom.rc \
     rmt_storage.rc \
