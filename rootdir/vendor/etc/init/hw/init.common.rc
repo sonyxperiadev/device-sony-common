@@ -205,6 +205,9 @@ on post-fs-data
     # RIL directoy for services
     mkdir /data/vendor/radio 0771 system radio
 
+    # Create directory for modem_config
+    mkdir /data/vendor/modem_config 0570 radio root
+
     chown system /dev/block/bootdevice/by-name
 
     setprop vold.post_fs_data_done 1
