@@ -259,3 +259,17 @@ prebuilt_etc {
     sub_dir: "init",
     vendor: true,
 }
+
+prebuilt_etc {
+    name: "pd_mapper.rc",
+    src: "vendor/etc/init/pd_mapper.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "tftp_server.rc",
+    src: "vendor/etc/init/tftp_server.rc",
+    sub_dir: "init",
+    vendor: true,
+}
