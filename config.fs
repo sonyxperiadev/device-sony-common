@@ -16,12 +16,6 @@ user: AID_SYSTEM
 group: AID_SYSTEM
 caps: NET_BIND_SERVICE
 
-[odm/bin/qmuxd]
-mode: 0755
-user: AID_SYSTEM
-group: AID_SYSTEM
-caps: BLOCK_SUSPEND
-
 [odm/bin/sensors.qcom]
 mode: 0755
 user: AID_SYSTEM
