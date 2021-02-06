@@ -19,3 +19,6 @@ on property:ro.boot.baseband=msm
 
 on property:ro.boot.baseband=sdm
     enable vendor.netmgrd
+
+on property:ro.boot.baseband=mdm
+    enable vendor.netmgrd
