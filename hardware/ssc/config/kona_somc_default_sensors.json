@@ -1,0 +1,17 @@
+{
+    "config":{
+        "hw_platform": ["MTP", "Surf", "RCM", "QRD", "HDK"],
+        "soc_id": ["356"]
+    },
+    "default_sensors": {
+        "owner": "suid",
+        ".sensor_temperature": {
+            "owner": "suid",
+            ".attr_1": {
+                "owner": "suid",
+                "id": { "type": "int", "ver": "0", "data": "0" },
+                "val": { "type": "str", "ver": "1", "data": "lsm6dsm" }
+            }
+        }
+    }
+}
