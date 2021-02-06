@@ -121,6 +121,13 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
+    name: "mdm_helper.rc",
+    src: "vendor/etc/init/mdm_helper.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
     name: "msm_irq.rc",
     src: "vendor/etc/init/msm_irq.rc",
     sub_dir: "init",
