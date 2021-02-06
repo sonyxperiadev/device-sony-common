@@ -1,0 +1,8 @@
+# External modem services
+service vendor.mdm_helper /odm/bin/mdm_helper
+    class core
+    group system wakelock
+    disabled
+
+on property:ro.baseband=mdm
+    start vendor.mdm_helper
