@@ -1,0 +1,9 @@
+# AT forwarding Daemon
+service vendor.atfwd /odm/bin/ATFWD-daemon
+    class late_start
+    user system
+    group system radio
+    disabled
+
+on property:ro.boot.baseband=mdm
+    enable vendor.atfwd

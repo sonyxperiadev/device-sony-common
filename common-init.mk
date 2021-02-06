@@ -18,6 +18,7 @@ PRODUCT_PACKAGES += \
     adb_tcp.rc \
     adpl.rc \
     adsprpcd.rc \
+    atfwd.rc \
     audiopd.rc \
     cdsprpcd.rc \
     cnd.rc \
