@@ -65,6 +65,13 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
+    name: "atfwd.rc",
+    src: "vendor/etc/init/atfwd.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
     name: "cnd.rc",
     src: "vendor/etc/init/cnd.rc",
     sub_dir: "init",
