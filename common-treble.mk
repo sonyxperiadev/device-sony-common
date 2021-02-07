@@ -4,8 +4,7 @@ PRODUCT_PACKAGES += \
 
 # Composer
 PRODUCT_PACKAGES += \
-    android.hardware.graphics.composer@2.3-impl:64 \
-    android.hardware.graphics.composer@2.3-service \
+    vendor.qti.hardware.display.composer-service
 
 # Graphics allocator/mapper
 ifeq ($(TARGET_HARDWARE_GRAPHICS_V3),true)
