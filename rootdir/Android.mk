@@ -65,22 +65,6 @@ LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/init
 include $(BUILD_PREBUILT)
 endif
 
-include $(CLEAR_VARS)
-LOCAL_MODULE := bindmount-misc.rc
-LOCAL_MODULE_CLASS := ETC
-LOCAL_SRC_FILES := vendor/etc/init/bindmount-misc.rc
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/init
-include $(BUILD_PREBUILT)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := bindmount-apps.rc
-LOCAL_MODULE_CLASS := ETC
-LOCAL_SRC_FILES := vendor/etc/init/bindmount-apps.rc
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/init
-include $(BUILD_PREBUILT)
-
 ifneq ($(filter msm8952,$(TARGET_BOARD_PLATFORM)),)
 include $(CLEAR_VARS)
 LOCAL_MODULE := qmuxd.rc
