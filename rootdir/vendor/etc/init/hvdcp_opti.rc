@@ -1,4 +1,5 @@
 # Create hvdcp_opti directory
+on late-fs:
     mkdir /mnt/vendor/persist/hvdcp_opti 0770 root system
 
 service vendor.hvdcp_opti /odm/bin/hvdcp_opti
@@ -13,4 +14,3 @@ on charger
     wait /dev/block/bootdevice/by-name/system
     mount ext4 /dev/block/bootdevice/by-name/system /system ro barrier=1
     start vendor.hvdcp_opti
-
