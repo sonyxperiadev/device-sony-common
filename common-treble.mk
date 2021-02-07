@@ -3,9 +3,15 @@ PRODUCT_PACKAGES += \
     android.hardware.renderscript@1.0-impl
 
 # Composer
+# Everything prior to kernel 4.19 uses the sm8150 display HAL
+ifeq ($(filter 4.14, $(SOMC_KERNEL_VERSION)),)
+PRODUCT_PACKAGES += \
+    vendor.qti.hardware.display.composer-service
+else
 PRODUCT_PACKAGES += \
     android.hardware.graphics.composer@2.3-impl:64 \
-    android.hardware.graphics.composer@2.3-service \
+    android.hardware.graphics.composer@2.3-service
+endif
 
 # Graphics allocator/mapper
 ifeq ($(TARGET_HARDWARE_GRAPHICS_V3),true)
