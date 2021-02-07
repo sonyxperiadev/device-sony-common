@@ -3,9 +3,14 @@ PRODUCT_PACKAGES += \
     android.hardware.renderscript@1.0-impl
 
 # Composer
+ifneq ($(filter sm8250,$(TARGET_BOARD_PLATFORM)),)
+PRODUCT_PACKAGES += \
+    vendor.qti.hardware.display.composer-service
+else
 PRODUCT_PACKAGES += \
     android.hardware.graphics.composer@2.3-impl:64 \
-    android.hardware.graphics.composer@2.3-service \
+    android.hardware.graphics.composer@2.3-service
+endif
 
 # Graphics allocator/mapper
 ifeq ($(TARGET_HARDWARE_GRAPHICS_V3),true)
