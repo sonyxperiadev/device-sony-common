@@ -19,17 +19,19 @@ target_prefixes := \
     cdsp
 
 # Prepend vendor and prefix directory to all link names:
-SONY_SYMLINKS := $(foreach prefix,$(target_prefixes), \
-    $(foreach s,$(target_combinations), \
-        $(eval p := $(subst :,$(space),$(s))) \
-        $(word 1,$(p)):$(TARGET_COPY_OUT_VENDOR)/rfs/msm/$(prefix)/$(word 2,$(p)) \
-    ) \
-)
+SONY_SYMLINKS := \
+    $(foreach prefix,$(target_prefixes), \
+        $(foreach s,$(target_combinations), \
+            $(eval p := $(subst :,$(space),$(s))) \
+            $(word 1,$(p)):$(TARGET_COPY_OUT_VENDOR)/rfs/msm/$(prefix)/$(word 2,$(p)) \
+        ) \
+    )
 
 # Edgecase for readwrite folders that all point to their own persist folder:
-SONY_SYMLINKS += $(foreach prefix,$(target_prefixes), \
-    /mnt/vendor/persist/rfs/msm/$(prefix):$(TARGET_COPY_OUT_VENDOR)/rfs/msm/$(prefix)/readwrite \
-)
+SONY_SYMLINKS += \
+    $(foreach prefix,$(target_prefixes), \
+        /mnt/vendor/persist/rfs/msm/$(prefix):$(TARGET_COPY_OUT_VENDOR)/rfs/msm/$(prefix)/readwrite \
+    )
 
 # Edgecase for tombstone folders that do not follow the above pattern:
 SONY_SYMLINKS += \
