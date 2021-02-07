@@ -18,27 +18,41 @@ target_prefixes := \
     slpi \
     cdsp
 
+target_soc := \
+    msm
+
+ifeq ($(TARGET_USES_ESOC),true)
+target_soc += \
+    mdm
+endif
+
 # Prepend vendor and prefix directory to all link names:
 SONY_SYMLINKS := \
-    $(foreach prefix,$(target_prefixes), \
-        $(foreach s,$(target_combinations), \
-            $(eval p := $(subst :,$(space),$(s))) \
-            $(word 1,$(p)):$(TARGET_COPY_OUT_VENDOR)/rfs/msm/$(prefix)/$(word 2,$(p)) \
+    $(foreach tgtsoc,$(target_soc), \
+        $(foreach prefix,$(target_prefixes), \
+            $(foreach s,$(target_combinations), \
+                $(eval p := $(subst :,$(space),$(s))) \
+                $(word 1,$(p)):$(TARGET_COPY_OUT_VENDOR)/rfs/$(tgtsoc)/$(prefix)/$(word 2,$(p)) \
+            ) \
         ) \
     )
 
 # Edgecase for readwrite folders that all point to their own persist folder:
 SONY_SYMLINKS += \
-    $(foreach prefix,$(target_prefixes), \
-        /mnt/vendor/persist/rfs/msm/$(prefix):$(TARGET_COPY_OUT_VENDOR)/rfs/msm/$(prefix)/readwrite \
+    $(foreach tgtsoc,$(target_soc), \
+        $(foreach prefix,$(target_prefixes), \
+            /mnt/vendor/persist/rfs/msm/$(prefix):$(TARGET_COPY_OUT_VENDOR)/rfs/msm/$(prefix)/readwrite \
+        ) \
     )
 
-# Edgecase for tombstone folders that do not follow the above pattern:
+# Edgecase for tombstone folders need to follow a different pattern:
 SONY_SYMLINKS += \
-    /data/vendor/tombstones/modem:$(TARGET_COPY_OUT_VENDOR)/rfs/msm/mpss/ramdumps \
-    /data/vendor/tombstones/lpass:$(TARGET_COPY_OUT_VENDOR)/rfs/msm/adsp/ramdumps \
-    /data/vendor/tombstones/rfs/cdsp:$(TARGET_COPY_OUT_VENDOR)/rfs/msm/cdsp/ramdumps \
-    /data/vendor/tombstones/rfs/slpi:$(TARGET_COPY_OUT_VENDOR)/rfs/msm/slpi/ramdumps
+    $(foreach tgtsoc,$(target_soc), \
+        /data/vendor/tombstones/modem:$(TARGET_COPY_OUT_VENDOR)/rfs/$(tgtsoc)/mpss/ramdumps \
+        /data/vendor/tombstones/lpass:$(TARGET_COPY_OUT_VENDOR)/rfs/$(tgtsoc)/adsp/ramdumps \
+        /data/vendor/tombstones/rfs/cdsp:$(TARGET_COPY_OUT_VENDOR)/rfs/$(tgtsoc)/cdsp/ramdumps \
+        /data/vendor/tombstones/rfs/slpi:$(TARGET_COPY_OUT_VENDOR)/rfs/$(tgtsoc)/slpi/ramdumps \
+    )
 
 include $(SONY_BUILD_SYMLINKS)
 
