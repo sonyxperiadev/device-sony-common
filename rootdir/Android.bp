@@ -287,3 +287,17 @@ prebuilt_etc {
     sub_dir: "init",
     vendor: true,
 }
+
+prebuilt_etc {
+    name: "bindmount-apps.rc",
+    src: "vendor/etc/init/bindmount-apps.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "bindmount-misc.rc",
+    src: "vendor/etc/init/bindmount-misc.rc",
+    sub_dir: "init",
+    vendor: true,
+}
