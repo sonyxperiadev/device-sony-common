@@ -13,6 +13,10 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.composer@2.3-service
 endif
 
+# Linked by Adreno/EGL blobs for fallback if 3.0 doesn't exist
+PRODUCT_PACKAGES += \
+    vendor.qti.hardware.display.mapper@2.0.vendor
+
 # Graphics allocator/mapper
 ifeq ($(TARGET_HARDWARE_GRAPHICS_V3),true)
 
