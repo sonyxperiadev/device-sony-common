@@ -16,9 +16,12 @@ endif
 ifeq ($(TARGET_HARDWARE_GRAPHICS_V3),true)
 
 PRODUCT_PACKAGES += \
-    android.hardware.graphics.mapper@3.0-impl-qti-display
+    android.hardware.graphics.mapper@3.0-impl-qti-display \
+    android.hardware.graphics.mapper@4.0-impl-qti-display
 
-# android.hardware.graphics.allocator@3.0::IAllocator:
+# android.hardware.graphics.allocator@3.0::IAllocator, and
+# android.hardware.graphics.allocator@4.0::IAllocator if
+# TARGET_USES_GRALLOC4 is not explicitly set to `false`:
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.display.allocator-service
 
