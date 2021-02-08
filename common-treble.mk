@@ -6,6 +6,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.display.composer-service
 
+# Linked by Adreno/EGL blobs for fallback if 3.0 doesn't exist
+PRODUCT_PACKAGES += \
+    vendor.qti.hardware.display.mapper@2.0.vendor
+
 # Graphics allocator/mapper
 ifeq ($(TARGET_HARDWARE_GRAPHICS_V3),true)
 
