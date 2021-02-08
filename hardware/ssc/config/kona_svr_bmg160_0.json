@@ -16,7 +16,7 @@
           "data": "0"
         },
         "res_idx":{ "type": "int", "ver": "0",
-          "data": "3"
+          "data": "4"
         },
         "sync_stream":{ "type": "int", "ver": "0",
           "data": "0"

@@ -1,6 +1,6 @@
 {
   "config":{
-    "hw_platform": ["MTP", "RCM", "Surf"],
+    "hw_platform": ["MTP", "Dragon", "Surf", "RCM", "HDK", "IDP"],
     "soc_id": ["356"]
   },
     "sx932x_0":{
@@ -154,16 +154,16 @@
     ".thresh":{
       "owner": "sns_sx932x",
       "threshold_0":{ "type": "flt", "ver": "0",
-        "data": "16.0"
+        "data": "51.0"
       },
       "threshold_1":{ "type": "flt", "ver": "0",
-        "data": "16.0"
+        "data": "51.0"
       },
       "threshold_2":{ "type": "flt", "ver": "0",
-        "data": "16.0"
+        "data": "51.0"
       },
       "threshold_3":{ "type": "flt", "ver": "0",
-        "data": "16.0"
+        "data": "51.0"
       }
     },
     ".offset":{
