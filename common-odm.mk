@@ -211,6 +211,13 @@ PRODUCT_PACKAGES += \
     dpmapi \
     com.qti.dpmframework
 
+# MDM
+PRODUCT_PACKAGES += \
+    vendor.qti.hardware.radio.atcmdfwd@1.0 \
+    ks \
+    mdm_helper \
+    ATFWD-daemon
+
 # Modem Switcher
 PRODUCT_PACKAGES += \
     sony-modem-switcher \
