@@ -82,9 +82,14 @@ PRODUCT_PACKAGES += \
     android.hardware.health@2.0-service.sony
 
 # Sensors
+# PRODUCT_PACKAGES += \
+#     android.hardware.sensors@1.0-impl:64 \
+#     android.hardware.sensors@1.0-service
+
 PRODUCT_PACKAGES += \
-    android.hardware.sensors@1.0-impl:64 \
-    android.hardware.sensors@1.0-service
+    android.hardware.sensors@2.1-service.multihal \
+    vendor.qti.hardware.display.mapper@1.1.vendor
+# Yes, some transitive library needs mapper otherwise sensors.ssc.so can't load...
 
 ifeq ($(TARGET_VIBRATOR_V1_2),true)
 # QTI Haptics Vibrator
