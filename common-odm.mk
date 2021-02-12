@@ -644,6 +644,7 @@ endif
 # CAMX Libs
 ifneq ($(filter kumano tama edo,$(SOMC_PLATFORM)),)
 PRODUCT_PACKAGES += \
+    libcamxexternalformatutils \
     com.qti.node.swregistration \
     com.qti.camx.chiiqutils \
     libcom.qti.chinodeutils \
@@ -655,11 +656,14 @@ PRODUCT_PACKAGES += \
     com.qti.node.memcpy \
     com.qti.hvx.binning \
     com.qti.hvx.addconstant \
+    com.qti.node.fcv \
+    com.qti.node.stitch \
     com.qti.node.gpu \
     com.qti.node.remosaic \
     com.qti.node.stitch \
     com.qti.node.depth \
     com.qti.tuned.default \
+    com.qti.stats.afd \
     fdconfigpreview \
     fdconfigpreviewlite \
     fdconfigvideo \
