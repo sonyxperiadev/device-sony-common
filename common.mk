@@ -124,12 +124,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/vendor/etc/public.libraries.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
 
-# PRODUCT_PLATFORM isn't set yet, thus we check the available path
-ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
 # ramdump cleaner
-PRODUCT_PACKAGES += \
+PRODUCT_PACKAGES_DEBUG += \
     rdclean.sh
-endif
 
 # Depend on symlink creation in /vendor:
 PRODUCT_PACKAGES += \
