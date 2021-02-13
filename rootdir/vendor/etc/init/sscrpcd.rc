@@ -1,7 +1,7 @@
 service vendor.sscrpcd /odm/bin/sscrpcd
     class core
     user system
-    group system
+    group system wakelock
     disabled
 
 on property:vendor.qcom.cdspup=1
