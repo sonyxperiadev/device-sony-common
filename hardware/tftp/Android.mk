@@ -41,7 +41,7 @@ SONY_SYMLINKS := \
 SONY_SYMLINKS += \
     $(foreach tgtsoc,$(target_soc), \
         $(foreach prefix,$(target_prefixes), \
-            /mnt/vendor/persist/rfs/msm/$(prefix):$(TARGET_COPY_OUT_VENDOR)/rfs/msm/$(prefix)/readwrite \
+            /mnt/vendor/persist/rfs/$(tgtsoc)/$(prefix):$(TARGET_COPY_OUT_VENDOR)/rfs/$(tgtsoc)/$(prefix)/readwrite \
         ) \
     )
 
