@@ -17,6 +17,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.display.allocator-service
 
+PRODUCT_PACKAGES += \
+    vendor.display.config@1.16.vendor \
+    vendor.display.config@2.0.vendor \
+
 else
 
 PRODUCT_PACKAGES += \
