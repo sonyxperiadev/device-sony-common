@@ -24,6 +24,9 @@ target_soc := \
 ifeq ($(TARGET_USES_ESOC),true)
 target_soc += \
     mdm
+
+target_prefixes += \
+    tn
 endif
 
 # Prepend vendor and prefix directory to all link names:
@@ -53,6 +56,13 @@ SONY_SYMLINKS += \
         /data/vendor/tombstones/rfs/cdsp:$(TARGET_COPY_OUT_VENDOR)/rfs/$(tgtsoc)/cdsp/ramdumps \
         /data/vendor/tombstones/rfs/slpi:$(TARGET_COPY_OUT_VENDOR)/rfs/$(tgtsoc)/slpi/ramdumps \
     )
+
+ifeq ($(TARGET_USES_ESOC),true)
+SONY_SYMLINKS += \
+    $(foreach tgtsoc,$(target_soc), \
+        /data/vendor/tombstones/rfs/tn:$(TARGET_COPY_OUT_VENDOR)/rfs/$(tgtsoc)/tn/ramdumps \
+    )
+endif
 
 include $(SONY_BUILD_SYMLINKS)
 
