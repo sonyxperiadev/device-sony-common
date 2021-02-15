@@ -28,6 +28,21 @@
 # This, then, is a temporary workaround that will be applied only to
 # Android 10 based builds.
 
+# QTI libraries for system_ext
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/lib/libOpenCL_system.so \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/lib/libQSEEComAPI_system.so \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/lib/libadsprpc_system.so \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/lib/libcdsprpc_system.so \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/lib/libmdsprpc_system.so \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/lib/libsdsprpc_system.so \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/lib64/libOpenCL_system.so \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/lib64/libQSEEComAPI_system.so \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/lib64/libadsprpc_system.so \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/lib64/libcdsprpc_system.so \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/lib64/libmdsprpc_system.so \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/lib64/libsdsprpc_system.so
+
 # Empty framework jars to bindmount from ODM
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/com.qti.dpmframework.jar \
