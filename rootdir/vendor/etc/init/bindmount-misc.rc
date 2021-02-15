@@ -1,4 +1,18 @@
 on post-fs
+    # Libraries
+    mount none /odm/system_ext/lib/libOpenCL_system.so /product/lib/libOpenCL_system.so bind rec
+    mount none /odm/system_ext/lib/libQSEEComAPI_system.so /product/lib/libQSEEComAPI_system.so bind rec
+    mount none /odm/system_ext/lib/libadsprpc_system.so /product/lib/libadsprpc_system.so bind rec
+    mount none /odm/system_ext/lib/libcdsprpc_system.so /product/lib/libcdsprpc_system.so bind rec
+    mount none /odm/system_ext/lib/libmdsprpc_system.so /product/lib/libmdsprpc_system.so bind rec
+    mount none /odm/system_ext/lib/libsdsprpc_system.so /product/lib/libsdsprpc_system.so bind rec
+    mount none /odm/system_ext/lib64/libOpenCL_system.so /product/lib64/libOpenCL_system.so bind rec
+    mount none /odm/system_ext/lib64/libQSEEComAPI_system.so /product/lib64/libQSEEComAPI_system.so bind rec
+    mount none /odm/system_ext/lib64/libadsprpc_system.so /product/lib64/libadsprpc_system.so bind rec
+    mount none /odm/system_ext/lib64/libcdsprpc_system.so /product/lib64/libcdsprpc_system.so bind rec
+    mount none /odm/system_ext/lib64/libmdsprpc_system.so /product/lib64/libmdsprpc_system.so bind rec
+    mount none /odm/system_ext/lib64/libsdsprpc_system.so /product/lib64/libsdsprpc_system.so bind rec
+
     # Frameworks
     mount none /odm/system_ext/framework/com.qti.dpmframework.jar /product/framework/com.qti.dpmframework.jar bind rec
     mount none /odm/system_ext/framework/com.qualcomm.qti.imscmservice-V2.0-java.jar /product/framework/com.qualcomm.qti.imscmservice-V2.0-java.jar bind rec
