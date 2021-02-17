@@ -71,6 +71,7 @@ PRODUCT_PACKAGES += \
 # Audio
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.dsp@1.0 \
+    liblistenhardware \
     libacdbloader \
     libacdbmapper \
     libacdbrtac \
@@ -661,7 +662,7 @@ PRODUCT_PACKAGES += \
     com.qti.node.stitch \
     com.qti.node.gpu \
     com.qti.node.remosaic \
-    com.qti.node.stitch \
+    com.qti.node.stich \
     com.qti.node.depth \
     com.qti.tuned.default \
     com.qti.stats.afd \
