@@ -247,6 +247,13 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
+    name: "authsecret.rc",
+    src: "vendor/etc/init/authsecret.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
     name: "ta_qmi.rc",
     src: "vendor/etc/init/ta_qmi.rc",
     sub_dir: "init",

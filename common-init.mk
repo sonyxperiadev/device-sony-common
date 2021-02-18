@@ -68,6 +68,7 @@ PRODUCT_PACKAGES += \
 # Secure Processor
 ifeq ($(TARGET_HAS_SPU),true)
 PRODUCT_PACKAGES += \
+    authsecret.rc \
     spu.rc
 endif
 
