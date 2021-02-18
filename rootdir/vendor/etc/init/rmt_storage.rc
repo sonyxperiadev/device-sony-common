@@ -4,3 +4,12 @@ service vendor.rmt_storage /odm/bin/rmt_storage
     user root
     ioprio rt 0
     shutdown critical
+    disabled
+
+# Devices with internal modem
+on property ro.baseband=sdm
+    enable vendor.rmt_storage
+
+# Legacy devices with internal modem
+on property ro.baseband=msm
+    enable vendor.rmt_storage
