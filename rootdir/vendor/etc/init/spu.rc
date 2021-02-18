@@ -1,0 +1,7 @@
+service spu_service /odm/bin/hw/vendor.qti.spu@1.0-service
+    class hal
+    user system
+    group system
+
+on boot
+    start spu_service
