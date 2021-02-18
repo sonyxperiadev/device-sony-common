@@ -68,7 +68,8 @@ PRODUCT_PACKAGES += \
 # Secure Processor
 ifeq ($(TARGET_HAS_SPU),true)
 PRODUCT_PACKAGES += \
-    spu.rc    
+    authsecret.rc \
+    spu.rc
 endif
 
 # modemswitcher
