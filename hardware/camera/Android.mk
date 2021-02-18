@@ -3,7 +3,7 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifneq ($(filter sdm845 sm8150,$(TARGET_BOARD_PLATFORM)),)
+ifneq ($(filter sdm845 sm8150 sm8250,$(TARGET_BOARD_PLATFORM)),)
 
 include $(SONY_CLEAR_VARS)
 LOCAL_MODULE := camera_symlinks
