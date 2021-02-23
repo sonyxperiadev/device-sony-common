@@ -63,9 +63,6 @@ PRODUCT_PACKAGES += \
 
 # GPS
 PRODUCT_PACKAGES += \
-    libloc_core \
-    libgps.utils \
-    liblocation_api \
     libbatching \
     libgeofencing \
     libgnss
