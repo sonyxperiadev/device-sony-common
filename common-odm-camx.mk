@@ -26,9 +26,7 @@ PRODUCT_PACKAGES += \
     fdconfigpreviewlite \
     fdconfigvideo \
     fdconfigvideolite \
-    camera.sdm845 \
-    camera.sm8150 \
-    camera.sm8250
+    camera.qcom
 endif
 
 ifeq ($(SOMC_PLATFORM),tama)
