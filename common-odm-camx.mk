@@ -69,12 +69,14 @@ endif
 
 ifeq ($(SOMC_PLATFORM),edo)
 PRODUCT_PACKAGES += \
+    com.sony.sensor.imx316 \
     com.sony.sensor.imx557 \
     com.sony.sensor.s5k3t2 \
     com.sony.sensor.s5k4h7 \
     com.sony.sensor.imx363 \
     com.sony.eeprom.eiger_main \
     com.sony.eeprom.eiger_tele \
+    com.sony.eeprom.icarus \
     com.sony.eeprom.eiger_uw \
     com.sony.eeprom.rose_otp
 endif
