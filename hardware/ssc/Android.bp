@@ -677,12 +677,6 @@ prebuilt_etc {
     vendor: true,
 }
 prebuilt_etc {
-    name: "sns_device_orient_somc_platform.json",
-    src: "config/sns_device_orient_somc_platform.json",
-    sub_dir: "sensors/config",
-    vendor: true,
-}
-prebuilt_etc {
     name: "sns_fmv_legacy.json",
     src: "config/sns_fmv_legacy.json",
     sub_dir: "sensors/config",
