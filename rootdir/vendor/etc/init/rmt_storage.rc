@@ -7,9 +7,9 @@ service vendor.rmt_storage /odm/bin/rmt_storage
     disabled
 
 # Devices with internal modem
-on property ro.baseband=sdm
+on property:ro.baseband=sdm
     enable vendor.rmt_storage
 
 # Legacy devices with internal modem
-on property ro.baseband=msm
+on property:ro.baseband=msm
     enable vendor.rmt_storage
