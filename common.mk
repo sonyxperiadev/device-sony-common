@@ -21,6 +21,7 @@ COMMON_PATH := device/sony/common
 PRODUCT_SOONG_NAMESPACES += \
     $(COMMON_PATH) \
     $(PLATFORM_COMMON_PATH) \
+    kernel/sony/msm-$(SOMC_KERNEL_VERSION)/common-headers \
     vendor/qcom/opensource/core-utils
 
 # Build scripts
