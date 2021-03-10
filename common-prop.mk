@@ -288,11 +288,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.crypto.allow_encrypt_override=true
 
-# Keymaster version to differentiate between legacy, v3 and v4
-ifeq ($(TARGET_LEGACY_KEYMASTER),true)
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.keymaster.version=legacy
-else ifeq ($(TARGET_KEYMASTER_V4),true)
+# Keymaster version to differentiate between v3 and v4
+ifeq ($(TARGET_KEYMASTER_V4),true)
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.keymaster.version=v4
 else
