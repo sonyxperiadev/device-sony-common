@@ -108,15 +108,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-service
 
-ifeq ($(TARGET_LEGACY_KEYMASTER),true)
-# Keymaster
-PRODUCT_PACKAGES += \
-    android.hardware.keymaster@3.0-impl \
-    android.hardware.keymaster@3.0-service
-# Gatekeeper libhardware module passthrough
-PRODUCT_PACKAGES += \
-    android.hardware.gatekeeper@1.0-impl
-else ifeq ($(TARGET_KEYMASTER_V4),true)
+ifeq ($(TARGET_KEYMASTER_V4),true)
 # Keymaster 4 passthrough service init file
 # (executable is on odm)
 PRODUCT_PACKAGES += \
