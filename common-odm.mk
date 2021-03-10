@@ -227,16 +227,15 @@ PRODUCT_PACKAGES += \
     vendor.somc.hardware.modemswitcher@1.0-service \
     vendor.somc.hardware.modemswitcher@1.0
 
-ifneq ($(TARGET_LEGACY_KEYMASTER),true)
 ifneq ($(TARGET_KEYMASTER_V4),true)
 # Keymaster
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@3.0-impl-qti
 endif
+
 # Gatekeeper
 PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-impl-qti
-endif
 
 # Ril
 PRODUCT_PACKAGES += \
