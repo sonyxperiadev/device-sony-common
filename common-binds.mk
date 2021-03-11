@@ -30,58 +30,58 @@
 
 # Empty framework jars to bindmount from ODM
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/com.qti.dpmframework.jar \
-    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/com.qualcomm.qti.imscmservice-V2.0-java.jar \
-    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/com.qualcomm.qti.imscmservice-V2.1-java.jar \
-    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/com.qualcomm.qti.imscmservice-V2.2-java.jar \
-    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/dpmapi.jar \
-    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/embmslibrary.jar \
-    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/qcrilhook.jar \
-    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/QtiTelephonyServicelibrary.jar \
-    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/uimgbalibrary.jar \
-    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/uimgbamanagerlibrary.jar \
-    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/uimlpalibrary.jar \
-    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/uimremoteclientlibrary.jar \
-    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/uimremoteserverlibrary.jar \
-    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/uimservicelibrary.jar \
-    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/vendor.qti.data.factory-V1.0-java.jar \
-    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/vendor.qti.data.factory-V2.0-java.jar \
-    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/vendor.qti.hardware.data.connection-V1.0-java.jar \
-    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/vendor.qti.hardware.data.connection-V1.1-java.jar \
-    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/vendor.qti.hardware.data.dynamicdds-V1.0-java.jar \
-    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_PRODUCT)/framework/vendor.qti.ims.rcsconfig-V1.0-java.jar
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_SYSTEM_EXT)/framework/com.qti.dpmframework.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_SYSTEM_EXT)/framework/com.qualcomm.qti.imscmservice-V2.0-java.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_SYSTEM_EXT)/framework/com.qualcomm.qti.imscmservice-V2.1-java.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_SYSTEM_EXT)/framework/com.qualcomm.qti.imscmservice-V2.2-java.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_SYSTEM_EXT)/framework/dpmapi.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_SYSTEM_EXT)/framework/embmslibrary.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_SYSTEM_EXT)/framework/qcrilhook.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_SYSTEM_EXT)/framework/QtiTelephonyServicelibrary.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_SYSTEM_EXT)/framework/uimgbalibrary.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_SYSTEM_EXT)/framework/uimgbamanagerlibrary.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_SYSTEM_EXT)/framework/uimlpalibrary.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_SYSTEM_EXT)/framework/uimremoteclientlibrary.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_SYSTEM_EXT)/framework/uimremoteserverlibrary.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_SYSTEM_EXT)/framework/uimservicelibrary.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_SYSTEM_EXT)/framework/vendor.qti.data.factory-V1.0-java.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_SYSTEM_EXT)/framework/vendor.qti.data.factory-V2.0-java.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_SYSTEM_EXT)/framework/vendor.qti.hardware.data.connection-V1.0-java.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_SYSTEM_EXT)/framework/vendor.qti.hardware.data.connection-V1.1-java.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_SYSTEM_EXT)/framework/vendor.qti.hardware.data.dynamicdds-V1.0-java.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_SYSTEM_EXT)/framework/vendor.qti.ims.rcsconfig-V1.0-java.jar
 
 # QTI libraries for system_ext
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/lib/libOpenCL_system.so \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/lib/libQSEEComAPI_system.so \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/lib/libadsprpc_system.so \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/lib/libcdsprpc_system.so \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/lib/libmdsprpc_system.so \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/lib/libsdsprpc_system.so \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/lib64/libOpenCL_system.so \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/lib64/libQSEEComAPI_system.so \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/lib64/libadsprpc_system.so \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/lib64/libcdsprpc_system.so \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/lib64/libmdsprpc_system.so \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/lib64/libsdsprpc_system.so
+    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/lib/libOpenCL_system.so \
+    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/lib/libQSEEComAPI_system.so \
+    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/lib/libadsprpc_system.so \
+    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/lib/libcdsprpc_system.so \
+    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/lib/libmdsprpc_system.so \
+    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/lib/libsdsprpc_system.so \
+    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/lib64/libOpenCL_system.so \
+    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/lib64/libQSEEComAPI_system.so \
+    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/lib64/libadsprpc_system.so \
+    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/lib64/libcdsprpc_system.so \
+    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/lib64/libmdsprpc_system.so \
+    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/lib64/libsdsprpc_system.so
 
 ifneq ($(TARGET_USES_ODM_APPS_BINDMOUNT),false)
 # Create folders for priv-apps
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/priv-app/dpmserviceapp/.placeholder \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/priv-app/ims/.placeholder
+    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/priv-app/dpmserviceapp/.placeholder \
+    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/priv-app/ims/.placeholder
 
 # Create folders for apps
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/app/CneApp/.placeholder \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/app/datastatusnotification/.placeholder \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/app/embms/.placeholder \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/app/IWlanService/.placeholder \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/app/QtiTelephonyService/.placeholder \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/app/uceShimService/.placeholder \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/app/uimgbaservice/.placeholder \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/app/uimlpaservice/.placeholder \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/app/uimremoteclient/.placeholder \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_PRODUCT)/app/uimremoteserver/.placeholder
+    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/app/CneApp/.placeholder \
+    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/app/datastatusnotification/.placeholder \
+    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/app/embms/.placeholder \
+    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/app/IWlanService/.placeholder \
+    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/app/QtiTelephonyService/.placeholder \
+    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/app/uceShimService/.placeholder \
+    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/app/uimgbaservice/.placeholder \
+    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/app/uimlpaservice/.placeholder \
+    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/app/uimremoteclient/.placeholder \
+    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/app/uimremoteserver/.placeholder
 endif # TARGET_USES_ODM_APPS_BINDMOUNT true
