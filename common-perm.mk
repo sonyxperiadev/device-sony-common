@@ -55,8 +55,8 @@ PRODUCT_COPY_FILES += \
 
 # Telephony: IMS framework
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/product/etc/permissions/ims_permissions.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/ims_permissions.xml \
-    $(COMMON_PATH)/rootdir/product/etc/permissions/privapp-permissions-ims.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-ims.xml
+    $(COMMON_PATH)/rootdir/system/system_ext/etc/permissions/ims_permissions.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/ims_permissions.xml \
+    $(COMMON_PATH)/rootdir/system/system_ext/etc/permissions/privapp-permissions-ims.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/privapp-permissions-ims.xml
 
 # Keymaster 4 and StrongBox Permissions
 ifeq ($(TARGET_KEYMASTER_V4),true)
