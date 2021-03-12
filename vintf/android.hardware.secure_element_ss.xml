@@ -2,6 +2,6 @@
     <hal format="hidl">
         <name>android.hardware.secure_element</name>
         <transport>hwbinder</transport>
-        <fqname>@1.0::ISecureElement/SIM1</fqname>
+        <fqname>@1.2::ISecureElement/SIM1</fqname>
     </hal>
 </manifest>
