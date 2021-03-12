@@ -179,11 +179,9 @@ DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.qualcomm.qti.dpm.xml
 
 ifeq ($(PRODUCT_DEVICE_DS),true)
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hw.qcradio_ds.xml
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.qcradio_ds.xml
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.radio_ds.xml
 else
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hw.qcradio_ss.xml
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.qcradio_ss.xml
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.radio_ss.xml
 endif
 
