@@ -7,7 +7,7 @@
     <hal format="hidl">
         <name>vendor.qti.hardware.radio.ims</name>
         <transport>hwbinder</transport>
-        <fqname>@1.5::IImsRadio/imsradio0</fqname>
+        <fqname>@1.6::IImsRadio/imsradio0</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.qti.hardware.radio.lpa</name>
