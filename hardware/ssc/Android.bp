@@ -203,6 +203,18 @@ prebuilt_etc {
     vendor: true,
 }
 prebuilt_etc {
+    name: "sdm630_default_sensors.json",
+    src: "config/sdm630_default_sensors.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sdm636_default_sensors.json",
+    src: "config/sdm636_default_sensors.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
     name: "sdm845_ak991x_0.json",
     src: "config/sdm845_ak991x_0.json",
     sub_dir: "sensors/config",
