@@ -29,6 +29,7 @@
 # Android 10 based builds.
 
 # Empty framework jars to bindmount from ODM
+ifeq (,$(SONY_BUILD_ODM))
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_SYSTEM_EXT)/framework/com.qti.dpmframework.jar \
     $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_SYSTEM_EXT)/framework/com.qualcomm.qti.imscmservice-V2.0-java.jar \
@@ -85,3 +86,4 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/app/uimremoteclient/.placeholder \
     $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/app/uimremoteserver/.placeholder
 endif # TARGET_USES_ODM_APPS_BINDMOUNT true
+endif
