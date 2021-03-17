@@ -1,5 +1,5 @@
 # Create hvdcp_opti directory
-on late-fs:
+on late-fs
     mkdir /mnt/vendor/persist/hvdcp_opti 0770 root system
 
 service vendor.hvdcp_opti /odm/bin/hvdcp_opti
