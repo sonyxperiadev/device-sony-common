@@ -70,6 +70,12 @@ KERNEL_PATH := kernel/sony/msm-$(SOMC_KERNEL_VERSION)
 # Sanitized prebuilt kernel headers
 -include $(KERNEL_PATH)/common-headers/KernelHeaders.mk
 
+# Configure qti-headers auxiliary module via soong so that the correct headers
+# under kernel/sony/msm-X.Y/kernel-headers are chosen
+SOONG_CONFIG_NAMESPACES += qti_kernel_headers
+SOONG_CONFIG_qti_kernel_headers := version
+SOONG_CONFIG_qti_kernel_headers_version := $(SOMC_KERNEL_VERSION)
+
 # Codecs Configuration
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
