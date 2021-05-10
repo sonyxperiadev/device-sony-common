@@ -25,7 +25,7 @@ endif
 OMX_VIDEO_PATH := mm-video-v4l2
 
 SRC_CAMERA_HAL_DIR ?= vendor/qcom/opensource/camera
-SRC_DISPLAY_HAL_DIR := vendor/qcom/opensource/display
+SRC_DISPLAY_HAL_DIR := vendor/qcom/opensource/display/sm8150
 SRC_MEDIA_HAL_DIR := $(QCOM_MEDIA_ROOT)
 TARGET_KERNEL_VERSION := $(SOMC_KERNEL_VERSION)
 
