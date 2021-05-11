@@ -15,13 +15,18 @@
 # Common path
 COMMON_PATH := device/sony/common
 
+# Everything prior to sm8250 uses the sm8150 display HAL
+display_platform := $(if $(filter sm8250,$(TARGET_BOARD_PLATFORM)),sm8250,sm8150)
+
 # Enable building packages from device namspaces.
 # Might be temporary! See:
 # https://android.googlesource.com/platform/build/soong/+/master/README.md#name-resolution
 PRODUCT_SOONG_NAMESPACES += \
     $(COMMON_PATH) \
     $(PLATFORM_COMMON_PATH) \
-    vendor/qcom/opensource/core-utils
+    vendor/qcom/opensource/core-utils \
+    vendor/qcom/opensource/display/$(display_platform) \
+    vendor/qcom/opensource/display-commonsys-intf/$(display_platform)
 
 # Build scripts
 SONY_CLEAR_VARS := $(COMMON_PATH)/sony_clear_vars.mk
