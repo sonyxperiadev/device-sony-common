@@ -12,15 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Common path
+COMMON_PATH := device/sony/common
+
+display_platform := sm8150
+
 # Enable building packages from device namspaces.
 # Might be temporary! See:
 # https://android.googlesource.com/platform/build/soong/+/master/README.md#name-resolution
 PRODUCT_SOONG_NAMESPACES += \
     $(PLATFORM_COMMON_PATH) \
-    vendor/qcom/opensource/core-utils
-
-# Common path
-COMMON_PATH := device/sony/common
+    vendor/qcom/opensource/core-utils \
+    vendor/qcom/opensource/display/$(display_platform) \
+    vendor/qcom/opensource/display-commonsys-intf/$(display_platform)
 
 # Build scripts
 SONY_CLEAR_VARS := $(COMMON_PATH)/sony_clear_vars.mk
