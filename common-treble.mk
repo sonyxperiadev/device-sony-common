@@ -9,7 +9,6 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.display.composer-service
 else
 PRODUCT_PACKAGES += \
-    android.hardware.graphics.composer@2.3-impl:64 \
     android.hardware.graphics.composer@2.3-service
 endif
 
