@@ -114,18 +114,15 @@ on late-fs
     start surfaceflinger
     start bootanim
 
-    # Try for @2.1, for legacy
-    start vendor.hwcomposer-2-1
-    # Try for @2.3, for GRAPHICS_V3 devices
+    # Start composer early, SM8150 and SM8250 name respectively
     start vendor.hwcomposer-2-3
+    start vendor.qti.hardware.display.composer
 
     # Configstore needed for surfaceflinger props
     # TODO: Will be deprecated in R
     start vendor.configstore-hal
 
-    # Legacy: Try for AOSP passthrough gralloc
-    start vendor.gralloc-2-0
-    # GRAPHICS_V3: Try for QTI HAL gralloc
+    # Start gralloc allocator early
     start vendor.qti.hardware.display.allocator
 
     # Mount RW partitions which need to run fsck
