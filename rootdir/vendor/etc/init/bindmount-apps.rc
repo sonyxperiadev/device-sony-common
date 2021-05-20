@@ -6,7 +6,7 @@ on post-fs
     # ims.apk relies on libimscamera_jni and libimsmedia_jni.
     # For more information about this specific bindmount, please
     # check the readme in common-binds.mk
-    mount none /odm/lib64 /system/system_ext/priv-app/ims/lib/arm64 bind rec
+    mount none /odm/system_ext/lib64 /system/system_ext/priv-app/ims/lib/arm64 bind rec
 
     # Bind mount all apps
     mount none /odm/system_ext/app/CneApp /system/system_ext/app/CneApp bind rec
