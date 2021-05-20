@@ -1,7 +1,7 @@
 on post-fs
     # Bind mount all priv-apps
     mount none /odm/system_ext/priv-app/dpmserviceapp /system/system_ext/priv-app/dpmserviceapp bind rec
-    mount none /odm/system-ext/priv-app/ims /system/system_ext/priv-app/ims bind rec
+    mount none /odm/system_ext/priv-app/ims /system/system_ext/priv-app/ims bind rec
 
     # ims.apk relies on libimscamera_jni and libimsmedia_jni.
     # For more information about this specific bindmount, please
