@@ -37,6 +37,7 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_SYSTEM_EXT)/framework/com.qualcomm.qti.imscmservice-V2.2-java.jar \
     $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_SYSTEM_EXT)/framework/dpmapi.jar \
     $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_SYSTEM_EXT)/framework/embmslibrary.jar \
+    $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_SYSTEM_EXT)/framework/ims-ext-common.jar \
     $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_SYSTEM_EXT)/framework/qcrilhook.jar \
     $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_SYSTEM_EXT)/framework/QtiTelephonyServicelibrary.jar \
     $(COMMON_PATH)/misc/emptyfile.zip:$(TARGET_COPY_OUT_SYSTEM_EXT)/framework/uimgbalibrary.jar \
