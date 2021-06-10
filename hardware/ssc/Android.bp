@@ -497,12 +497,6 @@ prebuilt_etc {
     vendor: true,
 }
 prebuilt_etc {
-    name: "kona_ak991x_0_somc_product.json",
-    src: "config/kona_ak991x_0_somc_product.json",
-    sub_dir: "sensors/config",
-    vendor: true,
-}
-prebuilt_etc {
     name: "kona_amd_sw_disabled.json",
     src: "config/kona_amd_sw_disabled.json",
     sub_dir: "sensors/config",
@@ -565,12 +559,6 @@ prebuilt_etc {
 prebuilt_etc {
     name: "kona_lsm6dsm_0.json",
     src: "config/kona_lsm6dsm_0.json",
-    sub_dir: "sensors/config",
-    vendor: true,
-}
-prebuilt_etc {
-    name: "kona_lsm6dsm_0_somc_product.json",
-    src: "config/kona_lsm6dsm_0_somc_product.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
