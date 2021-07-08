@@ -2,11 +2,6 @@
     <hal format="hidl">
         <name>vendor.qti.ims.callinfo</name>
         <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>IService</name>
-            <instance>default</instance>
-        </interface>
         <fqname>@1.0::IService/default</fqname>
     </hal>
     <hal format="hidl">
@@ -17,11 +12,6 @@
     <hal format="hidl">
         <name>vendor.qti.imsrtpservice</name>
         <transport>hwbinder</transport>
-        <version>2.1</version>
-        <interface>
-            <name>IRTPService</name>
-            <instance>imsrtpservice</instance>
-        </interface>
         <fqname>@2.1::IRTPService/imsrtpservice</fqname>
     </hal>
     <hal format="hidl">
