@@ -210,13 +210,6 @@ on post-fs-data
     setprop vold.post_fs_data_done 1
 
 on early-boot
-    # Graphics Permissions bootanimation
-    chmod 0664 /sys/devices/virtual/graphics/fb0/msm_cmd_autorefresh_en
-    chown system graphics /sys/devices/virtual/graphics/fb0/msm_cmd_autorefresh_en
-
-    # Permission for LED driver
-    chown system system /sys/class/graphics/fb0/msm_fb_persist_mode
-
     # Update dm-verity state and set partition.*.verified properties
     verity_update_state
 
@@ -311,42 +304,11 @@ on boot
     # For bridgemgr daemon to inform the USB driver of the correct transport
     chown radio radio /sys/class/android_usb/f_rmnet_smd_sdio/transport
 
-    # Graphics Permissions
-    chown system graphics /sys/class/graphics/fb0/idle_time
-    chmod 0664 /sys/class/graphics/fb0/idle_time
-
-    # Dynamic Resolution Switch
-    chown system graphics /sys/class/graphics/fb0/mode
-    chmod 0664 /sys/class/graphics/fb0/mode
-
     # Display Calibration
     chown system graphics /sys/devices/mdss_dsi_panel/pcc_profile
     chmod 0664 /sys/devices/mdss_dsi_panel/pcc_profile
     chown system graphics /sys/devices/dsi_panel_driver/pcc_profile
     chmod 0664 /sys/devices/dsi_panel_driver/pcc_profile
-
-    # FB1 permissions
-    chown system graphics /sys/class/graphics/fb1/avi_itc
-    chown system graphics /sys/class/graphics/fb1/avi_cn0_1
-    chown system graphics /sys/class/graphics/fb1/hpd
-    chown system graphics /sys/class/graphics/fb1/product_description
-    chown system graphics /sys/class/graphics/fb1/vendor_name
-    chown system graphics /sys/class/graphics/fb1/video_mode
-    chown system graphics /sys/class/graphics/fb1/hdcp/tp
-    chmod 0664 /sys/class/graphics/fb1/avi_itc
-    chmod 0664 /sys/class/graphics/fb1/avi_cn0_1
-    chmod 0664 /sys/class/graphics/fb1/hpd
-    chmod 0664 /sys/class/graphics/fb1/product_description
-    chmod 0664 /sys/class/graphics/fb1/vendor_name
-    chmod 0664 /sys/class/graphics/fb1/video_mode
-    chmod 0664 /sys/class/graphics/fb1/hdcp/tp
-
-    # FB2 permissions
-    chown system graphics /sys/class/graphics/fb2/ad
-    chown system graphics /sys/class/graphics/fb2/hpd
-    chmod 0664 /sys/class/graphics/fb2/ad
-    chmod 0664 /sys/class/graphics/fb2/hpd
-
 
     chown root system /proc/net/ip_conntrack
 
