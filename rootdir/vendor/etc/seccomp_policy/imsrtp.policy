@@ -14,6 +14,7 @@ getsockopt: 1
 getuid: 1
 ioctl: 1
 openat: 1
+lseek: 1
 mmap: 1
 mprotect: 1
 munmap: 1
@@ -31,6 +32,7 @@ rt_sigreturn: 1
 rt_sigsuspend: 1
 rt_tgsigqueueinfo: 1
 setitimer: 1
+setpriority: 1
 shutdown: 1
 socket: 1
 socketpair: 1
