@@ -1,3 +1,4 @@
+bind: 1
 clock_gettime: 1
 clone: 1
 close: 1
@@ -31,6 +32,7 @@ rt_sigreturn: 1
 rt_sigsuspend: 1
 rt_tgsigqueueinfo: 1
 sched_getaffinity: 1
+sendmsg: 1
 setitimer: 1
 setpriority: 1
 setsockopt: 1
