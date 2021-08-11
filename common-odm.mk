@@ -175,6 +175,8 @@ PRODUCT_PACKAGES += \
     com.qualcomm.qti.uceservice@2.2 \
     com.qualcomm.qti.imscmservice@1.0 \
     com.qualcomm.qti.imscmservice@2.2 \
+    vendor.qti.data.mwqem@1.0 \
+    vendor.qti.hardware.mwqemadapter@1.0 \
     vendor.qti.data.factory@1.1 \
     vendor.qti.data.slm@1.0 \
     vendor.qti.hardware.data.connection@1.0 \
