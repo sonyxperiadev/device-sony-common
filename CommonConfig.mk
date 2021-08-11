@@ -135,6 +135,9 @@ TARGET_ENABLE_MEDIADRM_64 := true
 # Wi-Fi Concurrent STA/AP
 WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
 
+# CNE
+BOARD_USES_QCNE := true
+
 # Enable dex-preoptimization to speed up first boot sequence
 ifeq ($(HOST_OS),linux)
   ifneq ($(TARGET_BUILD_VARIANT),eng)
