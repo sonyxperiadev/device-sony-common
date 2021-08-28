@@ -127,8 +127,13 @@ PRODUCT_PACKAGES += \
     android.hardware.drm@1.3-service-lazy.clearkey
 
 # Usb HAL
+ifeq ($(filter 4.14, $(SOMC_KERNEL_VERSION)),)
+PRODUCT_PACKAGES += \
+    android.hardware.usb@1.2-service-qti
+else
 PRODUCT_PACKAGES += \
     android.hardware.usb@1.0-service
+endif
 
 # Thermal HAL
 PRODUCT_PACKAGES += \
