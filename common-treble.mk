@@ -126,15 +126,9 @@ PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-service-lazy \
     android.hardware.drm@1.3-service-lazy.clearkey
 
-ifneq ($(BOARD_USE_LEGACY_USB),true)
 # Usb HAL
 PRODUCT_PACKAGES += \
     android.hardware.usb@1.0-service
-else
-# Simple Usb HAL
-PRODUCT_PACKAGES += \
-    android.hardware.usb@1.0-service.basic
-endif
 
 # Thermal HAL
 PRODUCT_PACKAGES += \
