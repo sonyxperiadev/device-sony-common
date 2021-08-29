@@ -80,7 +80,7 @@ on boot
     mount functionfs adb /dev/usb-ffs/adb rmode=0770,fmode=0660,uid=2000,gid=2000
     mount functionfs mtp /dev/usb-ffs/mtp rmode=0770,fmode=0660,uid=1024,gid=1024,no_disconnect=1
     mount functionfs ptp /dev/usb-ffs/ptp rmode=0770,fmode=0660,uid=1024,gid=1024,no_disconnect=1
-    setprop sys.usb.configfs 1
+    setprop vendor.sys.usb.configfs 1
 
 # USB compositions
 #
@@ -102,7 +102,7 @@ on boot
 #   midi,adb            d
 
 # USB Mode : mtp
-on property:sys.usb.config=mtp && property:sys.usb.configfs=1
+on property:sys.usb.config=mtp && property:vendor.sys.usb.configfs=1
     write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "mtp"
     rm /config/usb_gadget/g1/configs/b.1/f1
     rm /config/usb_gadget/g1/configs/b.1/f2
@@ -112,10 +112,10 @@ on property:sys.usb.config=mtp && property:sys.usb.configfs=1
     setprop sys.usb.state ${sys.usb.config}
 
 # USB Mode : adb
-on property:sys.usb.config=adb && property:sys.usb.configfs=1
+on property:sys.usb.config=adb && property:vendor.sys.usb.configfs=1
     start adbd
 
-on property:sys.usb.ffs.ready=1 && property:sys.usb.config=adb && property:sys.usb.configfs=1
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=adb && property:vendor.sys.usb.configfs=1
     write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "adb"
     rm /config/usb_gadget/g1/configs/b.1/f1
     rm /config/usb_gadget/g1/configs/b.1/f2
@@ -125,10 +125,10 @@ on property:sys.usb.ffs.ready=1 && property:sys.usb.config=adb && property:sys.u
     setprop sys.usb.state ${sys.usb.config}
 
 # USB Mode : mtp,adb
-on property:sys.usb.config=mtp,adb && property:sys.usb.configfs=1
+on property:sys.usb.config=mtp,adb && property:vendor.sys.usb.configfs=1
     start adbd
 
-on property:sys.usb.ffs.ready=1 && property:sys.usb.config=mtp,adb && property:sys.usb.configfs=1
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=mtp,adb && property:vendor.sys.usb.configfs=1
     write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "mtp_adb"
     rm /config/usb_gadget/g1/configs/b.1/f1
     rm /config/usb_gadget/g1/configs/b.1/f2
@@ -139,7 +139,7 @@ on property:sys.usb.ffs.ready=1 && property:sys.usb.config=mtp,adb && property:s
     setprop sys.usb.state ${sys.usb.config}
 
 # USB Mode : rndis
-on property:sys.usb.config=rndis && property:sys.usb.configfs=1
+on property:sys.usb.config=rndis && property:vendor.sys.usb.configfs=1
     write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "rndis"
     rm /config/usb_gadget/g1/configs/b.1/f1
     rm /config/usb_gadget/g1/configs/b.1/f2
@@ -149,10 +149,10 @@ on property:sys.usb.config=rndis && property:sys.usb.configfs=1
     setprop sys.usb.state ${sys.usb.config}
 
 # USB Mode : rndis,adb
-on property:sys.usb.config=rndis,adb && property:sys.usb.configfs=1
+on property:sys.usb.config=rndis,adb && property:vendor.sys.usb.configfs=1
     start adbd
 
-on property:sys.usb.ffs.ready=1 && property:sys.usb.config=rndis,adb && property:sys.usb.configfs=1
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=rndis,adb && property:vendor.sys.usb.configfs=1
     write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "rndis_adb"
     rm /config/usb_gadget/g1/configs/b.1/f1
     rm /config/usb_gadget/g1/configs/b.1/f2
@@ -163,7 +163,7 @@ on property:sys.usb.ffs.ready=1 && property:sys.usb.config=rndis,adb && property
     setprop sys.usb.state ${sys.usb.config}
 
 # USB Mode : ptp
-on property:sys.usb.config=ptp && property:sys.usb.configfs=1
+on property:sys.usb.config=ptp && property:vendor.sys.usb.configfs=1
     rm /config/usb_gadget/g1/configs/b.1/f1
     rm /config/usb_gadget/g1/configs/b.1/f2
     write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "ptp"
@@ -173,10 +173,10 @@ on property:sys.usb.config=ptp && property:sys.usb.configfs=1
     setprop sys.usb.state ${sys.usb.config}
 
 # USB Mode : ptp,adb
-on property:sys.usb.config=ptp,adb && property:sys.usb.configfs=1
+on property:sys.usb.config=ptp,adb && property:vendor.sys.usb.configfs=1
     start adbd
 
-on property:sys.usb.ffs.ready=1 && property:sys.usb.config=ptp,adb && property:sys.usb.configfs=1
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=ptp,adb && property:vendor.sys.usb.configfs=1
     write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "ptp_adb"
     rm /config/usb_gadget/g1/configs/b.1/f1
     rm /config/usb_gadget/g1/configs/b.1/f2
@@ -187,7 +187,7 @@ on property:sys.usb.ffs.ready=1 && property:sys.usb.config=ptp,adb && property:s
     setprop sys.usb.state ${sys.usb.config}
 
 # USB Mode : midi
-on property:sys.usb.config=midi && property:sys.usb.configfs=1
+on property:sys.usb.config=midi && property:vendor.sys.usb.configfs=1
     rm /config/usb_gadget/g1/configs/b.1/f1
     rm /config/usb_gadget/g1/configs/b.1/f2
     write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "midi"
@@ -197,10 +197,10 @@ on property:sys.usb.config=midi && property:sys.usb.configfs=1
     setprop sys.usb.state ${sys.usb.config}
 
 # USB Mode : midi,adb
-on property:sys.usb.config=midi,adb && property:sys.usb.configfs=1
+on property:sys.usb.config=midi,adb && property:vendor.sys.usb.configfs=1
     start adbd
 
-on property:sys.usb.ffs.ready=1 && property:sys.usb.config=midi,adb && property:sys.usb.configfs=1
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=midi,adb && property:vendor.sys.usb.configfs=1
     write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "midi_adb"
     rm /config/usb_gadget/g1/configs/b.1/f1
     rm /config/usb_gadget/g1/configs/b.1/f2
