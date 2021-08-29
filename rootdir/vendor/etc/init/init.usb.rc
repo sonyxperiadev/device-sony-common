@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
 on charger
     mount configfs none /config
     mkdir /config/usb_gadget/g1 0770 shell shell
@@ -82,21 +83,56 @@ on boot
     setprop sys.usb.configfs 1
 
 # USB compositions
-# Note: PID 0x902X advertises QCOM. Useful for NT based OSes.
+#
+# Following are the triggers to configure various
+# combinations of functions into a USB composition.
+#
+# The PID PREFIX are designed as following
+#
+#   USB mode            PREFIX
+#  ------------------------------
+#   mtp                 0
+#   adb                 3
+#   mtp,adb             5
+#   rndis               7
+#   rndis,adb           8
+#   ptp                 a
+#   ptp,adb             b
+#   midi                c
+#   midi,adb            d
+
+# USB Mode : mtp
 on property:sys.usb.config=mtp && property:sys.usb.configfs=1
-    write /config/usb_gadget/g1/functions/mtp.gs0/os_desc/interface.MTP/compatible_id "mtp"
     write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "mtp"
-    write /config/usb_gadget/g1/os_desc/use 1
+    rm /config/usb_gadget/g1/configs/b.1/f1
+    rm /config/usb_gadget/g1/configs/b.1/f2
     write /config/usb_gadget/g1/idProduct 0x0${ro.usb.pid_suffix}
+    symlink /config/usb_gadget/g1/functions/mtp.gs0 /config/usb_gadget/g1/configs/b.1/f1
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
     setprop sys.usb.state ${sys.usb.config}
 
-on property:sys.usb.config=mtp,adb && property:sys.usb.configfs=1
-    write /config/usb_gadget/g1/functions/mtp.gs0/os_desc/interface.MTP/compatible_id "mtp_adb"
+# USB Mode : adb
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=adb && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "adb"
+    rm /config/usb_gadget/g1/configs/b.1/f1
+    rm /config/usb_gadget/g1/configs/b.1/f2
+    write /config/usb_gadget/g1/idProduct 0x${ro.usb.pid_suffix}
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f1
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+# USB Mode : mtp,adb
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=mtp,adb && property:sys.usb.configfs=1
     write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "mtp_adb"
-    write /config/usb_gadget/g1/os_desc/use 1
+    rm /config/usb_gadget/g1/configs/b.1/f1
+    rm /config/usb_gadget/g1/configs/b.1/f2
     write /config/usb_gadget/g1/idProduct 0x5${ro.usb.pid_suffix}
+    symlink /config/usb_gadget/g1/functions/mtp.gs0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
     setprop sys.usb.state ${sys.usb.config}
 
+# USB Mode : rndis
 on property:sys.usb.config=rndis && property:sys.usb.configfs=1
     write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "rndis"
     rm /config/usb_gadget/g1/configs/b.1/f1
@@ -106,6 +142,7 @@ on property:sys.usb.config=rndis && property:sys.usb.configfs=1
     write /config/usb_gadget/g1/UDC ${sys.usb.controller}
     setprop sys.usb.state ${sys.usb.config}
 
+# USB Mode : rndis,adb
 on property:sys.usb.ffs.ready=1 && property:sys.usb.config=rndis,adb && property:sys.usb.configfs=1
     write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "rndis_adb"
     rm /config/usb_gadget/g1/configs/b.1/f1
@@ -116,34 +153,44 @@ on property:sys.usb.ffs.ready=1 && property:sys.usb.config=rndis,adb && property
     write /config/usb_gadget/g1/UDC ${sys.usb.controller}
     setprop sys.usb.state ${sys.usb.config}
 
+# USB Mode : ptp
 on property:sys.usb.config=ptp && property:sys.usb.configfs=1
-    write /config/usb_gadget/g1/functions/ptp.gs1/os_desc/interface.MTP/compatible_id "ptp"
-    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "ptp"
-    write /config/usb_gadget/g1/os_desc/use 1
-    write /config/usb_gadget/g1/idProduct 0x9${ro.usb.pid_suffix}
-    setprop sys.usb.state ${sys.usb.config}
-
-on property:sys.usb.config=ptp,adb && property:sys.usb.configfs=1
-    write /config/usb_gadget/g1/functions/ptp.gs1/os_desc/interface.MTP/compatible_id "ptp_adb"
-    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "ptp_adb"
-    write /config/usb_gadget/g1/os_desc/use 1
-    write /config/usb_gadget/g1/idProduct 0xA${ro.usb.pid_suffix}
-    setprop sys.usb.state ${sys.usb.config}
-
-on property:sys.usb.config=midi && property:sys.usb.configfs=1
-    write /config/usb_gadget/g1/idProduct 0xC${ro.usb.pid_suffix}
-    setprop sys.usb.state ${sys.usb.config}
-
-on property:sys.usb.config=midi,adb && property:sys.usb.configfs=1
-    write /config/usb_gadget/g1/idProduct 0xF${ro.usb.pid_suffix}
-    setprop sys.usb.state ${sys.usb.config}
-
-# Completely redeclare ADB for safety purposes
-on property:sys.usb.config=adb && property:sys.usb.configfs=1
-    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "adb"
     rm /config/usb_gadget/g1/configs/b.1/f1
     rm /config/usb_gadget/g1/configs/b.1/f2
-    write /config/usb_gadget/g1/idProduct 0x0${ro.usb.pid_suffix}
-    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "ptp"
+    write /config/usb_gadget/g1/idProduct 0xa${ro.usb.pid_suffix}
+    symlink /config/usb_gadget/g1/functions/ptp.gs1 /config/usb_gadget/g1/configs/b.1/f1
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+# USB Mode : ptp,adb
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=ptp,adb && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "ptp_adb"
+    rm /config/usb_gadget/g1/configs/b.1/f1
+    rm /config/usb_gadget/g1/configs/b.1/f2
+    write /config/usb_gadget/g1/idProduct 0xb${ro.usb.pid_suffix}
+    symlink /config/usb_gadget/g1/functions/ptp.gs1 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+# USB Mode : midi
+on property:sys.usb.config=midi && property:sys.usb.configfs=1
+    rm /config/usb_gadget/g1/configs/b.1/f1
+    rm /config/usb_gadget/g1/configs/b.1/f2
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "midi"
+    write /config/usb_gadget/g1/idProduct 0xc${ro.usb.pid_suffix}
+    symlink /config/usb_gadget/g1/functions/midi.gs5 /config/usb_gadget/g1/configs/b.1/f1
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+# USB Mode : midi,adb
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=midi,adb && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "midi_adb"
+    rm /config/usb_gadget/g1/configs/b.1/f1
+    rm /config/usb_gadget/g1/configs/b.1/f2
+    write /config/usb_gadget/g1/idProduct 0xd${ro.usb.pid_suffix}
+    symlink /config/usb_gadget/g1/functions/midi.gs5 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
     write /config/usb_gadget/g1/UDC ${sys.usb.controller}
     setprop sys.usb.state ${sys.usb.config}
