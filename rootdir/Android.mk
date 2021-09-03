@@ -83,7 +83,7 @@ LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/init
 include $(BUILD_PREBUILT)
 endif
 
-ifneq ($(filter sdm845 sm6125 sm8150,$(TARGET_BOARD_PLATFORM)),)
+ifneq ($(filter sdm845 sm6125 sm6350 sm8150,$(TARGET_BOARD_PLATFORM)),)
 include $(CLEAR_VARS)
 LOCAL_MODULE := init.qcom.cdspstart.sh
 LOCAL_MODULE_CLASS := EXECUTABLES
@@ -100,7 +100,7 @@ LOCAL_SRC_FILES := vendor/etc/init/cdsprpcd.rc
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/init
 include $(BUILD_PREBUILT)
-endif # TARGET_BOARD_PLATFORM in (sdm845 sm6125 sm8150)
+endif # TARGET_BOARD_PLATFORM in (sdm845 sm6125 sm6350 sm8150)
 
 ifneq ($(filter sdm660 msm8998 sdm845 sm8150,$(TARGET_BOARD_PLATFORM)),)
 include $(CLEAR_VARS)
@@ -112,7 +112,7 @@ LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/init
 include $(BUILD_PREBUILT)
 endif # TARGET_BOARD_PLATFORM in (sdm660 msm8998 sdm845 sm8150)
 
-ifneq ($(filter sm6125 ,$(TARGET_BOARD_PLATFORM)),)
+ifneq ($(filter sm6125 sm6350 ,$(TARGET_BOARD_PLATFORM)),)
 include $(CLEAR_VARS)
 LOCAL_MODULE := hvdcp_opti.rc
 LOCAL_MODULE_CLASS := ETC
