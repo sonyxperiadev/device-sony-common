@@ -1,15 +1,5 @@
 LOCAL_PATH := $(call my-dir)
 
-ifeq ($(TARGET_KEYMASTER_V4), true)
-include $(CLEAR_VARS)
-LOCAL_MODULE := android.hardware.keymaster@4.0-service-qti.rc
-LOCAL_SRC_FILES := vendor/etc/init/android.hardware.keymaster@4.0-service-qti.rc
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/init
-include $(BUILD_PREBUILT)
-endif # $(TARGET_KEYMASTER_V4) == true
-
 include $(CLEAR_VARS)
 LOCAL_MODULE := init.recovery.$(TARGET_DEVICE)
 LOCAL_SRC_FILES := init.recovery.common.rc
