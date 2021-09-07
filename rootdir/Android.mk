@@ -30,31 +30,6 @@ LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/init/hw
 include $(BUILD_PREBUILT)
 
-# Note: Sensors PDR can be on ADSP **or** on SDSP
-ifeq ($(TARGET_NEEDS_ADSP_SENSORS_PDR), true)
- # Let's error out if the developer makes an impossible choice
- ifeq ($(TARGET_NEEDS_SDSP_SENSORS_PDR), true)
-  $(error Activating both ADSP and SDSP Sensors PDR is wrong!!!)
- endif
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := adsp-sensorspdr.rc
-LOCAL_MODULE_CLASS := ETC
-LOCAL_SRC_FILES := vendor/etc/init/adsp-sensorspdr.rc
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/init
-include $(BUILD_PREBUILT)
-
-else ifeq ($(TARGET_NEEDS_SDSP_SENSORS_PDR), true)
-include $(CLEAR_VARS)
-LOCAL_MODULE := sdsp-sensorspdr.rc
-LOCAL_MODULE_CLASS := ETC
-LOCAL_SRC_FILES := vendor/etc/init/sdsp-sensorspdr.rc
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/init
-include $(BUILD_PREBUILT)
-endif
-
 ifeq ($(TARGET_USES_TAD_V2), true)
 include $(CLEAR_VARS)
 LOCAL_MODULE := tad.rc
