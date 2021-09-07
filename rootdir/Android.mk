@@ -30,16 +30,6 @@ LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/init/hw
 include $(BUILD_PREBUILT)
 
-ifeq ($(TARGET_NEEDS_AUDIOPD), true)
-include $(CLEAR_VARS)
-LOCAL_MODULE := audiopd.rc
-LOCAL_MODULE_CLASS := ETC
-LOCAL_SRC_FILES := vendor/etc/init/audiopd.rc
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/init
-include $(BUILD_PREBUILT)
-endif
-
 # Note: Sensors PDR can be on ADSP **or** on SDSP
 ifeq ($(TARGET_NEEDS_ADSP_SENSORS_PDR), true)
  # Let's error out if the developer makes an impossible choice
