@@ -206,12 +206,6 @@ DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.somc.modem.xml
 
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.cneservices.xml
 
-# Secure Processor
-ifeq ($(TARGET_HAS_SPU),true)
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.qti.spu.xml
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.authsecret_v1.0.xml
-endif
-
 ifeq ($(TARGET_KEYMASTER_V4),true)
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hw.keymaster_v4.xml
 else
