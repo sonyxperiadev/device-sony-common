@@ -20,24 +20,6 @@ LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/init/hw
 include $(BUILD_PREBUILT)
 
-ifneq ($(filter sdm845 sm6125 sm8150,$(TARGET_BOARD_PLATFORM)),)
-include $(CLEAR_VARS)
-LOCAL_MODULE := init.qcom.cdspstart.sh
-LOCAL_MODULE_CLASS := EXECUTABLES
-LOCAL_SRC_FILES_arm64 := vendor/bin/init.qcom.cdspstart.sh
-LOCAL_INIT_RC_64  := vendor/etc/init/cdspstart.rc
-LOCAL_MODULE_TARGET_ARCH := arm64
-LOCAL_VENDOR_MODULE := true
-include $(BUILD_PREBUILT)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := cdsprpcd.rc
-LOCAL_MODULE_CLASS := ETC
-LOCAL_SRC_FILES := vendor/etc/init/cdsprpcd.rc
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/init
-include $(BUILD_PREBUILT)
-endif # TARGET_BOARD_PLATFORM in (sdm845 sm6125 sm8150)
 
 ifneq ($(filter sdm660 msm8998 sdm845 sm8150,$(TARGET_BOARD_PLATFORM)),)
 include $(CLEAR_VARS)
