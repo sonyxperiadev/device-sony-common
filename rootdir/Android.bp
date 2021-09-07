@@ -58,6 +58,13 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
+    name: "adsp-sensorspdr.rc",
+    src: "vendor/etc/init/adsp-sensorspdr.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
     name: "adsprpcd.rc",
     src: "vendor/etc/init/adsprpcd.rc",
     sub_dir: "init",
@@ -172,6 +179,13 @@ prebuilt_etc {
 prebuilt_etc {
     name: "qrtr.rc",
     src: "vendor/etc/init/qrtr.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "sdsp-sensorspdr.rc",
+    src: "vendor/etc/init/sdsp-sensorspdr.rc",
     sub_dir: "init",
     vendor: true,
 }
