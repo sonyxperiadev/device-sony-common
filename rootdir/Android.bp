@@ -117,6 +117,13 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
+    name: "hvdcp_opti.rc",
+    src: "vendor/etc/init/hvdcp_opti.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
     name: "ipacm.rc",
     src: "vendor/etc/init/ipacm.rc",
     sub_dir: "init",
