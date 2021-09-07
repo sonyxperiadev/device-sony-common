@@ -198,6 +198,20 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
+    name: "tad.rc",
+    src: "vendor/etc/init/tad.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "tad_legacy.rc",
+    src: "vendor/etc/init/tad_legacy.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
     name: "dpmQmiMgr.rc",
     src: "vendor/etc/init/dpmQmiMgr.rc",
     sub_dir: "init",
