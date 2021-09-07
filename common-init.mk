@@ -25,7 +25,6 @@ PRODUCT_PACKAGES += \
     dataqti.rc \
     dpmQmiMgr.rc \
     dpmd.rc \
-    hvdcp_opti.rc \
     imsdatadaemon.rc \
     imsqmidaemon.rc \
     imsrcsd.rc \
