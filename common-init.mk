@@ -65,13 +65,6 @@ PRODUCT_PACKAGES += \
     init.qcom.ipastart.sh \
     init.qcom.slpistart.sh
 
-# Secure Processor
-ifeq ($(TARGET_HAS_SPU),true)
-PRODUCT_PACKAGES += \
-    authsecret.rc \
-    spu.rc
-endif
-
 # modemswitcher
 PRODUCT_PACKAGES += \
     vendor.somc.hardware.miscta@1.0-service.rc \
