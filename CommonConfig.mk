@@ -223,6 +223,11 @@ else
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.vibrator_v1.0.xml
 endif
 
+# NXP Secure Element
+ifeq ($(TARGET_NXP_ESE), true)
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.nxp.nxpese.xml
+endif
+
 # CamX manifests
 ifneq ($(filter edo,$(SOMC_PLATFORM)),)
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.qti.hardware.camera.postproc.xml
