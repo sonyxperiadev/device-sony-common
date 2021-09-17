@@ -18,7 +18,7 @@ on charger
     start vendor.irsc_util
 
 # Offline charger
-service vendor.charger /charger
+service vendor.charger /system/bin/charger
     class charger
     group root system log
     critical
