@@ -21,7 +21,7 @@ on charger
 service vendor.charger /system/bin/charger
     class charger
     user system
-    group system log
+    group system log input
     critical
     seclabel u:r:charger:s0
 
