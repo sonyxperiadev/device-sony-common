@@ -20,7 +20,8 @@ on charger
 # Offline charger
 service vendor.charger /system/bin/charger
     class charger
-    group root system log
+    user system
+    group system log
     critical
     seclabel u:r:charger:s0
 
