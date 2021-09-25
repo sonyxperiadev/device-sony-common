@@ -212,11 +212,6 @@ else
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hw.keymaster_v3.xml
 endif
 
-# Only define bootctrl HAL availability on AB platforms:
-ifeq ($(AB_OTA_UPDATER),true)
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.bootctrl.xml
-endif
-
 ifeq ($(TARGET_VIBRATOR_V1_2),true)
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.vibrator_v1.2.xml
 else
