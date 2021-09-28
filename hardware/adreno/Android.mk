@@ -18,7 +18,8 @@ library_names := \
     libllvm-glnext.so \
     libllvm-qcom.so \
     librs_adreno.so \
-    librs_adreno_sha1.so
+    librs_adreno_sha1.so \
+    hw/vulkan.qcom.so
 
 # Create symlinks to 32- and 64-bit directories:
 SONY_SYMLINKS := $(foreach lib_dir,lib lib64, \
