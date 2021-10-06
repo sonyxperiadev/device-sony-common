@@ -39,8 +39,10 @@ PRODUCT_PACKAGES += \
 # RIL
 # Interface library needed by odm blobs:
 PRODUCT_PACKAGES += \
-    android.hardware.radio@1.5 \
-    android.hardware.radio.config@1.2
+    android.hardware.radio@1.6.vendor \
+    android.hardware.radio.config@1.3.vendor \
+    android.hardware.radio.deprecated@1.0.vendor \
+    android.hardware.secure_element@1.2.vendor
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -105,7 +107,8 @@ ifeq ($(TARGET_KEYMASTER_V4),true)
 # Keymaster 4 passthrough service init file
 # (executable is on odm)
 PRODUCT_PACKAGES += \
-    android.hardware.keymaster@4.0-service-qti.rc
+    android.hardware.keymaster@4.0-service-qti.rc \
+    android.hardware.keymaster@4.1.vendor
 else
 # Keymaster 3 passthrough service
 PRODUCT_PACKAGES += \
