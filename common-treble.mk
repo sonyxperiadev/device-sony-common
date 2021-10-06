@@ -44,6 +44,10 @@ PRODUCT_PACKAGES += \
     android.hardware.radio.deprecated@1.0.vendor \
     android.hardware.secure_element@1.2.vendor
 
+# netmgrd
+PRODUCT_PACKAGES += \
+    android.system.net.netd@1.1.vendor
+
 # Audio
 PRODUCT_PACKAGES += \
     android.hardware.audio@6.0-impl:32 \
