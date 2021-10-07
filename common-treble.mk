@@ -57,6 +57,8 @@ PRODUCT_PACKAGES += \
     android.hardware.soundtrigger@2.2-impl
 
 # Camera
+PRODUCT_PACKAGES += \
+    android.frameworks.sensorservice@1.0.vendor
 ifeq ($(TARGET_USES_64BIT_CAMERA),true)
 PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl:64 \
