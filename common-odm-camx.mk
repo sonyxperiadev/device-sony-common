@@ -80,3 +80,14 @@ PRODUCT_PACKAGES += \
     com.sony.eeprom.eiger_uw \
     com.sony.eeprom.rose_otp
 endif
+
+ifeq ($(SOMC_PLATFORM),lena)
+PRODUCT_PACKAGES += \
+    com.sony.sensor.imx486 \
+    com.sony.sensor.s5k4h7 \
+    com.sony.sensor.ov8856 \
+    com.sony.eeprom.lena_front \
+    com.sony.eeprom.lena_tele \
+    com.sony.eeprom.lena_uwide \
+    com.sony.eeprom.lena_wide
+endif
