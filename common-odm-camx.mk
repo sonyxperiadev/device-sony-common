@@ -1,5 +1,5 @@
 # CAMX Libs
-ifneq ($(filter kumano tama edo,$(SOMC_PLATFORM)),)
+ifeq ($(filter loire tone yoshino nile ganges seine,$(SOMC_PLATFORM)),)
 PRODUCT_PACKAGES += \
     libcamxexternalformatutils \
     com.qti.node.swregistration \
