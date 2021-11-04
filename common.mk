@@ -68,6 +68,11 @@ PRODUCT_PACKAGES += \
 # Force building a recovery image: Needed for OTA packaging to work since Q
 PRODUCT_BUILD_RECOVERY_IMAGE := true
 
+ifeq ($(SOMC_KERNEL_VERSION), 4.14)
+# TEMP Disable compressed APEX
+PRODUCT_COMPRESSED_APEX := false
+endif
+
 # Android R: Disable logic for new vendor_boot
 # Our devices do not support it
 PRODUCT_BUILD_VENDOR_BOOT_IMAGE := false
