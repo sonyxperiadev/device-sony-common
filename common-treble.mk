@@ -121,6 +121,10 @@ PRODUCT_PACKAGES += \
     android.hardware.keymaster@3.0-service
 endif
 
+# SPU
+PRODUCT_PACKAGES += \
+    android.hardware.authsecret@1.0.vendor
+
 # DRM
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-impl \
