@@ -7,6 +7,7 @@ PRODUCT_PACKAGES += \
     libcom.qti.chinodeutils \
     libcamera_nn_stub \
     com.qti.chi.override \
+    com.qti.chi.override.bitra \
     com.qti.node.eisv2 \
     com.qti.node.eisv3 \
     com.qti.node.swregistration \
