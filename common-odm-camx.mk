@@ -15,6 +15,8 @@ PRODUCT_PACKAGES += \
     com.qti.node.memcpy \
     com.qti.hvx.binning \
     com.qti.hvx.addconstant \
+    com.qti.node.dummyrtb \
+    com.qti.node.dummysat \
     com.qti.node.fcv \
     com.qti.node.stitch \
     com.qti.node.gpu \
@@ -23,6 +25,14 @@ PRODUCT_PACKAGES += \
     com.qti.node.depth \
     com.qti.tuned.default \
     com.qti.stats.afd \
+    com.qti.stats.afwrapper \
+    com.qti.stats.awbwrapper \
+    com.qti.stats.hafoverride \
+    com.qtistatic.stats.aec \
+    com.qtistatic.stats.af \
+    com.qtistatic.stats.awb \
+    com.qtistatic.stats.pdlib \
+    libdepthmapwrapper \
     fdconfigpreview \
     fdconfigpreviewlite \
     fdconfigvideo \
