@@ -39,8 +39,8 @@ PRODUCT_PACKAGES += \
 # RIL
 # Interface library needed by odm blobs:
 PRODUCT_PACKAGES += \
-    android.hardware.radio@1.6 \
-    android.hardware.radio.config@1.3
+    android.hardware.radio@1.4 \
+    android.hardware.radio.config@1.2
 
 # Audio
 PRODUCT_PACKAGES += \
