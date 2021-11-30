@@ -56,6 +56,7 @@ PRODUCT_PACKAGES += \
 
 # GPS
 PRODUCT_PACKAGES += \
+    liblocdiagiface \
     libdataitems
 
 # Miscta
