@@ -57,6 +57,8 @@ on init
     write /sys/bus/msm_subsys/devices/subsys7/restart_level "RELATED"
     write /sys/bus/msm_subsys/devices/subsys8/restart_level "RELATED"
     write /sys/bus/msm_subsys/devices/subsys9/restart_level "RELATED"
+    write /sys/bus/msm_subsys/devices/subsys10/restart_level "RELATED"
+    write /sys/bus/msm_subsys/devices/subsys11/restart_level "RELATED"
 
     mkdir /dev/bus 0755 root root
     mkdir /dev/bus/usb 0755 root root
