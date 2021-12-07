@@ -304,3 +304,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Look for vulkan.qcom.so instead of vulkan.$(BOARD_TARGET_PLATFORM).so
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.hardware.vulkan=qcom
+
+# Disable Compressed APEX on 4.14 kernel as Android 12 enforces it and our kernel is not compatible (yet)
+ifeq ($(SOMC_KERNEL_VERSION), 4.14)
+OVERRIDE_PRODUCT_COMPRESSED_APEX := false
+endif
