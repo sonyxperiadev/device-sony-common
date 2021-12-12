@@ -15,15 +15,12 @@
 # Common path
 COMMON_PATH := device/sony/common
 
-ifneq ($(filter 4.19, $(SOMC_KERNEL_VERSION)),)
+ifeq ($(SOMC_KERNEL_VERSION), 4.14)
+display_platform := sm8150
+else ifeq ($(SOMC_KERNEL_VERSION), 4.19)
 display_platform := sm8250
 else
 display_platform := sm8350
-endif
-
-# Everything prior to kernel 4.19 uses the sm8150 display HAL
-ifneq ($(filter 4.14, $(SOMC_KERNEL_VERSION)),)
-display_platform := sm8150
 endif
 
 # Enable building packages from device namspaces.
