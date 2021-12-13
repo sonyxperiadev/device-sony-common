@@ -31,8 +31,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <linux/msm_mdp.h>
-
 #define DEFAULT_LOW_PERSISTENCE_MODE_BRIGHTNESS 255
 
 #define LP_MODE_BRIGHTNESS_PROPERTY "sys.display.low_persistence_mode_brightness"
