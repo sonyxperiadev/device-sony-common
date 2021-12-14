@@ -3,8 +3,7 @@
 <!-- QMI configuration -->
 <list name="qmi_config">
 
-
-   <!-- SDM660/SDM636 parameters -->
+<!-- SDM660 parameters -->
    <listitem name = "Starlord">
 
       <data name="single_qmux_ch" type="int"> 1 </data>
@@ -54,7 +53,7 @@
 
    </listitem>
 
-   <!-- SDM630 parameters -->
+<!-- SDM630 parameters -->
    <listitem name = "Starhawk">
 
       <data name="single_qmux_ch" type="int"> 1 </data>
@@ -104,9 +103,8 @@
 
    </listitem>
 
-   <!-- msm8998 parameters -->
-   <listitem name = "msm8998">
-
+   <!-- MSMNILE parameters -->
+   <listitem name = "msmnile">
       <data name="single_qmux_ch" type="int"> 1 </data>
       <data name="control_ports_len" type="int"> 1 </data>
       <data name="dpm_enabled" type="int"> 1 </data>
@@ -143,7 +141,6 @@
       <list name="open_at_powerup">
          <data type="int"> 0 </data>
       </list>
-
    </listitem>
 
    <!-- SDM845 parameters -->
@@ -186,7 +183,7 @@
       </list>
    </listitem>
 
-    <!-- sm6150 parameters(Talos) / SM6125 -->
+    <!-- sm6150 parameters(Talos) -->
     <listitem name = "msmsteppe">
       <data name="single_qmux_ch" type="int"> 1 </data>
       <data name="control_ports_len" type="int"> 1 </data>
@@ -226,49 +223,8 @@
       </list>
 
    </listitem>
-
-   <!-- SM8150 parameters -->
-   <listitem name = "msmnile">
-      <data name="single_qmux_ch" type="int"> 1 </data>
-      <data name="control_ports_len" type="int"> 1 </data>
-      <data name="dpm_enabled" type="int"> 1 </data>
-      <data name="use_qmuxd" type="int"> 0 </data>
-
-      <list name="conn_str">
-         <data type="string"> QMI_PORT_RMNET_8 </data>
-      </list>
-
-      <list name="conn_id">
-         <data type="string"> QMI_CONN_ID_RMNET_8 </data>
-      </list>
-
-      <list name="dev_name">
-         <data type="string"> /dev/smdcntl8 </data>
-      </list>
-
-      <list name="dev_name_test">
-         <data type="string"> /tmp/data/smdcntl8 </data>
-      </list>
-
-      <list name="ch_name">
-         <data type="string"> DATA40_CNTL </data>
-      </list>
-
-      <list name="transport">
-         <data type="string"> LINUX_QMI_TRANSPORT_SMD </data>
-      </list>
-
-      <list name="enabled">
-         <data type="int"> 1 </data>
-      </list>
-
-      <list name="open_at_powerup">
-         <data type="int"> 0 </data>
-      </list>
-   </listitem>
-
-   <!-- SM6350 parameters -->
-   <listitem name = "lito">
+    <!-- sm7250 parameters(lito) -->
+    <listitem name = "lito">
       <data name="single_qmux_ch" type="int"> 1 </data>
       <data name="control_ports_len" type="int"> 1 </data>
       <data name="dpm_enabled" type="int"> 1 </data>
