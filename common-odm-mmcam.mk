@@ -1,5 +1,5 @@
 # MMCamera Framework
-ifneq ($(filter loire tone yoshino nile ganges seine,$(SOMC_PLATFORM)),)
+ifneq ($(filter nile ganges seine,$(SOMC_PLATFORM)),)
 PRODUCT_PACKAGES += \
     libflash_pmic \
     libmmcamera_dbg \
@@ -133,26 +133,7 @@ PRODUCT_PACKAGES += \
     libmmcamera_isp_wb40
 endif
 
-ifneq ($(filter loire tone,$(SOMC_PLATFORM)),)
-PRODUCT_PACKAGES += \
-    libactuator_lc898217 \
-    libactuator_lc898217xc \
-    libchromatix_imx214_common \
-    libchromatix_imx214_cpp_liveshot \
-    libchromatix_imx214_cpp_preview \
-    libchromatix_imx214_cpp_snapshot \
-    libchromatix_imx214_cpp_video \
-    libchromatix_imx214_liveshot \
-    libchromatix_imx214_postproc \
-    libchromatix_imx214_preview \
-    libchromatix_imx214_snapshot \
-    libchromatix_imx214_video \
-    libchromatix_imx214_default_preview_lc898217 \
-    libchromatix_imx214_default_video_lc898217 \
-    libmmcamera_imx214
-endif
-
-ifneq ($(filter yoshino nile,$(SOMC_PLATFORM)),)
+ifneq ($(filter nile,$(SOMC_PLATFORM)),)
 PRODUCT_PACKAGES += \
     libchromatix_imx219_common \
     libchromatix_imx219_cpp_liveshot \
@@ -169,42 +150,7 @@ PRODUCT_PACKAGES += \
     libmmcamera_imx219
 endif
 
-ifneq ($(filter loire,$(SOMC_PLATFORM)),)
-PRODUCT_PACKAGES += \
-    libchromatix_imx241_common \
-    libchromatix_imx241_cpp_liveshot \
-    libchromatix_imx241_cpp_preview \
-    libchromatix_imx241_cpp_snapshot \
-    libchromatix_imx241_cpp_video \
-    libchromatix_imx241_postproc \
-    libchromatix_imx241_liveshot \
-    libchromatix_imx241_preview \
-    libchromatix_imx241_snapshot \
-    libchromatix_imx241_video \
-    libchromatix_imx241_default_preview \
-    libchromatix_imx241_default_video \
-    libmmcamera_imx241
-endif
-
-ifneq ($(filter yoshino,$(SOMC_PLATFORM)),)
-PRODUCT_PACKAGES += \
-    libactuator_lc898217xc \
-    libchromatix_imx258_common \
-    libchromatix_imx258_cpp_liveshot \
-    libchromatix_imx258_cpp_preview \
-    libchromatix_imx258_cpp_snapshot \
-    libchromatix_imx258_cpp_video \
-    libchromatix_imx258_video \
-    libchromatix_imx258_liveshot \
-    libchromatix_imx258_postproc \
-    libchromatix_imx258_preview \
-    libchromatix_imx258_snapshot \
-    libchromatix_imx258_default_preview_lc898217 \
-    libchromatix_imx258_default_video_lc898217 \
-    libmmcamera_imx258
-endif
-
-ifneq ($(filter loire tone nile,$(SOMC_PLATFORM)),)
+ifneq ($(filter nile,$(SOMC_PLATFORM)),)
 PRODUCT_PACKAGES += \
     libactuator_bu64747BS4 \
     libchromatix_imx300_common \
@@ -220,24 +166,6 @@ PRODUCT_PACKAGES += \
     libchromatix_imx300_default_preview_bu64747 \
     libchromatix_imx300_default_video_bu64747 \
     libmmcamera_imx300
-endif
-
-ifneq ($(filter yoshino,$(SOMC_PLATFORM)),)
-PRODUCT_PACKAGES += \
-    libactuator_bu64747BS2 \
-    libchromatix_imx400_common \
-    libchromatix_imx400_cpp_liveshot \
-    libchromatix_imx400_cpp_preview \
-    libchromatix_imx400_cpp_snapshot \
-    libchromatix_imx400_cpp_video \
-    libchromatix_imx400_postproc \
-    libchromatix_imx400_liveshot \
-    libchromatix_imx400_preview \
-    libchromatix_imx400_snapshot \
-    libchromatix_imx400_video \
-    libchromatix_imx400_default_preview_bu64747 \
-    libchromatix_imx400_default_video_bu64747 \
-    libmmcamera_imx400
 endif
 
 ifneq ($(filter ganges seine,$(SOMC_PLATFORM)),)
