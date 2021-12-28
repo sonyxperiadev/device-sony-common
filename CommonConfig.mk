@@ -83,6 +83,11 @@ ifeq ($(TARGET_USES_GRALLOC1),true)
 SOONG_CONFIG_NAMESPACES += gralloc
 SOONG_CONFIG_gralloc := use_v1
 SOONG_CONFIG_gralloc_use_v1 := true
+else
+SOONG_CONFIG_NAMESPACES += qtidisplay
+SOONG_CONFIG_qtidisplay := drmpp gralloc4
+SOONG_CONFIG_qtidisplay_drmpp := true
+SOONG_CONFIG_qtidisplay_gralloc4 := true
 endif
 
 # Audio
