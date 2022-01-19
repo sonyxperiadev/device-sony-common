@@ -138,8 +138,16 @@ PRODUCT_PACKAGES += \
 
 # Only define bootctrl HAL availability on AB platforms:
 ifeq ($(AB_OTA_UPDATER),true)
+# Define HAL 1.0 for platforms reading it from GPT
+ifneq ($(filter lena, $(SOMC_PLATFORM)),)
+PRODUCT_PACKAGES += \
+    android.hardware.boot@1.0-impl \
+    android.hardware.boot@1.0-impl.recovery \
+    android.hardware.boot@1.0-service
+else
 PRODUCT_PACKAGES += \
     android.hardware.boot@1.1-impl \
     android.hardware.boot@1.1-impl.recovery \
     android.hardware.boot@1.1-service
+endif
 endif

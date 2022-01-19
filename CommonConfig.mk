@@ -223,6 +223,14 @@ ifneq ($(filter edo,$(SOMC_PLATFORM)),)
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.qti.hardware.camera.postproc.xml
 endif
 
+# Only define bootctrl HAL availability on AB platforms:
+ifeq ($(AB_OTA_UPDATER),true)
+# Define HAL 1.0 for platforms reading it from GPT
+ifneq ($(filter lena,$(SOMC_PLATFORM)),)
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.bootctrl_v1.0.xml
+endif
+endif
+
 # New vendor security patch level: https://r.android.com/660840/
 # Used by newer keymaster binaries
 VENDOR_SECURITY_PATCH=$(PLATFORM_SECURITY_PATCH)
