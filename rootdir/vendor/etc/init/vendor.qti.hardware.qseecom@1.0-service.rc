@@ -1,0 +1,7 @@
+on init
+    start qseecom-service
+
+service qseecom-service /odm/bin/hw/vendor.qti.hardware.qseecom@1.0-service
+    class hal
+    user system
+    group system drmrpc
