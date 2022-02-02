@@ -292,9 +292,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 ifeq ($(TARGET_KEYMASTER_V4),true)
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.keymaster.version=v4
-else
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.keymaster.version=v3
 endif
 
 # Reduce cost of scrypt for FBE CE decryption
