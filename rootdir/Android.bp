@@ -68,6 +68,13 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
+    name: "vendor.qti.hardware.qseecom@1.0-service.rc",
+    src: "vendor/etc/init/vendor.qti.hardware.qseecom@1.0-service.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
     name: "init.usb.rc",
     src: "vendor/etc/init/init.usb.rc",
     sub_dir: "init",
