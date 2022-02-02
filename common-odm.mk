@@ -23,6 +23,7 @@ PRODUCT_PACKAGES += \
 
 # Secure MSM
 PRODUCT_PACKAGES += \
+    vendor.qti.hardware.qseecom@1.0 \
     libkeymasterutils \
     qseecomd
 
@@ -109,6 +110,7 @@ PRODUCT_PACKAGES += \
     liblqe \
     libqdi \
     libqdp \
+    diag-router \
     adpl\
     qdi \
     netmgrd
