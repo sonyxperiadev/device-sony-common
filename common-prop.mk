@@ -288,12 +288,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.crypto.allow_encrypt_override=true
 
-# Keymaster version to differentiate between v3 and v4
-ifeq ($(TARGET_KEYMASTER_V4),true)
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.keymaster.version=v4
-endif
-
 # Reduce cost of scrypt for FBE CE decryption
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.crypto.scrypt_params=15:3:1
