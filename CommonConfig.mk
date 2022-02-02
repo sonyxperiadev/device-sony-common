@@ -211,10 +211,6 @@ DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.somc.modem.xml
 
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.cneservices.xml
 
-ifeq ($(TARGET_KEYMASTER_V4),true)
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hw.keymaster_v4.xml
-endif
-
 ifeq ($(TARGET_VIBRATOR_V1_2),true)
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.vibrator_v1.2.xml
 else
