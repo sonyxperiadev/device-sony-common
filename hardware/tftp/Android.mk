@@ -1,7 +1,5 @@
 LOCAL_PATH := $(call my-dir)
 
-ifneq ($(filter sdm660 msm8998 sdm845 sm6125 sm6350 sm8150 sm8250,$(TARGET_BOARD_PLATFORM)),)
-
 include $(SONY_CLEAR_VARS)
 LOCAL_MODULE := tftp_symlinks
 LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)
@@ -66,4 +64,3 @@ endif
 
 include $(SONY_BUILD_SYMLINKS)
 
-endif
