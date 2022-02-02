@@ -109,14 +109,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-service
 
-ifeq ($(TARGET_KEYMASTER_V4),true)
-# Keymaster 4 passthrough service init file
-# (executable is on odm)
-PRODUCT_PACKAGES += \
-    android.hardware.keymaster@4.0-service-qti.rc \
-    android.hardware.keymaster@4.1.vendor
-endif
-
 # SPU
 PRODUCT_PACKAGES += \
     android.hardware.authsecret@1.0.vendor
