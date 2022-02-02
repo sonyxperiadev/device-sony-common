@@ -115,10 +115,6 @@ ifeq ($(TARGET_KEYMASTER_V4),true)
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@4.0-service-qti.rc \
     android.hardware.keymaster@4.1.vendor
-else
-# Keymaster 3 passthrough service
-PRODUCT_PACKAGES += \
-    android.hardware.keymaster@3.0-service
 endif
 
 # SPU
