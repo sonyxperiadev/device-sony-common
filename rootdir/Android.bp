@@ -61,6 +61,13 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
+    name: "android.hardware.keymaster@4.1-service-qti.rc",
+    src: "vendor/etc/init/android.hardware.keymaster@4.1-service-qti.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
     name: "init.usb.rc",
     src: "vendor/etc/init/init.usb.rc",
     sub_dir: "init",
