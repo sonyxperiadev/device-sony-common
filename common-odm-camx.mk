@@ -1,17 +1,48 @@
 # CAMX Libs
 ifeq ($(filter loire tone yoshino nile ganges seine,$(SOMC_PLATFORM)),)
 PRODUCT_PACKAGES += \
-    libcamxexternalformatutils \
-    com.qti.node.swregistration \
-    com.qti.camx.chiiqutils \
-    libcom.qti.chinodeutils \
     libcamera_nn_stub \
+    libcamerapostproc \
+    libcamerapostproc.bitra \
+    libcamxexternalformatutils \
+    libcom.qti.chinodeutils \
+    com.qti.camx.chiiqutils \
     com.qti.chi.override \
     com.qti.chi.override.bitra \
+    com.qti.chiusecaseselector \
+    com.qti.feature2.anchorsync \
+    com.qti.feature2.demux \
+    com.qti.feature2.frameselect \
+    com.qti.feature2.fusion \
+    com.qti.feature2.generic \
+    com.qti.feature2.gs \
+    com.qti.feature2.hdr \
+    com.qti.feature2.memcpy \
+    com.qti.feature2.mfsr \
+    com.qti.feature2.qcfa \
+    com.qti.feature2.rawhdr \
+    com.qti.feature2.rt \
+    com.qti.feature2.serializer \
+    com.qti.feature2.stub \
+    com.qti.feature2.swmf \
+    com.qti.feature2.anchorsync.bitra \
+    com.qti.feature2.demux.bitra \
+    com.qti.feature2.frameselect.bitra \
+    com.qti.feature2.fusion.bitra \
+    com.qti.feature2.rt.bitra \
+    com.qti.feature2.memcpy.bitra \
+    com.qti.feature2.mfsr.bitra \
+    com.qti.feature2.qcfa.bitra \
+    com.qti.feature2.hdr.bitra \
+    com.qti.feature2.generic.bitra \
+    com.qti.feature2.rawhdr.bitra \
+    com.qti.feature2.serializer.bitra \
+    com.qti.feature2.stub.bitra \
+    com.qti.feature2.swmf.bitra \
+    com.qti.feature2.gs.bitra \
     com.qti.node.eisv2 \
     com.qti.node.eisv3 \
     com.qti.node.swregistration \
-    com.qti.camx.chiiqutils \
     com.qti.node.memcpy \
     com.qti.hvx.binning \
     com.qti.hvx.addconstant \
@@ -23,11 +54,16 @@ PRODUCT_PACKAGES += \
     com.qti.node.remosaic \
     com.qti.node.stich \
     com.qti.node.depth \
-    com.qti.tuned.default \
+    com.qti.settings.sm6350 \
+    com.qti.settings.sm8150 \
+    com.qti.settings.sm8250 \
+    com.qti.settings.sm8350 \
+    com.qti.stats.common \
     com.qti.stats.afd \
     com.qti.stats.afwrapper \
     com.qti.stats.awbwrapper \
     com.qti.stats.hafoverride \
+    com.qti.tuned.default \
     com.qtistatic.stats.aec \
     com.qtistatic.stats.af \
     com.qtistatic.stats.awb \
