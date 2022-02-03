@@ -138,3 +138,14 @@ PRODUCT_PACKAGES += \
     com.sony.eeprom.lena_uwide \
     com.sony.eeprom.lena_wide
 endif
+
+ifeq ($(SOMC_PLATFORM),sagami)
+PRODUCT_PACKAGES += \
+    com.sony.sensor.s5k3t2 \
+    com.sony.sensor.s5k4h7 \
+    com.sony.sensor.imx557 \
+    com.sony.sensor.imx663 \
+    com.sony.eeprom.hohgant_wide \
+    com.sony.eeprom.hohgant_uwide \
+    com.sony.eeprom.lohner
+endif
