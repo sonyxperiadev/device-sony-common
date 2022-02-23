@@ -147,5 +147,6 @@ PRODUCT_PACKAGES += \
     com.sony.sensor.imx663 \
     com.sony.eeprom.hohgant_wide \
     com.sony.eeprom.hohgant_uwide \
-    com.sony.eeprom.lohner
+    com.sony.eeprom.lohner \
+    com.sony.eeprom.rose_otp
 endif
