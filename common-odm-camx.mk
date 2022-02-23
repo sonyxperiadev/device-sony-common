@@ -16,6 +16,7 @@ PRODUCT_PACKAGES += \
     com.qti.feature2.fusion \
     com.qti.feature2.generic \
     com.qti.feature2.gs \
+    com.qti.feature2.gs.sm8350 \
     com.qti.feature2.hdr \
     com.qti.feature2.memcpy \
     com.qti.feature2.mfsr \
