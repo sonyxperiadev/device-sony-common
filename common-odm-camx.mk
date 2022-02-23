@@ -48,12 +48,12 @@ PRODUCT_PACKAGES += \
     com.qti.hvx.addconstant \
     com.qti.node.dummyrtb \
     com.qti.node.dummysat \
+    com.qti.node.depth \
     com.qti.node.fcv \
-    com.qti.node.stitch \
     com.qti.node.gpu \
     com.qti.node.remosaic \
     com.qti.node.stich \
-    com.qti.node.depth \
+    com.qti.node.swmctf \
     com.qti.settings.sm6350 \
     com.qti.settings.sm8150 \
     com.qti.settings.sm8250 \
