@@ -1,4 +1,3 @@
-ifneq ($(filter lena edo sagami,$(SOMC_PLATFORM)),)
 PRODUCT_CFI_INCLUDE_PATHS += \
     hardware/interfaces/camera\
     vendor/qcom/proprietary/camx \
@@ -16,5 +15,4 @@ PRODUCT_BOUNDS_INCLUDE_PATHS += \
     hardware/qcom \
     vendor/qcom/proprietary \
     vendor/qcom/opensource
-endif
 endif
