@@ -6,5 +6,5 @@ service vendor.qcrild /odm/bin/hw/qcrild
     capabilities BLOCK_SUSPEND NET_ADMIN NET_RAW
 
 on property:vendor.rild.libpath=/odm/lib64/libril-qc-hal-qmi.so
-    stop vendor.ril-daemon
+    stop ril-daemon
     enable vendor.qcrild
