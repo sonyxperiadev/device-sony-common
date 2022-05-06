@@ -50,16 +50,27 @@ PRODUCT_PACKAGES += \
     com.qti.node.dummyrtb \
     com.qti.node.dummysat \
     com.qti.node.depth \
+    com.qti.node.dewarp \
+    com.qti.node.formatconversion \
     com.qti.node.fcv \
     com.qti.node.gpu \
+    com.qti.node.ml \
     com.qti.node.remosaic \
     com.qti.node.stich \
+    com.qti.node.swaidenoiser \
+    com.qti.node.swbestats \
+    com.qti.node.swcac \
+    com.qti.node.swlsc \
     com.qti.node.swmctf \
+    com.qti.node.swmfnr \
+    com.qti.node.swpdpc \
+    com.qti.node.swpreprocess \
     com.qti.settings.sm6350 \
     com.qti.settings.sm8150 \
     com.qti.settings.sm8250 \
     com.qti.settings.sm8350 \
     com.qti.stats.common \
+    com.qti.stats.aecwrapper \
     com.qti.stats.afd \
     com.qti.stats.afwrapper \
     com.qti.stats.awbwrapper \
