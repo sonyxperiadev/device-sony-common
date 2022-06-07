@@ -7,10 +7,18 @@ on fs
     chmod 0664 /sys/class/power_supply/bms/charge_full
     chmod 0664 /sys/class/power_supply/bms/cycle_count
 
+# Wait for the battery to come online before starting health
+on property:vendor.qcom.adspup=1
+    wait /sys/class/power_supply/battery
+    enable vendor.health-hal-2-0
+
 service vendor.health-hal-2-0 /vendor/bin/hw/android.hardware.health@2.0-service.sony
-    interface android.hardware.health@2.0::IHealth default
+    # Don't lazy-start this HAL (following line commented out), so that we can coordinate
+    # the start of this service _after_ the battery sysfs entry is available.
+    # interface android.hardware.health@2.0::IHealth default
     class hal
     capabilities WAKE_ALARM
     user system
     group system
     file /dev/kmsg w
+    disabled
