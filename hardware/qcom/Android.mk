@@ -3,24 +3,17 @@ ifneq ($(wildcard device/sony/common/hardware/qcom/custom.mk),)
 else
 # Board platforms lists to be used for
 # TARGET_BOARD_PLATFORM specific featurization
-QCOM_BOARD_PLATFORMS += sdm660 sdm845 $(TRINKET) $(LITO) $(MSMNILE) $(KONA) $(LAHAINA) $(HOLI)
+QCOM_BOARD_PLATFORMS += sdm845 $(TRINKET) $(LITO) $(MSMNILE) $(KONA) $(LAHAINA) $(HOLI)
 
 # Some supported platforms need a different media hal
 # This list selects platforms that should use the latest media hal
 # All other platforms automatically fallback to the legacy hal
 QCOM_NEW_MEDIA_PLATFORM := sdm845 $(TRINKET) $(LITO) $(MSMNILE) $(KONA) $(LAHAINA)  $(HOLI)
 
-#List of targets that use video hw
-MSM_VIDC_TARGET_LIST := sdm660 sdm845 $(TRINKET) $(LITO) $(MSMNILE) $(KONA) $(LAHAINA)
-
 #List of targets that use master side content protection
-MASTER_SIDE_CP_TARGET_LIST := sdm660 sdm845 $(TRINKET) $(LITO) $(MSMNILE) $(KONA) $(LAHAINA) $(HOLI)
+MASTER_SIDE_CP_TARGET_LIST := sdm845 $(TRINKET) $(LITO) $(MSMNILE) $(KONA) $(LAHAINA) $(HOLI)
 
-ifneq ($(filter $(QCOM_NEW_MEDIA_PLATFORM), $(TARGET_BOARD_PLATFORM)),)
 QCOM_MEDIA_ROOT := vendor/qcom/opensource/media/sm8250
-else
-QCOM_MEDIA_ROOT := vendor/qcom/opensource/media/sdm660-libion
-endif
 
 OMX_VIDEO_PATH := mm-video-v4l2
 
