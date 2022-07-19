@@ -1,5 +1,5 @@
 # CAMX Libs
-ifeq ($(filter nile ganges seine,$(SOMC_PLATFORM)),)
+ifeq ($(filter seine,$(SOMC_PLATFORM)),)
 PRODUCT_PACKAGES += \
     libcamera_nn_stub \
     libcamerapostproc \
