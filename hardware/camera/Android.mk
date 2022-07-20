@@ -2,7 +2,7 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifeq ($(filter sdm660 sm6125,$(TARGET_BOARD_PLATFORM)),)
+ifeq ($(filter sdm660 $(TRINKET),$(TARGET_BOARD_PLATFORM)),)
 
 include $(SONY_CLEAR_VARS)
 LOCAL_MODULE := camera_symlinks
