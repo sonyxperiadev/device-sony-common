@@ -82,6 +82,12 @@ PRODUCT_PACKAGES += \
     libaudcal \
     libaudioalsa
 
+# FM
+PRODUCT_PACKAGES += \
+    vendor.qti.hardware.fm@1.0 \
+    fm_qsoc_patches \
+    ftm_fm_lib
+
 # Graphite
 PRODUCT_PACKAGES += \
     libgcs-calwrapper \
