@@ -42,6 +42,8 @@ on init
     start vendor.keymaster-3-0
     # Keymaster 4
     start vendor.keymaster-4-0
+    # Keymaster 4
+    start vendor.keymaster-4-1
     # Start vndservicemanager early
     start vndservicemanager
 
