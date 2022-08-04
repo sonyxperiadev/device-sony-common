@@ -118,6 +118,7 @@ PRODUCT_PACKAGES += \
     libqdi \
     libqdp \
     diag-router \
+    port-bridge \
     adpl\
     qdi \
     netmgrd
@@ -144,6 +145,7 @@ PRODUCT_PACKAGES += \
     libqmiservices_ext \
     libqrtr \
     libqsocket \
+    qmipriod \
     qti \
     qrtr-ns
 
@@ -154,13 +156,6 @@ PRODUCT_PACKAGES += \
 
 # IMS
 PRODUCT_PACKAGES += \
-    vendor.qti.hardware.data.lce@1.0 \
-    vendor.qti.hardware.data.flow@1.0 \
-    vendor.qti.hardware.data.dynamicdds@1.0 \
-    vendor.qti.hardware.data.dynamicdds@1.1 \
-    vendor.qti.ims.configservice@1.0 \
-    vendor.qti.latency@2.0 \
-    vendor.qti.latency@2.1 \
     libtime_genoff \
     qcrilhook \
     IWlanService \
@@ -191,6 +186,11 @@ PRODUCT_PACKAGES += \
     com.qualcomm.qti.uceservice@2.0 \
     com.qualcomm.qti.uceservice@2.1 \
     com.qualcomm.qti.uceservice@2.2 \
+    com.qualcomm.qti.uceservice@2.3 \
+    com.qualcomm.qti.uceservice-V2.0 \
+    com.qualcomm.qti.uceservice-V2.1 \
+    com.qualcomm.qti.uceservice-V2.2 \
+    com.qualcomm.qti.uceservice-V2.3 \
     com.qualcomm.qti.imscmservice@1.0 \
     com.qualcomm.qti.imscmservice@2.2 \
     vendor.qti.data.mwqem@1.0 \
@@ -198,17 +198,30 @@ PRODUCT_PACKAGES += \
     vendor.qti.data.factory@1.1 \
     vendor.qti.data.slm@1.0 \
     vendor.qti.hardware.data.connection@1.0 \
-    vendor.qti.hardware.data.latency@1.0 \
     vendor.qti.hardware.data.dynamicdds@1.0 \
+    vendor.qti.hardware.data.dynamicdds@1.1 \
+    vendor.qti.hardware.data.latency@1.0 \
+    vendor.qti.hardware.data.lce@1.0 \
+    vendor.qti.hardware.data.flow@1.0 \
     vendor.qti.hardware.data.qmi@1.0 \
     vendor.qti.hardware.radio.ims@1.0 \
+    vendor.qti.hardware.radio.ims@1.1 \
+    vendor.qti.hardware.radio.ims@1.2 \
+    vendor.qti.hardware.radio.ims@1.3 \
+    vendor.qti.hardware.radio.ims@1.4 \
+    vendor.qti.hardware.radio.ims@1.5 \
+    vendor.qti.hardware.radio.ims@1.6 \
+    vendor.qti.hardware.radio.ims@1.7 \
+    vendor.qti.hardware.radio.ims@1.8 \
     vendor.qti.ims.callcapability@1.0 \
     vendor.qti.ims.callinfo@1.0 \
+    vendor.qti.ims.configservice@1.0 \
     vendor.qti.ims.rcsconfig@1.1 \
     vendor.qti.ims.rcsconfig@2.1 \
     vendor.qti.imsrtpservice@1.0-service-Impl \
     vendor.qti.imsrtpservice@1.0 \
     vendor.qti.latency@2.0 \
+    vendor.qti.latency@2.1 \
     QtiTelephonyService \
     QtiTelephonyServicelibrary \
     uimgbalibrary \
@@ -257,6 +270,27 @@ PRODUCT_PACKAGES += \
 
 # Ril
 PRODUCT_PACKAGES += \
+    vendor.qti.hardware.radio.internal.deviceinfo@1.0 \
+    libqcrildatactl \
+    libqcrilDataModule \
+    libqcrilNrCellInfoModule \
+    libqcrilNrFramework \
+    libqcrilNrImsModule \
+    libqcrilNrLogger \
+    libqcrilNrPbmModule \
+    libqcrilNrQtiBus \
+    libqcrilNrQtiMutex \
+    libqcrilNrSmsModule \
+    libqcrilNr \
+    libqcrilNrSocketModule \
+    libqcrilNrVoiceModule \
+    qcrild_libqcrilnr \
+    qcrild_libqcrilnrutils \
+    qcrilInterfaces \
+    qcrilMarshal \
+    qcrilNrQmiModule \
+    vendor.qti.hardware.radio.qcrilhook@1.0 \
+    libqcrilNr \
     qcrilNrd
 
 PRODUCT_PACKAGES += \

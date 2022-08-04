@@ -1,3 +1,18 @@
+on boot
+    mkdir /dev/socket/qcrild 0750 radio radio
+
+service vendor.qcrilNrd /odm/bin/hw/qcrilNrd
+    class main
+    user radio
+    disabled
+    group radio cache inet misc audio log readproc wakelock
+    capabilities BLOCK_SUSPEND NET_ADMIN NET_RAW
+
+on property:vendor.rild.svc=qcrilNrd
+    stop vendor.ril-daemon
+    enable vendor.qcrilNrd
+
+# Legacy
 service vendor.qcrild /odm/bin/hw/qcrild
     class main
     user radio

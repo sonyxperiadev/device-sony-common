@@ -1,0 +1,7 @@
+service vendor.mstatdaemon /odm/bin/mstatdaemon
+    class main
+    user radio
+    group radio
+
+on boot
+    setprop vendor.mstatservice.enable 1

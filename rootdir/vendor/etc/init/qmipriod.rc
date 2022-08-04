@@ -1,0 +1,15 @@
+on post-fs-data
+    mkdir /data/vendor/qmipriod 0770 radio radio
+    chmod 0770 /data/vendor/qmipriod
+
+service vendor.qmipriod /odm/bin/qmipriod
+    class main
+    user radio
+    group radio
+    disabled
+
+on property:persist.vendor.data.qmipriod_load=1
+    start vendor.qmipriod
+
+on property:persist.vendor.data.qmipriod_load=0
+    stop vendor.qmipriod

@@ -1,4 +1,4 @@
-service vendor.qcrild2 /odm/bin/hw/qcrild -c 2
+service vendor.qcrilNrd2 /odm/bin/hw/qcrilNrd -c 2
     class main
     user radio
     disabled
@@ -7,4 +7,18 @@ service vendor.qcrild2 /odm/bin/hw/qcrild -c 2
 
 on property:persist.vendor.radio.multisim.config=dsds
     setprop persist.radio.multisim.config dsds
-    enable vendor.qcrild2
+
+on property:vendor.rild.svc=qcrilNrd
+    stop vendor.ril-daemon
+    enable vendor.qcrilNrd2
+
+# Legacy
+service vendor.qcrild2 /odm/bin/hw/qcrild -c 2
+    class main
+    user radio
+    disabled
+    group radio cache inet misc audio log readproc wakelock
+    capabilities BLOCK_SUSPEND NET_ADMIN NET_RAW
+
+on property:vendor.rild.libpath=/odm/lib64/libril-qc-hal-qmi.so
+     enable vendor.qcrild2

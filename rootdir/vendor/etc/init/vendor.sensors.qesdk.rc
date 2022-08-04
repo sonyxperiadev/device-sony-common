@@ -1,0 +1,5 @@
+service vendor.sensors.qesdk /vendor/bin/sensors-qesdk
+    class core
+    user system
+    group system wakelock
+    capabilities BLOCK_SUSPEND
