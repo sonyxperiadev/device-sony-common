@@ -143,6 +143,7 @@ PRODUCT_PACKAGES += \
 
 # RIL
 PRODUCT_PACKAGES += \
+    libqti_vndfwk_detect_vendor \
     libandroid_net \
     libprotobuf-cpp-full
 

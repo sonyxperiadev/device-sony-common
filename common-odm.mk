@@ -23,6 +23,7 @@ PRODUCT_PACKAGES += \
 
 # Secure MSM
 PRODUCT_PACKAGES += \
+    vendor.qti.qspmhal@1.0 \
     vendor.qti.hardware.qseecom@1.0 \
     libkeymasterutils \
     qseecomd
@@ -153,6 +154,14 @@ PRODUCT_PACKAGES += \
 
 # IMS
 PRODUCT_PACKAGES += \
+    vendor.qti.hardware.data.lce@1.0 \
+    vendor.qti.hardware.data.flow@1.0 \
+    vendor.qti.hardware.data.dynamicdds@1.0 \
+    vendor.qti.hardware.data.dynamicdds@1.1 \
+    vendor.qti.ims.configservice@1.0 \
+    vendor.qti.latency@2.0 \
+    vendor.qti.latency@2.1 \
+    libtime_genoff \
     qcrilhook \
     IWlanService \
     uceShimService \
@@ -247,6 +256,9 @@ PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-impl-qti
 
 # Ril
+PRODUCT_PACKAGES += \
+    qcrilNrd
+
 PRODUCT_PACKAGES += \
     qcrild \
     libril-qc-hal-qmi \
