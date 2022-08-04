@@ -1,0 +1,4 @@
+service vendor.modemManager /odm/bin/modemManager
+    class main
+    user radio
+    group radio

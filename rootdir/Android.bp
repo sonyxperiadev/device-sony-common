@@ -166,6 +166,13 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
+    name: "imsdaemon.rc",
+    src: "vendor/etc/init/imsdaemon.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
     name: "imsdatadaemon.rc",
     src: "vendor/etc/init/imsdatadaemon.rc",
     sub_dir: "init",
@@ -208,6 +215,13 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
+    name: "mdmmgr.rc",
+    src: "vendor/etc/init/mdmmgr.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
     name: "msm_irq.rc",
     src: "vendor/etc/init/msm_irq.rc",
     sub_dir: "init",
@@ -215,8 +229,22 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
+    name: "mstatdaemon.rc",
+    src: "vendor/etc/init/mstatdaemon.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
     name: "netmgrd.rc",
     src: "vendor/etc/init/netmgrd.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "port-bridge.rc",
+    src: "vendor/etc/init/port-bridge.rc",
     sub_dir: "init",
     vendor: true,
 }
@@ -320,6 +348,20 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
+    name: "qesdk-manager.rc",
+    src: "vendor/etc/init/qesdk-manager.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "qmipriod.rc",
+    src: "vendor/etc/init/qmipriod.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
     name: "rmt_storage.rc",
     src: "vendor/etc/init/rmt_storage.rc",
     sub_dir: "init",
@@ -336,6 +378,20 @@ prebuilt_etc {
 prebuilt_etc {
     name: "sensors.rc",
     src: "vendor/etc/init/sensors.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "vendor.sensors.qesdk.rc",
+    src: "vendor/etc/init/vendor.sensors.qesdk.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "shsusrd.rc",
+    src: "vendor/etc/init/shsusrd.rc",
     sub_dir: "init",
     vendor: true,
 }
