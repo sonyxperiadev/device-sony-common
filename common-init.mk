@@ -25,6 +25,7 @@ PRODUCT_PACKAGES += \
     dataqti.rc \
     dpmQmiMgr.rc \
     dpmd.rc \
+    imsdaemon.rc \
     imsdatadaemon.rc \
     imsqmidaemon.rc \
     imsrcsd.rc \
@@ -32,16 +33,23 @@ PRODUCT_PACKAGES += \
     irsc_util.rc \
     mlog_qmi.rc \
     mdm_helper.rc \
+    mdmmgr.rc \
     msm_irq.rc \
+    mstatdaemon.rc \
     netmgrd.rc \
     pd_mapper.rc \
     per-proxy.rc \
     per-service.rc \
+    port-bridge.rc \
     qrtr.rc \
+    qmipriod.rc \
+    qesdk-manager.rc \
     qseecom.rc \
     rmt_storage.rc \
     sct_service.rc \
+    shsusrd.rc \
     sensors.rc \
+    vendor.sensors.qesdk.rc \
     ta_qmi.rc \
     tftp_server.rc \
     vendor.qti.diag.rc \

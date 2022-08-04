@@ -1,0 +1,12 @@
+on boot
+    mkdir /dev/socket/port-bridge 0750 radio radio
+
+on post-fs-data
+    mkdir /data/vendor/port_bridge 0770 radio radio
+    chmod 0770 /data/vendor/port_bridge
+
+service vendor.port-bridge /odm/bin/port-bridge
+    class main
+    user radio
+    group radio system inet
+    oneshot
