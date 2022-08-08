@@ -75,6 +75,13 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
+    name: "vendor.qti.diag.rc",
+    src: "vendor/etc/init/vendor.qti.diag.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
     name: "init.usb.rc",
     src: "vendor/etc/init/init.usb.rc",
     sub_dir: "init",
