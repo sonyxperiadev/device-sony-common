@@ -44,6 +44,7 @@ PRODUCT_PACKAGES += \
     sensors.rc \
     ta_qmi.rc \
     tftp_server.rc \
+    vendor.qti.diag.rc \
     wpa_supplicant.rc
 
 # RIL
