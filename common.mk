@@ -43,9 +43,6 @@ PRODUCT_ENFORCE_RRO_TARGETS := *
 
 PRODUCT_DEXPREOPT_SPEED_APPS += SystemUI
 
-# Google GSI public keys for /avb
-# Needed for official GSIs while maintaining AVB and vbmeta.
-$(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_release.mk)
 ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
 # Developer GSI images
 # https://developer.android.com/topic/generic-system-image/releases
