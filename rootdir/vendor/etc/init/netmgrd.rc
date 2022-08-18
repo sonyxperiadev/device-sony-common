@@ -17,4 +17,4 @@ service vendor.netmgrd /odm/bin/netmgrd
     class main
 
 on property:ro.baseband=apq
-    disable vendor.netmgrd
+    stop vendor.netmgrd
