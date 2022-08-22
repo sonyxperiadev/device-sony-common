@@ -5,6 +5,8 @@ ifneq (,$(SONY_BUILD_ODM))
 
 PRODUCT_VENDOR_MOVE_ENABLED := true
 
+TARGET_USES_NO_DMS_QMI_CLIENT := true
+
 # Set this flag to true to build the ODM image
 PRODUCT_BUILD_ODM_IMAGE := true
 TARGET_COPY_OUT_ODM := odm
