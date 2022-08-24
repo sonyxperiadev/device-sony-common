@@ -1,0 +1,4 @@
+service vendor.keymint-qti /odm/bin/hw/android.hardware.security.keymint-service-qti
+    class early_hal
+    user system
+    group system drmrpc
