@@ -12,12 +12,22 @@ on post-fs
     mount none /odm/system_ext/lib64/libcdsprpc_system.so /system/system_ext/lib64/libcdsprpc_system.so bind rec
     mount none /odm/system_ext/lib64/libmdsprpc_system.so /system/system_ext/lib64/libmdsprpc_system.so bind rec
     mount none /odm/system_ext/lib64/libsdsprpc_system.so /system/system_ext/lib64/libsdsprpc_system.so bind rec
+    mount none /odm/system_ext/lib64/libdiag_system.so /system/system_ext/lib64/libdiag_system.so
+    mount none /odm/system_ext/lib64/libgralloc.qti.so /system/system_ext/lib64/libgralloc.qti.so
+    mount none /odm/system_ext/lib64/libimscamera_jni.so /system/system_ext/lib64/libimscamera_jni.so
+    mount none /odm/system_ext/lib64/libimsmedia_jni.so /system/system_ext/lib64/libimsmedia_jni.so
+    mount none /odm/system_ext/lib64/libqdMetaData.so /system/system_ext/lib64/libqdMetaData.so
 
     # Frameworks
     mount none /odm/system_ext/framework/com.qti.dpmframework.jar /system/system_ext/framework/com.qti.dpmframework.jar bind rec
     mount none /odm/system_ext/framework/com.qualcomm.qti.imscmservice-V2.0-java.jar /system/system_ext/framework/com.qualcomm.qti.imscmservice-V2.0-java.jar bind rec
     mount none /odm/system_ext/framework/com.qualcomm.qti.imscmservice-V2.1-java.jar /system/system_ext/framework/com.qualcomm.qti.imscmservice-V2.1-java.jar bind rec
     mount none /odm/system_ext/framework/com.qualcomm.qti.imscmservice-V2.2-java.jar /system/system_ext/framework/com.qualcomm.qti.imscmservice-V2.2-java.jar bind rec
+    mount none /odm/system_ext/framework/com.qualcomm.qti.uceservice-V2.0-java.jar /system/system_ext/framework/com.qualcomm.qti.uceservice-V2.0-java.jar bind rec
+    mount none /odm/system_ext/framework/com.qualcomm.qti.uceservice-V2.1-java.jar /system/system_ext/framework/com.qualcomm.qti.uceservice-V2.1-java.jar bind rec
+    mount none /odm/system_ext/framework/com.qualcomm.qti.uceservice-V2.2-java.jar /system/system_ext/framework/com.qualcomm.qti.uceservice-V2.2-java.jar bind rec
+    mount none /odm/system_ext/framework/com.qualcomm.qti.uceservice-V2.3-java.jar /system/system_ext/framework/com.qualcomm.qti.uceservice-V2.3-java.jar bind rec
+    mount none /odm/system_ext/framework/qmapbridge.jar /system/system_ext/framework/qmapbridge.jar bind rec
     mount none /odm/system_ext/framework/dpmapi.jar /system/system_ext/framework/dpmapi.jar bind rec
     mount none /odm/system_ext/framework/embmslibrary.jar /system/system_ext/framework/embmslibrary.jar bind rec
     mount none /odm/system_ext/framework/ims-ext-common.jar /system/system_ext/framework/ims-ext-common.jar bind rec
@@ -37,3 +47,4 @@ on post-fs
     mount none /odm/system_ext/framework/vendor.qti.hardware.data.connection-V1.1-java.jar /system/system_ext/framework/vendor.qti.hardware.data.connection-V1.1-java.jar bind rec
     mount none /odm/system_ext/framework/vendor.qti.hardware.data.dynamicdds-V1.0-java.jar /system/system_ext/framework/vendor.qti.hardware.data.dynamicdds-V1.0-java.jar bind rec
     mount none /odm/system_ext/framework/vendor.qti.ims.rcsconfig-V1.0-java.jar /system/system_ext/framework/vendor.qti.ims.rcsconfig-V1.0-java.jar bind rec
+    mount none /odm/system_ext/framework/vendor.qti.ims.callinfo-V1.0-java.jar /system/system_ext/framework/vendor.qti.ims.callinfo-V1.0-java.jar bind rec
