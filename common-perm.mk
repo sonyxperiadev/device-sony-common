@@ -58,10 +58,6 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/system/system_ext/etc/permissions/ims_permissions.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/ims_permissions.xml \
     $(COMMON_PATH)/rootdir/system/system_ext/etc/permissions/privapp-permissions-ims.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/privapp-permissions-ims.xml
 
-# Transmit power
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/vendor/etc/permissions/privapp-permissions-transmitpower.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/privapp-permissions-transmitpower.xml
-
 # Extended Settings
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/vendor/etc/permissions/privapp-permissions-extendedsettings.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/privapp-permissions-extendedsettings.xml
