@@ -83,6 +83,10 @@ on boot
     write /sys/class/udc/${sys.usb.controller}/device/../mode peripheral
     setprop vendor.sys.usb.configfs 1
 
+on property:=ro.boot.usb.dwc3=*
+    wait /sys/bus/platform/devices/${ro.boot.usb.dwc3}/mode
+    write /sys/bus/platform/devices/${ro.boot.usb.dwc3}/mode peripheral
+
 # USB compositions
 #
 # Following are the triggers to configure various
