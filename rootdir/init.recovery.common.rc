@@ -1,7 +1,6 @@
 on init
     # USB setup
     setprop sys.usb.configfs 1
-    write /sys/class/udc/${sys.usb.controller}/device/../mode peripheral
 
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
