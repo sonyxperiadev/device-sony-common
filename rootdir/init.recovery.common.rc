@@ -10,3 +10,7 @@ on fs
 # Set idVendor as Sony for all USB configurations
 on property:sys.usb.config=*
     write /config/usb_gadget/g1/idVendor 0x0fce
+
+on property:=ro.boot.usb.dwc3=*
+    wait /sys/bus/platform/devices/${ro.boot.usb.dwc3}/mode
+    write /sys/bus/platform/devices/${ro.boot.usb.dwc3}/mode peripheral
