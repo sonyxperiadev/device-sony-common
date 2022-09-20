@@ -52,8 +52,7 @@ PRODUCT_PACKAGES += \
     vendor.sensors.qesdk.rc \
     ta_qmi.rc \
     tftp_server.rc \
-    vendor.qti.diag.rc \
-    wpa_supplicant.rc
+    vendor.qti.diag.rc
 
 # RIL
 PRODUCT_PACKAGES += \

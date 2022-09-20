@@ -425,13 +425,6 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
-    name: "wpa_supplicant.rc",
-    src: "vendor/etc/init/wpa_supplicant.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
     name: "vendor.somc.hardware.miscta@1.0-service.rc",
     src: "vendor/etc/init/vendor.somc.hardware.miscta@1.0-service.rc",
     sub_dir: "init",
