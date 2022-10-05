@@ -1,0 +1,6 @@
+prebuilt_hidl_interfaces {
+    name: "hidl_modemswitcher_interface",
+    interfaces: [
+        "vendor.somc.hardware.modemswitcher@1.0::IModemSwitcher",
+    ],
+}
