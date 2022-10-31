@@ -1,0 +1,14 @@
+{
+  "config":{
+    "hw_platform": ["MTP", "Surf", "RCM", "QRD", "HDK"],
+    "soc_id": ["457", "482", "552"]
+  },
+
+  "sns_dynamic_libraries":
+  {
+    "owner": "dynamic_sensor",
+    "detect_on_every_boot":{ "type": "int", "ver": "0",
+        "data": "0"
+    }
+  }
+}
