@@ -1,0 +1,123 @@
+{
+  "config":{
+    "hw_platform": ["MTP", "Surf", "QRD"],
+    "soc_id": ["457"]
+  },
+  "stk3x3x_0_platform":{
+    "owner": "sns_stk3x3x",
+    ".config":{
+      "owner": "sns_stk3x3x",
+      "bus_type":{ "type": "int", "ver": "0",
+        "data": "0"
+      },
+      "bus_instance":{ "type": "int", "ver": "0",
+        "data": "2"
+      },
+      "slave_config":{ "type": "int", "ver": "0",
+        "data": "103"
+      },
+      "min_bus_speed_khz":{ "type": "int", "ver": "0",
+        "data": "400"
+      },
+      "max_bus_speed_khz":{ "type": "int", "ver": "0",
+        "data": "400"
+      },
+      "reg_addr_type":{ "type": "int", "ver": "0",
+        "data": "0"
+      },
+      "dri_irq_num":{ "type": "int", "ver": "0",
+        "data": "14"
+      },
+      "irq_pull_type":{ "type": "int", "ver": "0",
+        "data": "0"
+      },
+      "irq_is_chip_pin":{ "type": "int", "ver": "0",
+        "data": "1"
+      },
+      "irq_drive_strength":{ "type": "int", "ver": "0",
+        "data": "0"
+      },
+      "irq_trigger_type":{ "type": "int", "ver": "0",
+        "data": "1"
+      },
+      "num_rail":{ "type": "int", "ver": "0",
+        "data": "2"
+      },
+      "rail_on_state":{ "type": "int", "ver": "0",
+        "data": "2"
+      },
+      "vdd_rail":{ "type": "str", "ver": "0",
+        "data": "/pmic/client/sensor_vdd"
+      },
+      "vddio_rail":{ "type": "str", "ver": "0",
+        "data": "/pmic/client/sensor_vddio"
+      },
+      "rigid_body_type":{ "type": "int", "ver": "0",
+      "data": "0"
+      }
+    },
+    ".als":{
+      "owner": "sns_stk3x3x",
+      ".fac_cal":{
+        "owner": "sns_stk3x3x",
+        "scale":{ "type": "flt", "ver": "0",
+          "data": "1.06698"
+        },
+        "bias":{ "type": "flt", "ver": "0",
+          "data": "5000.0"
+        }
+      }
+    },
+    ".ps":{
+      "owner": "sns_stk3x3x",
+      ".fac_cal":{
+        "owner": "sns_stk3x3x",
+        "near_threshold":{ "type": "flt", "ver": "0",
+          "data": "7000.0"
+        },
+        "far_threshold":{ "type": "flt", "ver": "0",
+          "data": "6900.0"
+        },
+        "ctir_config":{ "type": "flt", "ver": "0",
+          "data": "0.0"
+        }
+      }
+    },
+    ".somc_config":{
+      "owner": "sns_stk3x3x",
+      "max_min_diff":{ "type": "int", "ver": "0",
+        "data": "480"
+      },
+      "recal_low_threshold":{ "type": "int", "ver": "0",
+        "data": "110"
+      },
+      "recal_high_threshold":{ "type": "int", "ver": "0",
+        "data": "230"
+      },
+      "prox_tune0_time":{ "type": "int", "ver": "0",
+        "data": "100"
+      },
+      "smudge_diff":{ "type": "int", "ver": "0",
+        "data": "7000"
+      },
+      "smudge_low_threshold":{ "type": "int", "ver": "0",
+        "data": "1200"
+      },
+      "smudge_high_threshold":{ "type": "int", "ver": "0",
+        "data": "1800"
+      },
+      "prox_bgir_threshold":{ "type": "int", "ver": "0",
+        "data": "100"
+      },
+      "als_thd_adj":{ "type": "int", "ver": "0",
+        "data": "2"
+      },
+      "tracking_quanti":{ "type": "int", "ver": "0",
+        "data": "40"
+      },
+      "prst_ps":{ "type": "int", "ver": "0",
+        "data": "0"
+      }
+    }
+  }
+}

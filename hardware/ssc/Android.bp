@@ -700,3 +700,189 @@ prebuilt_etc {
     sub_dir: "sensors/config",
     vendor: true,
 }
+prebuilt_etc {
+    name: "waipio_ak991x_0.json",
+    src: "config/waipio_ak991x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "waipio_bmp380_0.json",
+    src: "config/waipio_bmp380_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "waipio_bu52053nvx_0.json",
+    src: "config/waipio_bu52053nvx_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "waipio_default_sensors.json",
+    src: "config/waipio_default_sensors.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "waipio_dynamic_sensors.json",
+    src: "config/waipio_dynamic_sensors.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "waipio_hdk_ak991x_0.json",
+    src: "config/waipio_hdk_ak991x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "waipio_hdk_lps22hh_0.json",
+    src: "config/waipio_hdk_lps22hh_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "waipio_hdk_lsm6dst_0.json",
+    src: "config/waipio_hdk_lsm6dst_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "waipio_hdk_lsm6dst_1.json",
+    src: "config/waipio_hdk_lsm6dst_1.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "waipio_hdk_tmd3702_0.json",
+    src: "config/waipio_hdk_tmd3702_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "waipio_irq.json",
+    src: "config/waipio_irq.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "waipio_lps22hh_0.json",
+    src: "config/waipio_lps22hh_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "waipio_lsm6dso_0.json",
+    src: "config/waipio_lsm6dso_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "waipio_lsm6dst_0.json",
+    src: "config/waipio_lsm6dst_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "waipio_lsm6dst_1.json",
+    src: "config/waipio_lsm6dst_1.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "waipio_mtp_ak991x_0.json",
+    src: "config/waipio_mtp_ak991x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "waipio_mtp_lsm6dst_0.json",
+    src: "config/waipio_mtp_lsm6dst_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "waipio_mtp_lsm6dst_1.json",
+    src: "config/waipio_mtp_lsm6dst_1.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "waipio_power_0.json",
+    src: "config/waipio_power_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "waipio_qrd_ak991x_0.json",
+    src: "config/waipio_qrd_ak991x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "waipio_qrd_lps22hh_0.json",
+    src: "config/waipio_qrd_lps22hh_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "waipio_qrd_lsm6dst_0.json",
+    src: "config/waipio_qrd_lsm6dst_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "waipio_qrd_sx932x_0.json",
+    src: "config/waipio_qrd_sx932x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "waipio_qrd_tmd3702_0.json",
+    src: "config/waipio_qrd_tmd3702_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "waipio_shtw2_0.json",
+    src: "config/waipio_shtw2_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "waipio_stk3x3x_0.json",
+    src: "config/waipio_stk3x3x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "waipio_sx932x_0.json",
+    src: "config/waipio_sx932x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "waipio_tmd3702_0.json",
+    src: "config/waipio_tmd3702_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "waipio_vertigo_ak991x_0.json",
+    src: "config/waipio_vertigo_ak991x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "waipio_vertigo_lsm6dst_0.json",
+    src: "config/waipio_vertigo_lsm6dst_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "waipio_vertigo_lsm6dst_1.json",
+    src: "config/waipio_vertigo_lsm6dst_1.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
