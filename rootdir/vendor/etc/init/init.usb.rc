@@ -80,11 +80,9 @@ on boot
     mount functionfs adb /dev/usb-ffs/adb rmode=0770,fmode=0660,uid=2000,gid=2000
     mount functionfs mtp /dev/usb-ffs/mtp rmode=0770,fmode=0660,uid=1024,gid=1024,no_disconnect=1
     mount functionfs ptp /dev/usb-ffs/ptp rmode=0770,fmode=0660,uid=1024,gid=1024,no_disconnect=1
-    setprop vendor.sys.usb.configfs 1
-
-on property:=ro.boot.usb.dwc3=*
     wait /sys/bus/platform/devices/${ro.boot.usb.dwc3}/mode
     write /sys/bus/platform/devices/${ro.boot.usb.dwc3}/mode peripheral
+    setprop vendor.sys.usb.configfs 1
 
 # USB compositions
 #
