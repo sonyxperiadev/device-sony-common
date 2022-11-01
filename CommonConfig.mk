@@ -208,6 +208,10 @@ DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.radio_ss.xml
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.qtiradio_ds.xml
 endif
 
+ifneq ($(filter 4.19 5.4, $(SOMC_KERNEL_VERSION)),)
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.memtrack.xml
+endif
+
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.radio.config.xml
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.radio.ims.xml
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.radio.internal.xml
