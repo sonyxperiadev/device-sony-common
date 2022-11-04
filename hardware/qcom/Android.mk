@@ -3,15 +3,15 @@ ifneq ($(wildcard device/sony/common/hardware/qcom/custom.mk),)
 else
 # Board platforms lists to be used for
 # TARGET_BOARD_PLATFORM specific featurization
-QCOM_BOARD_PLATFORMS += sdm845 $(TRINKET) $(LITO) $(MSMNILE) $(KONA) $(LAHAINA) $(HOLI)
+QCOM_BOARD_PLATFORMS += sdm845 $(TRINKET) $(LITO) $(MSMNILE) $(KONA) $(LAHAINA) $(HOLI) $(TARO)
 
 # Some supported platforms need a different media hal
 # This list selects platforms that should use the latest media hal
 # All other platforms automatically fallback to the legacy hal
-QCOM_NEW_MEDIA_PLATFORM := sdm845 $(TRINKET) $(LITO) $(MSMNILE) $(KONA) $(LAHAINA)  $(HOLI)
+QCOM_NEW_MEDIA_PLATFORM := sdm845 $(TRINKET) $(LITO) $(MSMNILE) $(KONA) $(LAHAINA)  $(HOLI) $(TARO)
 
 #List of targets that use master side content protection
-MASTER_SIDE_CP_TARGET_LIST := sdm845 $(TRINKET) $(LITO) $(MSMNILE) $(KONA) $(LAHAINA) $(HOLI)
+MASTER_SIDE_CP_TARGET_LIST := sdm845 $(TRINKET) $(LITO) $(MSMNILE) $(KONA) $(LAHAINA) $(HOLI) $(TARO)
 
 QCOM_MEDIA_ROOT := vendor/qcom/opensource/media/sm8250
 
