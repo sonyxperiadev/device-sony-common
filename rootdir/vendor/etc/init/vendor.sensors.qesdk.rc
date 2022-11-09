@@ -1,4 +1,4 @@
-service vendor.sensors.qesdk /vendor/bin/sensors-qesdk
+service vendor.sensors.qesdk /odm/bin/sensors-qesdk
     class core
     user system
     group system wakelock
