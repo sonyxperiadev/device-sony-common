@@ -27,6 +27,7 @@ PRODUCT_PACKAGES += \
     audio.hearing_aid.default \
     audio.r_submix.default \
     audio.usb.default \
+    audioadsprpcd \
     libaudio-resampler
 
 # For audio.primary
