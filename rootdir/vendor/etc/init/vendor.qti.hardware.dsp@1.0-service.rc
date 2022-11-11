@@ -1,0 +1,6 @@
+service vendor.dspservice /odm/bin/dspservice
+	class hal
+	user system
+	group system wakelock
+	capabilities BLOCK_SUSPEND
+	interface vendor.qti.hardware.dsp@1.0::IDspService dspservice

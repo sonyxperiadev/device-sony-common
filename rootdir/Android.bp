@@ -397,6 +397,13 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
+    name: "vendor.qti.hardware.dsp@1.0-service.rc",
+    src: "vendor/etc/init/vendor.qti.hardware.dsp@1.0-service.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
     name: "shsusrd.rc",
     src: "vendor/etc/init/shsusrd.rc",
     sub_dir: "init",
