@@ -198,6 +198,11 @@ endif
 # Dynamic Power Management
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.qualcomm.qti.dpm.xml
 
+# DSP service
+ifeq ($(TARGET_USES_DSP_SERVICE),true)
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.qti.hardware.dsp.xml
+endif
+
 ifeq ($(PRODUCT_DEVICE_DS),true)
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hw.qcradio_ds.xml
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.radio_ds.xml
