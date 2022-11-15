@@ -17,6 +17,7 @@ PRODUCT_PACKAGES += \
     com.qti.feature2.generic \
     com.qti.feature2.gs \
     com.qti.feature2.gs.sm8350 \
+    com.qti.feature2.gs.sm8450 \
     com.qti.feature2.hdr \
     com.qti.feature2.memcpy \
     com.qti.feature2.mfsr \
@@ -69,6 +70,7 @@ PRODUCT_PACKAGES += \
     com.qti.settings.sm8150 \
     com.qti.settings.sm8250 \
     com.qti.settings.sm8350 \
+    com.qti.settings.sm8450 \
     com.qti.stats.common \
     com.qti.stats.aecwrapper \
     com.qti.stats.afd \
@@ -85,6 +87,9 @@ PRODUCT_PACKAGES += \
     fdconfigpreviewlite \
     fdconfigvideo \
     fdconfigvideolite \
+    vendor.qti.hardware.camera.aon@1.0-service-impl \
+    vendor.qti.hardware.camera.aom@1.0 \
+    vendor.qti.hardware.camera.postproc@1.0 \
     camera.qcom
 endif
 
@@ -161,4 +166,17 @@ PRODUCT_PACKAGES += \
     com.sony.eeprom.hohgant_uwide \
     com.sony.eeprom.lohner \
     com.sony.eeprom.rose_otp
+endif
+
+
+ifeq ($(SOMC_PLATFORM),nagara)
+PRODUCT_PACKAGES += \
+    com.sony.sensor.imx557 \
+    com.sony.sensor.imx563 \
+    com.sony.sensor.imx650 \
+    com.sony.sensor.imx663 \
+    com.sony.eeprom.castore_wide \
+    com.sony.eeprom.castore_uwide \
+    com.sony.eeprom.crocus \
+    com.sony.eeprom.camino_tele
 endif
