@@ -69,6 +69,11 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.5-service
 endif
 
+# External Camera
+PRODUCT_PACKAGES += \
+    android.hardware.camera.provider@2.5-external \
+    android.hardware.camera.provider@2.5-external-service
+
 # Wi-Fi
 PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service \
