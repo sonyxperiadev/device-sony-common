@@ -61,12 +61,12 @@ PRODUCT_PACKAGES += \
     android.frameworks.sensorservice@1.0.vendor
 ifeq ($(TARGET_USES_64BIT_CAMERA),true)
 PRODUCT_PACKAGES += \
-    android.hardware.camera.provider@2.4-impl:64 \
-    android.hardware.camera.provider@2.4-service_64
+    android.hardware.camera.provider@2.5-impl:64 \
+    android.hardware.camera.provider@2.5-service_64
 else
 PRODUCT_PACKAGES += \
-    android.hardware.camera.provider@2.4-impl:32 \
-    android.hardware.camera.provider@2.4-service
+    android.hardware.camera.provider@2.5-impl:32 \
+    android.hardware.camera.provider@2.5-service
 endif
 
 # Wi-Fi
