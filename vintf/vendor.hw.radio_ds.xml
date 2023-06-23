@@ -20,8 +20,8 @@
     <hal format="hidl">
         <name>vendor.qti.hardware.radio.lpa</name>
         <transport>hwbinder</transport>
-        <fqname>@1.1::IUimLpa/UimLpa0</fqname>
-        <fqname>@1.1::IUimLpa/UimLpa1</fqname>
+        <fqname>@1.2::IUimLpa/UimLpa0</fqname>
+        <fqname>@1.2::IUimLpa/UimLpa1</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.qti.hardware.radio.qcrilhook</name>
