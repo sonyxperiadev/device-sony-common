@@ -158,6 +158,9 @@ PRODUCT_PACKAGES += \
 
 # IMS
 PRODUCT_PACKAGES += \
+    vendor.qti.ims.configservice@1.0 \
+    vendor.qti.ims.configservice@1.1 \
+    libmmosal \
     libtime_genoff \
     qcrilhook \
     IWlanService \

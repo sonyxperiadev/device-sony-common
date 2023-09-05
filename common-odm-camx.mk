@@ -182,3 +182,8 @@ PRODUCT_PACKAGES += \
     com.sony.eeprom.crocus \
     com.sony.eeprom.camino_tele
 endif
+
+ifeq ($(SOMC_PLATFORM),murray)
+PRODUCT_PACKAGES += \
+    com.sony.eeprom.murray_front
+endif
