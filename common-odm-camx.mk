@@ -16,6 +16,7 @@ PRODUCT_PACKAGES += \
     com.qti.feature2.fusion \
     com.qti.feature2.generic \
     com.qti.feature2.gs \
+    com.qti.feature2.gs.sm6375 \
     com.qti.feature2.gs.sm8350 \
     com.qti.feature2.gs.sm8450 \
     com.qti.feature2.hdr \
@@ -67,6 +68,7 @@ PRODUCT_PACKAGES += \
     com.qti.node.swpdpc \
     com.qti.node.swpreprocess \
     com.qti.settings.sm6350 \
+    com.qti.settings.sm6375 \
     com.qti.settings.sm8150 \
     com.qti.settings.sm8250 \
     com.qti.settings.sm8350 \
