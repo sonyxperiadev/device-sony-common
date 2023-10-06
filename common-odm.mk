@@ -277,6 +277,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.radio.internal.deviceinfo@1.0 \
     libqcrildatactl \
+    libqcrildataqos \
     libqcrilDataModule \
     libqcrilNrCellInfoModule \
     libqcrilNrFramework \
