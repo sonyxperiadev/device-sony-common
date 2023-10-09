@@ -195,9 +195,6 @@ else
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.secure_element_ss.xml
 endif
 
-# Dynamic Power Management
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.qualcomm.qti.dpm.xml
-
 # DSP service
 ifeq ($(TARGET_USES_DSP_SERVICE),true)
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.qti.hardware.dsp.xml
