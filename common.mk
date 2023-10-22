@@ -48,6 +48,10 @@ DEVICE_PACKAGE_OVERLAYS += $(COMMON_PATH)/overlay
 
 PRODUCT_ENFORCE_RRO_TARGETS := *
 
+# Wifi
+PRODUCT_PACKAGES += \
+    WifiResCommon
+
 PRODUCT_DEXPREOPT_SPEED_APPS += SystemUI
 
 # Google GSI public keys for /avb
