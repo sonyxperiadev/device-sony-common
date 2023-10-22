@@ -122,25 +122,8 @@
          Wifi interfaces.  If the device doesn't want to support tethering over Wifi this
          should be empty.  An example would be "softap.*" -->
     <string-array translatable="false" name="config_tether_wifi_regexs">
-        <item>"wlan0"</item>
+        <item>"wlan\\d"</item>
     </string-array>
-
-    <!-- Enable ACS (auto channel selection) for Wifi hotspot (SAP) -->
-    <bool translatable="false" name="config_wifi_softap_acs_supported">true</bool>
-
-    <!-- Channel list restriction to Automatic channel selection (ACS) for softap. If the device
-         doesn't want to restrict channels this should be empty. Value is a comma separated channel
-         string and/or channel range string like '1-6,11' -->
-    <string translatable="false" name="config_wifi_softap_acs_supported_channel_list"></string>
-
-    <!-- Enable 802.11ac for Wifi hotspot (SAP) -->
-    <bool translatable="false" name="config_wifi_softap_ieee80211ac_supported">true</bool>
-
-    <!-- Boolean indicating whether the wifi chipset has dual frequency band support -->
-    <bool translatable="false" name="config_wifi_dual_band_support">true</bool>
-
-    <!-- Boolean indicating whether the wifi chipset has background scan support -->
-    <bool translatable="false" name="config_wifi_background_scan_support">true</bool>
 
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
          bluetooth interfaces.  If the device doesn't want to support tethering over bluetooth this
@@ -368,5 +351,4 @@
     <string name="config_wlan_data_service_package">vendor.qti.iwlan</string>
     <string name="config_wlan_network_service_package">vendor.qti.iwlan</string>
     <string name="config_qualified_networks_service_package">vendor.qti.iwlan</string>
-
 </resources>
