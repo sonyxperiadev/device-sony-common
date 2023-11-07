@@ -193,3 +193,14 @@ PRODUCT_PACKAGES += \
     com.sony.sensor.hi847 \
     com.sony.sensor.imx486
 endif
+
+ifeq ($(SOMC_PLATFORM),zembezi)
+PRODUCT_PACKAGES += \
+    com.sony.eeprom.zambezi_front \
+    com.sony.eeprom.zambezi_tele \
+    com.sony.eeprom.zambezi_uwide \
+    com.sony.eeprom.zambezi_wide \
+    com.sony.sensor.hi846 \
+    com.sony.sensor.hi847 \
+    com.sony.sensor.imx582
+endif
