@@ -185,5 +185,11 @@ endif
 
 ifeq ($(SOMC_PLATFORM),murray)
 PRODUCT_PACKAGES += \
-    com.sony.eeprom.murray_front
+    com.sony.eeprom.murray_front \
+    com.sony.eeprom.murray_tele \
+    com.sony.eeprom.murray_uwide \
+    com.sony.eeprom.murray_wide \
+    com.sony.sensor.hi846 \
+    com.sony.sensor.hi847 \
+    com.sony.sensor.imx486
 endif
