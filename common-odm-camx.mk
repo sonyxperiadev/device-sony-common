@@ -194,7 +194,7 @@ PRODUCT_PACKAGES += \
     com.sony.sensor.imx486
 endif
 
-ifeq ($(SOMC_PLATFORM),zembezi)
+ifeq ($(SOMC_PLATFORM),zambezi)
 PRODUCT_PACKAGES += \
     com.sony.eeprom.zambezi_front \
     com.sony.eeprom.zambezi_tele \
