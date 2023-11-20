@@ -1,324 +1,324 @@
 prebuilt_etc {
     name: "ak991x_dri_0.json",
-    src: "config/ak991x_dri_0.json",
+    src: "ak991x_dri_0.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "bma2x2_0.json",
-    src: "config/bma2x2_0.json",
+    src: "bma2x2_0.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "bme680_0.json",
-    src: "config/bme680_0.json",
+    src: "bme680_0.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "bmg160_0.json",
-    src: "config/bmg160_0.json",
+    src: "bmg160_0.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "bmp285_0.json",
-    src: "config/bmp285_0.json",
+    src: "bmp285_0.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "bmp380_0.json",
-    src: "config/bmp380_0.json",
+    src: "bmp380_0.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "bu52053nvx_0.json",
-    src: "config/bu52053nvx_0.json",
+    src: "bu52053nvx_0.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "cm3526_0.json",
-    src: "config/cm3526_0.json",
+    src: "cm3526_0.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "default_sensors.json",
-    src: "config/default_sensors.json",
+    src: "default_sensors.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "dps368_0.json",
-    src: "config/dps368_0.json",
+    src: "dps368_0.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "lsm6dsm_0_16g.json",
-    src: "config/lsm6dsm_0_16g.json",
+    src: "lsm6dsm_0_16g.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "lsm6dsm_0.json",
-    src: "config/lsm6dsm_0.json",
+    src: "lsm6dsm_0.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "lsm6dso_0_16g.json",
-    src: "config/lsm6dso_0_16g.json",
+    src: "lsm6dso_0_16g.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "lsm6dso_0.json",
-    src: "config/lsm6dso_0.json",
+    src: "lsm6dso_0.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "shtw2_0.json",
-    src: "config/shtw2_0.json",
+    src: "shtw2_0.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_amd.json",
-    src: "config/sns_amd.json",
+    src: "sns_amd.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_amd_sw_disabled.json",
-    src: "config/sns_amd_sw_disabled.json",
+    src: "sns_amd_sw_disabled.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_amd_sw_enabled.json",
-    src: "config/sns_amd_sw_enabled.json",
+    src: "sns_amd_sw_enabled.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_aont.json",
-    src: "config/sns_aont.json",
+    src: "sns_aont.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_basic_gestures.json",
-    src: "config/sns_basic_gestures.json",
+    src: "sns_basic_gestures.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_bring_to_ear.json",
-    src: "config/sns_bring_to_ear.json",
+    src: "sns_bring_to_ear.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_ccd.json",
-    src: "config/sns_ccd.json",
+    src: "sns_ccd.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_cm.json",
-    src: "config/sns_cm.json",
+    src: "sns_cm.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_dae.json",
-    src: "config/sns_dae.json",
+    src: "sns_dae.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_device_orient.json",
-    src: "config/sns_device_orient.json",
+    src: "sns_device_orient.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_diag_filter.json",
-    src: "config/sns_diag_filter.json",
+    src: "sns_diag_filter.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_distance_bound.json",
-    src: "config/sns_distance_bound.json",
+    src: "sns_distance_bound.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_dpc.json",
-    src: "config/sns_dpc.json",
+    src: "sns_dpc.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_facing.json",
-    src: "config/sns_facing.json",
+    src: "sns_facing.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_fmv.json",
-    src: "config/sns_fmv.json",
+    src: "sns_fmv.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_geomag_rv.json",
-    src: "config/sns_geomag_rv.json",
+    src: "sns_geomag_rv.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_gyro_cal.json",
-    src: "config/sns_gyro_cal.json",
+    src: "sns_gyro_cal.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_mag_cal.json",
-    src: "config/sns_mag_cal.json",
+    src: "sns_mag_cal.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_multishake.json",
-    src: "config/sns_multishake.json",
+    src: "sns_multishake.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_pedometer.json",
-    src: "config/sns_pedometer.json",
+    src: "sns_pedometer.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_rmd.json",
-    src: "config/sns_rmd.json",
+    src: "sns_rmd.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_rotv.json",
-    src: "config/sns_rotv.json",
+    src: "sns_rotv.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_smd.json",
-    src: "config/sns_smd.json",
+    src: "sns_smd.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_tilt.json",
-    src: "config/sns_tilt.json",
+    src: "sns_tilt.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_tilt_sw_disabled.json",
-    src: "config/sns_tilt_sw_disabled.json",
+    src: "sns_tilt_sw_disabled.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_tilt_sw_enabled.json",
-    src: "config/sns_tilt_sw_enabled.json",
+    src: "sns_tilt_sw_enabled.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_tilt_to_wake.json",
-    src: "config/sns_tilt_to_wake.json",
+    src: "sns_tilt_to_wake.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "tmd2725.json",
-    src: "config/tmd2725.json",
+    src: "tmd2725.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "tmd3725.json",
-    src: "config/tmd3725.json",
+    src: "tmd3725.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "tmx4903.json",
-    src: "config/tmx4903.json",
+    src: "tmx4903.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "stk3x3x_0.json",
-    src: "config/stk3x3x_0.json",
+    src: "stk3x3x_0.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_ccd_v2_walk.json",
-    src: "config/sns_ccd_v2_walk.json",
+    src: "sns_ccd_v2_walk.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_ccd_v3_1_walk.json",
-    src: "config/sns_ccd_v3_1_walk.json",
+    src: "sns_ccd_v3_1_walk.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_ccd_v3_walk.json",
-    src: "config/sns_ccd_v3_walk.json",
+    src: "sns_ccd_v3_walk.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_fmv_legacy.json",
-    src: "config/sns_fmv_legacy.json",
+    src: "sns_fmv_legacy.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_heart_rate.json",
-    src: "config/sns_heart_rate.json",
+    src: "sns_heart_rate.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_mag_cal_legacy.json",
-    src: "config/sns_mag_cal_legacy.json",
+    src: "sns_mag_cal_legacy.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "sns_wrist_pedo.json",
-    src: "config/sns_wrist_pedo.json",
+    src: "sns_wrist_pedo.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
 prebuilt_etc {
     name: "wigig_sensing_0.json",
-    src: "config/wigig_sensing_0.json",
+    src: "wigig_sensing_0.json",
     sub_dir: "sensors/config",
     vendor: true,
 }
