@@ -1,0 +1,186 @@
+prebuilt_etc {
+    name: "lahaina_power_0.json",
+    src: "lahaina_power_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lahaina_qrd_sx932x_0.json",
+    src: "lahaina_qrd_sx932x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lahaina_ak991x_0.json",
+    src: "lahaina_ak991x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lahaina_dynamic_sensors.json",
+    src: "lahaina_dynamic_sensors.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lahaina_bmp380_0.json",
+    src: "lahaina_bmp380_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lahaina_vertigo_ak991x_0.json",
+    src: "lahaina_vertigo_ak991x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lahaina_irq.json",
+    src: "lahaina_irq.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lahaina_qrd_tmd3702_0.json",
+    src: "lahaina_qrd_tmd3702_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lahaina_lsm6dst_0.json",
+    src: "lahaina_lsm6dst_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lahaina_v2_fcal_ak991x_0.json",
+    src: "lahaina_v2_fcal_ak991x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lahaina_mtp_lsm6dst_0.json",
+    src: "lahaina_mtp_lsm6dst_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lahaina_hdk_ak991x_0.json",
+    src: "lahaina_hdk_ak991x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lahaina_tmd3702_0.json",
+    src: "lahaina_tmd3702_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lahaina_mtp_lsm6dst_1.json",
+    src: "lahaina_mtp_lsm6dst_1.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lahaina_shtw2_0.json",
+    src: "lahaina_shtw2_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lahaina_bu52053nvx_0.json",
+    src: "lahaina_bu52053nvx_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lahaina_vertigo_lsm6dst_1.json",
+    src: "lahaina_vertigo_lsm6dst_1.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lahaina_stk3x3x_0.json",
+    src: "lahaina_stk3x3x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lahaina_vertigo_lsm6dst_0.json",
+    src: "lahaina_vertigo_lsm6dst_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lahaina_hdk_lsm6dst_0.json",
+    src: "lahaina_hdk_lsm6dst_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lahaina_default_sensors.json",
+    src: "lahaina_default_sensors.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lahaina_sx932x_0.json",
+    src: "lahaina_sx932x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lahaina_hdk_tmd2725_0.json",
+    src: "lahaina_hdk_tmd2725_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lahaina_lsm6dst_1.json",
+    src: "lahaina_lsm6dst_1.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lahaina_lsm6dso_0.json",
+    src: "lahaina_lsm6dso_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lahaina_hdk_lsm6dst_1.json",
+    src: "lahaina_hdk_lsm6dst_1.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lahaina_hdk_sx932x_0.json",
+    src: "lahaina_hdk_sx932x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lahaina_lps22hh_0.json",
+    src: "lahaina_lps22hh_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lahaina_qrd_lsm6dst_0.json",
+    src: "lahaina_qrd_lsm6dst_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lahaina_mtp_ak991x_0.json",
+    src: "lahaina_mtp_ak991x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "lahaina_qrd_ak991x_0.json",
+    src: "lahaina_qrd_ak991x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
