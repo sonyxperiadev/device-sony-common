@@ -2,7 +2,9 @@
   "config":
   {
     "hw_platform": ["MTP", "Dragon", "Surf", "QRD", "HDK", "IDP", "IOT"],
-    "soc_id": ["291", "246", "300", "301", "305", "321", "336", "339", "341", "347", "355", "356", "360", "361", "352", "365", "366", "393", "394", "400", "407", "417", "440", "416", "437", "444", "445", "420"]
+    "soc_id": ["291", "246", "300", "301", "305", "321", "336", "339", "341", "347", "355", "356", "360", "361", "352", "365", "366", "393", "394", "400",
+    "407", "417", "440", "415", "439", "416", "437", "444", "445", "420", "424", "443", "434", "435", "459", "441", "471", "455", "456", "454", "450", "476",
+    "469", "470", "457", "482", "519", "536", "473", "474", "501", "502", "475", "486", "517", "600", "601"]
   },
 
   "sns_diag_config":
@@ -312,7 +314,7 @@
     {
       "type" : "int",
       "ver" : "0",
-      "data" : "1"
+      "data" : "0"
     },
     "ccd_walk":
     {
@@ -349,6 +351,108 @@
        "type" : "int",
        "ver" : "0",
        "data" : "1"
+    },
+    "activity_recognition":
+    {
+      "type" : "int",
+      "ver" : "0",
+      "data" : "1"
+    },
+    "location":
+    {
+      "type" : "int",
+      "ver" : "0",
+      "data" : "1"
+    },
+    "step_detect":
+    {
+      "type" : "int",
+      "ver" : "0",
+      "data" : "1"
+    },
+    "sim_sdc":
+    {
+      "type" : "int",
+      "ver" : "0",
+      "data" : "0"
+    },
+    "dae_datalog_accel":
+    {
+      "type" : "int",
+      "ver" : "0",
+      "data" : "1"
+    },
+    "dae_datalog_gyro":
+    {
+      "type" : "int",
+      "ver" : "0",
+      "data" : "1"
+    },
+    "dae_datalog_binary":
+    {
+      "type" : "int",
+      "ver" : "0",
+      "data" : "1"
+    },
+    "elevator_detection":
+    {
+      "type" : "int",
+      "ver" : "0",
+      "data" : "1"
+    },
+    "remote_proc_state":
+    {
+      "type" : "int",
+      "ver" : "0",
+      "data" : "1"
+    },
+    "batch":
+    {
+      "type" : "int",
+      "ver" : "0",
+      "data" : "1"
+    },
+    "oem2":
+    {
+      "type" : "int",
+      "ver" : "0",
+      "data" : "1"
+    },
+    "device_mode":
+    {
+      "type" : "int",
+      "ver" : "0",
+      "data" : "1"
+    },
+    "llmd":
+    {
+      "type" : "int",
+      "ver" : "0",
+      "data" : "1"
+    },
+    "transport_ppe":
+    {
+      "type" : "int",
+      "ver" : "0",
+      "data" : "1"
+    },
+    "client_sensor":
+    {
+      "type" : "int",
+      "ver" : "0",
+      "data" : "1"
+    },
+    "ois_control":
+    {
+      "type" : "int",
+      "ver" : "0",
+      "data" : "1"
+    },
+    "fan_control":
+    {
+      "type" : "int",
+      "ver" : "0",
+      "data" : "1"
     }
   }
 }

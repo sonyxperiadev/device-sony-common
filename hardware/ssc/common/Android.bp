@@ -322,3 +322,81 @@ prebuilt_etc {
     sub_dir: "sensors/config",
     vendor: true,
 }
+prebuilt_etc {
+    name: "qsh_ble.json",
+    src: "qsh_ble.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "qsh_camera.json",
+    src: "qsh_camera.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_ccd_v1_0_amd.json",
+    src: "sns_ccd_v1_0_amd.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_ccd_v1_0_ttw.json",
+    src: "sns_ccd_v1_0_ttw.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_ccd_v2_0_walk.json",
+    src: "sns_ccd_v2_0_walk.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_ccd_v3_0_walk.json",
+    src: "sns_ccd_v3_0_walk.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_ccd_v4_0_sensors.json",
+    src: "sns_ccd_v4_0_sensors.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_ccd_v4_0_te_cd_regs.json",
+    src: "sns_ccd_v4_0_te_cd_regs.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_ccd_v5.json",
+    src: "sns_ccd_v5.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_ccd_v5_0_te_cd_regs.json",
+    src: "sns_ccd_v5_0_te_cd_regs.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_direct_channel.json",
+    src: "sns_direct_channel.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_offbody_detect_phone.json",
+    src: "sns_offbody_detect_phone.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sns_transport_ppe.json",
+    src: "sns_transport_ppe.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}

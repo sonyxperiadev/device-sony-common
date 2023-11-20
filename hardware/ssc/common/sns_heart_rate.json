@@ -2,8 +2,7 @@
   "config": {
     "hw_platform": [ "MTP", "Dragon", "Surf","QRD","HDK"
     ],
-    "soc_id": ["300" , "301"
-    ]
+    "soc_id": ["300", "301"]
   },
   "sns_heart_rate": {
     "owner": "sns_heart_rate",
