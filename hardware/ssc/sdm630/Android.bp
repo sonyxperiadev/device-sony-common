@@ -1,0 +1,12 @@
+prebuilt_etc {
+    name: "sdm630_default_sensors.json",
+    src: "sdm630_default_sensors.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sdm636_default_sensors.json",
+    src: "sdm636_default_sensors.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
