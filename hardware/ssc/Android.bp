@@ -83,30 +83,6 @@ prebuilt_etc {
     vendor: true,
 }
 prebuilt_etc {
-    name: "sdm845_ak991x_0.json",
-    src: "config/sdm845_ak991x_0.json",
-    sub_dir: "sensors/config",
-    vendor: true,
-}
-prebuilt_etc {
-    name: "sdm845_bmp380_0.json",
-    src: "config/sdm845_bmp380_0.json",
-    sub_dir: "sensors/config",
-    vendor: true,
-}
-prebuilt_etc {
-    name: "sdm845_lsm6dsm_0.json",
-    src: "config/sdm845_lsm6dsm_0.json",
-    sub_dir: "sensors/config",
-    vendor: true,
-}
-prebuilt_etc {
-    name: "sdm845_tmd2725.json",
-    src: "config/sdm845_tmd2725.json",
-    sub_dir: "sensors/config",
-    vendor: true,
-}
-prebuilt_etc {
     name: "shtw2_0.json",
     src: "config/shtw2_0.json",
     sub_dir: "sensors/config",

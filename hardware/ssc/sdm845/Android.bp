@@ -1,0 +1,24 @@
+prebuilt_etc {
+    name: "sdm845_ak991x_0.json",
+    src: "sdm845_ak991x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sdm845_bmp380_0.json",
+    src: "sdm845_bmp380_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sdm845_lsm6dsm_0.json",
+    src: "sdm845_lsm6dsm_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "sdm845_tmd2725.json",
+    src: "sdm845_tmd2725.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
