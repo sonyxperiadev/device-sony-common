@@ -1,0 +1,54 @@
+prebuilt_etc {
+    name: "nicobar_ak991x_0.json",
+    src: "nicobar_ak991x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "nicobar_bmp285_0.json",
+    src: "nicobar_bmp285_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "nicobar_bu52053nvx_0.json",
+    src: "nicobar_bu52053nvx_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "nicobar_default_sensors.json",
+    src: "nicobar_default_sensors.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "nicobar_lsm6dso_0.json",
+    src: "nicobar_lsm6dso_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "nicobar_qrd_ak991x_0.json",
+    src: "nicobar_qrd_ak991x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "nicobar_qrd_lsm6dso_0.json",
+    src: "nicobar_qrd_lsm6dso_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "nicobar_qrd_tmd2725.json",
+    src: "nicobar_qrd_tmd2725.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "nicobar_tmd2725.json",
+    src: "nicobar_tmd2725.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
