@@ -1,0 +1,174 @@
+prebuilt_etc {
+    name: "kailua_power_0.json",
+    src: "kailua_power_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kailua_ak991x_0.json",
+    src: "kailua_ak991x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kailua_sht4x_0.json",
+    src: "kailua_sht4x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kailua_lsm6dsv_0.json",
+    src: "kailua_lsm6dsv_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kailua_qrd_tmd2755_0.json",
+    src: "kailua_qrd_tmd2755_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kailua_lsm6dsv_1.json",
+    src: "kailua_lsm6dsv_1.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kailua_tmd2755_0.json",
+    src: "kailua_tmd2755_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kailua_dynamic_sensors_template.json",
+    src: "kailua_dynamic_sensors_template.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kailua_irq.json",
+    src: "kailua_irq.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kailua_hdk_lsm6dsv_0.json",
+    src: "kailua_hdk_lsm6dsv_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kailua_qrd_ak991x_0.json",
+    src: "kailua_qrd_ak991x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kailua_bu52053nvx_0.json",
+    src: "kailua_bu52053nvx_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kailua_hhg_ak991x_0.json",
+    src: "kailua_hhg_ak991x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kailua_hdk_ak991x_0.json",
+    src: "kailua_hdk_ak991x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kailua_hdk_lsm6dsv_1.json",
+    src: "kailua_hdk_lsm6dsv_1.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kailua_vertigo_ak991x_0.json",
+    src: "kailua_vertigo_ak991x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kailua_qsh_ble_0.json",
+    src: "kailua_qsh_ble_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kailua_mtp_lsm6dsv_1.json",
+    src: "kailua_mtp_lsm6dsv_1.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kailua_dynamic_sensors.json",
+    src: "kailua_dynamic_sensors.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kailua_vertigo_lsm6dsv_1.json",
+    src: "kailua_vertigo_lsm6dsv_1.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kailua_mtp_ak991x_0.json",
+    src: "kailua_mtp_ak991x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kailua_mtp_lsm6dsv_0.json",
+    src: "kailua_mtp_lsm6dsv_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kailua_fcal_ak991x_0.json",
+    src: "kailua_fcal_ak991x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kailua_sx932x_0.json",
+    src: "kailua_sx932x_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kailua_vertigo_lsm6dsv_0.json",
+    src: "kailua_vertigo_lsm6dsv_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kailua_hhg_lsm6dsv_0.json",
+    src: "kailua_hhg_lsm6dsv_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kailua_default_sensors.json",
+    src: "kailua_default_sensors.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kailua_lps22df_0.json",
+    src: "kailua_lps22df_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}
+prebuilt_etc {
+    name: "kailua_qrd_lsm6dsv_0.json",
+    src: "kailua_qrd_lsm6dsv_0.json",
+    sub_dir: "sensors/config",
+    vendor: true,
+}

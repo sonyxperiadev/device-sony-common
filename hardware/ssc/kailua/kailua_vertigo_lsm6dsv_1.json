@@ -1,0 +1,21 @@
+{
+  "config":{
+    "hw_platform": ["Surf", "RCM"],
+    "soc_id": ["519", "536"]
+  },
+  "lsm6dsv_1_platform":{
+    "owner": "lsm6dsv",
+    ".orient":{
+      "owner": "lsm6dsv",
+      "x":{ "type": "str", "ver": "0",
+        "data": "+x"
+      },
+      "y":{ "type": "str", "ver": "0",
+        "data": "-y"
+      },
+      "z":{ "type": "str", "ver": "0",
+        "data": "-z"
+      }
+    }
+  }
+}
