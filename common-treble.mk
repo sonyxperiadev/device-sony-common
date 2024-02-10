@@ -3,14 +3,8 @@ PRODUCT_PACKAGES += \
     android.hardware.renderscript@1.0-impl
 
 # Composer
-# Everything prior to kernel 4.19 uses the sm8150 display HAL
-ifeq ($(filter 4.14, $(SOMC_KERNEL_VERSION)),)
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.display.composer-service
-else
-PRODUCT_PACKAGES += \
-    android.hardware.graphics.composer@2.3-service
-endif
 
 # Linked by Adreno/EGL blobs for fallback if 3.0 doesn't exist
 PRODUCT_PACKAGES += \
@@ -126,13 +120,8 @@ PRODUCT_PACKAGES += \
     android.hardware.drm@1.3-service-lazy.clearkey
 
 # Usb HAL
-ifeq ($(filter 4.14, $(SOMC_KERNEL_VERSION)),)
 PRODUCT_PACKAGES += \
     android.hardware.usb@1.2-service-qti
-else
-PRODUCT_PACKAGES += \
-    android.hardware.usb@1.0-service
-endif
 
 # Thermal HAL
 PRODUCT_PACKAGES += \
