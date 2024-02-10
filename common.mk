@@ -19,8 +19,10 @@ ifneq ($(filter 4.19, $(SOMC_KERNEL_VERSION)),)
 display_platform := sm8250
 else ifneq ($(filter 5.4, $(SOMC_KERNEL_VERSION)),)
 display_platform := sm8350
-else
+else ifneq ($(filter 5.10, $(SOMC_KERNEL_VERSION)),)
 display_platform := sm8450
+else
+display_platform := sm8550
 endif
 
 # Enable building packages from device namspaces.
