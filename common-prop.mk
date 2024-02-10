@@ -94,21 +94,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     telephony.lteOnCdmaDevice=0
 
-# debug.sf.latch_unsignaled
-# - This causes SurfaceFlinger to latch
-#   buffers even if their fences haven't signaled
-PRODUCT_PROPERTY_OVERRIDES += \
-    debug.sf.latch_unsignaled=1
-
-# SurfaceFlinger
-# Keep uppercase makevars like TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS
-# in sync, use hardware/interfaces/configstore/1.1/default/surfaceflinger.mk
-# as a reference
-# ConfigStore is being deprecated and sf is moving to props, see
-# frameworks/native/services/surfaceflinger/sysprop/SurfaceFlingerProperties.sysprop
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.surface_flinger.force_hwc_copy_for_virtual_displays=true
-
 # Stagefright
 PRODUCT_PROPERTY_OVERRIDES += \
     media.stagefright.thumbnail.prefer_hw_codecs=true
@@ -235,18 +220,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.wfd.virtual=0
 
-# Display properties
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.demo.hdmirotationlock=false \
-    persist.sys.sf.color_saturation=1.0 \
-    vendor.display.disable_inline_rotator=1 \
-    vendor.display.enable_null_display=0 \
-    vendor.display.disable_excl_rect=0 \
-    vendor.display.comp_mask=0 \
-    vendor.display.enable_default_color_mode=1 \
-    vendor.display.enable_optimize_refresh=1 \
-    vendor.display.disable_ui_3d_tonemap=1
-
 # Wi-Fi interface name
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0
@@ -284,10 +257,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Priv-app permisisons
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.control_privapp_permissions=enforce
-
-# Perform color transform on the client
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.hwc2.skip_client_color_transform=false
 
 # Avoid Adoptable double encryption
 PRODUCT_PROPERTY_OVERRIDES += \
