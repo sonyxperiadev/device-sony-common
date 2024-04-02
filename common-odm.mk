@@ -27,7 +27,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     vendor.qti.qspmhal@1.0 \
     vendor.qti.hardware.qseecom@1.0 \
+    libvmmem \
     libkeymasterutils \
+    libminkdescriptor \
     qseecomd
 
 # IRQ Balance
@@ -111,6 +113,8 @@ PRODUCT_PACKAGES += \
 
 # Data
 PRODUCT_PACKAGES += \
+    libnetmgr_datapath_proxy \
+    libnetmgrportutils \
     libqcmaputils \
     libconfigdb \
     libdiag \
@@ -164,6 +168,7 @@ PRODUCT_PACKAGES += \
     vendor.qti.ims.configservice@1.1 \
     libmmosal \
     libtime_genoff \
+    qtiwakelock \
     qcrilhook \
     IWlanService \
     uceShimService \
