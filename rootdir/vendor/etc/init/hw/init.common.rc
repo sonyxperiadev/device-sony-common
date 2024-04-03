@@ -47,7 +47,7 @@ on init
     # Start vndservicemanager early
     start vndservicemanager
 
-    # Enable subsystem restart
+    # Enable subsystem restart (kernel version <5.10)
     write /sys/module/subsystem_restart/parameters/enable_ramdumps 0
     write /sys/bus/msm_subsys/devices/subsys0/restart_level "RELATED"
     write /sys/bus/msm_subsys/devices/subsys1/restart_level "RELATED"
@@ -61,6 +61,12 @@ on init
     write /sys/bus/msm_subsys/devices/subsys9/restart_level "RELATED"
     write /sys/bus/msm_subsys/devices/subsys10/restart_level "RELATED"
     write /sys/bus/msm_subsys/devices/subsys11/restart_level "RELATED"
+
+    # Enable subsystem restart (kernel version >=5.10)
+    write /sys/class/remoteproc/remoteproc0/recovery "enabled"
+    write /sys/class/remoteproc/remoteproc1/recovery "enabled"
+    write /sys/class/remoteproc/remoteproc2/recovery "enabled"
+    write /sys/class/remoteproc/remoteproc3/recovery "enabled"
 
     mkdir /dev/bus 0755 root root
     mkdir /dev/bus/usb 0755 root root
