@@ -1,5 +1,5 @@
 # Vendor version
-TARGET_VENDOR_VERSION := v2
+TARGET_VENDOR_VERSION := v3
 
 ifneq (,$(SONY_BUILD_ODM))
 
