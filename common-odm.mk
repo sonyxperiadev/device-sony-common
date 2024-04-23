@@ -169,6 +169,7 @@ PRODUCT_PACKAGES += \
     libmmosal \
     libtime_genoff \
     qtiwakelock \
+    librilqmiservices \
     qcrilhook \
     IWlanService \
     uceShimService \
