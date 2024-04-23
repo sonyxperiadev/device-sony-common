@@ -1,6 +1,10 @@
 # CAMX Libs
 ifeq ($(filter seine,$(SOMC_PLATFORM)),)
 PRODUCT_PACKAGES += \
+    libcamxhwlcvp \              \
+    libcamxhwlqsat \
+    libcamxhwltitan17x \
+    libcamxhwlfd \
     libcamera_nn_stub \
     libcamerapostproc \
     libcamerapostproc.bitra \
