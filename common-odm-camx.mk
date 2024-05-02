@@ -1,7 +1,7 @@
 # CAMX Libs
 ifeq ($(filter seine,$(SOMC_PLATFORM)),)
 PRODUCT_PACKAGES += \
-    libcamxhwlcvp \              \
+    libcamxhwlcvp \
     libcamxhwlqsat \
     libcamxhwltitan17x \
     libcamxhwlfd \
