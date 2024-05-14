@@ -272,4 +272,4 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Look for vulkan.qcom.so instead of vulkan.$(BOARD_TARGET_PLATFORM).so
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.hardware.vulkan=qcom
+    ro.hardware.vulkan=adreno
