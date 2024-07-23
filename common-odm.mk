@@ -327,6 +327,17 @@ PRODUCT_PACKAGES += \
     libmmqjpegdma \
     libqomx_jpegdec \
     libqomx_jpegenc_pipe \
-    libqomx_jpegenc \
+    libqomx_jpegenc
+
+# codec2
+PRODUCT_PACKAGES += \
+    libqcodec2_v4l2codec \
+    libqcodec2_basecodec \
+    libqcodec2_mockfilter \
+    libqcodec2_core \
+    libqcodec2_utils \
+    libqcodec2_hooks \
+    libqcodec2_platform \
+    libqcodec2_base
 
 endif
