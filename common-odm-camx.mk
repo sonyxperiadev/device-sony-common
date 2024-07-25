@@ -188,6 +188,18 @@ PRODUCT_PACKAGES += \
     com.sony.eeprom.camino_tele
 endif
 
+ifeq ($(SOMC_PLATFORM),yodo)
+PRODUCT_PACKAGES += \
+    com.sony.sensor.imx888 \
+    com.sony.sensor.imx563 \
+    com.sony.sensor.imx650 \
+    com.sony.sensor.imx663 \
+    com.sony.eeprom.yodo_wide \
+    com.sony.eeprom.yodo_uwide \
+    com.sony.eeprom.yodo_tele \
+    com.sony.eeprom.yodo_front
+endif
+
 ifeq ($(SOMC_PLATFORM),murray)
 PRODUCT_PACKAGES += \
     com.sony.eeprom.murray_front \
