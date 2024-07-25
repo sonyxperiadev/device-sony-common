@@ -77,6 +77,7 @@ PRODUCT_PACKAGES += \
     com.qti.settings.sm8250 \
     com.qti.settings.sm8350 \
     com.qti.settings.sm8450 \
+    com.qti.settings.sm8550 \
     com.qti.stats.common \
     com.qti.stats.aecwrapper \
     com.qti.stats.afd \
