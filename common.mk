@@ -81,6 +81,11 @@ SOONG_CONFIG_NAMESPACES += qti_kernel_headers
 SOONG_CONFIG_qti_kernel_headers := version
 SOONG_CONFIG_qti_kernel_headers_version := $(SOMC_KERNEL_VERSION)
 
+# Build 64bit audio service
+SOONG_CONFIG_NAMESPACES += android_hardware_audio
+SOONG_CONFIG_android_hardware_audio := run_64bit
+SOONG_CONFIG_android_hardware_audio_run_64bit := true
+
 # Codecs Configuration
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
