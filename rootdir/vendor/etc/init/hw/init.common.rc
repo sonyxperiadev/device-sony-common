@@ -345,6 +345,9 @@ on boot
 
     chown root system /proc/net/ip_conntrack
 
+    # Allow access for AGM to read sound card state
+    chown media audio /sys/kernel/snd_card/card_state
+
     # Set up kernel tracing, but disable it by default
     chmod 0222 /sys/kernel/debug/tracing/trace_marker
     write /sys/kernel/debug/tracing/tracing_on 0
