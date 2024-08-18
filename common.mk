@@ -16,12 +16,16 @@
 COMMON_PATH := device/sony/common
 
 ifneq ($(filter 4.19, $(SOMC_KERNEL_VERSION)),)
+audio_platform := primary-hal
 display_platform := sm8250
 else ifneq ($(filter 5.4, $(SOMC_KERNEL_VERSION)),)
+audio_platform := primary-hal
 display_platform := sm8350
 else ifneq ($(filter 5.10, $(SOMC_KERNEL_VERSION)),)
+audio_platform := primary-hal
 display_platform := sm8450
 else
+audio_platform := primary-hal-ar
 display_platform := sm8550
 endif
 
@@ -32,6 +36,7 @@ PRODUCT_SOONG_NAMESPACES += \
     $(COMMON_PATH) \
     $(PLATFORM_COMMON_PATH) \
     vendor/qcom/opensource/core-utils \
+    vendor/qcom/opensource/audio-hal/$(audio_platform) \
     vendor/qcom/opensource/display/$(display_platform) \
     vendor/qcom/opensource/display-commonsys-intf/$(display_platform)
 
