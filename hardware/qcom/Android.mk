@@ -24,9 +24,4 @@ TARGET_KERNEL_VERSION := $(SOMC_KERNEL_VERSION)
 
 include device/sony/common/hardware/qcom/utils.mk
 
-ifeq ($(TARGET_USES_AOSP_AUDIO_HAL),true)
-audio-hal := hardware/qcom/audio
-include $(call all-makefiles-under,$(audio-hal))
-endif
-
 endif
