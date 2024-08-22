@@ -162,6 +162,15 @@ PRODUCT_PACKAGES += \
     embms \
     embmslibrary
 
+# Media
+PRODUCT_PACKAGES += \
+    qconfigservice \
+    libqconfigclient \
+    libqc2filter \
+    libqc2colorconvertfilter \
+    libqcodec2_mockfilter \
+    libqcodec2_hooks
+
 # IMS
 PRODUCT_PACKAGES += \
     vendor.qti.ims.configservice@1.0 \
