@@ -231,6 +231,11 @@ else
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.vibrator_v1.0.xml
 endif
 
+# Audioreach audio
+ifeq ($(TARGET_USES_AUDIOREACH), true)
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.qti.hardware.audio.xml
+endif
+
 # New vendor security patch level: https://r.android.com/660840/
 # Used by newer keymaster binaries
 VENDOR_SECURITY_PATCH=$(PLATFORM_SECURITY_PATCH)
