@@ -240,6 +240,21 @@ on post-fs-data
 
     chown system /dev/block/bootdevice/by-name
 
+    # Create battery stats dir
+    mkdir /mnt/vendor/persist/battery/ 0700 system system
+
+    # Set permissions for bms
+    chown system system /sys/class/power_supply/bms/charge_full
+    chown system system /sys/class/power_supply/bms/cycle_count
+    chmod 0664 /sys/class/power_supply/bms/charge_full
+    chmod 0664 /sys/class/power_supply/bms/cycle_count
+
+    # Set permissions for battery (used if BMS interface is not present)
+    chown system system /sys/class/power_supply/battery/charge_full
+    chown system system /sys/class/power_supply/battery/cycle_count
+    chmod 0664 /sys/class/power_supply/battery/charge_full
+    chmod 0664 /sys/class/power_supply/battery/cycle_count
+
     setprop vold.post_fs_data_done 1
 
 on early-boot
