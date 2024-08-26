@@ -35,6 +35,13 @@ namespace health {
 static constexpr int kCCBackupTrigger = 20;
 
 CycleCountBackupRestore::CycleCountBackupRestore() {
+    kPersistCycleFile = "/mnt/vendor/persist/battery/battery_cycle_count";
+    kSysCycleFile = "/sys/class/power_supply/bms/cycle_count";
+
+    if (access(kSysCycleFile.c_str(), F_OK)) {
+        kSysCycleFile = "/sys/class/power_supply/battery/cycle_count";
+    }
+
     persist_cycles = 0;
     sysfs_cycles = 0;
     saved_soc_ = -1;

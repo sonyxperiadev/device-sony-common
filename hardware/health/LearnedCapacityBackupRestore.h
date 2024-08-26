@@ -22,9 +22,6 @@ namespace device {
 namespace sony {
 namespace health {
 
-static const std::string kSysChargeFullFile = "/sys/class/power_supply/bms/charge_full";
-static const std::string kPersistChargeFullFile = "/mnt/vendor/persist/battery/battery_charge_full";
-
 class LearnedCapacityBackupRestore {
    public:
     LearnedCapacityBackupRestore();
@@ -32,6 +29,9 @@ class LearnedCapacityBackupRestore {
     void Backup();
 
    private:
+    std::string kSysChargeFullFile;
+    std::string kPersistChargeFullFile;
+
     int persist_capacity;
     int sysfs_capacity;
     int cap_counter;

@@ -22,9 +22,6 @@ namespace device {
 namespace sony {
 namespace health {
 
-static const std::string kSysCycleFile = "/sys/class/power_supply/bms/cycle_count";
-static const std::string kPersistCycleFile = "/mnt/vendor/persist/battery/battery_cycle_count";
-
 class CycleCountBackupRestore {
    public:
     CycleCountBackupRestore();
@@ -32,6 +29,9 @@ class CycleCountBackupRestore {
     void Backup(int battery_level);
 
    private:
+    std::string kSysCycleFile;
+    std::string kPersistCycleFile;
+
     int persist_cycles;
     int sysfs_cycles;
     int saved_soc_;
