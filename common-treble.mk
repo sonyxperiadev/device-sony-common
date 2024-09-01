@@ -21,11 +21,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.display.allocator-service
 
-# Memtrack
-PRODUCT_PACKAGES += \
-    android.hardware.memtrack@1.0-impl \
-    android.hardware.memtrack@1.0-service
-
 # Configstore
 PRODUCT_PACKAGES += \
     android.hardware.configstore@1.1-service
