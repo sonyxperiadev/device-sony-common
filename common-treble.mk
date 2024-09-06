@@ -47,6 +47,7 @@ PRODUCT_PACKAGES += \
 
 # Camera
 PRODUCT_PACKAGES += \
+    vendor.qti.hardware.camera.aon@1.0 \
     android.frameworks.sensorservice@1.0.vendor
 ifeq ($(TARGET_USES_64BIT_CAMERA),true)
 PRODUCT_PACKAGES += \

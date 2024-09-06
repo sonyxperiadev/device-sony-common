@@ -1,6 +1,7 @@
 # CAMX Libs
 ifeq ($(filter seine,$(SOMC_PLATFORM)),)
 PRODUCT_PACKAGES += \
+    libqshcamera\
     libcamxhwlcvp \
     libcamxhwlqsat \
     libcamxhwltitan17x \
@@ -47,12 +48,13 @@ PRODUCT_PACKAGES += \
     com.qti.feature2.stub.bitra \
     com.qti.feature2.swmf.bitra \
     com.qti.feature2.gs.bitra \
+    com.qti.hvx.binning \
+    com.qti.hvx.addconstant \
+    com.qti.node.dummydepth \
     com.qti.node.eisv2 \
     com.qti.node.eisv3 \
     com.qti.node.swregistration \
     com.qti.node.memcpy \
-    com.qti.hvx.binning \
-    com.qti.hvx.addconstant \
     com.qti.node.dummyrtb \
     com.qti.node.dummysat \
     com.qti.node.depth \
@@ -68,7 +70,6 @@ PRODUCT_PACKAGES += \
     com.qti.node.swcac \
     com.qti.node.swlsc \
     com.qti.node.swmctf \
-    com.qti.node.swmfnr \
     com.qti.node.swpdpc \
     com.qti.node.swpreprocess \
     com.qti.settings.sm6350 \
@@ -79,7 +80,9 @@ PRODUCT_PACKAGES += \
     com.qti.settings.sm8450 \
     com.qti.settings.sm8550 \
     com.qti.stats.common \
+    com.qti.stats.aec \
     com.qti.stats.aecwrapper \
+    com.qti.stats.af \
     com.qti.stats.afd \
     com.qti.stats.afwrapper \
     com.qti.stats.awbwrapper \
