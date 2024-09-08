@@ -98,7 +98,7 @@ PRODUCT_PACKAGES += \
     fdconfigvideo \
     fdconfigvideolite \
     vendor.qti.hardware.camera.aon@1.0-service-impl \
-    vendor.qti.hardware.camera.aom@1.0 \
+    vendor.qti.hardware.camera.aon@1.0 \
     vendor.qti.hardware.camera.postproc@1.0 \
     camera.qcom
 endif
