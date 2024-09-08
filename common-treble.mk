@@ -46,8 +46,6 @@ PRODUCT_PACKAGES += \
     android.hardware.soundtrigger@2.3-impl
 
 # Camera
-PRODUCT_PACKAGES += \
-    android.frameworks.sensorservice@1.0.vendor
 ifeq ($(TARGET_USES_64BIT_CAMERA),true)
 PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.5-impl:64 \
@@ -62,6 +60,10 @@ endif
 PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.5-external \
     android.hardware.camera.provider@2.5-external-service
+
+# Sensorservice
+PRODUCT_PACKAGES += \
+    android.frameworks.sensorservice@1.0.vendor
 
 # Wi-Fi
 PRODUCT_PACKAGES += \
