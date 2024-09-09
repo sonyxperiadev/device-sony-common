@@ -78,3 +78,9 @@ ifneq ($(TARGET_USES_ODM_APPS_BINDMOUNT),false)
 PRODUCT_PACKAGES += \
     bindmount-apps.rc
 endif
+
+# QTI camera provider
+ifeq ($(TARGET_USES_QTI_CAMERA),true)
+PRODUCT_PACKAGES += \
+    vendor.qti.camera.provider.rc
+endif
