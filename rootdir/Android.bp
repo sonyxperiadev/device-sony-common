@@ -479,3 +479,10 @@ prebuilt_etc {
     sub_dir: "init",
     vendor: true,
 }
+
+prebuilt_etc {
+    name: "vendor.qti.camera.provider.rc",
+    src: "vendor/etc/init/vendor.qti.camera.provider.rc",
+    sub_dir: "init",
+    vendor: true,
+}
