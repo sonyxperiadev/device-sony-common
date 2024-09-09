@@ -46,6 +46,7 @@ PRODUCT_PACKAGES += \
     android.hardware.soundtrigger@2.3-impl
 
 # Camera
+ifneq ($(TARGET_USES_QTI_CAMERA),true)
 ifeq ($(TARGET_USES_64BIT_CAMERA),true)
 PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.5-impl:64 \
@@ -54,6 +55,7 @@ else
 PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.5-impl:32 \
     android.hardware.camera.provider@2.5-service
+endif
 endif
 
 # External Camera
