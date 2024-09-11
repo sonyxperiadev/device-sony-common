@@ -15,6 +15,7 @@ PRODUCT_PACKAGES += \
     com.qti.chi.override \
     com.qti.chi.override.bitra \
     com.qti.chiusecaseselector \
+    com.qti.feature2.afbrckt \
     com.qti.feature2.anchorsync \
     com.qti.feature2.demux \
     com.qti.feature2.frameselect \
@@ -24,12 +25,17 @@ PRODUCT_PACKAGES += \
     com.qti.feature2.gs.sm6375 \
     com.qti.feature2.gs.sm8350 \
     com.qti.feature2.gs.sm8450 \
+    com.qti.feature2.gs.sm8550 \
     com.qti.feature2.hdr \
+    com.qti.feature2.mcreprocrt \
     com.qti.feature2.memcpy \
     com.qti.feature2.mfsr \
+    com.qti.feature2.mux \
     com.qti.feature2.qcfa \
     com.qti.feature2.rawhdr \
+    com.qti.feature2.realtimeserializer \
     com.qti.feature2.rt \
+    com.qti.feature2.rtmcx \
     com.qti.feature2.serializer \
     com.qti.feature2.stub \
     com.qti.feature2.swmf \
@@ -53,6 +59,7 @@ PRODUCT_PACKAGES += \
     com.qti.node.dummydepth \
     com.qti.node.eisv2 \
     com.qti.node.eisv3 \
+    com.qti.node.gme \
     com.qti.node.swregistration \
     com.qti.node.memcpy \
     com.qti.node.dummyrtb \
@@ -92,6 +99,7 @@ PRODUCT_PACKAGES += \
     com.qtistatic.stats.af \
     com.qtistatic.stats.awb \
     com.qtistatic.stats.pdlib \
+    com.qualcomm.mcx.nonlinearmapper \
     libdepthmapwrapper \
     fdconfigpreview \
     fdconfigpreviewlite \
