@@ -4,4 +4,5 @@ libsdsprpc.so
 libOpenCL.so
 libaptX_encoder.so
 libaptXHD_encoder.so
-libprotobuf-cpp-full.so
+libprotobuf-cpp-full-3.9.1.so
+libprotobuf-cpp-lite-3.9.1.so
