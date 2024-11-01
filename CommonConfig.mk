@@ -182,7 +182,7 @@ DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.qtiradio_ds.xml
 else
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hw.qcradio_ss.xml
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.radio_ss.xml
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.qtiradio_ds.xml
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.qtiradio_ss.xml
 endif
 
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.radio.config.xml
