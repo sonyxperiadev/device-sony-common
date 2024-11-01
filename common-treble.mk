@@ -125,7 +125,7 @@ PRODUCT_PACKAGES += \
 
 # Thermal HAL
 PRODUCT_PACKAGES += \
-    android.hardware.thermal@2.0
+    android.hardware.thermal@2.0.vendor
 
 # Power
 PRODUCT_PACKAGES += \
