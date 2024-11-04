@@ -91,14 +91,10 @@ KERNEL_PATH := kernel/sony/msm-$(SOMC_KERNEL_VERSION)
 
 # Configure qti-headers auxiliary module via soong so that the correct headers
 # under kernel/sony/msm-X.Y/kernel-headers are chosen
-SOONG_CONFIG_NAMESPACES += qti_kernel_headers
-SOONG_CONFIG_qti_kernel_headers := version
-SOONG_CONFIG_qti_kernel_headers_version := $(SOMC_KERNEL_VERSION)
+$(call soong_config_set,qti_kernel_headers,version,$(SOMC_KERNEL_VERSION))
 
 # Build 64bit audio service
-SOONG_CONFIG_NAMESPACES += android_hardware_audio
-SOONG_CONFIG_android_hardware_audio := run_64bit
-SOONG_CONFIG_android_hardware_audio_run_64bit := true
+$(call soong_config_set,android_hardware_audio,run_64bit,true)
 
 # Codecs Configuration
 PRODUCT_COPY_FILES += \
