@@ -25,6 +25,7 @@
 #include <android-base/file.h>
 #include <android-base/logging.h>
 #include <android-base/strings.h>
+#include <android-base/parseint.h>
 
 #include "CycleCountBackupRestore.h"
 
@@ -84,12 +85,7 @@ void CycleCountBackupRestore::Read(const std::string &path, int &cycles) {
     }
 
     buffer = ::android::base::Trim(buffer);
-    try {
-        cycles = std::stoi(buffer);
-    } catch (std::out_of_range &e) {
-        LOG(WARNING) << "Battery cycle count in persist storage file is out of bounds: " << path;
-        return;
-    } catch (std::invalid_argument &e) {
+    if (!android::base::ParseInt(buffer.c_str(), &cycles)) {
         LOG(WARNING) << "Data format is wrong in persist storage file: " << path;
         return;
     }

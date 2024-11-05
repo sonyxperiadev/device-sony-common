@@ -25,6 +25,7 @@
 #include <android-base/file.h>
 #include <android-base/logging.h>
 #include <android-base/strings.h>
+#include <android-base/parseint.h>
 
 #include "LearnedCapacityBackupRestore.h"
 
@@ -74,12 +75,7 @@ void LearnedCapacityBackupRestore::ReadFromPersistStorage() {
     }
 
     buffer = ::android::base::Trim(buffer);
-    try {
-        persist_capacity = std::stoi(buffer);
-    } catch (std::out_of_range &e) {
-        LOG(WARNING) << "Battery capacity in persist storage file is out of bounds: " << buffer;
-        return;
-    } catch (std::invalid_argument &e) {
+    if (!android::base::ParseInt(buffer.c_str(), &persist_capacity)) {
         LOG(WARNING) << "Data format is wrong in the battery capacity persist file: " << buffer;
         return;
     }
