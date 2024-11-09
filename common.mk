@@ -102,6 +102,15 @@ $(call soong_config_set,qti_kernel_headers,version,$(SOMC_KERNEL_VERSION))
 # Build 64bit audio service
 $(call soong_config_set,android_hardware_audio,run_64bit,true)
 
+# Explicitly enable UFFD GC
+# Kernel 5.4 and above support userfaultfd, but only kernel 5.7 and above
+# support MREMAP_DONTUNMAP. Both features are required for UFFD GC
+ifneq ($(filter 4.19 5.4, $(SOMC_KERNEL_VERSION)),)
+OVERRIDE_ENABLE_UFFD_GC := false
+else
+OVERRIDE_ENABLE_UFFD_GC := true
+endif
+
 # Codecs Configuration
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
