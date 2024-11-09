@@ -12,6 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Vendor service manager no longer included in API level 30+,
+# however needed by odm blobs.
+PRODUCT_PACKAGES += \
+    vndservicemanager
+
 # TEMPORARY: These libraries are deprecated, not referenced by any AOSP
 # nor OSS HAL, but are still required by odm blobs (short term).
 # We don't add a dependency on the vndk variants as those end up in
