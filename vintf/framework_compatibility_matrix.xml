@@ -164,7 +164,7 @@
     </hal>
     <hal format="aidl">
         <name>vendor.qti.hardware.display.config</name>
-        <version>4</version>
+        <version>4-5</version>
         <interface>
             <name>IDisplayConfig</name>
             <instance>default</instance>
