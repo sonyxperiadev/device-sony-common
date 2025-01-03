@@ -171,10 +171,6 @@ PRODUCT_PACKAGES += \
     libprotobuf-cpp-full-3.9.1-vendorcompat \
     libprotobuf-cpp-lite-3.9.1-vendorcompat
 
-# RenderScript
-PRODUCT_PACKAGES += \
-    librsjni
-
 # libRSDriver_adreno dependency
 PRODUCT_PACKAGES += \
     libLLVM
