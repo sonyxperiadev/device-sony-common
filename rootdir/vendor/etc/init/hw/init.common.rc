@@ -131,10 +131,6 @@ on late-fs
     start vendor.hwcomposer-2-3
     start vendor.qti.hardware.display.composer
 
-    # Configstore needed for surfaceflinger props
-    # TODO: Will be deprecated in R
-    start vendor.configstore-hal
-
     # Start gralloc allocator early
     start vendor.qti.hardware.display.allocator
 
