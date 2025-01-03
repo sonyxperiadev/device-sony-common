@@ -22,7 +22,7 @@ else ifneq ($(filter 5.4, $(SOMC_KERNEL_VERSION)),)
 audio_platform := primary-hal
 display_platform := sm8350
 else ifneq ($(filter 5.10, $(SOMC_KERNEL_VERSION)),)
-audio_platform := primary-hal
+audio_platform := primary-hal-ar
 display_platform := sm8450
 else
 audio_platform := primary-hal-ar
