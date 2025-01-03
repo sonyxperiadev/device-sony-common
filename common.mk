@@ -16,17 +16,19 @@
 COMMON_PATH := device/sony/common
 
 ifneq ($(filter 4.19, $(SOMC_KERNEL_VERSION)),)
-audio_platform := primary-hal
 display_platform := sm8250
 else ifneq ($(filter 5.4, $(SOMC_KERNEL_VERSION)),)
-audio_platform := primary-hal
 display_platform := sm8350
 else ifneq ($(filter 5.10, $(SOMC_KERNEL_VERSION)),)
-audio_platform := primary-hal-ar
 display_platform := sm8450
 else
-audio_platform := primary-hal-ar
 display_platform := sm8550
+endif
+
+ifeq ($(TARGET_USES_AUDIOREACH),true)
+audio_platform := primary-hal-ar
+else
+audio_platform := primary-hal
 endif
 
 # Enable building packages from device namspaces.
