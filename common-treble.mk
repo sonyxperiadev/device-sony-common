@@ -17,10 +17,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.display.allocator-service
 
-# Configstore
-PRODUCT_PACKAGES += \
-    android.hardware.configstore@1.1-service
-
 # RIL
 # Interface library needed by odm blobs:
 PRODUCT_PACKAGES += \
