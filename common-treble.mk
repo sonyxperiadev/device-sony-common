@@ -86,8 +86,8 @@ PRODUCT_PACKAGES += \
 
 # Health
 PRODUCT_PACKAGES += \
-    android.hardware.health@2.1-impl-sony \
-    android.hardware.health@2.1-service
+    android.hardware.health-service.sony \
+    android.hardware.health-service.sony_recovery
 
 ifeq ($(TARGET_VIBRATOR_V1_2),true)
 # QTI Haptics Vibrator
