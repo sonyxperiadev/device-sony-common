@@ -1,25 +1,41 @@
-cc_library_shared {
-    name: "android.hardware.health@2.1-impl-sony",
-    stem: "android.hardware.health@2.0-impl-2.1-sony",
+cc_defaults {
+    name: "android.hardware.health-service.sony-defaults",
 
-    // Install to vendor and recovery.
-    proprietary: true,
-    recovery_available: true,
+    defaults: ["libhealth_aidl_impl_user"],
+
+    relative_install_path: "hw",
+
+    vintf_fragments: ["android.hardware.health-service.sony.xml"],
+
+    static_libs: ["libhealth_aidl_impl"],
+
+    srcs: [
+        "main.cpp",
+        "CycleCountBackupRestore.cpp",
+        "LearnedCapacityBackupRestore.cpp",
+    ],
 
     cflags: [
         "-Wall",
         "-Werror",
         "-fexceptions",
     ],
+}
 
-    defaults: ["android.hardware.health@2.1-impl-defaults"],
+cc_binary {
+    name: "android.hardware.health-service.sony",
+    defaults: ["android.hardware.health-service.sony-defaults"],
+    init_rc: ["android.hardware.health-service.sony.rc"],
+    vendor: true,
+    recovery: false,
+    overrides: ["charger"],
+}
 
-    srcs: [
-        "impl.cpp",
-        "CycleCountBackupRestore.cpp",
-        "LearnedCapacityBackupRestore.cpp",
-    ],
-
-    // No vintf_fragments because both -impl and -service should have been
-    // installed.
+cc_binary {
+    name: "android.hardware.health-service.sony_recovery",
+    defaults: ["android.hardware.health-service.sony-defaults"],
+    init_rc: ["android.hardware.health-service.sony_recovery.rc"],
+    vendor: false,
+    recovery: true,
+    overrides: ["charger.recovery"],
 }

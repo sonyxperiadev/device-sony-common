@@ -1,0 +1,14 @@
+service vendor.health-default /vendor/bin/hw/android.hardware.health-service.sony
+    class hal
+    user system
+    group system
+    capabilities WAKE_ALARM BLOCK_SUSPEND
+    file /dev/kmsg w
+
+service vendor.charger /vendor/bin/hw/android.hardware.health-service.sony --charger
+    class charger
+    seclabel u:r:charger_vendor:s0
+    user system
+    group system wakelock input graphics
+    capabilities SYS_BOOT WAKE_ALARM BLOCK_SUSPEND
+    file /dev/kmsg w
