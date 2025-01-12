@@ -17,15 +17,6 @@ on charger
     start vendor.mlog_qmi_service
     start vendor.irsc_util
 
-# Offline charger
-service vendor.charger /system/bin/charger
-    class charger
-    user system
-    group system log input
-    capabilities SYS_BOOT
-    critical
-    seclabel u:r:charger:s0
-
 on early-init
     mount debugfs debugfs /sys/kernel/debug
     chmod 0755 /sys/kernel/debug
