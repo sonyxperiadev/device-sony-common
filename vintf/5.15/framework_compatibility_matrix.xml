@@ -1,9 +1,41 @@
-<compatibility-matrix version="1.0" type="framework">
+<compatibility-matrix version="1.0" type="framework" level="7">
+    <hal format="aidl">
+        <name>android.hardware.bluetooth.audio</name>
+        <version>4</version>
+        <interface>
+            <name>IBluetoothAudioProviderFactory</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="aidl">
+        <name>android.hardware.boot</name>
+        <version>1</version>
+        <interface>
+            <name>IBootControl</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="aidl">
+        <name>android.hardware.cas</name>
+        <version>1</version>
+        <interface>
+            <name>IMediaCasService</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
     <hal format="hidl">
         <name>android.hardware.light</name>
         <version>2.0</version>
         <interface>
             <name>ILight</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="aidl">
+        <name>android.hardware.health</name>
+        <version>3</version>
+        <interface>
+            <name>IHealth</name>
             <instance>default</instance>
         </interface>
     </hal>
@@ -16,10 +48,51 @@
         </interface>
     </hal>
     <hal format="hidl">
+        <name>android.hardware.radio</name>
+        <version>1.5</version>
+        <interface>
+            <name>IRadio</name>
+            <instance>slot1</instance>
+            <instance>slot2</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>android.hardware.radio.config</name>
+        <version>1.1</version>
+        <interface>
+            <name>IRadioConfig</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
         <name>android.hardware.vibrator</name>
-        <version>1.0-2</version>
+        <version>1.0</version>
         <interface>
             <name>IVibrator</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="aidl">
+        <name>android.hardware.wifi</name>
+        <version>2</version>
+        <interface>
+            <name>IWifi</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="aidl">
+        <name>android.hardware.wifi.hostapd</name>
+        <version>2</version>
+        <interface>
+            <name>IHostapd</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="aidl">
+        <name>android.hardware.wifi.supplicant</name>
+        <version>3</version>
+        <interface>
+            <name>ISupplicant</name>
             <instance>default</instance>
         </interface>
     </hal>
@@ -57,7 +130,7 @@
     </hal>
     <hal format="hidl">
         <name>vendor.display.color</name>
-        <version>1.5-7</version>
+        <version>1.7</version>
         <interface>
             <name>IDisplayColor</name>
             <instance>default</instance>
@@ -122,7 +195,7 @@
     </hal>
     <hal format="hidl">
         <name>vendor.qti.hardware.data.iwlan</name>
-        <version>1.0-1</version>
+        <version>1.0</version>
         <interface>
             <name>IIWlan</name>
             <instance>slot1</instance>
@@ -139,7 +212,6 @@
     </hal>
     <hal format="hidl">
         <name>vendor.qti.hardware.display.allocator</name>
-        <version>3.0</version>
         <version>4.0</version>
         <interface>
             <name>IQtiAllocator</name>
@@ -156,7 +228,7 @@
     </hal>
     <hal format="aidl">
         <name>vendor.qti.hardware.display.config</name>
-        <version>4-5</version>
+        <version>4</version>
         <interface>
             <name>IDisplayConfig</name>
             <instance>default</instance>
@@ -164,7 +236,6 @@
     </hal>
     <hal format="hidl">
         <name>vendor.qti.hardware.display.mapper</name>
-        <version>3.0</version>
         <version>4.0</version>
         <interface>
             <name>IQtiMapper</name>
@@ -251,7 +322,7 @@
     <hal format="hidl">
         <name>vendor.qti.hardware.radio.qtiradio</name>
         <version>1.0</version>
-        <version>2.6-7</version>
+        <version>2.7</version>
         <interface>
             <name>IQtiRadio</name>
             <instance>slot1</instance>
