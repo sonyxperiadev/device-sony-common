@@ -153,12 +153,12 @@ endif
 include device/sony/sepolicy/sepolicy.mk
 
 # Device manifest: What HALs the device provides
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/manifest.xml
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/$(SOMC_KERNEL_VERSION)/manifest.xml
 # Framework compatibility matrix: What the device(=vendor) expects of the framework(=system)
 DEVICE_MATRIX_FILE   += $(COMMON_PATH)/vintf/compatibility_matrix.xml
 
 # Framework compatibility matrix that contains framework HALs as a vendor extension
-DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE += $(COMMON_PATH)/vintf/framework_compatibility_matrix.xml
+DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE += $(COMMON_PATH)/vintf/$(SOMC_KERNEL_VERSION)/framework_compatibility_matrix.xml
 
 # Custom NXP NFC vendor interface
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.nxp.nxpnfc.xml
