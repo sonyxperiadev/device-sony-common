@@ -16,10 +16,5 @@ PRODUCT_INSTALL_EXTRA_FLATTENED_APEXES := true
 # supported for prebuilt_apex modules yet.
 PRODUCT_PACKAGES += com.android.apex.cts.shim.v1_with_prebuilts.flattened
 
-# GSI specific tasks on boot
-PRODUCT_PACKAGES += \
-    init.gsi.rc \
-    init.vndk-nodef.rc \
-
 # Always build modules from source
 MODULE_BUILD_FROM_SOURCE := true
