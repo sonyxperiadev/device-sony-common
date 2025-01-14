@@ -62,6 +62,10 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.5-external \
     android.hardware.camera.provider@2.5-external-service
 
+# Media
+PRODUCT_PACKAGES += \
+    android.hardware.media.omx@1.0-service
+
 # Sensorservice
 PRODUCT_PACKAGES += \
     android.frameworks.sensorservice@1.0.vendor
