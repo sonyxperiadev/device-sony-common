@@ -386,10 +386,3 @@ on property:sys.boot_completed=1
 on property:vendor.sys.listeners.registered=true
     # load IPA FWs
     start vendor.ipastart_sh
-
-# Restart health HAL when ADSP is out of reset.
-# On devices where communication with the battery occurs over GLINK,
-# it is important that Health HAL is (re)launched after ADSP ready.
-on property:vendor.qcom.adspup=1
-    wait /sys/class/power_supply/battery
-    restart health-hal-2-1
