@@ -152,6 +152,9 @@ on post-fs-data
     mkdir /data/misc/dhcp 0770 dhcp dhcp
     chown dhcp dhcp /data/misc/dhcp
 
+    # Create ipacm log dir
+    mkdir /data/vendor/ipa 0770 radio radio
+
     # Create directory for radio
     mkdir /data/vendor/radio 0770 system radio
     rm /data/vendor/radio/shmbus

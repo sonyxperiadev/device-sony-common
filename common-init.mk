@@ -21,7 +21,6 @@ PRODUCT_PACKAGES += \
     atfwd.rc \
     cnd.rc \
     cnss-daemon.rc \
-    ipacm.rc \
     dataqti.rc \
     dpmQmiMgr.rc \
     dpmd.rc \
