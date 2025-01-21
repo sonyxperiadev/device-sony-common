@@ -106,6 +106,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libqti_vndfwk_detect.vendor \
     IPACM_cfg.xml \
+    IPACM_Filter_cfg.xml \
     ipacm
 
 # WLAN
