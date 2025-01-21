@@ -17,12 +17,16 @@ COMMON_PATH := device/sony/common
 
 ifneq ($(filter 4.19, $(SOMC_KERNEL_VERSION)),)
 display_platform := sm8250
+ipa_platform := data-ipacfg-mgr-legacy
 else ifneq ($(filter 5.4, $(SOMC_KERNEL_VERSION)),)
 display_platform := sm8350
+ipa_platform := data-ipacfg-mgr
 else ifneq ($(filter 5.10, $(SOMC_KERNEL_VERSION)),)
 display_platform := sm8450
+ipa_platform := data-ipacfg-mgr
 else
 display_platform := sm8550
+ipa_platform := data-ipacfg-mgr
 endif
 
 ifeq ($(TARGET_USES_AUDIOREACH),true)
@@ -40,7 +44,8 @@ PRODUCT_SOONG_NAMESPACES += \
     vendor/qcom/opensource/core-utils \
     vendor/qcom/opensource/audio-hal/$(audio_platform) \
     vendor/qcom/opensource/display/$(display_platform) \
-    vendor/qcom/opensource/display-commonsys-intf/$(display_platform)
+    vendor/qcom/opensource/display-commonsys-intf/$(display_platform) \
+    vendor/qcom/opensource/$(ipa_platform)
 
 # Wi-Fi HAL
 ifeq ($(BOARD_WLAN_CHIP),wcn6740)
