@@ -159,13 +159,6 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
-    name: "ipacm.rc",
-    src: "vendor/etc/init/ipacm.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
     name: "irsc_util.rc",
     src: "vendor/etc/init/irsc_util.rc",
     sub_dir: "init",
