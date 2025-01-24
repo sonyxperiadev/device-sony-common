@@ -5,3 +5,7 @@ service vendor.sensorspd /odm/bin/sscrpcd sensorspd
     group system wakelock
     capabilities BLOCK_SUSPEND
     disabled
+
+on property:vendor.qcom.slpiup=1
+    enable vendor.sensorspd
+    enable vendor.sensors

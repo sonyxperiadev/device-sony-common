@@ -3,3 +3,7 @@ service vendor.sensorspd /odm/bin/adsprpcd sensorspd
    user system
    group system
    disabled
+
+on property:vendor.qcom.adspup=1
+    enable vendor.sensorspd
+    enable vendor.sensors
