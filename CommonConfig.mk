@@ -196,12 +196,6 @@ DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.somc.modem.xml
 
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.cneservices.xml
 
-ifeq ($(TARGET_VIBRATOR_V1_2),true)
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.vibrator_v1.2.xml
-else
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.vibrator_v1.0.xml
-endif
-
 # Audioreach audio
 ifeq ($(TARGET_USES_AUDIOREACH), true)
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.qti.hardware.audio.xml
