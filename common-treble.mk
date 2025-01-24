@@ -126,6 +126,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.power@1.3-service.sony
 
+# Sensors
+PRODUCT_PACKAGES += \
+    android.hardware.sensors-service.multihal
+
 # Only define bootctrl HAL availability on AB platforms:
 ifeq ($(AB_OTA_UPDATER),true)
 PRODUCT_PACKAGES += \
