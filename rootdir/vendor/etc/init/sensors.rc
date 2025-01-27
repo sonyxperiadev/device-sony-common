@@ -7,6 +7,7 @@ on post-fs-data
     chown system system /mnt/vendor/persist/sensors/error_log
     chown system system /mnt/vendor/persist/sensors/registry/
     chown system system /mnt/vendor/persist/sensors/registry/registry/
+    chown system system /mnt/vendor/persist/sensors/sensors_list.txt
     chown system system /mnt/vendor/persist/sensors/sensors_settings
     chown system system /mnt/vendor/persist/sensors/sns.reg
     chown system system /mnt/vendor/persist/sensors/version.txt
