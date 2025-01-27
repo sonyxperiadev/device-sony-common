@@ -6,6 +6,21 @@ service vendor.sensorspd /odm/bin/sscrpcd sensorspd
     capabilities BLOCK_SUSPEND
     disabled
 
+# Workaround: For SLPI devices, it is critical to start Sensors Multi-HAL
+# after SLPI is ready. Essentially, this is a more isolated implementation
+# of the workaround: https://github.com/sonyxperiadev/device-sony-common/commit/825d4b815f4e5ca6fb8707e2b55ea93cabd04b43,
+# since devices without SLPI do not have this problem.
+service vendor.sensors-hal-multihal /vendor/bin/hw/android.hardware.sensors-service.multihal
+    class hal
+    user system
+    group system wakelock context_hub input uhid
+    task_profiles ServiceCapacityLow
+    capabilities BLOCK_SUSPEND
+    rlimit rtprio 10 10
+    override
+    disabled
+
 on property:vendor.qcom.slpiup=1
     enable vendor.sensorspd
     enable vendor.sensors
+    enable vendor.sensors-hal-multihal
