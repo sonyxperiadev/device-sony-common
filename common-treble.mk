@@ -89,8 +89,7 @@ PRODUCT_PACKAGES += \
 
 # Health
 PRODUCT_PACKAGES += \
-    android.hardware.health-service.sony \
-    android.hardware.health-service.sony_recovery
+    android.hardware.health-service.sony
 
 # Vibrator
 PRODUCT_PACKAGES += \
