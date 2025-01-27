@@ -84,3 +84,9 @@ ifeq ($(TARGET_USES_QTI_CAMERA),true)
 PRODUCT_PACKAGES += \
     vendor.qti.camera.provider.rc
 endif
+
+# DSP service
+ifeq ($(TARGET_USES_DSP_SERVICE),true)
+PRODUCT_PACKAGES += \
+    vendor.qti.hardware.dsp@1.0-service.rc
+endif
