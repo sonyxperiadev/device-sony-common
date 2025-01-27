@@ -5,5 +5,6 @@ service vendor.slpistart_sh /vendor/bin/init.qcom.slpistart.sh
     disabled
     oneshot
 
-on property:vendor.qcom.adspup=1
+# Start DSP services as soon as partitions are mounted
+on property:vendor.init.earlymount.ready=1
     start vendor.slpistart_sh
