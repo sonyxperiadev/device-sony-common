@@ -2,7 +2,8 @@
 
 echo 1 > /sys/kernel/boot_cdsp/boot
 
-MAX_RETRIES=5
+MAX_RETRIES=100
+SLEEP_TIME=0.1
 attempt=0
 
 # Check for the 'remoteproc' entry with 'cdsp' in its name
@@ -29,8 +30,8 @@ while (( attempt < MAX_RETRIES )); do
 
     log -t "$(basename $0)" "CDSP is not ready yet. Retrying..."
     ((attempt++))
-    sleep 2
+    sleep $SLEEP_TIME
 done
 
-log -t "$(basename $0)" "CDSP is not booted after $((MAX_RETRIES * 2)) seconds."
+log -t "$(basename $0)" "CDSP is not booted after $((MAX_RETRIES * SLEEP_TIME)) seconds."
 exit 1
