@@ -14,7 +14,6 @@
 
 # Common init services
 PRODUCT_PACKAGES += \
-    init.usb.rc \
     adb_tcp.rc \
     adpl.rc \
     adsprpcd.rc \
@@ -22,17 +21,18 @@ PRODUCT_PACKAGES += \
     cnd.rc \
     cnss-daemon.rc \
     dataqti.rc \
-    dpmQmiMgr.rc \
     dpmd.rc \
+    dpmQmiMgr.rc \
+    ims_rtp_daemon.rc \
     imsdaemon.rc \
     imsdatadaemon.rc \
     imsqmidaemon.rc \
     imsrcsd.rc \
-    ims_rtp_daemon.rc \
+    init.usb.rc \
     irsc_util.rc \
-    mlog_qmi.rc \
     mdm_helper.rc \
     mdmmgr.rc \
+    mlog_qmi.rc \
     msm_irq.rc \
     mstatdaemon.rc \
     netmgrd.rc \
@@ -40,18 +40,18 @@ PRODUCT_PACKAGES += \
     per-proxy.rc \
     per-service.rc \
     port-bridge.rc \
-    qrtr.rc \
     qmipriod.rc \
+    qrtr.rc \
     qesdk-manager.rc \
     qseecom.rc \
     rmt_storage.rc \
     sct_service.rc \
-    shsusrd.rc \
     sensors.rc \
-    vendor.sensors.qesdk.rc \
+    shsusrd.rc \
     ta_qmi.rc \
     tftp_server.rc \
-    vendor.qti.diag.rc
+    vendor.qti.diag.rc \
+    vendor.sensors.qesdk.rc
 
 # RIL
 PRODUCT_PACKAGES += \
