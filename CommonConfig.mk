@@ -160,9 +160,6 @@ DEVICE_MATRIX_FILE   += $(COMMON_PATH)/vintf/compatibility_matrix.xml
 # Framework compatibility matrix that contains framework HALs as a vendor extension
 DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE += $(COMMON_PATH)/vintf/$(SOMC_KERNEL_VERSION)/framework_compatibility_matrix.xml
 
-# Custom NXP NFC vendor interface
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.nxp.nxpnfc.xml
-
 # SIM secure element, SIM1/SIM2
 ifeq ($(PRODUCT_DEVICE_DS),true)
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.secure_element_ds.xml

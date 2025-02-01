@@ -136,9 +136,9 @@
             <instance>default</instance>
         </interface>
     </hal>
-    <hal format="hidl">
-        <name>vendor.nxp.nxpnfc</name>
-        <version>1.0</version>
+    <hal format="aidl">
+        <name>vendor.nxp.nxpnfc_aidl</name>
+        <version>1</version>
         <interface>
             <name>INxpNfc</name>
             <instance>default</instance>
