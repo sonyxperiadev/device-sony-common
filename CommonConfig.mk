@@ -191,8 +191,6 @@ DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/$(SOMC_KERNEL_VERSION)/vendor.hw.da
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/$(SOMC_KERNEL_VERSION)/vendor.qti.qesdhal.xml
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.somc.modem.xml
 
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/$(SOMC_KERNEL_VERSION)/vendor.hw.cneservices.xml
-
 # Audioreach audio
 ifeq ($(TARGET_USES_AUDIOREACH), true)
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.qti.hardware.audio.xml
