@@ -162,9 +162,9 @@ DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE += $(COMMON_PATH)/vintf/$(SOMC_KERNEL_V
 
 # SIM secure element, SIM1/SIM2
 ifeq ($(PRODUCT_DEVICE_DS),true)
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.secure_element_ds.xml
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/$(SOMC_KERNEL_VERSION)/android.hardware.secure_element_ds.xml
 else
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.secure_element_ss.xml
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/$(SOMC_KERNEL_VERSION)/android.hardware.secure_element_ss.xml
 endif
 
 # DSP service
@@ -173,25 +173,25 @@ DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.qti.hardware.dsp.xml
 endif
 
 ifeq ($(PRODUCT_DEVICE_DS),true)
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hw.qcradio_ds.xml
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.radio_ds.xml
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.qtiradio_ds.xml
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/$(SOMC_KERNEL_VERSION)/android.hw.qcradio_ds.xml
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/$(SOMC_KERNEL_VERSION)/vendor.hw.radio_ds.xml
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/$(SOMC_KERNEL_VERSION)/vendor.hw.qtiradio_ds.xml
 else
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hw.qcradio_ss.xml
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.radio_ss.xml
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.qtiradio_ss.xml
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/$(SOMC_KERNEL_VERSION)/android.hw.qcradio_ss.xml
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/$(SOMC_KERNEL_VERSION)/vendor.hw.radio_ss.xml
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/$(SOMC_KERNEL_VERSION)/vendor.hw.qtiradio_ss.xml
 endif
 
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.radio.config.xml
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.radio.ims.xml
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.radio.internal.xml
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.radio.uceservice.xml
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.imsservices.xml
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.dataservices.xml
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.qti.qesdhal.xml
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/$(SOMC_KERNEL_VERSION)/android.hardware.radio.config.xml
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/$(SOMC_KERNEL_VERSION)/vendor.hw.radio.ims.xml
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/$(SOMC_KERNEL_VERSION)/vendor.hw.radio.internal.xml
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/$(SOMC_KERNEL_VERSION)/vendor.hw.radio.uceservice.xml
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/$(SOMC_KERNEL_VERSION)/vendor.hw.imsservices.xml
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/$(SOMC_KERNEL_VERSION)/vendor.hw.dataservices.xml
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/$(SOMC_KERNEL_VERSION)/vendor.qti.qesdhal.xml
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.somc.modem.xml
 
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.cneservices.xml
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/$(SOMC_KERNEL_VERSION)/vendor.hw.cneservices.xml
 
 # Audioreach audio
 ifeq ($(TARGET_USES_AUDIOREACH), true)
