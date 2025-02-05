@@ -4,5 +4,4 @@
         <transport>hwbinder</transport>
         <fqname>@1.0::IDeviceInfo/deviceinfo</fqname>
     </hal>
-
 </manifest>
