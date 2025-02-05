@@ -40,16 +40,8 @@
         </interface>
     </hal>
     <hal format="hidl">
-        <name>com.quicinc.cne.api</name>
-        <version>1.1</version>
-        <interface>
-            <name>IApiService</name>
-            <instance>cnd</instance>
-        </interface>
-    </hal>
-    <hal format="hidl">
         <name>vendor.display.color</name>
-        <version>1.5-7</version>
+        <version>1.5</version>
         <interface>
             <name>IDisplayColor</name>
             <instance>default</instance>
@@ -81,7 +73,7 @@
     </hal>
     <hal format="hidl">
         <name>vendor.qti.data.factory</name>
-        <version>2.5</version>
+        <version>2.3</version>
         <interface>
             <name>IFactory</name>
             <instance>default</instance>
@@ -92,15 +84,6 @@
         <version>1.1</version>
         <interface>
             <name>IDataConnection</name>
-            <instance>slot1</instance>
-            <instance>slot2</instance>
-        </interface>
-    </hal>
-    <hal format="hidl">
-        <name>vendor.qti.hardware.data.iwlan</name>
-        <version>1.0-1</version>
-        <interface>
-            <name>IIWlan</name>
             <instance>slot1</instance>
             <instance>slot2</instance>
         </interface>
@@ -130,44 +113,12 @@
             <instance>default</instance>
         </interface>
     </hal>
-    <hal format="aidl">
-        <name>vendor.qti.hardware.display.config</name>
-        <version>4-5</version>
-        <interface>
-            <name>IDisplayConfig</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
     <hal format="hidl">
         <name>vendor.qti.hardware.display.mapper</name>
         <version>3.0</version>
         <version>4.0</version>
         <interface>
             <name>IQtiMapper</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
-    <hal format="hidl">
-        <name>vendor.qti.hardware.dsp</name>
-        <version>1.0</version>
-        <interface>
-            <name>IDspService</name>
-            <instance>dspservice</instance>
-        </interface>
-    </hal>
-    <hal format="hidl">
-        <name>vendor.qti.hardware.pal</name>
-        <version>1.0</version>
-        <interface>
-            <name>IPAL</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
-    <hal format="hidl">
-        <name>vendor.qti.hardware.qseecom</name>
-        <version>1.0</version>
-        <interface>
-            <name>IQSEECom</name>
             <instance>default</instance>
         </interface>
     </hal>
@@ -199,7 +150,7 @@
     </hal>
     <hal format="hidl">
         <name>vendor.qti.hardware.radio.lpa</name>
-        <version>1.1-2</version>
+        <version>1.2</version>
         <interface>
             <name>IUimLpa</name>
             <instance>UimLpa0</instance>
@@ -215,19 +166,10 @@
             <instance>oemhook1</instance>
         </interface>
     </hal>
-    <hal format="aidl">
-        <name>vendor.qti.hardware.radio.qtiradio</name>
-        <version>4</version>
-        <interface>
-            <name>IQtiRadioStable</name>
-            <instance>slot1</instance>
-            <instance>slot2</instance>
-        </interface>
-    </hal>
     <hal format="hidl">
         <name>vendor.qti.hardware.radio.qtiradio</name>
         <version>1.0</version>
-        <version>2.6-7</version>
+        <version>2.7</version>
         <interface>
             <name>IQtiRadio</name>
             <instance>slot1</instance>
@@ -272,7 +214,6 @@
     <hal format="hidl">
         <name>vendor.qti.ims.factory</name>
         <version>1.1</version>
-        <version>2.2</version>
         <interface>
             <name>IImsFactory</name>
             <instance>default</instance>
@@ -291,14 +232,6 @@
         <version>1.1</version>
         <interface>
             <name>IQesdhal</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
-    <hal format="hidl">
-        <name>vendor.qti.spu</name>
-        <version>1.0</version>
-        <interface>
-            <name>ISPUManager</name>
             <instance>default</instance>
         </interface>
     </hal>
