@@ -1,4 +1,4 @@
-<compatibility-matrix version="1.0" type="framework">
+<compatibility-matrix version="8.0" type="framework">
     <hal format="hidl">
         <name>android.hardware.light</name>
         <version>2.0</version>
