@@ -75,7 +75,7 @@ PRODUCT_PACKAGES += \
     libmiscta \
     libta \
     ta_qmi_service \
-    tad_static
+    tad
 
 # Audio
 PRODUCT_PACKAGES += \
