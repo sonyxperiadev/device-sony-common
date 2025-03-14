@@ -25,16 +25,6 @@
         <fqname>@1.0::IQtiOemHook/oemhook0</fqname>
     </hal>
     <hal format="hidl">
-        <name>vendor.qti.hardware.radio.qtiradio</name>
-        <transport>hwbinder</transport>
-        <fqname>@1.0::IQtiRadio/slot1</fqname>
-    </hal>
-    <hal format="hidl">
-        <name>vendor.qti.hardware.radio.qtiradio</name>
-        <transport>hwbinder</transport>
-        <fqname>@2.6::IQtiRadio/slot1</fqname>
-    </hal>
-    <hal format="hidl">
         <name>vendor.qti.hardware.radio.uim</name>
         <transport>hwbinder</transport>
         <fqname>@1.2::IUim/Uim0</fqname>
