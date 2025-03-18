@@ -23,7 +23,6 @@ PRODUCT_PACKAGES += \
     android.hardware.radio@1.6.vendor \
     android.hardware.radio.config@1.3.vendor \
     android.hardware.radio.deprecated@1.0.vendor \
-    android.hardware.secure_element@1.2.vendor \
     android.hardware.radio.config-V1-ndk.vendor \
     android.hardware.radio.messaging-V1-ndk.vendor \
     android.hardware.radio.modem-V1-ndk.vendor \
@@ -31,6 +30,11 @@ PRODUCT_PACKAGES += \
     android.hardware.radio.sim-V1-ndk.vendor \
     android.hardware.radio.voice-V1-ndk.vendor \
     android.hardware.radio-V1-ndk.vendor
+
+# Secure Element
+PRODUCT_PACKAGES += \
+    android.hardware.secure_element-service.nxp \
+    android.hardware.secure_element@1.2.vendor
 
 # netmgrd
 PRODUCT_PACKAGES += \
