@@ -1,6 +1,7 @@
 # CAMX Libs
 ifeq ($(filter seine,$(SOMC_PLATFORM)),)
 PRODUCT_PACKAGES += \
+    camx.common@1.0-helper \
     camera.qcom \
     camx.device@3.2-impl \
     camx.device@3.3-impl \
