@@ -474,8 +474,15 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
-    name: "vendor.qti.camera.provider.rc",
-    src: "vendor/etc/init/vendor.qti.camera.provider.rc",
+    name: "vendor.qti.camera.provider-service_64.rc",
+    src: "vendor/etc/init/vendor.qti.camera.provider-service_64.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "vendor.qti.camera.provider@2.7-service_64.rc",
+    src: "vendor/etc/init/vendor.qti.camera.provider@2.7-service_64.rc",
     sub_dir: "init",
     vendor: true,
 }
