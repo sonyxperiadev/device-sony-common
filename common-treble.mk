@@ -68,6 +68,7 @@ PRODUCT_PACKAGES += \
 
 # QTI Camera
 PRODUCT_PACKAGES += \
+    android.hardware.camera.device@3.7.vendor \
     android.hardware.camera.metadata@3.6.vendor \
     android.hardware.camera.provider@2.7.vendor
 
