@@ -66,9 +66,9 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.5-external \
     android.hardware.camera.provider@2.5-external-service
 
-# External Camera
+# QTI Camera
 PRODUCT_PACKAGES += \
-    android.hardware.camera.metadata@3.6
+    android.hardware.camera.metadata@3.6.vendor
 
 # Media
 PRODUCT_PACKAGES += \
