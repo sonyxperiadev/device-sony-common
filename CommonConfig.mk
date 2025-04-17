@@ -198,7 +198,11 @@ endif
 
 # Camera
 ifeq ($(TARGET_USES_QTI_CAMERA),true)
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.qti.camera.provider.xml
+ifneq ($(filter 2.7, $(QTI_CAMERA_PROVIDER_SERVICE)),)
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.qti.camera.provider@2.7.xml
+else
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.qti.camera.provider-aidl.xml
+endif
 else
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.camera.provider.xml
 endif
