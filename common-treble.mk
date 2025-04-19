@@ -74,7 +74,8 @@ PRODUCT_PACKAGES += \
 
 # Media
 PRODUCT_PACKAGES += \
-    android.hardware.media.omx@1.0-service
+    android.hardware.media.omx@1.0-service \
+    libcodec2_hidl@1.0.vendor
 
 # Sensorservice
 PRODUCT_PACKAGES += \

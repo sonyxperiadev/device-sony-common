@@ -389,3 +389,9 @@ on property:sys.boot_completed=1
 on property:vendor.sys.listeners.registered=true
     # load IPA FWs
     start vendor.ipastart_sh
+
+# Set Media C2 properties
+on property:vendor.media.target_variant=*
+    setprop ro.media.xml_variant.profiles ${vendor.media.target_variant}
+    setprop ro.media.xml_variant.codecs ${vendor.media.target_variant}
+    setprop ro.media.xml_variant.codecs_performance ${vendor.media.target_variant}
