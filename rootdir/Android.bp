@@ -488,6 +488,13 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
+    name: "vendor.qti.camera.provider@2.7-aon-service_64.rc",
+    src: "vendor/etc/init/vendor.qti.camera.provider@2.7-aon-service_64.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
     name: "vendor.qti.media.c2@1.0-service.rc",
     src: "vendor/etc/init/vendor.qti.media.c2@1.0-service.rc",
     sub_dir: "init",

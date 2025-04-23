@@ -1,0 +1,13 @@
+service vendor.camera-provider-2-7 /odm/bin/hw/vendor.qti.camera.provider-service_64
+    interface android.hardware.camera.provider@2.7::ICameraProvider legacy/1
+    interface android.hardware.camera.provider@2.6::ICameraProvider legacy/1
+    interface android.hardware.camera.provider@2.5::ICameraProvider legacy/1
+    interface android.hardware.camera.provider@2.4::ICameraProvider legacy/1
+    interface vendor.qti.hardware.camera.postproc@1.0::IPostProcService camerapostprocservice
+    interface vendor.qti.hardware.camera.aon@1.0::IAONService aoncameraservice
+    class hal
+    user cameraserver
+    group audio camera input drmrpc
+    ioprio rt 4
+    capabilities SYS_NICE
+    task_profiles CameraServiceCapacity MaxPerformance
