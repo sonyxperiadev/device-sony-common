@@ -1,0 +1,13 @@
+<manifest version="1.0" type="device">
+    <hal format="hidl">
+        <name>android.hardware.camera.provider</name>
+        <transport>hwbinder</transport>
+        <fqname>@2.7::ICameraProvider/legacy/1</fqname>
+        <fqname>@2.5::ICameraProvider/external/0</fqname>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.qti.hardware.camera.aon</name>
+        <transport>hwbinder</transport>
+        <fqname>@1.0::IAONService/aoncameraservice</fqname>
+    </hal>
+</manifest>
