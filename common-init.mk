@@ -79,17 +79,6 @@ PRODUCT_PACKAGES += \
     bindmount-apps.rc
 endif
 
-# QTI camera provider
-ifeq ($(TARGET_USES_QTI_CAMERA),true)
-ifneq ($(filter 2.7, $(QTI_CAMERA_PROVIDER_SERVICE)),)
-PRODUCT_PACKAGES += \
-    vendor.qti.camera.provider@2.7-service_64.rc
-else
-PRODUCT_PACKAGES += \
-    vendor.qti.camera.provider-service_64.rc
-endif
-endif
-
 # DSP service
 ifeq ($(TARGET_USES_DSP_SERVICE),true)
 PRODUCT_PACKAGES += \
