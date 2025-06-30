@@ -129,9 +129,6 @@ on late-fs
     mount_all /vendor/etc/fstab.${ro.hardware} --late
 
 on post-fs-data
-    # We can start netd here before in is launched in common init.rc on zygote-start
-    start netd
-
     # Create directory used by bluetooth subsystem
     mkdir /data/vendor/bluetooth 2770 bluetooth bluetooth
 
