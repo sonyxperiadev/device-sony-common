@@ -210,3 +210,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Look for vulkan.qcom.so instead of vulkan.$(BOARD_TARGET_PLATFORM).so
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.hardware.vulkan=adreno
+
+# Dalvik heap configuration for compatibility reasons, as
+# certain system components may still use one of the props.
+# Supply until it is supplied by AOSP.
+$(call inherit-product, frameworks/native/build/phone-xhdpi-6144-dalvik-heap.mk)
