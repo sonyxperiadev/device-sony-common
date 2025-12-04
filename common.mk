@@ -64,7 +64,16 @@ DEVICE_PACKAGE_OVERLAYS += $(COMMON_PATH)/overlay
 
 PRODUCT_ENFORCE_RRO_TARGETS := *
 
-# Wifi
+# Telephony overlay
+ifeq ($(PRODUCT_DEVICE_DS),true)
+PRODUCT_PACKAGES += \
+    RilResCommon-DS
+else
+PRODUCT_PACKAGES += \
+    RilResCommon-SS
+endif
+
+# Wifi overlay
 PRODUCT_PACKAGES += \
     WifiResCommon
 
