@@ -28,7 +28,6 @@ PRODUCT_PACKAGES += \
     imsdatadaemon.rc \
     imsqmidaemon.rc \
     imsrcsd.rc \
-    init.usb.rc \
     irsc_util.rc \
     mdm_helper.rc \
     mdmmgr.rc \
@@ -50,6 +49,7 @@ PRODUCT_PACKAGES += \
     shsusrd.rc \
     ta_qmi.rc \
     tftp_server.rc \
+    usb.rc \
     vendor.qti.diag.rc \
     vendor.sensors.qesdk.rc
 

@@ -89,8 +89,8 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
-    name: "init.usb.rc",
-    src: "vendor/etc/init/init.usb.rc",
+    name: "usb.rc",
+    src: "vendor/etc/init/usb.rc",
     sub_dir: "init",
     vendor: true,
 }
