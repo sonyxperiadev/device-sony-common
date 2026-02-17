@@ -1,4 +1,6 @@
-BUILDING_GSI := true
+# The GSI system image delivers system_ext as a subdirectory,
+# and the build fails for devices with a separate system_ext partition.
+# BUILDING_GSI := true
 
 # Exclude all files under system/product and system/system_ext
 PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
