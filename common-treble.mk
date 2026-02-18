@@ -134,7 +134,7 @@ PRODUCT_PACKAGES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power@1.3-service.sony
+    android.hardware.power-service
 
 # Sensors
 PRODUCT_PACKAGES += \
