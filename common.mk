@@ -215,7 +215,6 @@ endif #USE_SODP_APNS
 $(call inherit-product, device/sony/common/common-init.mk)
 $(call inherit-product, device/sony/common/common-odm.mk)
 $(call inherit-product, device/sony/common/common-odm-camx.mk)
-$(call inherit-product, device/sony/common/common-odm-mmcam.mk)
 $(call inherit-product, device/sony/common/common-packages.mk)
 $(call inherit-product, device/sony/common/common-perm.mk)
 $(call inherit-product, device/sony/common/common-prop.mk)
