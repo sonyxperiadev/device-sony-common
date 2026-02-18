@@ -15,10 +15,7 @@
 # Common path
 COMMON_PATH := device/sony/common
 
-ifneq ($(filter 4.19, $(SOMC_KERNEL_VERSION)),)
-display_platform := sm8250
-ipa_platform := data-ipacfg-mgr-legacy
-else ifneq ($(filter 5.4, $(SOMC_KERNEL_VERSION)),)
+ifneq ($(filter 5.4, $(SOMC_KERNEL_VERSION)),)
 display_platform := sm8350
 ipa_platform := data-ipacfg-mgr
 else ifneq ($(filter 5.10, $(SOMC_KERNEL_VERSION)),)
@@ -119,7 +116,7 @@ $(call soong_config_set,android_hardware_audio,run_64bit,true)
 # Explicitly enable UFFD GC
 # Kernel 5.4 and above support userfaultfd, but only kernel 5.7 and above
 # support MREMAP_DONTUNMAP. Both features are required for UFFD GC
-ifneq ($(filter 4.19 5.4, $(SOMC_KERNEL_VERSION)),)
+ifneq ($(filter 5.4, $(SOMC_KERNEL_VERSION)),)
 OVERRIDE_ENABLE_UFFD_GC := false
 else
 OVERRIDE_ENABLE_UFFD_GC := true
