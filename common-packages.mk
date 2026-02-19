@@ -163,10 +163,12 @@ PRODUCT_PACKAGES += \
     libnetutils.vendor \
     libsqlite.vendor
 
-# Prebuilt protobuf 3.9.1 for ODM HALs
+# Prebuilt protobuf for ODM HALs
 PRODUCT_PACKAGES += \
     libprotobuf-cpp-full-3.9.1-vendorcompat \
-    libprotobuf-cpp-lite-3.9.1-vendorcompat
+    libprotobuf-cpp-full-21.12-vendorcompat \
+    libprotobuf-cpp-lite-3.9.1-vendorcompat \
+    libprotobuf-cpp-lite-21.12-vendorcompat
 
 # libRSDriver_adreno dependency
 PRODUCT_PACKAGES += \
