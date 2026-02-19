@@ -160,7 +160,8 @@ PRODUCT_PACKAGES += \
     libqti_vndfwk_detect_vendor \
     libandroid_net \
     libprotobuf-cpp-full \
-    libnetutils.vendor
+    libnetutils.vendor \
+    libsqlite.vendor
 
 # Prebuilt protobuf 3.9.1 for ODM HALs
 PRODUCT_PACKAGES += \
