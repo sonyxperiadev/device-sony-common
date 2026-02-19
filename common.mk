@@ -58,6 +58,12 @@ DEVICE_PACKAGE_OVERLAYS += $(COMMON_PATH)/overlay
 
 PRODUCT_ENFORCE_RRO_TARGETS := *
 
+# Fingerprint overlay
+ifneq ($(TARGET_DEVICE_NO_FPC), true)
+PRODUCT_PACKAGES += \
+    FingerprintResCommon
+endif
+
 # Telephony overlay
 ifeq ($(PRODUCT_DEVICE_DS),true)
 PRODUCT_PACKAGES += \
