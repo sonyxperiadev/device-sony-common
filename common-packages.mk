@@ -80,6 +80,10 @@ PRODUCT_PACKAGES += \
     libOmxVdecHevc \
     libOmxVenc
 
+# C2 dependencies
+PRODUCT_PACKAGES += \
+    libjsoncpp.vendor
+
 # GPS
 PRODUCT_PACKAGES += \
     batching.conf \
@@ -135,7 +139,7 @@ PRODUCT_PACKAGES += \
 # OSS Time service
 PRODUCT_PACKAGES += \
     timekeep \
-    TimeKeep \
+    TimeKeep
 
 # OSS WIFI and BT MAC tool
 PRODUCT_PACKAGES += \
