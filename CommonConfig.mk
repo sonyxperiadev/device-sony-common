@@ -137,13 +137,11 @@ BUILD_KERNEL ?= false
 
 -include $(KERNEL_PATH)/common-kernel/KernelConfig.mk
 
-ifeq ($(TARGET_NEEDS_DTBOIMAGE),true)
 ifeq ($(BUILD_KERNEL),true)
 BOARD_DTBO_IMAGE_NAME := dtbo-$(TARGET_DEVICE).img
 BOARD_PREBUILT_DTBOIMAGE ?= $(PRODUCT_OUT)/$(BOARD_DTBO_IMAGE_NAME)
 else
 BOARD_PREBUILT_DTBOIMAGE ?= kernel/sony/msm-$(SOMC_KERNEL_VERSION)/common-kernel/dtbo-$(TARGET_DEVICE).img
-endif
 endif
 
 # Include build helpers for QCOM proprietary
