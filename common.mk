@@ -218,6 +218,11 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/vendor/etc/apns-conf.xml:system/etc/apns-conf.xml
 endif #USE_SODP_APNS
 
+# pKVM
+ifeq ($(PRODUCT_BUILD_PVMFW_IMAGE),true)
+$(call inherit-product, packages/modules/Virtualization/apex/product_packages.mk)
+endif
+
 $(call inherit-product, device/sony/common/common-init.mk)
 $(call inherit-product, device/sony/common/common-odm.mk)
 $(call inherit-product, device/sony/common/common-odm-camx.mk)
