@@ -1,14 +1,17 @@
 # Vendor version
 TARGET_VENDOR_VERSION := v7
 
+# Set this flag to true to build the ODM image
+# The AOSP image is not used; instead, the ODM image supplied
+# by the Developer World site is used. The dummy ODM image is
+# mandatory for creating the logical ODM partition
+PRODUCT_BUILD_ODM_IMAGE := true
+
 ifneq (,$(SONY_BUILD_ODM))
 
 PRODUCT_VENDOR_MOVE_ENABLED := true
 
 TARGET_USES_NO_DMS_QMI_CLIENT := true
-
-# Set this flag to true to build the ODM image
-PRODUCT_BUILD_ODM_IMAGE := true
 
 PRODUCT_ODM_PROPERTIES += \
     ro.odm.version=$(PLATFORM_VERSION)_$(SOMC_KERNEL_VERSION)_$(SOMC_PLATFORM)_$(TARGET_VENDOR_VERSION)
