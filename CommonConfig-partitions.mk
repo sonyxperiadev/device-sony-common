@@ -31,6 +31,11 @@ BOARD_SOD_DYNAMIC_PARTITIONS_PARTITION_LIST := \
     product \
     vendor
 
+ifeq ($(PRODUCT_BUILD_ODM_IMAGE),true)
+BOARD_SOD_DYNAMIC_PARTITIONS_PARTITION_LIST += \
+    odm
+endif
+
 # Definitions for boot partition
 BOARD_MKBOOTIMG_ARGS += --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
@@ -108,6 +113,11 @@ endif
 ifeq ($(PRODUCT_BUILD_RECOVERY_IMAGE),true)
 AB_OTA_PARTITIONS += \
     recovery
+endif
+
+ifeq ($(PRODUCT_BUILD_ODM_IMAGE),true)
+AB_OTA_PARTITIONS += \
+    odm
 endif
 
 # Enable AVB (Android Verified Boot) version 2.0
