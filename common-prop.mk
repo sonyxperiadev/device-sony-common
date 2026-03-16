@@ -208,6 +208,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.hardware.vulkan=adreno
 
+# Vendor security patch level
+PRODUCT_VENDOR_PROPERTIES += \
+    ro.vendor.boot_security_patch=$(BOOT_SECURITY_PATCH)
+
 # Dalvik heap configuration for compatibility reasons, as
 # certain system components may still use one of the props.
 # Supply until it is supplied by AOSP.
