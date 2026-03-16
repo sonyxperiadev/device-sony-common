@@ -142,9 +142,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.sensors-service.multihal
 
-# Only define bootctrl HAL availability on AB platforms:
-ifeq ($(AB_OTA_UPDATER),true)
+# Boot control
 PRODUCT_PACKAGES += \
     android.hardware.boot-service.qti \
     android.hardware.boot-service.qti.recovery
-endif

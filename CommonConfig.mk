@@ -20,11 +20,6 @@ COMMON_PATH := device/sony/common
 # Do not build proprietary capability
 TARGET_USES_AOSP := true
 
-TARGET_NO_RADIOIMAGE := true
-TARGET_NO_BOOTLOADER := true
-TARGET_NO_RECOVERY ?= false
-TARGET_NO_KERNEL := false
-
 # common cmdline parameters
 ifneq ($(BOARD_USE_ENFORCING_SELINUX),true)
   ifneq ($(BOARD_BOOTCONFIG),)
@@ -43,8 +38,6 @@ endif
 BOARD_KERNEL_CMDLINE += coherent_pool=8M
 BOARD_KERNEL_CMDLINE += printk.devkmsg=on
 
-BOARD_MKBOOTIMG_ARGS += --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
-
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
@@ -57,16 +50,6 @@ TARGET_CPU_VARIANT := generic
 TARGET_2ND_ARCH := arm
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := generic
-
-# Use mke2fs to create ext4 images
-TARGET_USES_MKE2FS := true
-TARGET_USERIMAGES_USE_EXT4 := true
-
-BOARD_ROOT_EXTRA_FOLDERS := odm
-BOARD_ROOT_EXTRA_SYMLINKS += /mnt/vendor/persist:/persist
-
-# Filesystem
-TARGET_FS_CONFIG_GEN := $(COMMON_PATH)/config.fs
 
 # GFX
 USE_OPENGL_RENDERER := true
@@ -136,13 +119,6 @@ WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY ?= true
 BUILD_KERNEL ?= false
 
 -include $(KERNEL_PATH)/common-kernel/KernelConfig.mk
-
-ifeq ($(BUILD_KERNEL),true)
-BOARD_DTBO_IMAGE_NAME := dtbo-$(TARGET_DEVICE).img
-BOARD_PREBUILT_DTBOIMAGE ?= $(PRODUCT_OUT)/$(BOARD_DTBO_IMAGE_NAME)
-else
-BOARD_PREBUILT_DTBOIMAGE ?= kernel/sony/msm-$(SOMC_KERNEL_VERSION)/common-kernel/dtbo-$(TARGET_DEVICE).img
-endif
 
 # Include build helpers for QCOM proprietary
 -include vendor/qcom/proprietary/common/build/proprietary-build.mk
@@ -216,9 +192,11 @@ DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/venodr.qti.media.c2.xml
 # Used by newer keymaster binaries
 VENDOR_SECURITY_PATCH=$(PLATFORM_SECURITY_PATCH)
 
-TARGET_USES_IMS:= true
+TARGET_USES_IMS := true
 
 NEED_AIDL_NDK_PLATFORM_BACKEND := true
 
 BUILD_BROKEN_PLUGIN_VALIDATION := soong-qti_kernel_headers_defaults
 BUILD_BROKEN_INCORRECT_PARTITION_IMAGES := true
+
+include $(COMMON_PATH)/CommonConfig-partitions.mk
