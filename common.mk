@@ -102,9 +102,6 @@ PRODUCT_USE_VNDK_OVERRIDE := true
 PRODUCT_PACKAGES += \
     vndk_package
 
-# Force building a recovery image: Needed for OTA packaging to work since Q
-PRODUCT_BUILD_RECOVERY_IMAGE := true
-
 KERNEL_PATH := kernel/sony/msm-$(SOMC_KERNEL_VERSION)
 # Sanitized prebuilt kernel headers
 -include $(KERNEL_PATH)/common-headers/KernelHeaders.mk
@@ -227,6 +224,7 @@ $(call inherit-product, device/sony/common/common-init.mk)
 $(call inherit-product, device/sony/common/common-odm.mk)
 $(call inherit-product, device/sony/common/common-odm-camx.mk)
 $(call inherit-product, device/sony/common/common-packages.mk)
+$(call inherit-product, device/sony/common/common-partitions.mk)
 $(call inherit-product, device/sony/common/common-perm.mk)
 $(call inherit-product, device/sony/common/common-prop.mk)
 $(call inherit-product, device/sony/common/common-sanitizer.mk)
