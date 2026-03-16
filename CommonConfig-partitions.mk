@@ -21,6 +21,9 @@ BOARD_ROOT_EXTRA_SYMLINKS += /mnt/vendor/persist:/persist
 # Set the block size for flash (multiple of 64 kernel pages)
 BOARD_FLASH_BLOCK_SIZE := $(shell echo $$(($(BOARD_KERNEL_PAGESIZE) * 64)))
 
+# Build super image
+BOARD_BUILD_SUPER_IMAGE_BY_DEFAULT := true
+
 # Define dynamic partition groups
 BOARD_SUPER_PARTITION_GROUPS := sod_dynamic_partitions
 
