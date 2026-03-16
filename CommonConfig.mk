@@ -190,7 +190,13 @@ DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/venodr.qti.media.c2.xml
 
 # New vendor security patch level: https://r.android.com/660840/
 # Used by newer keymaster binaries
-VENDOR_SECURITY_PATCH=$(PLATFORM_SECURITY_PATCH)
+VENDOR_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
+
+# Set boot security patch level
+BOOT_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
+
+# Set init_boot security patch level
+INIT_BOOT_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
 
 TARGET_USES_IMS := true
 
