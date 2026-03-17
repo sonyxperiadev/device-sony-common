@@ -107,6 +107,12 @@ $(call soong_config_set,qti_kernel_headers,version,$(SOMC_KERNEL_VERSION))
 # Build 64bit audio service
 $(call soong_config_set,android_hardware_audio,run_64bit,true)
 
+# Use the UFS BSG framework in gpt-utils for slot switching
+# The framework is available starting from 5.1 rc1
+ifeq ($(filter 4.19, $(SOMC_KERNEL_VERSION)),)
+$(call soong_config_set,ufsbsg,ufsframework,bsg)
+endif
+
 # Explicitly enable UFFD GC
 # Kernel 5.4 and above support userfaultfd, but only kernel 5.7 and above
 # support MREMAP_DONTUNMAP. Both features are required for UFFD GC
