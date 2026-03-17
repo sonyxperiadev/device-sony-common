@@ -113,6 +113,9 @@ $(call soong_config_set,qti_kernel_headers,version,$(SOMC_KERNEL_VERSION))
 # Build 64bit audio service
 $(call soong_config_set,android_hardware_audio,run_64bit,true)
 
+# Use the UFS BSG framework in gpt-utils for slot switching
+$(call soong_config_set,ufsbsg,ufsframework,bsg)
+
 # Explicitly enable UFFD GC
 OVERRIDE_ENABLE_UFFD_GC := true
 
