@@ -59,6 +59,17 @@ else
 BOARD_PREBUILT_DTBOIMAGE ?= kernel/sony/msm-$(SOMC_KERNEL_VERSION)/common-kernel/$(SOMC_PLATFORM)/$(BOARD_DTBO_IMAGE_NAME)
 endif
 
+# Definitions for recovery partition
+# https://source.android.com/devices/bootloader/partitions/generic-boot#combinations
+ifeq ($(PRODUCT_BUILD_RECOVERY_IMAGE),true)
+# Device with recovery partition
+BOARD_EXCLUDE_KERNEL_FROM_RECOVERY_IMAGE := true
+BOARD_USES_FULL_RECOVERY_IMAGE := true
+else
+# Device without recovery partition
+BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
+endif
+
 # Definitions for system partition
 BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_SYSTEMIMAGE_PARTITION_RESERVED_SIZE := 52428800

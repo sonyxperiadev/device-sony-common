@@ -20,6 +20,9 @@ COMMON_PATH := device/sony/common
 # Do not build proprietary capability
 TARGET_USES_AOSP := true
 
+# GKI-related definitions
+BOARD_USES_GENERIC_KERNEL_IMAGE := true
+
 # common cmdline parameters
 ifneq ($(BOARD_USE_ENFORCING_SELINUX),true)
   ifneq ($(BOARD_BOOTCONFIG),)
@@ -50,6 +53,9 @@ TARGET_CPU_VARIANT := generic
 TARGET_2ND_ARCH := arm
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := generic
+
+# Recovery definitions
+TARGET_RECOVERY_WIPE := $(COMMON_PATH)/rootdir/recovery.wipe
 
 # GFX
 USE_OPENGL_RENDERER := true
