@@ -88,20 +88,6 @@ ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
 $(call inherit-product, $(SRC_TARGET_DIR)/product/developer_gsi_keys.mk)
 endif
 
-# Force using the following regardless of shipping API level:
-#   PRODUCT_TREBLE_LINKER_NAMESPACES
-#   PRODUCT_SEPOLICY_SPLIT
-#   PRODUCT_ENFORCE_VINTF_MANIFEST
-#   PRODUCT_NOTICE_SPLIT
-PRODUCT_FULL_TREBLE_OVERRIDE := true
-
-# VNDK
-# Force using VNDK regardless of shipping API level
-PRODUCT_USE_VNDK_OVERRIDE := true
-# Include vndk/vndk-sp/ll-ndk modules
-PRODUCT_PACKAGES += \
-    vndk_package
-
 KERNEL_PATH := kernel/sony/msm-$(SOMC_KERNEL_VERSION)
 # Sanitized prebuilt kernel headers
 -include $(KERNEL_PATH)/common-headers/KernelHeaders.mk
