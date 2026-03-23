@@ -18,6 +18,7 @@ PRODUCT_PACKAGES += \
     adpl.rc \
     adsprpcd.rc \
     atfwd.rc \
+    audiopd.rc \
     cnd.rc \
     cnss-daemon.rc \
     dataqti.rc \
