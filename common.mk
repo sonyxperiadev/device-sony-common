@@ -23,12 +23,6 @@ display_platform := sm8550
 ipa_platform := data-ipacfg-mgr
 endif
 
-ifeq ($(TARGET_USES_AUDIOREACH),true)
-audio_platform := primary-hal-ar
-else
-audio_platform := primary-hal
-endif
-
 # Enable building packages from device namspaces.
 # Might be temporary! See:
 # https://android.googlesource.com/platform/build/soong/+/master/README.md#name-resolution
@@ -36,7 +30,6 @@ PRODUCT_SOONG_NAMESPACES += \
     $(COMMON_PATH) \
     $(PLATFORM_COMMON_PATH) \
     vendor/qcom/opensource/core-utils \
-    vendor/qcom/opensource/audio-hal/$(audio_platform) \
     vendor/qcom/opensource/display/$(display_platform) \
     vendor/qcom/opensource/display-commonsys-intf/$(display_platform) \
     vendor/qcom/opensource/$(ipa_platform)
@@ -96,9 +89,6 @@ KERNEL_PATH := kernel/sony/msm-$(SOMC_KERNEL_VERSION)
 # under kernel/sony/msm-X.Y/kernel-headers are chosen
 $(call soong_config_set,qti_kernel_headers,version,$(SOMC_KERNEL_VERSION))
 
-# Build 64bit audio service
-$(call soong_config_set,android_hardware_audio,run_64bit,true)
-
 # Use the UFS BSG framework in gpt-utils for slot switching
 $(call soong_config_set,ufsbsg,ufsframework,bsg)
 
@@ -154,12 +144,19 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/vendor/etc/sensors/hals.conf:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/hals.conf \
     $(COMMON_PATH)/rootdir/vendor/etc/sensors/sns_reg_config:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/sns_reg_config
 
-# Audio Configuration
+# Audioreach
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/vendor/etc/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml \
-    frameworks/av/services/audiopolicy/config/bluetooth_audio_policy_configuration_7_0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_audio_policy_configuration_7_0.xml \
+    $(COMMON_PATH)/rootdir/vendor/etc/audio_effects_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects_config.xml \
+    $(COMMON_PATH)/rootdir/vendor/etc/mem_logger_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mem_logger_config.xml \
+    $(COMMON_PATH)/rootdir/vendor/etc/vendor_audio_interfaces.xml:$(TARGET_COPY_OUT_VENDOR)/etc/vendor_audio_interfaces.xml
+
+# Audio Policy Configuration
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/vendor/etc/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
+    $(COMMON_PATH)/rootdir/vendor/etc/bluetooth_qti_hearing_aid_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_qti_hearing_aid_audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/default_volume_tables.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default_volume_tables.xml \
     frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml \
+    frameworks/av/services/audiopolicy/config/stub_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/stub_audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml
 
 # Additional native libraries

@@ -1,0 +1,23 @@
+<!--Config file for mem logger
+    Copyright (c) 2023 Qualcomm Innovation Center, Inc. All rights reserved.
+    SPDX-License-Identifier: BSD-3-Clause-Clear -->
+<mem_logger>
+    <printtime enable = "false">
+    </printtime>
+    <queues>
+        <queue name="PAL_STATE_Q" enable = "true" outputFile="/data/vendor/audio/memlog/pal_state_queue.bin" size = '80000' maxBinFiles='100'>
+        </queue>
+        <queue name="KPI_Q" enable = "true" outputFile="/data/vendor/audio/memlog/kpi_queue.bin" size = '10000' maxBinFiles='100'>
+        </queue>
+        <queue name="GRAPH_Q" enable = "true" outputFile="/data/vendor/audio/memlog/graph_queue.bin" size = '10000' maxBinFiles='100'>
+        </queue>
+        <queue name="SPF_RESET_Q" enable = "true" outputFile="/data/vendor/audio/memlog/spf_reset_queue.bin" size = '10000' maxBinFiles='100'>
+        </queue>
+    </queues>
+    <statbufs>
+        <statbuf name="GRAPH_STATBUF" enable="true" outputFile="/data/vendor/audio/memlog/graph_statbuf.bin" maxBinFiles='100'>
+        </statbuf>
+        <statbuf name="SPF_RESET_STATBUF" enable="true" outputFile="/data/vendor/audio/memlog/spf_reset_statbuf.bin" maxBinFiles='100'>
+        </statbuf>
+    </statbufs>
+</mem_logger>

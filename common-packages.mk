@@ -25,44 +25,29 @@ PRODUCT_PACKAGES += \
     libhwbinder.vendor \
     libhidltransport.vendor
 
-# Audio
+# Audioreach
 PRODUCT_PACKAGES += \
-    audio.bluetooth.default \
-    audio.r_submix.default \
-    audio.usb.default \
-    audioadsprpcd \
-    libaudio-resampler
+    libaudiocorehal.default \
+    libaudiocorehal.qti \
+    libaudioeffecthal.qti \
+    libsoundtriggerhal.qti
 
-# For audio.primary
+# Audio Graph Manager (AGM)
 PRODUCT_PACKAGES += \
-    libtinyalsa \
-    libaudioroute \
-    tinymix
-
-# Audio effects
-PRODUCT_PACKAGES += \
-    libqcomvisualizer \
-    libqcomvoiceprocessing \
-    libqcompostprocbundle
-
-# Audio deps
-PRODUCT_PACKAGES += \
-    libfmq
-
-# Audioreach audio
-ifeq ($(TARGET_USES_AUDIOREACH),true)
-# AGM
-PRODUCT_PACKAGES += \
+    libagmipcservice \
     libagm_compress_plugin \
     libagm_mixer_plugin \
     libagm_pcm_plugin
 
-# PAL
+# Platform Audio Layer (PAL)
 PRODUCT_PACKAGES += \
+    libaudiochargerlistener \
+    libhfp_pal \
+    libpaleventnotifier \
+    libpalipcservice \
     lib_bt_aptx \
     lib_bt_ble \
     lib_bt_bundle
-endif
 
 # GFX
 PRODUCT_PACKAGES += \
