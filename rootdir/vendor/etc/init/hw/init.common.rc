@@ -159,15 +159,7 @@ on post-fs-data
     # Create directory for QSEE Secure FS listener
     mkdir /data/vendor/tzstorage 0770 system system
 
-    mkdir /data/misc/dts 0770 media audio
     mkdir /data/persist 0770 system system
-
-    # Create directory used by audio subsystem
-    mkdir /data/vendor/audio 0770 audio audio
-
-    # Create directory for audio delta files
-    mkdir /data/vendor/audio/acdbdata 0770 media audio
-    mkdir /data/vendor/audio/acdbdata/delta 0770 media audio
 
     mkdir /data/etc 0775
     mkdir /data/system 0775 system system
@@ -180,10 +172,6 @@ on post-fs-data
     # Create directory from IMS services
     mkdir /data/shared 0755
     chown system system /data/shared
-
-    # Enable the setgid bit on the directory
-    mkdir /data/audio 0770 media audio
-    chmod 2770 /data/audio
 
     # QCOM Legacy camera stack
     mkdir /data/misc/camera 0770 camera camera
@@ -324,9 +312,6 @@ on boot
     chmod 0664 /sys/devices/dsi_panel_driver/pcc_profile
 
     chown root system /proc/net/ip_conntrack
-
-    # Allow access for AGM to read sound card state
-    chown media audio /sys/kernel/snd_card/card_state
 
     # Set up kernel tracing, but disable it by default
     chmod 0222 /sys/kernel/debug/tracing/trace_marker

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (c) 2023-2024 Qualcomm Innovation Center, Inc. All rights reserved.
+SPDX-License-Identifier: BSD-3-Clause-Clear
+-->
+<libraries>
+    <!--
+    method expected API signature
+    "int32_t <function_name>()"
+    -->
+    <library name = "agmservice" libraryName="libagmipcservice.so"
+            method="registerService" mandatory="true"/>
+    <library name = "palservice" libraryName="libpalipcservice.so"
+            method="registerService" mandatory="true"/>
+    <library name = "paleventnotifierservice" libraryName="libpaleventnotifier.so"
+            method="registerPalNotifierService" mandatory="false"/>
+    <library name = "audiohal-qti" libraryName="libaudiocorehal.qti.so"
+            method="registerServices" mandatory="true"/>
+    <library name = "audiohal-default" libraryName="libaudiocorehal.default.so"
+            method="registerServices" mandatory="true"/>
+    <library name = "listenSoundModel" libraryName="liblistensoundmodelaidl.so"
+            method="registerService" mandatory="false"/>
+    <library name = "audioeffecthal" libraryName="libaudioeffecthal.qti.so"
+            method="registerService" mandatory="true"/>
+    <library name = "sthal" libraryName="libsoundtriggerhal.qti.so"
+            method="createISoundTriggerFactory" mandatory="true" />
+    <library name="btaudio_sw" libraryName="android.hardware.bluetooth.audio_sw.so"
+            method="registerIModuleBluetoothSWQti" mandatory="false" />
+    <library name = "asr" libraryName="libqasr.so"
+            method="registerService" mandatory="false" />
+</libraries>

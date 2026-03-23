@@ -165,11 +165,6 @@ DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/$(SOMC_KERNEL_VERSION)/vendor.hw.da
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/$(SOMC_KERNEL_VERSION)/vendor.qti.qesdhal.xml
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.somc.modem.xml
 
-# Audioreach audio
-ifeq ($(TARGET_USES_AUDIOREACH), true)
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.qti.hardware.audio.xml
-endif
-
 # Camera
 ifeq ($(TARGET_USES_QTI_CAMERA),true)
 ifneq ($(filter 2.7, $(QTI_CAMERA_PROVIDER_SERVICE)),)
