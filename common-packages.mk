@@ -49,6 +49,22 @@ PRODUCT_PACKAGES += \
     lib_bt_ble \
     lib_bt_bundle
 
+# Audio effects AOSP
+PRODUCT_PACKAGES += \
+    libbundleaidl \
+    libdownmixaidl \
+    libdynamicsprocessingaidl \
+    libloudnessenhanceraidl \
+    libreverbaidl \
+    libvisualizeraidl
+
+# Audio effects QTI
+PRODUCT_PACKAGES += \
+    libqcompostprocbundle \
+    libqcomvisualizer \
+    libqcomvoiceprocessing \
+    libvolumelistener
+
 # GFX
 PRODUCT_PACKAGES += \
     libhdmi \
