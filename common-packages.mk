@@ -89,6 +89,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     batching.conf \
     gnss_antenna_info.conf \
+    gps.conf \
     libbatching \
     libgeofencing \
     libgnss
