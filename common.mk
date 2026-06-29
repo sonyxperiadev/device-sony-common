@@ -191,12 +191,12 @@ PRODUCT_COPY_FILES += \
 
 -include device/sony/customization/customization.mk
 
-USE_SODP_APNS ?= true
-ifeq ($(USE_SODP_APNS),true)
-# Community APN list
+USE_AOSP_APNS ?= true
+ifeq ($(USE_AOSP_APNS),true)
+# AOSP APN list
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/vendor/etc/apns-conf.xml:system/etc/apns-conf.xml
-endif #USE_SODP_APNS
+    device/sample/etc/apns-full-conf.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/apns-conf.xml
+endif # USE_AOSP_APNS
 
 # pKVM
 ifeq ($(PRODUCT_BUILD_PVMFW_IMAGE),true)
