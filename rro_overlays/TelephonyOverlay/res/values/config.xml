@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <!-- Determine whether calls to mute the microphone in PhoneUtils
+         are routed through the android.media.AudioManager class (true) or through
+         the com.android.internal.telephony.Phone interface (false). -->
+    <bool name="send_mic_mute_to_AudioManager">true</bool>
+
+    <!-- Show enabled lte option for lte device -->
+    <bool name="config_enabled_lte" translatable="false">true</bool>
+
+    <!-- Determine whether we should show the "listen for instructions" screen after
+         successfully placing the OTA call -->
+    <integer name="OtaShowListeningScreen">1</integer>
+
+    <!-- Flag indicating whether the TelephonyConnectionService supports the handover of calls from
+         the TelephonyConnectionService to another ConnectionService defined in the system.
+         Telecom performs the handover by placing a call using the "to" ConnectionService, and then
+         disconnecting the ongoing Telephony call when the call goes active. -->
+    <bool name="config_support_handover_from">true</bool>
+</resources>

@@ -47,28 +47,30 @@ endif
 SONY_CLEAR_VARS := $(COMMON_PATH)/sony_clear_vars.mk
 SONY_BUILD_SYMLINKS := $(COMMON_PATH)/sony_build_symlinks.mk
 
-DEVICE_PACKAGE_OVERLAYS += $(COMMON_PATH)/overlay
-
-PRODUCT_ENFORCE_RRO_TARGETS := *
+# Common Runtime Resource Overlays
+PRODUCT_PACKAGES += \
+    CarrierConfigOverlayCommon \
+    FrameworkOverlayCommon \
+    SettingsOverlayCommon \
+    SettingsProviderOverlayCommon \
+    SystemUIOverlayCommon \
+    TelephonyOverlayCommon \
+    WiFiOverlayCommon
 
 # Fingerprint overlay
 ifneq ($(TARGET_DEVICE_NO_FPC), true)
 PRODUCT_PACKAGES += \
-    FingerprintResCommon
+    FingerprintOverlayCommon
 endif
 
 # Telephony overlay
 ifeq ($(PRODUCT_DEVICE_DS),true)
 PRODUCT_PACKAGES += \
-    RilResCommon-DS
+    RilDSOverlayCommon
 else
 PRODUCT_PACKAGES += \
-    RilResCommon-SS
+    RilSSOverlayCommon
 endif
-
-# Wifi overlay
-PRODUCT_PACKAGES += \
-    WifiResCommon
 
 PRODUCT_DEXPREOPT_SPEED_APPS += SystemUI
 

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <bool name="def_screen_brightness_automatic_mode">true</bool>
+    <string name="def_backup_transport" translatable="false">com.google.android.gms/.backup.BackupTransportService</string>
+</resources>

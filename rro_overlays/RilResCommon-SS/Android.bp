@@ -1,5 +1,0 @@
-runtime_resource_overlay {
-    name: "RilResCommon-SS",
-    sdk_version: "current",
-    vendor: true
-}

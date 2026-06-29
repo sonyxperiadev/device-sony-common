@@ -1,0 +1,5 @@
+runtime_resource_overlay {
+    name: "SystemUIOverlayCommon",
+    sdk_version: "current",
+    vendor: true
+}

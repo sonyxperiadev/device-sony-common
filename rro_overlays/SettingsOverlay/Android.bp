@@ -1,0 +1,5 @@
+runtime_resource_overlay {
+    name: "SettingsOverlayCommon",
+    sdk_version: "current",
+    vendor: true
+}
