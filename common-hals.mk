@@ -90,10 +90,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.gnss-aidl-service-qti
 
-# Light
-PRODUCT_PACKAGES += \
-    android.hardware.light@2.0-service.sony
-
 # Health
 PRODUCT_PACKAGES += \
     android.hardware.health-service.sony
