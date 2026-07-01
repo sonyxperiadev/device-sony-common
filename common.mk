@@ -55,6 +55,7 @@ PRODUCT_PACKAGES += \
     SettingsProviderOverlayCommon \
     SystemUIOverlayCommon \
     TelephonyOverlayCommon \
+    TetheringOverlayCommon \
     WiFiOverlayCommon
 
 # Fingerprint overlay
