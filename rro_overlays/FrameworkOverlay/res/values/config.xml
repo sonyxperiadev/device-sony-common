@@ -51,34 +51,6 @@
         <item>"7,1"</item>
     </string-array>
 
-     <!-- This setting is deprecated, please use
-         com.android.networkstack.tethering.R.array.config_tether_usb_regexs instead. -->
-    <string-array translatable="false" name="config_tether_usb_regexs">
-        <item>"usb\\d"</item>
-        <item>"rndis\\d"</item>
-    </string-array>
-
-    <!-- This setting is deprecated, please use
-         com.android.networkstack.tethering.R.array.config_tether_wifi_regexs instead. -->
-    <string-array translatable="false" name="config_tether_wifi_regexs">
-        <item>"wlan\\d"</item>
-    </string-array>
-
-    <!-- This setting is deprecated, please use
-         com.android.networkstack.tethering.R.array.config_tether_bluetooth_regexs instead. -->
-    <string-array translatable="false" name="config_tether_bluetooth_regexs">
-        <item>"bt-pan"</item>
-    </string-array>
-
-    <!-- This setting is deprecated, please use
-         com.android.networkstack.tethering.R.array.config_tether_upstream_types. -->
-    <integer-array translatable="false" name="config_tether_upstream_types">
-        <item>0</item>
-        <item>1</item>
-        <item>5</item>
-        <item>7</item>
-    </integer-array>
-
      <!-- Flag indicating whether the we should enable the automatic brightness in Settings.
          Software implementation will be used if config_hardware_auto_brightness_available is not set -->
     <bool name="config_automatic_brightness_available">true</bool>
