@@ -212,6 +212,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_VENDOR_PROPERTIES += \
     ro.vendor.boot_security_patch=$(BOOT_SECURITY_PATCH)
 
+# USB Gadget HAL
+PRODUCT_PROPERTY_OVERRIDES += \
+    vendor.usb.diag.func.name=ffs \
+    vendor.usb.dpl.inst.name=dpl \
+    vendor.usb.qdss.inst.name=qdss_sw \
+    vendor.usb.rmnet.func.name=gsi \
+    vendor.usb.rmnet.inst.name=rmnet \
+    vendor.usb.rndis.func.name=gsi
+
 # Dalvik heap configuration for compatibility reasons, as
 # certain system components may still use one of the props.
 # Supply until it is supplied by AOSP.
