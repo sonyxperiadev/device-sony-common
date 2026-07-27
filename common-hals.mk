@@ -120,7 +120,7 @@ PRODUCT_PACKAGES += \
 
 # Usb HAL
 PRODUCT_PACKAGES += \
-    android.hardware.usb@1.2-service-qti
+    android.hardware.usb-service.qti
 
 # Thermal HAL
 PRODUCT_PACKAGES += \
