@@ -15,12 +15,12 @@
 
 on charger
     mount configfs none /config
-    mkdir /config/usb_gadget/g1 0770 shell shell
-    mkdir /config/usb_gadget/g1/strings/0x409 0770 shell shell
+    mkdir /config/usb_gadget/g1 0770
+    mkdir /config/usb_gadget/g1/strings/0x409 0770
 
+    write /config/usb_gadget/g1/bcdUSB 0x0200
     write /config/usb_gadget/g1/idVendor 0x0fce
     write /config/usb_gadget/g1/idProduct 0xe${ro.usb.pid_suffix}
-    write /config/usb_gadget/g1/os_desc/use 1
 
     write /config/usb_gadget/g1/strings/0x409/serialnumber ${ro.serialno}
     write /config/usb_gadget/g1/strings/0x409/manufacturer ${ro.product.manufacturer}
@@ -28,58 +28,127 @@ on charger
 
     mkdir /config/usb_gadget/g1/functions/mass_storage.0
 
-    mkdir /config/usb_gadget/g1/configs/b.1 0770 shell shell
-    mkdir /config/usb_gadget/g1/configs/b.1/strings/0x409 0770 shell shell
-    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "msc"
-    symlink /config/usb_gadget/g1/functions/mass_storage.0 /config/usb_gadget/g1/configs/b.1/f1
+    mkdir /config/usb_gadget/g1/configs/b.1 0770
+    mkdir /config/usb_gadget/g1/configs/b.1/strings/0x409 0770
+    write /config/usb_gadget/g1/configs/b.1/MaxPower 900
 
-    write /config/usb_gadget/g1/configs/b.1/MaxPower 500
-    symlink /config/usb_gadget/g1/configs/b.1 /config/usb_gadget/g1/os_desc/b.1
+    setprop sys.usb.config mass_storage
+    setprop sys.usb.controller ${vendor.usb.controller}
 
-    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    wait /sys/class/udc/${sys.usb.controller}
 
-on boot
+    setprop sys.usb.configfs 1
+
+on zygote-start
     mount configfs none /config
-    mkdir /dev/usb-ffs 0770 shell shell
-    mkdir /dev/usb-ffs/adb 0770 shell shell
-    mkdir /dev/usb-ffs/mtp 0770 mtp mtp
-    mkdir /dev/usb-ffs/ptp 0770 mtp mtp
-    mkdir /config/usb_gadget/g1 0770 shell shell
-    mkdir /config/usb_gadget/g1/strings/0x409 0770 shell shell
-    write /config/usb_gadget/g1/idVendor 0x0fce
-    write /config/usb_gadget/g1/bcdDevice 0x0223
+    chown system usb /config/usb_gadget/
+    mkdir /config/usb_gadget/g1 0770 system usb
+    chown system usb /config/usb_gadget/g1/UDC
+    chown system usb /config/usb_gadget/g1/bDeviceClass
+    chown system usb /config/usb_gadget/g1/bDeviceProtocol
+    chown system usb /config/usb_gadget/g1/bDeviceSubClass
+    chown system usb /config/usb_gadget/g1/bMaxPacketSize0
+    chown system usb /config/usb_gadget/g1/bcdDevice
+    chown system usb /config/usb_gadget/g1/bcdUSB
+    chown system usb /config/usb_gadget/g1/configs
+    chown system usb /config/usb_gadget/g1/functions
+    chown system usb /config/usb_gadget/g1/idProduct
+    chown system usb /config/usb_gadget/g1/idVendor
+    chown system usb /config/usb_gadget/g1/max_speed
+    chown system usb /config/usb_gadget/g1/os_desc
+    chown system usb /config/usb_gadget/g1/strings
+    mkdir /config/usb_gadget/g1/strings/0x409 0770 system usb
+    chown system usb /config/usb_gadget/g1/strings/0x409/manufacturer
+    chown system usb /config/usb_gadget/g1/strings/0x409/product
+    chown system usb /config/usb_gadget/g1/strings/0x409/serialnumber
+    mkdir /config/usb_gadget/g1/functions/mass_storage.0 0770 system usb
+    mkdir /config/usb_gadget/g1/functions/mtp.gs0 0770 system usb
+    mkdir /config/usb_gadget/g1/functions/ptp.gs1 0770 system usb
+    mkdir /config/usb_gadget/g1/functions/accessory.gs2 0770 system usb
+    mkdir /config/usb_gadget/g1/functions/audio_source.gs3 0770 system usb
+    mkdir /config/usb_gadget/g1/functions/midi.gs5 0770 system usb
+    chown system usb /config/usb_gadget/g1/functions/midi.gs5/buflen
+    chown system usb /config/usb_gadget/g1/functions/midi.gs5/id
+    chown system usb /config/usb_gadget/g1/functions/midi.gs5/in_ports
+    chown system usb /config/usb_gadget/g1/functions/midi.gs5/index
+    chown system usb /config/usb_gadget/g1/functions/midi.gs5/out_ports
+    chown system usb /config/usb_gadget/g1/functions/midi.gs5/qlen
+    mkdir /config/usb_gadget/g1/functions/ffs.adb 0770 system usb
+    mkdir /config/usb_gadget/g1/functions/ffs.aoa 0770 system usb
+    mkdir /config/usb_gadget/g1/functions/ffs.ctrl 0770 system usb
+    mkdir /config/usb_gadget/g1/functions/ffs.diag 0770 system usb
+    mkdir /config/usb_gadget/g1/functions/ffs.diag_mdm 0770 system usb
+    mkdir /config/usb_gadget/g1/functions/ffs.diag_mdm2 0770 system usb
+    mkdir /config/usb_gadget/g1/functions/ffs.mtp 0770 system usb
+    mkdir /config/usb_gadget/g1/functions/ffs.ptp 0770 system usb
+    mkdir /config/usb_gadget/g1/functions/diag.diag 0770 system usb
+    mkdir /config/usb_gadget/g1/functions/diag.diag_mdm 0770 system usb
+    mkdir /config/usb_gadget/g1/functions/diag.diag_mdm2 0770 system usb
+    mkdir /config/usb_gadget/g1/functions/cser.dun.0 0770 system usb
+    mkdir /config/usb_gadget/g1/functions/cser.nmea.1 0770 system usb
+    mkdir /config/usb_gadget/g1/functions/cser.dun.2 0770 system usb
+    mkdir /config/usb_gadget/g1/functions/gsi.rmnet 0770 system usb
+    mkdir /config/usb_gadget/g1/functions/gsi.rndis 0770 system usb
+    mkdir /config/usb_gadget/g1/functions/gsi.dpl 0770 system usb
+    mkdir /config/usb_gadget/g1/functions/qdss.qdss 0770 system usb
+    mkdir /config/usb_gadget/g1/functions/qdss.qdss_mdm 0770 system usb
+    mkdir /config/usb_gadget/g1/functions/qdss.qdss_sw 0770 system usb
+    chown system usb /config/usb_gadget/g1/functions/qdss.qdss/enable_debug_inface
+    chown system usb /config/usb_gadget/g1/functions/qdss.qdss_mdm/enable_debug_inface
+    chown system usb /config/usb_gadget/g1/functions/qdss.qdss_sw/enable_debug_inface
+    mkdir /config/usb_gadget/g1/functions/rndis_bam.rndis 0770 system usb
+    mkdir /config/usb_gadget/g1/functions/rndis.rndis 0770 system usb
+    mkdir /config/usb_gadget/g1/functions/rmnet_bam.rmnet 0770 system usb
+    mkdir /config/usb_gadget/g1/functions/rmnet_bam.dpl 0770 system usb
+    mkdir /config/usb_gadget/g1/functions/rmnet_bam.rmnet_bam_dmux 0770 system usb
+    mkdir /config/usb_gadget/g1/functions/rmnet_bam.dpl_bam_dmux 0770 system usb
+    mkdir /config/usb_gadget/g1/functions/ncm.0 0770 system usb
+    chown system usb /config/usb_gadget/g1/functions/ncm.0/host_addr
+    chown system usb /config/usb_gadget/g1/functions/ncm.0/ifname
+    chown system usb /config/usb_gadget/g1/functions/ncm.0/os_desc
+    chown system usb /config/usb_gadget/g1/functions/ncm.0/dev_addr
+    chown system usb /config/usb_gadget/g1/functions/ncm.0/os_desc/interface.ncm
+    chown system usb /config/usb_gadget/g1/functions/ncm.0/os_desc/interface.ncm/compatible_id
+    chown system usb /config/usb_gadget/g1/functions/ncm.0/os_desc/interface.ncm/sub_compatible_id
+    chown system usb /config/usb_gadget/g1/functions/ncm.0/qmult
+    mkdir /config/usb_gadget/g1/functions/ccid.ccid 0770 system usb
+    mkdir /config/usb_gadget/g1/functions/uac2.0 0770 system usb
+    mkdir /config/usb_gadget/g1/functions/uvc.0 0770 system usb
+    mkdir /config/usb_gadget/g1/configs/b.1 0770 system usb
+    chown system usb /config/usb_gadget/g1/configs/b.1/MaxPower
+    chown system usb /config/usb_gadget/g1/configs/b.1/bmAttributes
+    chown system usb /config/usb_gadget/g1/configs/b.1/strings
+    chown system usb /config/usb_gadget/g1/os_desc/b.1
+    chown system usb /config/usb_gadget/g1/os_desc/b_vendor_code
+    chown system usb /config/usb_gadget/g1/os_desc/qw_sign
+    chown system usb /config/usb_gadget/g1/os_desc/use
+    mkdir /config/usb_gadget/g1/configs/b.1/strings/0x409 0770 system usb
+    chown system usb /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration
+
+    # Create ConfigFS gadget instance
     write /config/usb_gadget/g1/bcdUSB 0x0200
-    write /config/usb_gadget/g1/os_desc/use 1
     write /config/usb_gadget/g1/strings/0x409/serialnumber ${ro.serialno}
     write /config/usb_gadget/g1/strings/0x409/manufacturer ${ro.product.manufacturer}
     write /config/usb_gadget/g1/strings/0x409/product ${ro.product.model}
-    mkdir /config/usb_gadget/g1/functions/mtp.gs0
-    mkdir /config/usb_gadget/g1/functions/ptp.gs1
-    mkdir /config/usb_gadget/g1/functions/accessory.gs2
-    mkdir /config/usb_gadget/g1/functions/audio_source.gs2
-    mkdir /config/usb_gadget/g1/functions/audio_source.gs3
-    mkdir /config/usb_gadget/g1/functions/midi.gs5
-    mkdir /config/usb_gadget/g1/functions/ffs.adb
-    mkdir /config/usb_gadget/g1/functions/ffs.mtp
-    mkdir /config/usb_gadget/g1/functions/ffs.ptp
-    mkdir /config/usb_gadget/g1/functions/cser.dun.0
-    mkdir /config/usb_gadget/g1/functions/cser.nmea.1
-    mkdir /config/usb_gadget/g1/functions/gsi.rmnet
-    mkdir /config/usb_gadget/g1/functions/gsi.rndis
-    mkdir /config/usb_gadget/g1/functions/gsi.dpl
-    mkdir /config/usb_gadget/g1/functions/rndis_bam.rndis
-    mkdir /config/usb_gadget/g1/functions/rmnet_bam.rmnet
-    mkdir /config/usb_gadget/g1/functions/rmnet_bam.dpl
-    mkdir /config/usb_gadget/g1/functions/ncm.0
-    mkdir /config/usb_gadget/g1/configs/b.1 0770 shell shell
-    mkdir /config/usb_gadget/g1/configs/b.1/strings/0x409 0770 shell shell
+    write /config/usb_gadget/g1/configs/b.1/MaxPower 900
+    write /config/usb_gadget/g1/os_desc/use 1
     write /config/usb_gadget/g1/os_desc/b_vendor_code 0x1
     write /config/usb_gadget/g1/os_desc/qw_sign "MSFT100"
-    write /config/usb_gadget/g1/configs/b.1/MaxPower 500
-    symlink /config/usb_gadget/g1/configs/b.1 /config/usb_gadget/g1/os_desc/b.1
-    mount functionfs adb /dev/usb-ffs/adb rmode=0770,fmode=0660,uid=2000,gid=2000
+    write /config/usb_gadget/g1/functions/diag.diag/serial ${ro.serialno}
+    mkdir /dev/usb-ffs 0775 shell system
+    mkdir /dev/usb-ffs/adb 0770 shell system
+    mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=1000,rmode=0770,fmode=0660
+    mkdir /dev/usb-ffs/aoa 0770 shell system
+    mount functionfs aoa /dev/usb-ffs/aoa uid=2000,gid=1000,rmode=0770,fmode=0660
+    mkdir /dev/usb-ffs/ctrl 0770 shell system
+    mount functionfs ctrl /dev/usb-ffs/ctrl uid=2000,gid=1000,rmode=0770,fmode=0660
+    mkdir /dev/ffs-diag 0770 shell system
+    mount functionfs diag /dev/ffs-diag uid=2000,gid=1000,rmode=0770,fmode=0660,no_disconnect=1
+    mkdir /dev/ffs-diag-1 0770 shell system
+    mount functionfs diag_mdm /dev/ffs-diag-1 uid=2000,gid=1000,rmode=0770,fmode=0660,no_disconnect=1
+    mkdir /dev/ffs-diag-2 0770 shell system
+    mount functionfs diag_mdm2 /dev/ffs-diag-2 uid=2000,gid=1000,rmode=0770,fmode=0660,no_disconnect=1
+    mkdir /dev/usb-ffs/mtp 0770 mtp mtp
     mount functionfs mtp /dev/usb-ffs/mtp rmode=0770,fmode=0660,uid=1024,gid=1024,no_disconnect=1
+    mkdir /dev/usb-ffs/ptp 0770 mtp mtp
     mount functionfs ptp /dev/usb-ffs/ptp rmode=0770,fmode=0660,uid=1024,gid=1024,no_disconnect=1
-    wait /sys/bus/platform/devices/${ro.boot.usb.dwc3}/mode
-    write /sys/bus/platform/devices/${ro.boot.usb.dwc3}/mode peripheral
-    setprop vendor.sys.usb.configfs 1
