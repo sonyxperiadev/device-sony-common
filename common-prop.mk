@@ -212,6 +212,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_VENDOR_PROPERTIES += \
     ro.vendor.boot_security_patch=$(BOOT_SECURITY_PATCH)
 
+# Enable MTP batch cancel support
+PRODUCT_PROPERTY_OVERRIDES += \
+    sys.usb.mtp.batchcancel=true
+
 # USB Gadget HAL
 PRODUCT_PROPERTY_OVERRIDES += \
     vendor.usb.diag.func.name=ffs \
