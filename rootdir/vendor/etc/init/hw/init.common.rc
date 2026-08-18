@@ -29,41 +29,14 @@ on init
     # vold needs keymaster that needs qseecomd
     start vendor.qseecomd
 
-    # Keymaster 3
-    start vendor.keymaster-3-0
-    # Keymaster 4
-    start vendor.keymaster-4-0
-    # Keymaster 4
-    start vendor.keymaster-4-1
     # Start vndservicemanager early
     start vndservicemanager
 
-    # Enable subsystem restart (kernel version <5.10)
-    write /sys/module/subsystem_restart/parameters/enable_ramdumps 0
-    write /sys/bus/msm_subsys/devices/subsys0/restart_level "RELATED"
-    write /sys/bus/msm_subsys/devices/subsys1/restart_level "RELATED"
-    write /sys/bus/msm_subsys/devices/subsys2/restart_level "RELATED"
-    write /sys/bus/msm_subsys/devices/subsys3/restart_level "RELATED"
-    write /sys/bus/msm_subsys/devices/subsys4/restart_level "RELATED"
-    write /sys/bus/msm_subsys/devices/subsys5/restart_level "RELATED"
-    write /sys/bus/msm_subsys/devices/subsys6/restart_level "RELATED"
-    write /sys/bus/msm_subsys/devices/subsys7/restart_level "RELATED"
-    write /sys/bus/msm_subsys/devices/subsys8/restart_level "RELATED"
-    write /sys/bus/msm_subsys/devices/subsys9/restart_level "RELATED"
-    write /sys/bus/msm_subsys/devices/subsys10/restart_level "RELATED"
-    write /sys/bus/msm_subsys/devices/subsys11/restart_level "RELATED"
-
-    # Enable subsystem restart (kernel version >=5.10)
+    # Enable subsystem restart
     write /sys/class/remoteproc/remoteproc0/recovery "enabled"
     write /sys/class/remoteproc/remoteproc1/recovery "enabled"
     write /sys/class/remoteproc/remoteproc2/recovery "enabled"
     write /sys/class/remoteproc/remoteproc3/recovery "enabled"
-
-    mkdir /dev/bus 0755 root root
-    mkdir /dev/bus/usb 0755 root root
-
-    chown system system /sys/devices/mdss_dsi_panel/panel_id
-    chmod 0440 /sys/devices/mdss_dsi_panel/panel_id
 
     # Setup zram options
     write /sys/block/zram0/comp_algorithm lz4
@@ -87,25 +60,11 @@ on fs
     # And force restoring of SELinux labels
     restorecon_recursive /mnt/vendor/persist/
 
-on late-fs
-    mount none /vendor/oem /oem bind rec
-
 on post-fs
     # Wait for qseecomd to be started
     wait_for_prop vendor.sys.listeners.registered true
 
 on late-fs
-    # Start services for bootanim
-    start surfaceflinger
-    start bootanim
-
-    # Start composer early, SM8150 and SM8250 name respectively
-    start vendor.hwcomposer-2-3
-    start vendor.qti.hardware.display.composer
-
-    # Start gralloc allocator early
-    start vendor.qti.hardware.display.allocator
-
     # Mount RW partitions which need to run fsck
     mount_all /vendor/etc/fstab.${ro.hardware} --late
 
@@ -218,26 +177,6 @@ on early-boot
     verity_update_state
 
 on boot
-    # Cover mode
-    chown system system /sys/devices/virtual/input/clearpad/cover_mode_enabled
-    chown system system /sys/devices/virtual/input/clearpad/cover_win_bottom
-    chown system system /sys/devices/virtual/input/clearpad/cover_win_left
-    chown system system /sys/devices/virtual/input/clearpad/cover_win_right
-    chown system system /sys/devices/virtual/input/clearpad/cover_win_top
-
-    # Tap to wake
-    chown system system /sys/devices/virtual/input/clearpad/wakeup_gesture
-    chmod 0660 /sys/devices/virtual/input/clearpad/wakeup_gesture
-
-    # Glove mode
-    chown system system /sys/devices/virtual/input/clearpad/glove
-    chmod 0660 /sys/devices/virtual/input/clearpad/glove
-    chown system system /sys/devices/virtual/input/lge_touch/glove_mode
-    chmod 0660 /sys/devices/virtual/input/lge_touch/glove_mode
-
-    # Allow access for CCID command/response timeout configuration
-    chown system system /sys/module/ccid_bridge/parameters/bulk_msg_timeout
-
     # Socket location for RIDL
     mkdir /dev/socket/RIDL 2770 system system
 
@@ -286,7 +225,6 @@ on boot
     mkdir /dev/socket/qmux_nfc 0770 nfc nfc
     chmod 2770 /dev/socket/qmux_nfc
 
-
     # RIL Mark the copy complete flag to not completed
     write /data/vendor/radio/copy_complete 0
     chown radio radio /data/vendor/radio/copy_complete
@@ -299,17 +237,6 @@ on boot
     write /data/vendor/radio/db_check_done 0
     chown radio radio /data/vendor/radio/db_check_done
     chmod 0660 /data/vendor/radio/db_check_done
-
-    chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
-
-    # For bridgemgr daemon to inform the USB driver of the correct transport
-    chown radio radio /sys/class/android_usb/f_rmnet_smd_sdio/transport
-
-    # Display Calibration
-    chown system graphics /sys/devices/mdss_dsi_panel/pcc_profile
-    chmod 0664 /sys/devices/mdss_dsi_panel/pcc_profile
-    chown system graphics /sys/devices/dsi_panel_driver/pcc_profile
-    chmod 0664 /sys/devices/dsi_panel_driver/pcc_profile
 
     chown root system /proc/net/ip_conntrack
 
