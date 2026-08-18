@@ -128,9 +128,9 @@
             <instance>default</instance>
         </interface>
     </hal>
-    <hal format="hidl">
-        <name>vendor.qti.hardware.AGMIPC</name>
-        <version>1.0</version>
+    <hal format="aidl">
+        <name>vendor.qti.hardware.agm</name>
+        <version>1</version>
         <interface>
             <name>IAGM</name>
             <instance>default</instance>
@@ -210,11 +210,27 @@
             <instance>dspservice</instance>
         </interface>
     </hal>
-    <hal format="hidl">
+    <hal format="aidl">
+        <name>vendor.qti.hardware.ListenSoundModelAidl</name>
+        <version>1</version>
+        <interface>
+            <name>IListenSoundModel</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="aidl">
         <name>vendor.qti.hardware.pal</name>
-        <version>1.0</version>
+        <version>1</version>
         <interface>
             <name>IPAL</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="aidl">
+        <name>vendor.qti.hardware.paleventnotifier</name>
+        <version>2</version>
+        <interface>
+            <name>IPALEventNotifier</name>
             <instance>default</instance>
         </interface>
     </hal>
