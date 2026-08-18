@@ -27,17 +27,9 @@ endif
 PRODUCT_SOONG_NAMESPACES += \
     $(COMMON_PATH) \
     $(PLATFORM_COMMON_PATH) \
+    hardware/qcom/wlan/$(BOARD_WLAN_CHIP) \
     vendor/qcom/opensource/display/$(display_platform) \
     vendor/qcom/opensource/display-commonsys-intf/$(display_platform)
-
-# Wi-Fi HAL
-ifeq ($(BOARD_WLAN_CHIP),wcn6740)
-PRODUCT_SOONG_NAMESPACES += \
-    hardware/qcom/wlan/wcn6740
-else
-PRODUCT_SOONG_NAMESPACES += \
-    hardware/qcom/wlan/legacy
-endif
 
 # Build scripts
 SONY_CLEAR_VARS := $(COMMON_PATH)/sony_clear_vars.mk
