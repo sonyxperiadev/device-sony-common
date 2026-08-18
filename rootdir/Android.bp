@@ -59,20 +59,6 @@ cc_prebuilt_binary {
 // Init files
 
 prebuilt_etc {
-    name: "android.hardware.keymaster@4.0-service-qti.rc",
-    src: "vendor/etc/init/android.hardware.keymaster@4.0-service-qti.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "android.hardware.keymaster@4.1-service-qti.rc",
-    src: "vendor/etc/init/android.hardware.keymaster@4.1-service-qti.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
     name: "vendor.qti.hardware.qseecom@1.0-service.rc",
     src: "vendor/etc/init/vendor.qti.hardware.qseecom@1.0-service.rc",
     sub_dir: "init",
@@ -292,13 +278,6 @@ prebuilt_etc {
 prebuilt_etc {
     name: "tad.rc",
     src: "vendor/etc/init/tad.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "tad_legacy.rc",
-    src: "vendor/etc/init/tad_legacy.rc",
     sub_dir: "init",
     vendor: true,
 }

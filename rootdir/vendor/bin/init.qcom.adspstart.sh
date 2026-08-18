@@ -18,11 +18,10 @@ for proc in /sys/class/remoteproc/remoteproc*; do
 done
 
 while (( attempt < MAX_RETRIES )); do
-    # For kernels >= 5.10, check remoteproc state; for earlier kernels, check subsys state
+    # Check remoteproc state
     remoteproc_adsp_state=$(cat /sys/class/remoteproc/$remoteproc_adsp/state 2>/dev/null || echo "UNKNOWN")
-    subsys_adsp_state=$(cat /sys/class/subsys/subsys_adsp/device/subsys*/state 2>/dev/null || echo "UNKNOWN")
 
-    if [[ "$subsys_adsp_state" == "ONLINE" || "$remoteproc_adsp_state" == "running" ]]; then
+    if [[ "$remoteproc_adsp_state" == "running" ]]; then
         setprop vendor.qcom.adspup 1
         log -t "$(basename $0)" "ADSP is ready!"
         exit 0

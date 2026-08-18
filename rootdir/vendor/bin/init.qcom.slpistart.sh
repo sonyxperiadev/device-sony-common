@@ -18,11 +18,10 @@ for proc in /sys/class/remoteproc/remoteproc*; do
 done
 
 while (( attempt < MAX_RETRIES )); do
-    # For kernels >= 5.10, check remoteproc state; for earlier kernels, check subsys state
+    # Check remoteproc state
     remoteproc_slpi_state=$(cat /sys/class/remoteproc/$remoteproc_slpi/state 2>/dev/null || echo "UNKNOWN")
-    subsys_slpi_state=$(cat /sys/class/subsys/subsys_slpi/device/subsys*/state 2>/dev/null || echo "UNKNOWN")
 
-    if [[ "$subsys_slpi_state" == "ONLINE" || "$remoteproc_slpi_state" == "running" ]]; then
+    if [[ "$remoteproc_slpi_state" == "running" ]]; then
         setprop vendor.qcom.slpiup 1
         log -t "$(basename $0)" "SLPI is ready!"
         exit 0

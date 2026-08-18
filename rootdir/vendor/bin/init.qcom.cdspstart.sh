@@ -18,11 +18,10 @@ for proc in /sys/class/remoteproc/remoteproc*; do
 done
 
 while (( attempt < MAX_RETRIES )); do
-    # For kernels >= 5.10, check remoteproc state; for earlier kernels, check subsys state
+    # Check remoteproc state
     remoteproc_cdsp_state=$(cat /sys/class/remoteproc/$remoteproc_cdsp/state 2>/dev/null || echo "UNKNOWN")
-    subsys_cdsp_state=$(cat /sys/class/subsys/subsys_cdsp/device/subsys*/state 2>/dev/null || echo "UNKNOWN")
 
-    if [[ "$subsys_cdsp_state" == "ONLINE" || "$remoteproc_cdsp_state" == "running" ]]; then
+    if [[ "$remoteproc_cdsp_state" == "running" ]]; then
         setprop vendor.qcom.cdspup 1
         log -t "$(basename $0)" "CDSP is ready!"
         exit 0
