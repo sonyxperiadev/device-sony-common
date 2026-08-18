@@ -17,10 +17,8 @@ COMMON_PATH := device/sony/common
 
 ifneq ($(filter 5.10, $(SOMC_KERNEL_VERSION)),)
 display_platform := sm8450
-ipa_platform := data-ipacfg-mgr
 else
 display_platform := sm8550
-ipa_platform := data-ipacfg-mgr
 endif
 
 # Enable building packages from device namspaces.
@@ -31,8 +29,7 @@ PRODUCT_SOONG_NAMESPACES += \
     $(PLATFORM_COMMON_PATH) \
     vendor/qcom/opensource/core-utils \
     vendor/qcom/opensource/display/$(display_platform) \
-    vendor/qcom/opensource/display-commonsys-intf/$(display_platform) \
-    vendor/qcom/opensource/$(ipa_platform)
+    vendor/qcom/opensource/display-commonsys-intf/$(display_platform)
 
 # Wi-Fi HAL
 ifeq ($(BOARD_WLAN_CHIP),wcn6740)
