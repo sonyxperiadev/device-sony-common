@@ -22,12 +22,6 @@ PRODUCT_PACKAGES += \
     android.hardware.health-service.sony_recovery
 ```
 
-Add charger resources to /vendor:
-```
-PRODUCT_PACKAGES += \
-    charger_res_images_vendor
-```
-
 Add the binary to sepolicy `file_contexts`:
 ```
 /vendor/bin/hw/android\.hardware\.health-service\.sony  u:object_r:hal_health_default_exec:s0
