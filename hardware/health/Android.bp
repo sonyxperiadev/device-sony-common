@@ -20,6 +20,10 @@ cc_defaults {
         "-Werror",
         "-fexceptions",
     ],
+
+    required: [
+        "sony_charger_res",
+    ],
 }
 
 cc_binary {
@@ -38,4 +42,50 @@ cc_binary {
     vendor: false,
     recovery: true,
     overrides: ["charger.recovery"],
+}
+
+// animation.txt
+prebuilt_etc {
+    name: "sony_charger_res_values_animation",
+    filename: "animation.txt",
+    src: "res/values/animation.txt",
+    relative_install_path: "res/values/charger",
+    vendor: true,
+}
+
+// battery_fail.png
+prebuilt_etc {
+    name: "sony_charger_res_images_battery_fail",
+    filename: "battery_fail.png",
+    src: "res/images/battery_fail.png",
+    relative_install_path: "res/images/charger",
+    vendor: true,
+}
+
+// battery_scale.png
+prebuilt_etc {
+    name: "sony_charger_res_images_battery_scale",
+    filename: "battery_scale.png",
+    src: "res/images/battery_scale.png",
+    relative_install_path: "res/images/charger",
+    vendor: true,
+}
+
+// font_map.png
+prebuilt_etc {
+    name: "sony_charger_res_images_font_map",
+    filename: "font_map.png",
+    src: "res/images/font_map.png",
+    relative_install_path: "res/images/charger",
+    vendor: true,
+}
+
+phony {
+    name: "sony_charger_res",
+    required: [
+        "sony_charger_res_values_animation",
+        "sony_charger_res_images_battery_fail",
+        "sony_charger_res_images_battery_scale",
+        "sony_charger_res_images_font_map",
+    ],
 }

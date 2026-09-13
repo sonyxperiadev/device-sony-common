@@ -184,10 +184,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     ExtendedSettings
 
-# Charger
-PRODUCT_PACKAGES += \
-    charger_res_images_vendor
-
 # AOSP Packages
 PRODUCT_PACKAGES += \
     Launcher3QuickStep \
