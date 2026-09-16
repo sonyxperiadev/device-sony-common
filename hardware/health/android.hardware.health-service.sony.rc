@@ -12,3 +12,9 @@ service vendor.charger /vendor/bin/hw/android.hardware.health-service.sony --cha
     group system wakelock input graphics
     capabilities SYS_BOOT WAKE_ALARM BLOCK_SUSPEND
     file /dev/kmsg w
+
+on charger && property:vendor.dsp.charger=1
+    # Mount filesystems
+    mount_all /vendor/etc/fstab.${ro.hardware} --early
+    # Bring ADSP out of reset
+    start vendor.adspstart_sh
