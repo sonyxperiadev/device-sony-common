@@ -12,11 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-on charger
-    start vendor.rmt_storage
-    start vendor.mlog_qmi_service
-    start vendor.irsc_util
-
 on early-init
     mount debugfs debugfs /sys/kernel/debug
     chmod 0755 /sys/kernel/debug
