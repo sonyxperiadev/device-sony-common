@@ -75,9 +75,10 @@ class HealthImpl : public Health {
 
 static void wait_for_device() {
     std::vector<std::string> paths = {
-        "/sys/class/power_supply/bms/capacity",
-        "/sys/class/power_supply/battery/capacity"
+        "/sys/class/power_supply/battery/capacity",
+        "/sys/class/power_supply/bms/capacity"
     };
+
     for (int retry = 0; retry < 30; retry++) {
         for (const auto& path : paths) {
             if (access(path.c_str(), F_OK) == 0) {
