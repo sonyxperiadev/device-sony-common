@@ -41,10 +41,10 @@ static constexpr int kCapConversionFactor = 1000;
 
 LearnedCapacityBackupRestore::LearnedCapacityBackupRestore() {
     kPersistChargeFullFile = "/mnt/vendor/persist/battery/battery_charge_full";
-    kSysChargeFullFile = "/sys/class/power_supply/bms/charge_full";
+    kSysChargeFullFile = "/sys/class/power_supply/battery/charge_full";
 
     if (access(kSysChargeFullFile.c_str(), F_OK)) {
-        kSysChargeFullFile = "/sys/class/power_supply/battery/charge_full";
+        kSysChargeFullFile = "/sys/class/power_supply/bms/charge_full";
     }
 
     cap_counter = 0;
