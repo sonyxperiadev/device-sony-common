@@ -162,12 +162,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     firmware_folders
 
-
-ifeq ($(MODEM_CONFIG_LEGACY_PLATFORM),true)
-MODEM_CONFIG := $(shell find $(COMMON_PATH)/rootdir/vendor/etc/modem-config-legacy -type f -printf '%p:$(TARGET_COPY_OUT_VENDOR)/etc/modem-config/%P\n')
-else
+# Modem Config
 MODEM_CONFIG := $(shell find $(COMMON_PATH)/rootdir/vendor/etc/modem-config -type f -printf '%p:$(TARGET_COPY_OUT_VENDOR)/etc/modem-config/%P\n')
-endif
 PRODUCT_COPY_FILES += $(MODEM_CONFIG)
 
 # Bluetooth
