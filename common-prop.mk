@@ -162,10 +162,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.bt.bdaddr_path=/data/vendor/bluetooth/bluetooth_bdaddr
 
-# BT address for devices with BCM BT
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.bt.bdaddr_path=/data/vendor/bluetooth/bluetooth_bdaddr
-
 # RILD
 PRODUCT_PROPERTY_OVERRIDES += \
     vendor.rild.libpath=/odm/lib64/libril-qc-hal-qmi.so \
