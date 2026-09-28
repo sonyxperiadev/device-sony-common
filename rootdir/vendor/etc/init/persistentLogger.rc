@@ -1,0 +1,7 @@
+service persistentLogger /system/bin/logcat -r 1024 -n 9 -f /mnt/vendor/persist/logcat.log
+    user system
+    group system
+    disabled
+
+on property:vendor.init.earlymount.ready=1
+    start persistentLogger
