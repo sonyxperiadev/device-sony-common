@@ -17,8 +17,11 @@ PRODUCT_PACKAGES += \
     adb_tcp.rc \
     adpl.rc \
     adsprpcd.rc \
+    adspstart.rc \
     atfwd.rc \
     audiopd.rc \
+    cdsprpcd.rc \
+    cdspstart.rc \
     cnd.rc \
     cnss-daemon.rc \
     dataqti.rc \
@@ -61,10 +64,8 @@ PRODUCT_PACKAGES += \
 
 # Common init scripts
 PRODUCT_PACKAGES += \
-    init.qcom.adspstart.sh \
-    init.qcom.cdspstart.sh \
-    init.qcom.ipastart.sh \
-    init.qcom.slpistart.sh
+    init.qcom.dspstart.sh \
+    init.qcom.ipastart.sh
 
 # modemswitcher
 PRODUCT_PACKAGES += \

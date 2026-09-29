@@ -1,9 +1,8 @@
-service vendor.slpistart_sh /vendor/bin/init.qcom.slpistart.sh
-    class core
-    user root
-    group root system
-    disabled
+service vendor.slpistart_sh /vendor/bin/init.qcom.dspstart.sh slpi
+    user vendor_dspstart
+    group vendor_dspstart
     oneshot
+    disabled
 
 # Start DSP services as soon as partitions are mounted
 on property:vendor.init.earlymount.ready=1
