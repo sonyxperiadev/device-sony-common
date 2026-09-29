@@ -12,31 +12,8 @@ cc_prebuilt_binary {
 }
 
 cc_prebuilt_binary {
-    name: "init.qcom.slpistart.sh",
-    srcs: ["vendor/bin/init.qcom.slpistart.sh"],
-    init_rc: ["vendor/etc/init/slpistart.rc"],
-    vendor: true,
-    check_elf_files: false,
-    strip: {
-        none: true,
-    },
-}
-
-cc_prebuilt_binary {
-    name: "init.qcom.adspstart.sh",
-    srcs: ["vendor/bin/init.qcom.adspstart.sh"],
-    init_rc: ["vendor/etc/init/adspstart.rc"],
-    vendor: true,
-    check_elf_files: false,
-    strip: {
-        none: true,
-    },
-}
-
-cc_prebuilt_binary {
-    name: "init.qcom.cdspstart.sh",
-    srcs: ["vendor/bin/init.qcom.cdspstart.sh"],
-    init_rc: ["vendor/etc/init/cdspstart.rc"],
+    name: "init.qcom.dspstart.sh",
+    srcs: ["vendor/bin/init.qcom.dspstart.sh"],
     vendor: true,
     check_elf_files: false,
     strip: {
@@ -57,6 +34,27 @@ cc_prebuilt_binary {
 
 
 // Init files
+
+prebuilt_etc {
+    name: "adspstart.rc",
+    src: "vendor/etc/init/adspstart.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "cdspstart.rc",
+    src: "vendor/etc/init/cdspstart.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "slpistart.rc",
+    src: "vendor/etc/init/slpistart.rc",
+    sub_dir: "init",
+    vendor: true,
+}
 
 prebuilt_etc {
     name: "vendor.qti.hardware.qseecom@1.0-service.rc",

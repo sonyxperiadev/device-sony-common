@@ -1,9 +1,8 @@
-service vendor.cdspstart_sh /vendor/bin/init.qcom.cdspstart.sh
-    class core
-    user root
-    group root system
-    disabled
+service vendor.cdspstart_sh /vendor/bin/init.qcom.dspstart.sh cdsp
+    user vendor_dspstart
+    group vendor_dspstart
     oneshot
+    disabled
 
 # Start DSP services as soon as partitions are mounted
 on property:vendor.init.earlymount.ready=1
