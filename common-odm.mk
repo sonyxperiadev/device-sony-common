@@ -158,7 +158,7 @@ PRODUCT_PACKAGES += \
     qti \
     qrtr-ns
 
-#EMBMS
+# EMBMS
 PRODUCT_PACKAGES += \
     embms \
     embmslibrary
@@ -282,10 +282,6 @@ PRODUCT_PACKAGES += \
     sony-modem-switcher \
     vendor.somc.hardware.modemswitcher@1.0-service \
     vendor.somc.hardware.modemswitcher@1.0
-
-# Keymaster
-PRODUCT_PACKAGES += \
-    android.hardware.keymaster@3.0-impl-qti
 
 # Gatekeeper
 PRODUCT_PACKAGES += \
