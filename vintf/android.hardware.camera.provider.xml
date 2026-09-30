@@ -1,8 +1,0 @@
-<manifest version="1.0" type="device">
-    <hal format="hidl">
-        <name>android.hardware.camera.provider</name>
-        <transport>hwbinder</transport>
-        <fqname>@2.5::ICameraProvider/legacy/0</fqname>
-        <fqname>@2.5::ICameraProvider/external/0</fqname>
-    </hal>
-</manifest>

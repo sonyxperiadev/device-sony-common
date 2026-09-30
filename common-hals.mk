@@ -1,21 +1,14 @@
-# Composer
+# Display
 PRODUCT_PACKAGES += \
-    vendor.qti.hardware.display.composer-service
+    mapper.qti \
+    vendor.qti.hardware.display.allocator-service \
+    vendor.qti.hardware.display.composer-service \
+    vendor.qti.hardware.display.demura-service \
+    vendor.qti.hardware.display.snapalloc-impl
 
 # Linked by Adreno/EGL blobs for fallback if 3.0 doesn't exist
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.display.mapper@2.0.vendor
-
-# Graphics allocator/mapper
-PRODUCT_PACKAGES += \
-    android.hardware.graphics.mapper@3.0-impl-qti-display \
-    android.hardware.graphics.mapper@4.0-impl-qti-display
-
-# android.hardware.graphics.allocator@3.0::IAllocator, and
-# android.hardware.graphics.allocator@4.0::IAllocator if
-# TARGET_USES_GRALLOC4 is not explicitly set to `false`:
-PRODUCT_PACKAGES += \
-    vendor.qti.hardware.display.allocator-service
 
 # RIL
 # Interface library needed by odm blobs:
@@ -44,23 +37,13 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     audiohalservice.qti
 
-# Camera
-ifneq ($(TARGET_USES_QTI_CAMERA),true)
-ifeq ($(TARGET_USES_64BIT_CAMERA),true)
-PRODUCT_PACKAGES += \
-    android.hardware.camera.provider@2.5-impl:64 \
-    android.hardware.camera.provider@2.5-service_64
-else
-PRODUCT_PACKAGES += \
-    android.hardware.camera.provider@2.5-impl:32 \
-    android.hardware.camera.provider@2.5-service
-endif
-endif
-
 # External Camera
-PRODUCT_PACKAGES += \
-    android.hardware.camera.provider@2.5-external \
-    android.hardware.camera.provider@2.5-external-service
+# TODO: Enable this once external_camera_config.xml is provided.
+# The config contains the IDs of internal video devices to be ignored,
+# so it will most likely need to be included in each device tree,
+# since the IDs differ between devices.
+#PRODUCT_PACKAGES += \
+#    android.hardware.camera.provider-V1-external-service
 
 # QTI Camera
 PRODUCT_PACKAGES += \

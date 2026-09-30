@@ -1,17 +1,34 @@
-<compatibility-matrix version="1.0" type="framework" level="7">
+<compatibility-matrix version="1.0" type="framework" level="202404">
+    <!-- TODO: Remove android.hidl.manager once all HALs have migrated to AIDL. -->
+    <hal format="hidl">
+        <name>android.hidl.manager</name>
+        <version>1.2</version>
+        <interface>
+            <name>IServiceManager</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="aidl">
+        <name>android.hardware.boot</name>
+        <version>1</version>
+        <interface>
+            <name>IBootControl</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>android.hardware.camera.provider</name>
+        <version>2.7</version>
+        <interface>
+            <name>ICameraProvider</name>
+            <instance>legacy/1</instance>
+        </interface>
+    </hal>
     <hal format="aidl">
         <name>android.hardware.cas</name>
         <version>1</version>
         <interface>
             <name>IMediaCasService</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
-    <hal format="hidl">
-        <name>android.hardware.light</name>
-        <version>2.0</version>
-        <interface>
-            <name>ILight</name>
             <instance>default</instance>
         </interface>
     </hal>
@@ -88,30 +105,6 @@
             <instance>com.qualcomm.qti.uceservice</instance>
         </interface>
     </hal>
-    <hal format="hidl">
-        <name>vendor.display.color</name>
-        <version>1.7</version>
-        <interface>
-            <name>IDisplayColor</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
-    <hal format="hidl">
-        <name>vendor.display.config</name>
-        <version>2.0</version>
-        <interface>
-            <name>IDisplayConfig</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
-    <hal format="hidl">
-        <name>vendor.display.postproc</name>
-        <version>1.0</version>
-        <interface>
-            <name>IDisplayPostproc</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
     <hal format="aidl">
         <name>vendor.nxp.nxpnfc_aidl</name>
         <version>1</version>
@@ -138,7 +131,7 @@
     </hal>
     <hal format="hidl">
         <name>vendor.qti.hardware.camera.aon</name>
-        <version>1.0</version>
+        <version>1.3</version>
         <interface>
             <name>IAONService</name>
             <instance>aoncameraservice</instance>
@@ -170,35 +163,43 @@
             <instance>default</instance>
         </interface>
     </hal>
-    <hal format="hidl">
-        <name>vendor.qti.hardware.display.allocator</name>
-        <version>4.0</version>
+    <hal format="aidl">
+        <name>vendor.qti.hardware.display.aiqe</name>
+        <version>2</version>
         <interface>
-            <name>IQtiAllocator</name>
+            <name>IDisplayAiqe</name>
             <instance>default</instance>
         </interface>
     </hal>
-    <hal format="hidl">
-        <name>vendor.qti.hardware.display.composer</name>
-        <version>3.1</version>
+    <hal format="aidl">
+        <name>vendor.qti.hardware.display.color</name>
+        <version>1</version>
         <interface>
-            <name>IQtiComposer</name>
+            <name>IDisplayColor</name>
             <instance>default</instance>
         </interface>
     </hal>
     <hal format="aidl">
         <name>vendor.qti.hardware.display.config</name>
-        <version>5</version>
+        <version>12</version>
         <interface>
             <name>IDisplayConfig</name>
             <instance>default</instance>
         </interface>
     </hal>
-    <hal format="hidl">
-        <name>vendor.qti.hardware.display.mapper</name>
-        <version>4.0</version>
+    <hal format="aidl">
+        <name>vendor.qti.hardware.display.demura</name>
+        <version>1</version>
         <interface>
-            <name>IQtiMapper</name>
+            <name>IDemuraFileFinder</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="aidl">
+        <name>vendor.qti.hardware.display.postproc</name>
+        <version>1</version>
+        <interface>
+            <name>IDisplayPostproc</name>
             <instance>default</instance>
         </interface>
     </hal>
@@ -306,13 +307,13 @@
         </interface>
     </hal>
     <hal format="aidl">
-        <name>vendor.qti.hardware.radio.qtiradioconfig</name>
-        <version>2</version>
-        <interface>
-            <name>IQtiRadioConfig</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
+         <name>vendor.qti.hardware.radio.qtiradioconfig</name>
+         <version>2</version>
+         <interface>
+             <name>IQtiRadioConfig</name>
+             <instance>default</instance>
+         </interface>
+     </hal>
     <hal format="hidl">
         <name>vendor.qti.hardware.radio.uim</name>
         <version>1.2</version>

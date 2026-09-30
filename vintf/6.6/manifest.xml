@@ -1,0 +1,9 @@
+<manifest version="8.0" type="device" target-level="202404">
+    <kernel target-level="6.6" />
+    <!-- TODO: Remove android.hidl.manager once all HALs have migrated to AIDL. -->
+    <hal format="hidl">
+        <name>android.hidl.manager</name>
+        <transport>hwbinder</transport>
+        <fqname>@1.2::IServiceManager/default</fqname>
+    </hal>
+</manifest>
