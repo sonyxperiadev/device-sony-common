@@ -1,9 +1,9 @@
-service vendor.sensorspd /odm/bin/adsprpcd sensorspd
+service vendor.sensorspd /vendor/bin/adsprpcd sensorspd adsp
    class main
    user system
    group system
    disabled
 
 on property:vendor.qcom.adspup=1
-    enable vendor.sensorspd
-    enable vendor.sensors
+   enable vendor.sensorspd
+   enable vendor.sensors
