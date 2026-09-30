@@ -78,30 +78,11 @@ PRODUCT_PACKAGES += \
     ta_qmi_service \
     tad
 
-# Audio
-PRODUCT_PACKAGES += \
-    vendor.qti.hardware.dsp@1.0 \
-    liblistenhardware \
-    libacdbloader \
-    libacdbmapper \
-    libacdbrtac \
-    libadiertac \
-    libadsprpc \
-    libaudcal \
-    libaudioalsa
-
 # FM
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.fm@1.0 \
     fm_qsoc_patches \
     ftm_fm_lib
-
-# Graphite
-PRODUCT_PACKAGES += \
-    libgcs-calwrapper \
-    libgcs-ipc \
-    libgcs-osal \
-    libgcs
 
 # Sensors
 PRODUCT_PACKAGES += \
