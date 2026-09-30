@@ -20,10 +20,6 @@ PRODUCT_ODM_PROPERTIES += \
 PRODUCT_PACKAGES += \
     odm_prop_cleaner
 
-# SDE DRM
-PRODUCT_PACKAGES += \
-    libsdedrm
-
 # Secure MSM
 PRODUCT_PACKAGES += \
     vendor.qti.qspmhal@1.0 \
