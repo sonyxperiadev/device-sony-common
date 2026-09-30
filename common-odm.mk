@@ -28,7 +28,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     vendor.qti.qspmhal@1.0 \
     vendor.qti.hardware.qseecom@1.0 \
-    libvmmem \
     libkeymasterutils \
     libminkdescriptor \
     qseecomd
