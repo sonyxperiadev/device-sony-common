@@ -1,5 +1,4 @@
-# ADSP FastRPC
-service vendor.adsprpcd /odm/bin/adsprpcd
+service vendor.adsprpcd /vendor/bin/adsprpcd rootpd adsp
    class main
    user media
    group media

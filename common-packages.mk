@@ -65,6 +65,15 @@ PRODUCT_PACKAGES += \
     libqcomvoiceprocessing \
     libvolumelistener
 
+# FastRPC
+PRODUCT_PACKAGES += \
+    adsprpcd \
+    cdsprpcd \
+    sdsprpcd \
+    libadsp_default_listener \
+    libcdsp_default_listener \
+    libsdsp_default_listener
+
 # GFX
 PRODUCT_PACKAGES += \
     libhdmi \
