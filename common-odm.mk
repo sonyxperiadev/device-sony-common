@@ -1,5 +1,5 @@
 # Vendor version
-TARGET_VENDOR_VERSION := v7
+TARGET_VENDOR_VERSION := v1
 
 # Set this flag to true to build the ODM image
 # The AOSP image is not used; instead, the ODM image supplied
