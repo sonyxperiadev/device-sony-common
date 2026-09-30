@@ -15,20 +15,20 @@
 # Common path
 COMMON_PATH := device/sony/common
 
-ifneq ($(filter 5.10, $(SOMC_KERNEL_VERSION)),)
-display_platform := sm8450
+ifneq ($(filter 6.6, $(SOMC_KERNEL_VERSION)),)
+display_platform := sm8750
 else
-display_platform := sm8550
+$(error Support for kernel 6.12 has not yet been implemented)
 endif
 
-# Enable building packages from device namspaces.
-# Might be temporary! See:
-# https://android.googlesource.com/platform/build/soong/+/master/README.md#name-resolution
+# Enable building packages from device namspaces
 PRODUCT_SOONG_NAMESPACES += \
     $(COMMON_PATH) \
     $(PLATFORM_COMMON_PATH) \
     hardware/qcom/wlan/$(BOARD_WLAN_CHIP) \
     vendor/qcom/opensource/display/$(display_platform) \
+    vendor/qcom/opensource/display-core/$(display_platform) \
+    vendor/qcom/opensource/display-intf/$(display_platform) \
     vendor/qcom/opensource/display-commonsys-intf/$(display_platform)
 
 # Build scripts
@@ -82,6 +82,12 @@ $(call soong_config_set,qti_kernel_headers,version,$(SOMC_KERNEL_VERSION))
 
 # Use the UFS BSG framework in gpt-utils for slot switching
 $(call soong_config_set,ufsbsg,ufsframework,bsg)
+
+# QTI Display configuration 
+$(call soong_config_set,qtidisplay,default,true)
+$(call soong_config_set,qtidisplay,drmpp,true)
+$(call soong_config_set,qtidisplay,composer_version,v3_3)
+$(call soong_config_set,qtidisplay,mapper_ext,true)
 
 # Explicitly enable UFFD GC
 OVERRIDE_ENABLE_UFFD_GC := true

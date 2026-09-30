@@ -57,32 +57,7 @@ TARGET_2ND_CPU_VARIANT := generic
 # Recovery definitions
 TARGET_RECOVERY_WIPE := $(COMMON_PATH)/rootdir/recovery.wipe
 
-# GFX
-USE_OPENGL_RENDERER := true
-BOARD_USES_ADRENO := true
-TARGET_USES_ION := true
-
-MAX_EGL_CACHE_KEY_SIZE := 12*1024
-MAX_EGL_CACHE_SIZE := 2048*1024
-
-TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
-
-# Display
-NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
-TARGET_USES_COLOR_METADATA := true
-TARGET_USES_HWC2 := true
-TARGET_USES_DISPLAY_RENDER_INTENTS := true
-
-SOONG_CONFIG_NAMESPACES += qtidisplay
-SOONG_CONFIG_qtidisplay := drmpp gralloc4
-SOONG_CONFIG_qtidisplay_drmpp := true
-SOONG_CONFIG_qtidisplay_gralloc4 := true
-
-# FM Radio
-BOARD_HAVE_QCOM_FM := true
-
 # Camera
-BOARD_QTI_CAMERA_32BIT_ONLY := true
 BOARD_QTI_CAMERA_V2 := true
 CAMERA_DAEMON_NOT_PRESENT := true
 
@@ -172,7 +147,6 @@ DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/$(SOMC_KERNEL_VERSION)/vendor.qti.q
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.somc.modem.xml
 
 # Camera
-ifeq ($(TARGET_USES_QTI_CAMERA),true)
 ifneq ($(filter 2.7, $(QTI_CAMERA_PROVIDER_SERVICE)),)
 ifeq ($(TARGET_USES_AON_CAMERA),true)
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.qti.camera.provider@2.7-aon.xml
@@ -182,12 +156,6 @@ endif
 else
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.qti.camera.provider-aidl.xml
 endif
-else
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.camera.provider.xml
-endif
-
-# Media Codec2
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/venodr.qti.media.c2.xml
 
 # New vendor security patch level: https://r.android.com/660840/
 # Used by newer keymaster binaries

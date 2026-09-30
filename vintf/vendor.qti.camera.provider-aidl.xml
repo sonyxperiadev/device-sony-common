@@ -4,11 +4,6 @@
         <fqname>ICameraProvider/vendor_qti/0</fqname>
     </hal>
     <hal format="hidl">
-        <name>android.hardware.camera.provider</name>
-        <transport>hwbinder</transport>
-        <fqname>@2.5::ICameraProvider/external/0</fqname>
-    </hal>
-    <hal format="hidl">
         <name>vendor.qti.hardware.camera.aon</name>
         <transport>hwbinder</transport>
         <fqname>@1.3::IAONService/aoncameraservice</fqname>
