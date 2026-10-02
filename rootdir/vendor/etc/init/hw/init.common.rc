@@ -41,9 +41,6 @@ on fs
     # Set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
 
-    # Start HW service manager early
-    start hwservicemanager
-
     mount_all /vendor/etc/fstab.${ro.hardware} --early
 
     setprop vendor.init.earlymount.ready 1
