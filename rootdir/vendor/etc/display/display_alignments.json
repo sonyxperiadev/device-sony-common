@@ -1,0 +1,33 @@
+{
+    "device": {
+        "name": "display",
+        "constraint_sets": [
+            {
+                "format": "RGBA_8888",
+                "constraints": {
+                    "size_align_bytes": 4096,
+                    "planes": [
+                        {
+                            "components": [
+                                {
+                                    "component_type": "R"
+                                },
+                                {
+                                    "component_type": "G"
+                                },
+                                {
+                                    "component_type": "B"
+                                },
+                                {
+                                    "component_type": "A"
+                                }
+                            ],
+                            "horiz_stride_align_bytes": 256,
+                            "scanline_align": 32
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

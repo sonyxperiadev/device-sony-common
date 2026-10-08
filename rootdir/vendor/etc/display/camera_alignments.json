@@ -1,0 +1,110 @@
+{
+    "device" : {
+        "name" : "camera",
+        "constraint_sets" : [
+            {
+                "format" : "NV21_ZSL",
+                "constraints" : {
+                    "size_align_bytes" : 1,
+                    "planes" : [
+                        {
+                            "components": [
+                                {
+                                    "component_type" : "Y"
+                                }
+                            ],
+                            "horiz_stride_align_bytes" : 64,
+                            "scanline_align" : 64,
+                            "size_align_bytes" : 4096
+                        },
+                        {
+                            "components": [
+                                {
+                                    "component_type" : "CR"
+                                },
+                                {
+                                    "component_type" : "CB"
+                                }
+                            ],
+                            "horiz_stride_align_bytes" : 64,
+                            "scanline_align" : 64,
+                            "size_align_bytes" : 4096
+                        }
+                    ]
+                }
+            },
+            {
+                "format" : "RAW_OPAQUE",
+                "constraints" : {
+                    "size_align_bytes" : 1,
+                    "planes" : [
+                        {
+                            "components": [
+                                {
+                                    "component_type" : "RAW"
+                                }
+                            ],
+                            "horiz_stride_align_bytes" : 80,
+                            "scanline_align" : 1,
+                            "size_align_bytes" : 4096
+                        }
+                    ]
+                }
+            },
+            {
+                "format" : "RAW10",
+                "constraints" : {
+                    "size_align_bytes" : 1,
+                    "planes" : [
+                        {
+                            "components": [
+                                {
+                                    "component_type" : "RAW"
+                                }
+                            ],
+                            "horiz_stride_align_bytes" : 80,
+                            "scanline_align" : 1,
+                            "size_align_bytes" : 4096
+                        }
+                    ]
+                }
+            },
+            {
+                "format" : "RAW12",
+                "constraints" : {
+                    "size_align_bytes" : 1,
+                    "planes" : [
+                        {
+                            "components": [
+                                {
+                                    "component_type" : "RAW"
+                                }
+                            ],
+                            "horiz_stride_align_bytes" : 48,
+                            "scanline_align" : 1,
+                            "size_align_bytes" : 4096
+                        }
+                    ]
+                }
+            },
+            {
+                "format" : "RAW14",
+                "constraints" : {
+                    "size_align_bytes" : 1,
+                    "planes" : [
+                        {
+                            "components": [
+                                {
+                                    "component_type" : "RAW"
+                                }
+                            ],
+                            "horiz_stride_align_bytes" : 112,
+                            "scanline_align" : 1,
+                            "size_align_bytes" : 4096
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}
