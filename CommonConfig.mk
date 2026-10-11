@@ -57,6 +57,9 @@ TARGET_2ND_CPU_VARIANT := generic
 # Recovery definitions
 TARGET_RECOVERY_WIPE := $(COMMON_PATH)/rootdir/recovery.wipe
 
+# Display
+TARGET_USES_VULKAN := true
+
 # Camera
 BOARD_QTI_CAMERA_V2 := true
 CAMERA_DAEMON_NOT_PRESENT := true
