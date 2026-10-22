@@ -201,6 +201,9 @@ ifeq ($(PRODUCT_BUILD_PVMFW_IMAGE),true)
 $(call inherit-product, packages/modules/Virtualization/apex/product_packages.mk)
 endif
 
+# Inherit AOSP base makefiles
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit_only.mk)
+
 $(call inherit-product, device/sony/common/common-init.mk)
 $(call inherit-product, device/sony/common/common-odm.mk)
 $(call inherit-product, device/sony/common/common-odm-camx.mk)

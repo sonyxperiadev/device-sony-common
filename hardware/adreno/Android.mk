@@ -21,11 +21,9 @@ library_names := \
     librs_adreno_sha1.so \
     hw/vulkan.adreno.so
 
-# Create symlinks to 32- and 64-bit directories:
-SONY_SYMLINKS := $(foreach lib_dir,lib lib64, \
-    $(foreach p,$(library_names), \
-        /odm/$(lib_dir)/$p:$(TARGET_COPY_OUT_VENDOR)/$(lib_dir)/$p \
-    ) \
+# Create symlinks to 64-bit directory only:
+SONY_SYMLINKS := $(foreach p,$(library_names), \
+    /odm/lib64/$p:$(TARGET_COPY_OUT_VENDOR)/lib64/$p \
 )
 
 include $(SONY_BUILD_SYMLINKS)

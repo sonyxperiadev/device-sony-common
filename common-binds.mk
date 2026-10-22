@@ -61,12 +61,6 @@ PRODUCT_COPY_FILES += \
 
 # QTI libraries for system_ext
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/lib/libOpenCL_system.so \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/lib/libQSEEComAPI_system.so \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/lib/libadsprpc_system.so \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/lib/libcdsprpc_system.so \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/lib/libmdsprpc_system.so \
-    $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/lib/libsdsprpc_system.so \
     $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/lib64/libOpenCL_system.so \
     $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/lib64/libQSEEComAPI_system.so \
     $(COMMON_PATH)/misc/emptyfile:$(TARGET_COPY_OUT_SYSTEM_EXT)/lib64/libadsprpc_system.so \
