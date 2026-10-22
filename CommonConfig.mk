@@ -47,12 +47,7 @@ BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 
 # CPU ARCH
 TARGET_ARCH := arm64
-TARGET_CPU_ABI2 :=
 TARGET_CPU_VARIANT := generic
-
-TARGET_2ND_ARCH := arm
-TARGET_2ND_CPU_ABI2 := armeabi
-TARGET_2ND_CPU_VARIANT := generic
 
 # Recovery definitions
 TARGET_RECOVERY_WIPE := $(COMMON_PATH)/rootdir/recovery.wipe
