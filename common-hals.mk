@@ -51,11 +51,6 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.metadata@3.6.vendor \
     android.hardware.camera.provider@2.7.vendor
 
-# Media
-PRODUCT_PACKAGES += \
-    android.hardware.media.omx@1.0-service \
-    libcodec2_hidl@1.0.vendor
-
 # Sensorservice
 PRODUCT_PACKAGES += \
     android.frameworks.sensorservice@1.0.vendor

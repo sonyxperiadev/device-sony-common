@@ -89,4 +89,5 @@ endif
 
 # Media Codec2 service
 PRODUCT_PACKAGES += \
-    vendor.qti.media.c2@1.0-service.rc
+    vendor.qti.media.c2@1.0-service.rc \
+    vendor.qti.media.c2audio@1.0-service.rc

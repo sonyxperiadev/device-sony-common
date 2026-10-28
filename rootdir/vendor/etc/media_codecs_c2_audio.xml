@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Included>
+    <Decoders>
+        <!-- C2 audio hardware decoders -->
+        <MediaCodec name="c2.qti.aac.hw.decoder" type="audio/mp4a-latm">
+            <Limit name="channel-count" max="6" />
+            <Limit name="sample-rate" ranges="8000-96000" />
+            <Limit name="bitrate" range="8000-1536000" />
+            <Limit name="concurrent-instances" max="2" />
+        </MediaCodec>
+        <MediaCodec name="c2.qti.alac.hw.decoder" type="audio/alac" rank="1">
+            <Limit name="channel-count" max="8" />
+            <Limit name="sample-rate" ranges="8000-192000" />
+            <Limit name="bitrate" range="1-100000000" />
+            <Limit name="concurrent-instances" max="2" />
+        </MediaCodec>
+        <MediaCodec name="c2.qti.amrwbplus.hw.decoder" type="audio/amr-wb-plus" rank="0">
+            <Limit name="channel-count" max="2" />
+            <Limit name="sample-rate" ranges="8000-48000" />
+            <Limit name="bitrate" range="5200-48000" />
+            <Limit name="concurrent-instances" max="2" />
+        </MediaCodec>
+        <MediaCodec name="c2.qti.amrwb+.hw.decoder" type="audio/amr-wb+" rank="0">
+            <Limit name="channel-count" max="2" />
+            <Limit name="sample-rate" ranges="8000-48000" />
+            <Limit name="bitrate" range="5200-48000" />
+            <Limit name="concurrent-instances" max="2" />
+        </MediaCodec>
+        <MediaCodec name="c2.qti.ape.hw.decoder" type="audio/x-ape" rank="1">
+            <Limit name="channel-count" max="2" />
+            <Limit name="sample-rate" ranges="8000-192000" />
+            <Limit name="bitrate" range="1-100000000" />
+            <Limit name="concurrent-instances" max="2" />
+        </MediaCodec>
+        <MediaCodec name="c2.qti.wma.hw.decoder" type="audio/x-ms-wma" rank="0">
+            <Limit name="channel-count" max="8" />
+            <Limit name="sample-rate" ranges="8000-96000" />
+            <Limit name="bitrate" range="8000-1536000" />
+            <Limit name="concurrent-instances" max="2" />
+        </MediaCodec>
+        <!-- C2 audio software decoders -->
+        <MediaCodec name="c2.qti.alac.sw.decoder" type="audio/alac" rank="0">
+            <Limit name="channel-count" max="8" />
+            <Limit name="sample-rate" ranges="8000-192000" />
+            <Limit name="bitrate" range="1-100000000" />
+            <Limit name="concurrent-instances" max="2" />
+        </MediaCodec>
+        <MediaCodec name="c2.qti.ape.sw.decoder" type="audio/x-ape" rank="0">
+            <Limit name="channel-count" max="2" />
+            <Limit name="sample-rate" ranges="8000-192000" />
+            <Limit name="bitrate" range="1-100000000" />
+            <Limit name="concurrent-instances" max="2" />
+        </MediaCodec>
+        <MediaCodec name="c2.qti.flac.sw.decoder" type="audio/flac">
+            <Limit name="channel-count" max="8" />
+            <Limit name="sample-rate" ranges="8000-192000" />
+            <Limit name="bitrate" range="1-9216000" />
+            <Limit name="concurrent-instances" max="2" />
+        </MediaCodec>
+        <MediaCodec name="c2.qti.dsd.sw.decoder" type="audio/dsd" rank="0">
+            <Limit name="channel-count" max="6" />
+            <Limit name="sample-rate" ranges="8000-22579200" />
+            <Limit name="concurrent-instances" max="2" />
+        </MediaCodec>
+    </Decoders>
+    <Encoders>
+        <!-- C2 audio hardware encoders -->
+        <MediaCodec name="c2.qti.amrnb.hw.encoder" type="audio/3gpp">
+            <Limit name="channel-count" max="1" />
+            <Limit name="sample-rate" ranges="8000" />
+            <Limit name="bitrate" range="4750-12200" />
+            <Limit name="concurrent-instances" max="2" />
+            <Feature name="special-codec" required="true" />
+        </MediaCodec>
+        <MediaCodec name="c2.qti.amrwb.hw.encoder" type="audio/amr-wb">
+            <Limit name="channel-count" max="1" />
+            <Limit name="sample-rate" ranges="16000" />
+            <Limit name="bitrate" range="6600-23850" />
+            <Limit name="concurrent-instances" max="2" />
+            <Feature name="special-codec" required="true" />
+        </MediaCodec>
+        <MediaCodec name="c2.qti.aac.hw.encoder" type="audio/mp4a-latm">
+            <Limit name="channel-count" max="2" />
+            <Limit name="sample-rate" ranges="8000-48000" />
+            <Limit name="bitrate" range="4000-192000" />
+            <Limit name="concurrent-instances" max="2" />
+            <Feature name="special-codec" required="true" />
+        </MediaCodec>
+    </Encoders>
+</Included>

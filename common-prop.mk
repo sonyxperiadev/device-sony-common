@@ -221,6 +221,10 @@ PRODUCT_VENDOR_PROPERTIES += \
     vendor.usb.rmnet.inst.name=rmnet \
     vendor.usb.rndis.func.name=gsi
 
+PRODUCT_PROPERTY_OVERRIDES += \
+    debug.stagefright.c2inputsurface=-1 \
+    media.c2.hal.selection=aidl
+
 # Dalvik heap configuration for compatibility reasons, as
 # certain system components may still use one of the props.
 # Supply until it is supplied by AOSP.

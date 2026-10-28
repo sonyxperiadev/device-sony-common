@@ -1,0 +1,6 @@
+eventfd2: 1
+getcwd: 1
+pselect6: 1
+recvfrom: 1
+sendto: 1
+sysinfo: 1
