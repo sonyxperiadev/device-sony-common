@@ -43,6 +43,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libaudiochargerlistener \
     libhfp_pal \
+    libpalclient \
     libpaleventnotifier \
     libpalipcservice \
     lib_bt_aptx \
@@ -79,10 +80,6 @@ PRODUCT_PACKAGES += \
     libhdmi \
     libqdutils \
     libqdMetaData
-
-# C2 dependencies
-PRODUCT_PACKAGES += \
-    libjsoncpp.vendor
 
 # GPS
 PRODUCT_PACKAGES += \
@@ -133,9 +130,10 @@ PRODUCT_PACKAGES += \
     NfcNci \
     Tag
 
-# Media
+# Media C2
 PRODUCT_PACKAGES += \
-    libavservices_minijail.vendor
+    libavservices_minijail.vendor \
+    libcodec2_aidl.vendor
 
 # OSS Time service
 PRODUCT_PACKAGES += \

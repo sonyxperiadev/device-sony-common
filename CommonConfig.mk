@@ -155,6 +155,10 @@ else
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.qti.camera.provider-aidl.xml
 endif
 
+# Media Codec2
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/venodr.qti.media.c2.xml
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/venodr.qti.media.c2audio.xml
+
 # New vendor security patch level: https://r.android.com/660840/
 # Used by newer keymaster binaries
 VENDOR_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)

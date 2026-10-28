@@ -1,8 +1,7 @@
 clock_gettime: 1
-clone: 1
 close: 1
+clone: 1
 dup: 1
-eventfd2: 1
 exit: 1
 exit_group: 1
 faccessat: 1
@@ -21,22 +20,25 @@ getrlimit: 1
 gettid: 1
 gettimeofday: 1
 getuid: 1
+inotify_add_watch: 1
+inotify_init1: 1
+inotify_rm_watch: 1
 ioctl: 1
 lseek: 1
 madvise: 1
-mmap: arg2 in ~PROT_EXEC || arg2 in ~PROT_WRITE
 memfd_create: 1
+mmap: arg2 in ~PROT_EXEC || arg2 in ~PROT_WRITE
 mprotect: arg2 in ~PROT_EXEC || arg2 in ~PROT_WRITE
-mremap: arg3 == 3 || arg3 == MREMAP_MAYMOVE
+mremap: 1
 munmap: 1
 nanosleep: 1
 newfstatat: 1
 openat: 1
 pipe2: 1
-ppoll: 1
 pread64: 1
 prctl: 1
 process_vm_readv: 1
+ppoll: 1
 read: 1
 readlinkat: 1
 recvmsg: 1
@@ -45,10 +47,15 @@ rt_sigaction: 1
 rt_sigprocmask: 1
 rt_sigreturn: 1
 rt_tgsigqueueinfo: 1
+sched_get_priority_max: 1
+sched_getaffinity: 1
+sched_setaffinity: 1
+sched_setscheduler: 1
 sched_yield: 1
 set_tid_address: 1
 setpriority: 1
 sigaltstack: 1
 tgkill: 1
+unlinkat: 1
 write: 1
 writev: 1

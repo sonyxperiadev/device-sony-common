@@ -1,4 +1,4 @@
-service vendor-qti-media-c2-hal-1-0 /odm/bin/hw/vendor.qti.media.c2@1.0-service
+service vendor.qti.media.c2-1-0 /odm/bin/hw/vendor.qti.media.c2@1.0-service
     class hal
     user mediacodec
     group mediadrm camera drmrpc system
