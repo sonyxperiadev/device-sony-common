@@ -38,6 +38,7 @@ while [ ! -e "$BOOT_NODE" ] && [ "$attempt" -lt "$BOOT_NODE_RETRIES" ]; do
 done
 
 if [ -e "$BOOT_NODE" ]; then
+    # Ask the kernel to boot the DSP.
     if ! echo 1 > "$BOOT_NODE"; then
         log -t "$TAG" "Failed to write to $BOOT_NODE"
         exit 1
@@ -45,12 +46,6 @@ if [ -e "$BOOT_NODE" ]; then
     log -t "$TAG" "$DSP_UPPER boot requested via $BOOT_NODE"
 else
     log -t "$TAG" "$DSP_UPPER boot node $BOOT_NODE not found, assuming autoboot"
-fi
-
-# Ask the kernel to boot the DSP.
-if ! echo 1 > "$BOOT_NODE"; then
-    log -t "$TAG" "Failed to write to $BOOT_NODE"
-    exit 1
 fi
 
 # Find the remoteproc device whose "name" contains the DSP name.
