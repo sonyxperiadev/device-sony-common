@@ -1,6 +1,6 @@
 service vendor.cdspstart_sh /vendor/bin/init.qcom.dspstart.sh cdsp
-    user vendor_dspstart
-    group vendor_dspstart
+    user system
+    group system
     oneshot
     disabled
 
