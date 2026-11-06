@@ -1,6 +1,6 @@
 service vendor.adspstart_sh /vendor/bin/init.qcom.dspstart.sh adsp
-    user vendor_dspstart
-    group vendor_dspstart
+    user system
+    group system
     oneshot
     disabled
 
