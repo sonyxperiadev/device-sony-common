@@ -19,24 +19,33 @@ case "$DSP" in
         ;;
 esac
 
-# Total wait time for each stage = MAX_RETRIES * SLEEP_TIME (10 s by default).
+# Total wait time for the "running" stage = MAX_RETRIES * SLEEP_TIME (10 s by default).
 MAX_RETRIES=100
 SLEEP_TIME=0.1
 
+# Total wait time for the boot node = BOOT_NODE_RETRIES * SLEEP_TIME (3 s by default).
+BOOT_NODE_RETRIES=30
 BOOT_NODE="/sys/kernel/boot_${DSP}/boot"
 
 # Wait for the boot node to appear.
 # The node is created by the kernel driver, which may probe slightly later
-# than this script is started.
+# than this script is started. If it never appears, the kernel Peripheral
+# Image Loader (PIL) driver has autoboot enabled for this DSP.
 attempt=0
-while [ ! -e "$BOOT_NODE" ]; do
+while [ ! -e "$BOOT_NODE" ] && [ "$attempt" -lt "$BOOT_NODE_RETRIES" ]; do
     attempt=$((attempt + 1))
-    if [ "$attempt" -ge "$MAX_RETRIES" ]; then
-        log -t "$TAG" "$DSP_UPPER boot node $BOOT_NODE not found"
-        exit 1
-    fi
     sleep "$SLEEP_TIME"
 done
+
+if [ -e "$BOOT_NODE" ]; then
+    if ! echo 1 > "$BOOT_NODE"; then
+        log -t "$TAG" "Failed to write to $BOOT_NODE"
+        exit 1
+    fi
+    log -t "$TAG" "$DSP_UPPER boot requested via $BOOT_NODE"
+else
+    log -t "$TAG" "$DSP_UPPER boot node $BOOT_NODE not found, assuming autoboot"
+fi
 
 # Ask the kernel to boot the DSP.
 if ! echo 1 > "$BOOT_NODE"; then
