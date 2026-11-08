@@ -32,6 +32,16 @@ cc_prebuilt_binary {
     },
 }
 
+cc_prebuilt_binary {
+    name: "init.qcom.media.sh",
+    srcs: ["vendor/bin/init.qcom.media.sh"],
+    init_rc: ["vendor/etc/init/init.qcom.media.rc"],
+    vendor: true,
+    check_elf_files: false,
+    strip: {
+        none: true,
+    },
+}
 
 // Init files
 

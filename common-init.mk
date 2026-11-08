@@ -65,7 +65,8 @@ PRODUCT_PACKAGES += \
 # Common init scripts
 PRODUCT_PACKAGES += \
     init.qcom.dspstart.sh \
-    init.qcom.ipastart.sh
+    init.qcom.ipastart.sh \
+    init.qcom.media.sh
 
 # modemswitcher
 PRODUCT_PACKAGES += \

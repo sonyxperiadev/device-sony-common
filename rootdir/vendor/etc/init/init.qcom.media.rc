@@ -1,0 +1,14 @@
+service vendor.init-qcom-media_sh /vendor/bin/init.qcom.media.sh
+    class main
+    user media
+    group media
+    oneshot
+    disabled
+
+on late-fs
+    start vendor.init-qcom-media_sh
+
+on property:vendor.media.target_variant=*
+    setprop ro.media.xml_variant.codecs ${vendor.media.target_variant}
+    setprop ro.media.xml_variant.codecs_performance ${vendor.media.target_variant}
+    setprop ro.media.xml_variant.profiles ${vendor.media.target_variant}
