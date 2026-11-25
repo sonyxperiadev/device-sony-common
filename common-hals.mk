@@ -77,10 +77,8 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.vibrator.service
 
 # Fingerprint
-ifneq ($(TARGET_DEVICE_NO_FPC), true)
 PRODUCT_PACKAGES += \
-    android.hardware.biometrics.fingerprint@2.1-service.sony
-endif
+    fingerprint-service.sony
 
 # Gatekeeper passthrough service
 PRODUCT_PACKAGES += \
