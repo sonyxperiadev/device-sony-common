@@ -46,12 +46,6 @@ PRODUCT_PACKAGES += \
     TetheringOverlayCommon \
     WiFiOverlayCommon
 
-# Fingerprint overlay
-ifneq ($(TARGET_DEVICE_NO_FPC), true)
-PRODUCT_PACKAGES += \
-    FingerprintOverlayCommon
-endif
-
 # Telephony overlay
 ifeq ($(PRODUCT_DEVICE_DS),true)
 PRODUCT_PACKAGES += \
